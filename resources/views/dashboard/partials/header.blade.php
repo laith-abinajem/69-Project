@@ -289,7 +289,10 @@
                                 <a class="dropdown-item" href="profile.html"><i class="far fa-edit"></i> Edit Profile</a>
                                 <a class="dropdown-item" href="profile.html"><i class="far fa-clock"></i> Activity Logs</a>
                                 <a class="dropdown-item" href="profile.html"><i class="fas fa-sliders-h"></i> Account Settings</a>
-                                <a class="dropdown-item" href="signup.html"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
+                                <a href="{{ route('dashboard.logout') }}" class="dropdown-item">
+                                <i class="fas fa-sign-out-alt"></i>
+                                    <span>Logout</span>
+                                </a>
                             </div>
                         </div>
                     </div>

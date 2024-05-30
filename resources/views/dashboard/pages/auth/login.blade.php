@@ -21,13 +21,14 @@
                     <div class="main-signin-header">
                         <h2>Welcome back!</h2>
                         <h4>Please sign in to continue</h4>
-                        <form action="index.html">
+                        <form method="POST" action="{{ route('submitLogin') }}">
+                            @csrf
                             <div class="form-group">
-                                <label>Email</label><input class="form-control" placeholder="Enter your email" type="text" value="info@spruko.com">
+                                <label>Email</label><input class="form-control" name="email" placeholder="Enter your email" type="text" value="info@spruko.com">
                             </div>
                             <div class="form-group">
-                                <label>Password</label> <input class="form-control" placeholder="Enter your password" type="password" value="sprukodemo">
-                            </div><button class="btn btn-primary btn-block">Sign In</button>
+                                <label>Password</label> <input class="form-control" name="password"  placeholder="Enter your password" type="password" value="sprukodemo">
+                            </div><button  type="submit"  class="btn btn-primary btn-block">Sign In</button>
                         </form>
                     </div>
                     <div class="main-signin-footer mt-3 mg-t-5">

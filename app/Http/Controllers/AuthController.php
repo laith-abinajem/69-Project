@@ -9,7 +9,7 @@ class AuthController extends Controller
 {
     public function index()
     {
-        return view('dashboard.login');
+        return view('dashboard.pages.auth.login');
     }
 
     public function login(Request $request)
@@ -25,6 +25,7 @@ class AuthController extends Controller
             Alert::toast('Wrong credentials!','error');
             return back();
         }
+        
     }
 
     public function logout()
