@@ -40,8 +40,9 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (auth()->attempt($credentials)) {
-            $token = auth()->user()->createToken('LaravelAuthApp')->accessToken;
-            return response()->json(['token' => $token], 200);
+            $tokenResult = auth()->user()->createToken('LaravelAuthApp');
+            $accessToken = $tokenResult->plainTextToken; 
+            return response()->json(['token' => $accessToken], 200);
         } else {
             return response()->json(['error' => 'Unauthorized'], 401);
         }

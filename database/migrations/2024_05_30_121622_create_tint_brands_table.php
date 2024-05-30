@@ -13,9 +13,11 @@ return new class extends Migration
     {
         Schema::create('tint_brands', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
             $table->string('tint_brand');
             $table->text('tint_description');
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

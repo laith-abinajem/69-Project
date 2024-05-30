@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('window');
             $table->double('price');
             $table->timestamps();
+            $table->foreign('tint_id')->references('id')->on('tint_brands')->onDelete('cascade');
         });
     }
 
