@@ -141,10 +141,10 @@ if ($('.sub-side-menu__item').hasClass('active')) {
 }
 
 
-let slideLeft = document.querySelector(".slide-left");
-let slideRight = document.querySelector(".slide-right");
-slideLeft.addEventListener("click", e =>  slideClick(), true )
-slideRight.addEventListener("click", e => slideClick(), true)
+// let slideLeft = document.querySelector(".slide-left");
+// let slideRight = document.querySelector(".slide-right");
+// slideLeft.addEventListener("click", e =>  slideClick(), true )
+// slideRight.addEventListener("click", e => slideClick(), true)
 
 // used to remove is-expanded class and remove class on clicking arrow buttons
 function slideClick() {

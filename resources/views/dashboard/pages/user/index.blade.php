@@ -1,15 +1,15 @@
 @extends('dashboard.layouts.master')
 
-@section('title', 'Dashboard')
+@section('title', 'Users')
 
 @section('content')
 
-<div class="main-content app-content">
     <div class="row row-sm">
         <div class="col-lg-12">
             <div class="card">
-                <div class="card-header">
+                <div class="card-header d-flex justify-content-between flex-wrap align-items-center">
                     <h3 class="card-title">Users Table</h3>
+                    <button type="button" class="button btn btn-primary" onclick="window.location='{{ route('dashboard.user.create') }}'">Add User</button>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -74,6 +74,5 @@
             </div>
         </div>
     </div>
-</div>
 
 @endsection

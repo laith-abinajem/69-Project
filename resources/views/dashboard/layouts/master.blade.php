@@ -39,9 +39,56 @@
 
         @include('dashboard.partials.header')
 
-		<div>
-            @yield('content')
-        </div>
+		<div class="main-content app-content">
+			<div class="main-container container-fluid">
+				<!-- breadcrumb -->
+				<div class="breadcrumb-header justify-content-between">
+					<div>
+						<h4 class="content-title mb-2">@yield('title', 'Default Title')</h4>
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item"><a   href="javascript:void(0);">Dashboard</a></li>
+								<li class="breadcrumb-item active" aria-current="page">Project</li>
+							</ol>
+						</nav>
+					</div>
+					@canany(['edit user', 'delete user', 'view user'])
+					<div class="d-flex my-auto">
+						<div class=" d-flex right-page">
+							<div class="d-flex justify-content-center me-5">
+								<div class="">
+									<span class="d-block">
+										<span class="label ">EXPENSES</span>
+									</span>
+									<span class="value">
+										$53,000
+									</span>
+								</div>
+								<div class="ms-3 mt-2">
+									<span class="sparkline_bar"></span>
+								</div>
+							</div>
+							<div class="d-flex justify-content-center">
+								<div class="">
+									<span class="d-block">
+										<span class="label">PROFIT</span>
+									</span>
+									<span class="value">
+										$34,000
+									</span>
+								</div>
+								<div class="ms-3 mt-2">
+									<span class="sparkline_bar31"></span>
+								</div>
+							</div>
+						</div>
+					</div>
+					@endcanany
+				</div>
+				<!-- /breadcrumb -->
+				@yield('content')
+			</div>
+		</div>
 
         @include('dashboard.partials.footer')
 
@@ -54,6 +101,10 @@
 		<!--- Bootstrap Bundle js --->
 		<script src="{{ asset('assets/plugins/bootstrap/popper.min.js') }}"></script>
 		<script src="{{ asset('assets/plugins/bootstrap/js/bootstrap.min.js') }}"></script>
+
+		<!-- Select2 js-->
+		<script src="{{ asset('assets/plugins/select2/js/select2.min.js') }}"></script>
+		<script src="{{ asset('assets/js/select2.js') }}"></script>
 
 		<!--- Ionicons js --->
 		<script src="{{ asset('assets/plugins/ionicons/ionicons.js') }}"></script>
@@ -90,6 +141,24 @@
 		<!-- Morris js -->
 		<script src="{{ asset('assets/plugins/raphael/raphael.min.js') }}"></script>
 		<script src="{{ asset('assets/plugins/morris.js/morris.min.js') }}"></script>
+
+		<!--- Internal Jquery.steps js --->
+		<script src="{{ asset('assets/plugins/jquery-steps/jquery.steps.min.js') }}"></script>
+		<script src="{{ asset('assets/plugins/parsleyjs/parsley.min.js') }}"></script>
+
+		<!--- Internal Form-wizard js --->
+		<script src="{{ asset('assets/js/form-wizard.js') }}"></script>
+
+		<!--- Fileuploads js --->
+		<script src="{{ asset('assets/plugins/fileuploads/js/fileupload.js') }}"></script>
+        <script src="{{ asset('assets/plugins/fileuploads/js/file-upload.js') }}"></script>
+
+		<!--- Fancy uploader js --->
+		<script src="{{ asset('assets/plugins/fancyuploder/jquery.ui.widget.js') }}"></script>
+        <script src="{{ asset('assets/plugins/fancyuploder/jquery.fileupload.js') }}"></script>
+        <script src="{{ asset('assets/plugins/fancyuploder/jquery.iframe-transport.js') }}"></script>
+        <script src="{{ asset('assets/plugins/fancyuploder/jquery.fancy-fileupload.js') }}"></script>
+        <script src="{{ asset('assets/plugins/fancyuploder/fancy-uploader.js') }}"></script>
 
 		<!--- Scripts js --->
 		<script src="{{ asset('assets/js/script.js') }}"></script>
