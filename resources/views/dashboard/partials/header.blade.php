@@ -350,6 +350,7 @@
                 </ul>
             </div>
             <ul class="side-menu ">
+                @canany(['edit user', 'delete user', 'view user'])
                 <li class="slide">
                     <a class="side-menu__item" href="{{ route('dashboard.home.index') }}" ><i class="side-menu__icon fe fe-airplay"></i><span class="side-menu__label">Dashboard</span></a>
                 </li>
@@ -361,6 +362,16 @@
                 </li>
                 <li class="slide">
                     <a class="side-menu__item"  href="{{ route('dashboard.tint.index') }} "><i class="side-menu__icon fe fe-award "></i><span class="side-menu__label">Tint</span></a>
+                </li>
+                @endcanany
+                @canany(['owne tint brand'])
+                <li class="slide">
+                    <a class="side-menu__item"  href="{{ route('dashboard.tint.index') }} "><i class="side-menu__icon fe fe-aperture "></i><span class="side-menu__label">Tint</span></a>
+                </li>
+                @endcanany
+
+                <li class="slide">
+                    <a class="side-menu__item"  target="_blank"   href="https://mahmoud93p.itch.io/testwebgl "><i class="side-menu__icon fe fe-box "></i><span class="side-menu__label">Game</span></a>
                 </li>
             </ul>
 

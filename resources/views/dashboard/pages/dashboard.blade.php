@@ -21,6 +21,7 @@
                 </ol>
             </nav>
         </div>
+        @canany(['edit user', 'delete user', 'view user'])
         <div class="d-flex my-auto">
             <div class=" d-flex right-page">
                 <div class="d-flex justify-content-center me-5">
@@ -51,11 +52,14 @@
                 </div>
             </div>
         </div>
+        @endcanany
     </div>
     <!-- /breadcrumb -->
 
     <!-- main-content-body -->
     <div class="main-content-body">
+    @canany(['edit user', 'delete user', 'view user'])
+
         <div class="row row-sm">
             <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
                 <div class="card overflow-hidden project-card">
@@ -1061,6 +1065,7 @@
                 </div>
             </div>
         </div>
+        @endcanany
     </div>
     <!-- /row -->
 </div>
