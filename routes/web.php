@@ -28,7 +28,7 @@ Route::prefix('auth')->middleware('checkLogin')->controller(AuthController::clas
 Route::middleware('auth')->prefix('dashboard')->name('dashboard.')->group(function(){
     Route::get('/home',[HomeController::class,'index'])->name('home.index');
 
-    Route::prefix('user')->name('user.')->group(function(){
+    Route::prefix('user')->name('user.')->middleware('role:super_admin')->group(function () {
         Route::get('/',[UserController::class,'index'])->name('index');
         Route::get('/create',[UserController::class,'create'])->name('create');
         Route::get('/edit/{id}',[UserController::class,'edit'])->name('edit');
@@ -36,7 +36,7 @@ Route::middleware('auth')->prefix('dashboard')->name('dashboard.')->group(functi
         Route::post('/delete/{id}',[UserController::class,'delete'])->name('delete');
         Route::post('/store',[UserController::class,'store'])->name('store');
     });
-    Route::prefix('tint')->name('tint.')->group(function(){
+    Route::prefix('tint')->name('tint.')->middleware('role:super_admin')->group(function () {
         Route::get('/',[TintBrandController::class,'index'])->name('index');
         Route::get('/create',[TintBrandController::class,'create'])->name('create');
         Route::get('/edit/{id}',[TintBrandController::class,'edit'])->name('edit');
