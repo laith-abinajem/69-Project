@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -23,7 +24,6 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required',
-            'price' => 'required',
         ]);
         try {
             $user = User::create([
@@ -35,7 +35,7 @@ class UserController extends Controller
             ]);
            
             Alert::toast('TintBrand created successfully', 'success');
-            return redirect()->route('tintbrands.index');
+            return redirect()->route('dashboard.user.index');
         } catch (\Exception $e) {
             Alert::toast('An error occurred while creating the TintBrand', 'error');
             return redirect()->back()->withInput();
