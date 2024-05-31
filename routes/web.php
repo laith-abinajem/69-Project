@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\TintBrandController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +27,23 @@ Route::prefix('auth')->middleware('checkLogin')->controller(AuthController::clas
 
 Route::middleware('auth')->prefix('dashboard')->name('dashboard.')->group(function(){
     Route::get('/home',[HomeController::class,'index'])->name('home.index');
-// inside middle ware
-Route::get('/logout',[AuthController::class,'logout'])->name('logout');
+
+    Route::prefix('user')->name('user.')->group(function(){
+        Route::get('/',[UserController::class,'index'])->name('index');
+        Route::get('/create',[UserController::class,'create'])->name('create');
+        Route::get('/edit/{id}',[UserController::class,'edit'])->name('edit');
+        Route::post('/update/{id}',[UserController::class,'update'])->name('update');
+        Route::post('/delete/{id}',[UserController::class,'delete'])->name('delete');
+        Route::post('/store',[UserController::class,'store'])->name('store');
+    });
+    Route::prefix('tint')->name('tint.')->group(function(){
+        Route::get('/',[TintBrandController::class,'index'])->name('index');
+        Route::get('/create',[TintBrandController::class,'create'])->name('create');
+        Route::get('/edit/{id}',[TintBrandController::class,'edit'])->name('edit');
+        Route::post('/update/{id}',[TintBrandController::class,'update'])->name('update');
+        Route::post('/delete/{id}',[TintBrandController::class,'delete'])->name('delete');
+        Route::post('/store',[TintBrandController::class,'store'])->name('store');
+    });
+
+    Route::get('/logout',[AuthController::class,'logout'])->name('logout');
 });

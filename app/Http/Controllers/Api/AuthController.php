@@ -26,7 +26,6 @@ class AuthController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'sub_id'=>1,
         ]);
 
         $tokenResult = $user->createToken('LaravelAuthApp');

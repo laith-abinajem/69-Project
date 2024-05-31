@@ -17,9 +17,10 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->enum('type', ['super_admin', 'subscriber'])->default('subscriber');
+            $table->enum('status', ['approved', 'rejected', 'pending'])->default('pending');
             $table->rememberToken();
-            $table->foreignId('current_team_id')->nullable();
-            $table->string('profile_photo_path', 2048)->nullable();
+            $table->foreignId('sub_id')->nullable();
             $table->timestamps();
         });
     }

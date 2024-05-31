@@ -283,7 +283,7 @@
                             <div class="dropdown-menu">
                                 <div class="main-header-profile header-img">
                                     <div class="main-img-user"><img alt="" src="{{ asset('assets/img/faces/6.jpg') }}"></div>
-                                    <h6>Petey Cruiser</h6><span>Premium Member</span>
+                                    <h6>{{auth()->user()->name}}</h6><span>Premium Member</span>
                                 </div>
                                 <a class="dropdown-item" href="profile.html"><i class="far fa-user"></i> My Profile</a>
                                 <a class="dropdown-item" href="profile.html"><i class="far fa-edit"></i> Edit Profile</a>
@@ -308,8 +308,8 @@
 <div class="sticky">
     <aside class="app-sidebar sidebar-scroll">
         <div class="main-sidebar-header active">
-            <a class="desktop-logo active" href="index.html"><img src="{{ asset('assets/img/brand/logo.png') }}" class="main-logo" alt="logo"></a>
-            <a class="logo-icon mobile-logo active" href="index.html"><img src="{{ asset('assets/img/brand/favicon.png') }}" alt="logo"></a>
+            <a class="desktop-logo active" href="{{ route('dashboard.home.index') }}"><img src="{{ asset('assets/img/brand/logo.png') }}" class="main-logo" alt="logo"></a>
+            <a class="logo-icon mobile-logo active" href="{{ route('dashboard.home.index') }}"><img src="{{ asset('assets/img/brand/favicon.png') }}" alt="logo"></a>
         </div>
         <div class="main-sidemenu">
             <div class="main-sidebar-loggedin">
@@ -319,8 +319,8 @@
                             <img src="{{ asset('assets/img/faces/6.jpg') }}" alt="user-img" class="rounded-circle mCS_img_loaded">
                         </div>
                         <div class="user-info">
-                            <h6 class=" mb-0 text-dark">Petey Cruiser</h6>
-                            <span class="text-muted app-sidebar__user-name text-sm">Administrator</span>
+                            <h6 class=" mb-0 text-dark">{{auth()->user()->name}}</h6>
+                            <span class="text-muted app-sidebar__user-name text-sm">{{auth()->user()->type}}</span>
                         </div>
                     </div>
                 </div>
@@ -351,13 +351,16 @@
             </div>
             <ul class="side-menu ">
                 <li class="slide">
-                    <a class="side-menu__item" href="index.html"><i class="side-menu__icon fe fe-airplay"></i><span class="side-menu__label">Dashboard</span></a>
+                    <a class="side-menu__item" href="{{ route('dashboard.home.index') }}" ><i class="side-menu__icon fe fe-airplay"></i><span class="side-menu__label">Dashboard</span></a>
                 </li>
                 <li class="slide">
-                    <a class="side-menu__item" href="index.html"><i class="side-menu__icon fe fe-box"></i><span class="side-menu__label">Users</span></a>
+                    <a class="side-menu__item" href="{{ route('dashboard.user.index') }}"><i class="side-menu__icon fe fe-box"></i><span class="side-menu__label">Users</span></a>
                 </li>
                 <li class="slide">
                     <a class="side-menu__item" href="index.html"><i class="side-menu__icon fe fe-award "></i><span class="side-menu__label">Subscription</span></a>
+                </li>
+                <li class="slide">
+                    <a class="side-menu__item"  href="{{ route('dashboard.tint.index') }} "><i class="side-menu__icon fe fe-award "></i><span class="side-menu__label">Tint</span></a>
                 </li>
             </ul>
 
