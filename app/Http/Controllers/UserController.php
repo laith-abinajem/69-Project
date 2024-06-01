@@ -34,10 +34,10 @@ class UserController extends Controller
                 'password' => Hash::make($request->password),
             ]);
            
-            Alert::toast('TintBrand created successfully', 'success');
+            Alert::toast('User created successfully', 'success');
             return redirect()->route('dashboard.user.index');
         } catch (\Exception $e) {
-            Alert::toast('An error occurred while creating the TintBrand', 'error');
+            Alert::toast('An error occurred while creating the User', 'error');
             return redirect()->back()->withInput();
         }
        
@@ -47,9 +47,38 @@ class UserController extends Controller
         return view('dashboard.pages.user.edit',compact('data'));
     }
     public function update(Request $request, $id){
-    
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+        ]);
+        $user = User::find($id);
+        try {
+            $user->update([
+                'name' => $request->name,
+                'email' => $request->email,
+                'type' => $request->type,
+                'status' => $request->status,
+            ]);
+            Alert::toast('User created successfully', 'success');
+            return redirect()->route('dashboard.user.index');
+        } catch (\Exception $e) {
+            Alert::toast('An error occurred while creating the User', 'error');
+            return redirect()->back()->withInput();
+        }
         toast('Success', 'success');
         return redirect()->route('dashboard.user.index');
+    }
+    public function updateStatus(Request $request)
+    {
+        $user = User::find($request->user_id);
+        if ($user) {
+            $user->update([
+                'status' => $request->status,
+            ]);
+            return response()->json(['message' => 'Status updated successfully'], 200);
+        } else {
+            return response()->json(['message' => 'User not found'], 404);
+        }
     }
     public function delete(Request $request,$id){
         $data = User::find($id);

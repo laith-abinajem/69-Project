@@ -31,7 +31,13 @@
                                     <td>{{$item->id}}</td>
                                     <td>{{$item->name}}</td>
                                     <td>{{$item->email}}</td>
-                                    <td>{{$item->status}}</td>
+                                    <td>
+                                        <select class="form-control" onchange="updateStatus(this.value, {{ $item->id }})">
+                                            <option value="pending" {{ $item->status == 'pending' ? 'selected' : '' }}>Pending</option>
+                                            <option value="rejected" {{ $item->status == 'rejected' ? 'selected' : '' }}>Rejected</option>
+                                            <option value="approved" {{ $item->status == 'approved' ? 'selected' : '' }}>Approved</option>
+                                        </select>
+                                    </td>
                                     <td></td>
                                     <td></td>
                                     <td>
@@ -74,5 +80,31 @@
             </div>
         </div>
     </div>
+    <script>
 
+        function updateStatus(status, userId) {
+            fetch('{{ route('dashboard.user.updateStatus') }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: JSON.stringify({
+                    status: status,
+                    user_id: userId
+                })
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Status updated successfully');
+                } else {
+                    console.error('Failed to update status');
+                }
+            })
+            .catch(error => {
+                // Handle network errors here
+                console.error('Network error:', error);
+            });
+        }
+    </script>
 @endsection

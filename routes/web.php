@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TintBrandController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +20,11 @@ use App\Http\Controllers\UserController;
 Route::get('/', function () {
     return redirect()->route('dashboard.home.index');
 });
+Route::get('/checkout', function () {
+    return view('dashboard.checkout');
+});
+
+Route::post('/process-payment', [PaymentController::class, 'createPayment'])->name('process-payment');
 
 Route::prefix('auth')->middleware('checkLogin')->controller(AuthController::class)->group(function () {
     Route::get('/login', 'index')->name('login');
@@ -35,6 +41,7 @@ Route::middleware('auth')->prefix('dashboard')->name('dashboard.')->group(functi
         Route::post('/update/{id}',[UserController::class,'update'])->name('update');
         Route::post('/delete/{id}',[UserController::class,'delete'])->name('delete');
         Route::post('/store',[UserController::class,'store'])->name('store');
+        Route::post('/updateStatus',[UserController::class,'updateStatus'])->name('updateStatus');
     });
     Route::prefix('tint')->name('tint.')->middleware('role:Super Admin')->group(function () {
         Route::get('/',[TintBrandController::class,'index'])->name('index');
