@@ -24,17 +24,13 @@
                                 </svg>
                             </div>
                             <div class="project-content">
-                                <h6>Invoices</h6>
+                                <h6>Approved users</h6>
                                 <ul>
-                                    <li>
-                                        <strong>Processing</strong>
-                                        <span>5</span>
+                                     <li>
+                                        <strong>Approved subscriber</strong>
+                                        <span>{{$subscriber_approve}}</span>
                                     </li>
 
-                                    <li>
-                                        <strong>Paid</strong>
-                                        <span>56</span>
-                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -57,17 +53,14 @@
                                 </svg>
                             </div>
                             <div class="project-content">
-                                <h6>Tasks</h6>
+                                <h6> Pending Users</h6>
                                 <ul>
                                     <li>
-                                        <strong>Processing</strong>
-                                        <span>42</span>
+                                        <strong>Pending subscriber</strong>
+                                        <span>{{$subscriber_pending}}</span>
                                     </li>
 
-                                    <li>
-                                        <strong>Completed</strong>
-                                        <span>23</span>
-                                    </li>
+                                  
                                 </ul>
                             </div>
                         </div>
@@ -87,16 +80,11 @@
                                 </svg>
                             </div>
                             <div class="project-content">
-                                <h6>Estimates</h6>
+                                <h6>Rejected users</h6>
                                 <ul>
                                     <li>
-                                        <strong>Processing</strong>
-                                        <span>2</span>
-                                    </li>
-
-                                    <li>
-                                        <strong>Accepted</strong>
-                                        <span>16</span>
+                                        <strong>Rejected subscriber</strong>
+                                        <span>{{$subscriber_rejected}}</span>
                                     </li>
                                 </ul>
                             </div>
@@ -115,15 +103,11 @@
                                 </svg>
                             </div>
                             <div class="project-content">
-                                <h6>Revenue</h6>
+                                <h6>Active Subscriber</h6>
                                 <ul>
                                     <li>
-                                        <strong>Earnings</strong>
-                                        <span>$15,425</span>
-                                    </li>
-                                    <li>
-                                        <strong>Expensive</strong>
-                                        <span>$8,147</span>
+                                        <strong>Subscibe</strong>
+                                        <span>8</span>
                                     </li>
                                 </ul>
                             </div>
@@ -133,102 +117,41 @@
             </div>
         </div>
 
-        <!-- row -->
-        <div class="row row-sm ">
-            <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12">
-                <div class="card overflow-hidden">
-                    <div class="card-header bg-transparent pd-b-0 pd-t-20 bd-b-0">
+  
+     <!-- row -->
+     <div class="row row-sm ">
+            <div class="col-md-12 col-xl-12">
+                <div class="card overflow-hidden review-project">
+                    <div class="card-body">
                         <div class="d-flex justify-content-between">
-                            <h4 class="card-title mg-b-10">Project Budget</h4>
+                            <h4 class="card-title mg-b-10">All Pending users</h4>
                             <i class="mdi mdi-dots-horizontal text-gray"></i>
                         </div>
-                        <p class="tx-12 text-muted mb-2">The Project Budget is a tool used by project managers to estimate the total cost of a project. <a href="">Learn more</a></p>
-                    </div>
-                    <div class="card-body pd-y-7">
-                        <div class="area chart-legend mb-0">
-                            <div>
-                                <i class="mdi mdi-album text-primary me-2"></i> Total Budget
-                            </div>
-                            <div>
-                                <i class="mdi mdi-album text-pink me-2"></i>Amount Used
-                            </div>
-                        </div>
-                        <canvas id="project-budget" class="ht-300"></canvas>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-4">
-                <div class="card overflow-hidden">
-                    <div class="card-body pb-3">
-                        <div class="d-flex justify-content-between">
-                            <h4 class="card-title mg-b-10">project &amp; task</h4>
-                            <i class="mdi mdi-dots-horizontal text-gray"></i>
-                        </div>
-                        <p class="tx-12 text-muted mb-3">In project, a task is an activity that needs to be accomplished within a defined period of time or by a deadline. <a href="">Learn more</a></p>
-                        <div class="table-responsive mb-0 projects-stat tx-14">
-                            <table class="table table-hover table-bordered mb-0 text-md-nowrap text-lg-nowrap text-xl-nowrap  ">
+                        <div class="table-responsive mb-0">
+                            <table class="table table-hover table-bordered mb-0 text-md-nowrap text-lg-nowrap text-xl-nowrap table-striped ">
                                 <thead>
                                     <tr>
-                                        <th>Project &amp; Task</th>
-                                        <th>Status</th>
+                                        <th class="border-bottom-0">ID</th>
+                                        <th class="border-bottom-0">Name</th>
+                                        <th class="border-bottom-0">Email</th>
+                                        <th class="border-bottom-0">Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>
-                                            <div class="project-names">
-                                                <h6 class="bg-primary-transparent text-primary d-inline-block me-2 text-center">U</h6>
-                                                <p class="d-inline-block font-weight-semibold mb-0">UI Design</p>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="badge bg-success">Completed</div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="project-names">
-                                                <h6 class="bg-pink-transparent text-pink d-inline-block text-center me-2">R</h6>
-                                                <p class="d-inline-block font-weight-semibold mb-0">Landing Page</p>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="badge bg-warning">Pending</div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="project-names">
-                                                <h6 class="bg-success-transparent text-success d-inline-block me-2 text-center">W</h6>
-                                                <p class="d-inline-block font-weight-semibold mb-0">Website &amp; Blog</p>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="badge bg-danger">Canceled</div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="project-names">
-                                                <h6 class="bg-purple-transparent text-purple d-inline-block me-2 text-center">P</h6>
-                                                <p class="d-inline-block font-weight-semibold mb-0">Product Development</p>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="badge bg-teal">on-going</div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="project-names">
-                                                <h6 class="bg-danger-transparent text-danger d-inline-block me-2 text-center">L</h6>
-                                                <p class="d-inline-block font-weight-semibold mb-0">Logo Design</p>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="badge bg-success">Completed</div>
-                                        </td>
-                                    </tr>
+                                @foreach ($pending_users as $item)
+                                <tr>
+                                    <td>{{$item->id}}</td>
+                                    <td>{{$item->name}}</td>
+                                    <td>{{$item->email}}</td>
+                                    <td>
+                                        <select class="form-control" onchange="updateStatus(this.value, {{ $item->id }})">
+                                            <option value="pending" {{ $item->status == 'pending' ? 'selected' : '' }}>Pending</option>
+                                            <option value="rejected" {{ $item->status == 'rejected' ? 'selected' : '' }}>Rejected</option>
+                                            <option value="approved" {{ $item->status == 'approved' ? 'selected' : '' }}>Approved</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -237,14 +160,13 @@
             </div>
         </div>
         <!-- /row -->
-
         <!-- row -->
         <div class="row row-sm">
             <div class="col-lg-6 col-xl-4 col-md-12 col-sm-12">
                 <div class="card overflow-hidden latest-tasks">
                     <div class="">
                         <div class="d-flex justify-content-between ps-4 pt-4 pe-4">
-                            <h4 class="card-title mg-b-10">Latest Task</h4>
+                            <h4 class="card-title mg-b-10">Latest User</h4>
                             <i class="mdi mdi-dots-horizontal text-gray"></i>
                         </div>
                         <div class="">
@@ -268,395 +190,72 @@
                         </div>
                     </div>
                     <div class="card-body pt-3">
-                        <div class="tab-content">
+                        <div class="tab-content" style="overflow:auto; height:300px;">
                             <div class="tab-pane fade active show" id="tasktab-1" role="tabpanel">
                                 <div class="">
-                                    <div class="tasks">
-                                        <div class=" task-line primary active">
-                                            <a   href="javascript:void(0);" class="label">
-                                                XML Import & Export
-                                            </a>
-                                            <div class="time">
-                                                12:00 PM
+                                    @foreach ($user_withIn_day as $item)
+                                        <div class="tasks">
+                                            <div class="task-line pink">
+                                                <a   href="javascript:void(0);" class="label">
+                                                  {{$item->name}}
+                                                </a>
+                                                <div class="time">
+                                                {{$item->created_at}}
+                                                </div>
                                             </div>
+                                            <span class="add-delete-task ">
+                                                <a    href="{{ route('dashboard.user.edit',$item->id) }}" class="btn btn-link">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
+                                            </span>
                                         </div>
-                                        <span class="add-delete-task ">
-                                            <a   href="javascript:void(0);" class="btn btn-link">
-                                                <i class="fa fa-edit"></i>
-                                            </a>
-                                            <a href="" class="btn btn-link"><i class="fa fa-trash"></i></a>
-                                        </span>
-                                        <div class="checkbox">
-                                            <label class="check-box">
-                                                <label class="ckbox"><input checked type="checkbox"><span></span></label>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="tasks">
-                                        <div class="task-line pink">
-                                            <a   href="javascript:void(0);" class="label">
-                                                Database Optimization
-                                            </a>
-                                            <div class="time">
-                                                02:13 PM
-                                            </div>
-                                        </div>
-                                        <span class="add-delete-task ">
-                                            <a   href="javascript:void(0);" class="btn btn-link">
-                                                <i class="fa fa-edit"></i>
-                                            </a>
-                                            <a href="" class="btn btn-link"><i class="fa fa-trash"></i></a>
-                                        </span>
-                                        <div class="checkbox">
-                                            <label class="check-box">
-                                                <label class="ckbox"><input type="checkbox"><span></span></label>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="tasks">
-                                        <div class="task-line success">
-                                            <a   href="javascript:void(0);" class="label">
-                                                Create Wireframes
-                                            </a>
-                                            <div class="time">
-                                                06:20 PM
-                                            </div>
-                                        </div>
-                                        <span class="add-delete-task ">
-                                            <a   href="javascript:void(0);" class="btn btn-link">
-                                                <i class="fa fa-edit"></i>
-                                            </a>
-                                            <a href="" class="btn btn-link"><i class="fa fa-trash"></i></a>
-                                        </span>
-                                        <div class="checkbox">
-                                            <label class="check-box">
-                                                <label class="ckbox"><input type="checkbox"><span></span></label>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="tasks">
-                                        <div class="task-line warning">
-                                            <a   href="javascript:void(0);" class="label">
-                                                Develop MVP
-                                            </a>
-                                            <div class="time">
-                                                10: 00 PM
-                                            </div>
-                                        </div>
-                                        <span class="add-delete-task ">
-                                            <a   href="javascript:void(0);" class="btn btn-link">
-                                                <i class="fa fa-edit"></i>
-                                            </a>
-                                            <a href="" class="btn btn-link"><i class="fa fa-trash"></i></a>
-                                        </span>
-                                        <div class="checkbox">
-                                            <label class="check-box">
-                                                <label class="ckbox"><input type="checkbox"><span></span></label>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="tasks">
-                                        <div class="task-line teal">
-                                            <a   href="javascript:void(0);" class="label">
-                                                Design Ecommerce
-                                            </a>
-                                            <div class="time">
-                                                10: 00 PM
-                                            </div>
-                                        </div>
-                                        <span class="add-delete-task ">
-                                            <a   href="javascript:void(0);" class="btn btn-link">
-                                                <i class="fa fa-edit"></i>
-                                            </a>
-                                            <a href="" class="btn btn-link"><i class="fa fa-trash"></i></a>
-                                        </span>
-                                        <div class="checkbox">
-                                            <label class="check-box">
-                                                <label class="ckbox"><input type="checkbox"><span></span></label>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="tasks mb-0">
-                                        <div class="task-line purple">
-                                            <a   href="javascript:void(0);" class="label">
-                                                Fix Validation Issues
-                                            </a>
-                                            <div class="time">
-                                                12: 00 AM
-                                            </div>
-                                        </div>
-                                        <span class="add-delete-task ">
-                                            <a   href="javascript:void(0);" class="btn btn-link">
-                                                <i class="fa fa-edit"></i>
-                                            </a>
-                                            <a href="" class="btn btn-link"><i class="fa fa-trash"></i></a>
-                                        </span>
-                                        <div class="checkbox">
-                                            <label class="check-box">
-                                                <label class="ckbox"><input type="checkbox"><span></span></label>
-                                            </label>
-                                        </div>
-                                    </div>
+                                    @endforeach
+                                   
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="tasktab-2" role="tabpanel">
                                 <div class="">
-                                    <div class="tasks">
-                                        <div class=" task-line teal">
-                                            <a   href="javascript:void(0);" class="label">
-                                                Management meeting
-                                            </a>
-                                            <div class="time">
-                                                06:30 AM
+                                    @foreach ($user_withIn_week as $item)
+                                        <div class="tasks">
+                                            <div class="task-line danger">
+                                                <a   href="javascript:void(0);" class="label">
+                                                    {{$item->name}}
+                                                </a>
+                                                <div class="time">
+                                                    {{$item->created_at}}
+                                                </div>
                                             </div>
+                                            <span class="add-delete-task ">
+                                                <a   href="{{ route('dashboard.user.edit',$item->id) }}" class="btn btn-link">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
+                                            </span>
+                                        
                                         </div>
-                                        <span class="add-delete-task ">
-                                            <a   href="javascript:void(0);" class="btn btn-link">
-                                                <i class="fa fa-edit"></i>
-                                            </a>
-                                            <a href="" class="btn btn-link"><i class="fa fa-trash"></i></a>
-                                        </span>
-                                        <div class="checkbox">
-                                            <label class="check-box">
-                                                <label class="ckbox"><input type="checkbox"><span></span></label>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="tasks">
-                                        <div class="task-line danger">
-                                            <a   href="javascript:void(0);" class="label">
-                                                Connect API to pages
-                                            </a>
-                                            <div class="time">
-                                                08:00 AM
-                                            </div>
-                                        </div>
-                                        <span class="add-delete-task ">
-                                            <a   href="javascript:void(0);" class="btn btn-link">
-                                                <i class="fa fa-edit"></i>
-                                            </a>
-                                            <a href="" class="btn btn-link"><i class="fa fa-trash"></i></a>
-                                        </span>
-                                        <div class="checkbox">
-                                            <label class="check-box">
-                                                <label class="ckbox"><input type="checkbox"><span></span></label>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="tasks">
-                                        <div class="task-line purple">
-                                            <a   href="javascript:void(0);" class="label">
-                                                Icon change in Redesign App
-                                            </a>
-                                            <div class="time">
-                                                11:20 AM
-                                            </div>
-                                        </div>
-                                        <span class="add-delete-task ">
-                                            <a   href="javascript:void(0);" class="btn btn-link">
-                                                <i class="fa fa-edit"></i>
-                                            </a>
-                                            <a href="" class="btn btn-link"><i class="fa fa-trash"></i></a>
-                                        </span>
-                                        <div class="checkbox">
-                                            <label class="check-box">
-                                                <label class="ckbox"><input type="checkbox"><span></span></label>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="tasks">
-                                        <div class="task-line warning">
-                                            <a   href="javascript:void(0);" class="label">
-                                                Test new features in tablets
-                                            </a>
-                                            <div class="time">
-                                                02: 00 PM
-                                            </div>
-                                        </div>
-                                        <span class="add-delete-task ">
-                                            <a   href="javascript:void(0);" class="btn btn-link">
-                                                <i class="fa fa-edit"></i>
-                                            </a>
-                                            <a href="" class="btn btn-link"><i class="fa fa-trash"></i></a>
-                                        </span>
-                                        <div class="checkbox">
-                                            <label class="check-box">
-                                                <label class="ckbox"><input type="checkbox"><span></span></label>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="tasks">
-                                        <div class="task-line success">
-                                            <a   href="javascript:void(0);" class="label">
-                                                Design Logo
-                                            </a>
-                                            <div class="time">
-                                                04: 00 PM
-                                            </div>
-                                        </div>
-                                        <span class="add-delete-task ">
-                                            <a   href="javascript:void(0);" class="btn btn-link">
-                                                <i class="fa fa-edit"></i>
-                                            </a>
-                                            <a href="" class="btn btn-link"><i class="fa fa-trash"></i></a>
-                                        </span>
-                                        <div class="checkbox">
-                                            <label class="check-box">
-                                                <label class="ckbox"><input type="checkbox"><span></span></label>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="tasks mb-0">
-                                        <div class="task-line primary">
-                                            <a   href="javascript:void(0);" class="label">
-                                                Project Launch
-                                            </a>
-                                            <div class="time">
-                                                06: 00 PM
-                                            </div>
-                                        </div>
-                                        <span class="add-delete-task ">
-                                            <a   href="javascript:void(0);" class="btn btn-link">
-                                                <i class="fa fa-edit"></i>
-                                            </a>
-                                            <a href="" class="btn btn-link"><i class="fa fa-trash"></i></a>
-                                        </span>
-                                        <div class="checkbox">
-                                            <label class="check-box">
-                                                <label class="ckbox"><input type="checkbox"><span></span></label>
-                                            </label>
-                                        </div>
-                                    </div>
+                                    @endforeach
+                                   
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="tasktab-3" role="tabpanel">
                                 <div class="">
-                                    <div class="tasks">
-                                        <div class=" task-line info">
-                                            <a   href="javascript:void(0);" class="label">
-                                                Design a Landing Page
-                                            </a>
-                                            <div class="time">
-                                                06:12 AM
+                                    @foreach ($user_withIn_month as $item)
+                                        <div class="tasks">
+                                            <div class="task-line danger">
+                                                <a href="javascript:void(0);" class="label">
+                                                    {{$item->name}}
+                                                </a>
+                                                <div class="time">
+                                                    {{$item->created_at}}
+                                                </div>
                                             </div>
+                                            <span class="add-delete-task ">
+                                                <a  href="{{ route('dashboard.user.edit',$item->id) }}" class="btn btn-link">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
+                                            </span>
                                         </div>
-                                        <span class="add-delete-task ">
-                                            <a   href="javascript:void(0);" class="btn btn-link">
-                                                <i class="fa fa-edit"></i>
-                                            </a>
-                                            <a href="" class="btn btn-link"><i class="fa fa-trash"></i></a>
-                                        </span>
-                                        <div class="checkbox">
-                                            <label class="check-box">
-                                                <label class="ckbox"><input type="checkbox"><span></span></label>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="tasks">
-                                        <div class="task-line danger">
-                                            <a   href="javascript:void(0);" class="label">
-                                                Food Delivery Mobile Application
-                                            </a>
-                                            <div class="time">
-                                                3:00 PM
-                                            </div>
-                                        </div>
-                                        <span class="add-delete-task ">
-                                            <a   href="javascript:void(0);" class="btn btn-link">
-                                                <i class="fa fa-edit"></i>
-                                            </a>
-                                            <a href="" class="btn btn-link"><i class="fa fa-trash"></i></a>
-                                        </span>
-                                        <div class="checkbox">
-                                            <label class="check-box">
-                                                <label class="ckbox"><input type="checkbox"><span></span></label>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="tasks">
-                                        <div class="task-line warning">
-                                            <a   href="javascript:void(0);" class="label">
-                                                Export Database values
-                                            </a>
-                                            <div class="time">
-                                                03:20 PM
-                                            </div>
-                                        </div>
-                                        <span class="add-delete-task ">
-                                            <a   href="javascript:void(0);" class="btn btn-link">
-                                                <i class="fa fa-edit"></i>
-                                            </a>
-                                            <a href="" class="btn btn-link"><i class="fa fa-trash"></i></a>
-                                        </span>
-                                        <div class="checkbox">
-                                            <label class="check-box">
-                                                <label class="ckbox"><input type="checkbox"><span></span></label>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="tasks">
-                                        <div class="task-line pink">
-                                            <a   href="javascript:void(0);" class="label">
-                                                Write Simple Python Script
-                                            </a>
-                                            <div class="time">
-                                                04: 00 PM
-                                            </div>
-                                        </div>
-                                        <span class="add-delete-task ">
-                                            <a   href="javascript:void(0);" class="btn btn-link">
-                                                <i class="fa fa-edit"></i>
-                                            </a>
-                                            <a href="" class="btn btn-link"><i class="fa fa-trash"></i></a>
-                                        </span>
-                                        <div class="checkbox">
-                                            <label class="check-box">
-                                                <label class="ckbox"><input type="checkbox"><span></span></label>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="tasks">
-                                        <div class="task-line success">
-                                            <a   href="javascript:void(0);" class="label">
-                                                Write Simple Anugalr Program
-                                            </a>
-                                            <div class="time">
-                                                05: 00 PM
-                                            </div>
-                                        </div>
-                                        <span class="add-delete-task ">
-                                            <a   href="javascript:void(0);" class="btn btn-link">
-                                                <i class="fa fa-edit"></i>
-                                            </a>
-                                            <a href="" class="btn btn-link"><i class="fa fa-trash"></i></a>
-                                        </span>
-                                        <div class="checkbox">
-                                            <label class="check-box">
-                                                <label class="ckbox"><input type="checkbox"><span></span></label>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="tasks mb-0">
-                                        <div class="task-line primary">
-                                            <a   href="javascript:void(0);" class="label">
-                                                Design PSD files
-                                            </a>
-                                            <div class="time">
-                                                06: 00 PM
-                                            </div>
-                                        </div>
-                                        <span class="add-delete-task ">
-                                            <a   href="javascript:void(0);" class="btn btn-link">
-                                                <i class="fa fa-edit"></i>
-                                            </a>
-                                            <a href="" class="btn btn-link"><i class="fa fa-trash"></i></a>
-                                        </span>
-                                        <div class="checkbox">
-                                            <label class="check-box">
-                                                <label class="ckbox"><input type="checkbox"><span></span></label>
-                                            </label>
-                                        </div>
-                                    </div>
+                                    @endforeach
+                                    
                                 </div>
                             </div>
                         </div>
@@ -752,107 +351,7 @@
         </div>
         <!-- /row -->
 
-        <!-- row -->
-        <div class="row row-sm ">
-            <div class="col-md-12 col-xl-12">
-                <div class="card overflow-hidden review-project">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between">
-                            <h4 class="card-title mg-b-10">All Projects</h4>
-                            <i class="mdi mdi-dots-horizontal text-gray"></i>
-                        </div>
-                        <p class="tx-12 text-muted mb-3">A project is an activity to meet the creation of a unique product or service and thus activities that are undertaken to accomplish routine activities cannot be considered projects. <a href="">Learn more</a></p>
-                        <div class="table-responsive mb-0">
-                            <table class="table table-hover table-bordered mb-0 text-md-nowrap text-lg-nowrap text-xl-nowrap table-striped ">
-                                <thead>
-                                    <tr>
-                                        <th>Project</th>
-                                        <th>Team Members</th>
-                                        <th>Categorie</th>
-                                        <th>Created</th>
-                                        <th>Status</th>
-                                        <th>Deadline</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <div class="project-contain">
-                                                <h6 class="mb-1 tx-13">Angular Project</h6>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="image-grouped"><img class="profile-img brround" alt="profile image" src="{{ asset('assets/img/faces/11.jpg') }}"><img class="profile-img brround " alt="profile image" src="{{ asset('assets/img/faces/12.jpg') }}"><img class="profile-img brround" alt="profile image" src="{{ asset('assets/img/faces/2.jpg') }}"></div>
-                                        </td>
-                                        <td>Web Design</td>
-                                        <td>01 Jan 2020</td>
-                                        <td><span class="badge bg-primary-gradient">Ongoing</span></td>
-                                        <td>15 March 2020</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="project-contain">
-                                                <h6 class="mb-1 tx-13">PHP Project</h6>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="image-grouped"><img class="profile-img brround" alt="profile image" src="{{ asset('assets/img/faces/16.jpg') }}"><img class="profile-img brround " alt="profile image" src="{{ asset('assets/img/faces/8.jpg') }}"><img class="profile-img brround" alt="profile image" src="{{ asset('assets/img/faces/7.jpg') }}"></div>
-                                        </td>
-                                        <td>Web Development</td>
-                                        <td>03 March 2020</td>
-                                        <td><span class="badge bg-success-gradient">Ongoing</span></td>
-                                        <td>15 Jun 2020</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="project-contain">
-                                                <h6 class="mb-1 tx-13">Python</h6>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="image-grouped"><img class="profile-img brround" alt="profile image" src="{{ asset('assets/img/faces/3.jpg') }}"><img class="profile-img brround " alt="profile image" src="{{ asset('assets/img/faces/12.jpg') }}"><img class="profile-img brround" alt="profile image" src="{{ asset('assets/img/faces/15.jpg') }}"></div>
-                                        </td>
-                                        <td>Web Development</td>
-                                        <td>15 March 2020</td>
-                                        <td><span class="badge bg-danger-gradient">Pending</span></td>
-                                        <td>15 March 2020</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="project-contain">
-                                                <h6 class="mb-1 tx-13">Android App</h6>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="image-grouped"><img class="profile-img brround" alt="profile image" src="{{ asset('assets/img/faces/7.jpg') }}"><img class="profile-img brround " alt="profile image" src="{{ asset('assets/img/faces/6.jpg') }}"><img class="profile-img brround" alt="profile image" src="{{ asset('assets/img/faces/16.jpg') }}"></div>
-                                        </td>
-                                        <td>Android</td>
-                                        <td>15 March 2020</td>
-                                        <td><span class="badge bg-success-gradient">Ongoing</span></td>
-                                        <td>15 March 2020</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="project-contain">
-                                                <h6 class="mb-1 tx-13">Mobile Application</h6>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="image-grouped"><img class="profile-img brround" alt="profile image" src="{{ asset('assets/img/faces/8.jpg') }}"><img class="profile-img brround " alt="profile image" src="{{ asset('assets/img/faces/11.jpg') }}"><img class="profile-img brround" alt="profile image" src="{{ asset('assets/img/faces/15.jpg') }}"></div>
-                                        </td>
-                                        <td>Android</td>
-                                        <td>15 March 2020</td>
-                                        <td><span class="badge bg-pink-gradient">Ongoing</span></td>
-                                        <td>15 March 2020</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- /row -->
+   
 
         <!-- row -->
         <div class="row row-sm ">

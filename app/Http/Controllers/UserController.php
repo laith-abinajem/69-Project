@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use RealRashid\SweetAlert\Facades\Alert;
+use Mail;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -33,7 +34,8 @@ class UserController extends Controller
                 'status' => $request->status,
                 'password' => Hash::make($request->password),
             ]);
-           
+            // $title = 'welcomes';
+            // $this->sendEmailCreateUser($request->email ,$request->password , $title ,$request->name ,'');
             Alert::toast('User created successfully', 'success');
             return redirect()->route('dashboard.user.index');
         } catch (\Exception $e) {
@@ -85,5 +87,24 @@ class UserController extends Controller
         $data->delete();
         toast('Success','success');
         return redirect()->route('dashboard.user.index');
+    }
+    public function sendEmailCreateUser($email , $password , $title , $name, $message){
+            
+            if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $data = [
+                    'subject' =>  $title,
+                    'email'   =>  $email,
+                    'content' => $message,
+                    'name' => $name,
+                    'message' => $message,
+                    'password' => $password
+                ];
+                Mail::send('views.email', $data, function($message) use ($data) {
+                    $message->to($data['email'])
+                    ->subject($data['subject']);
+                });
+            }
+    
+             return true;
     }
 }

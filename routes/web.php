@@ -25,6 +25,7 @@ Route::get('/checkout', function () {
 });
 
 Route::post('/process-payment', [PaymentController::class, 'createPayment'])->name('process-payment');
+Route::get('/check-payment', [PaymentController::class, 'checkPayment'])->name('check-payment');
 
 Route::prefix('auth')->middleware('checkLogin')->controller(AuthController::class)->group(function () {
     Route::get('/login', 'index')->name('login');
