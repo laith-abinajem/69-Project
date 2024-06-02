@@ -15,22 +15,15 @@ $(function() {
 			if (currentIndex < newIndex) {
 				// Step 1 form validation
 				if (currentIndex === 0) {
-					var fname = $('#firstname').parsley();
-					var lname = $('#lastname').parsley();
-					if (fname.isValid() && lname.isValid()) {
+					var bname = $('#brandname').parsley();
+					var bimage = $('#brandimage').parsley();
+					var bdescription = $('#branddescription').parsley();
+					if (bname.isValid() && bdescription.isValid() && bimage.isValid()) {
 						return true;
 					} else {
-						fname.validate();
-						lname.validate();
-					}
-				}
-				// Step 2 form validation
-				if (currentIndex === 1) {
-					var email = $('#email').parsley();
-					if (email.isValid()) {
-						return true;
-					} else {
-						email.validate();
+						bname.validate();
+						bdescription.validate();
+						bimage.validate();
 					}
 				}
 				// Always allow step back to the previous step even if the current step is not valid.
