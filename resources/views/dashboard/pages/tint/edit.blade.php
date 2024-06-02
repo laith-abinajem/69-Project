@@ -4,6 +4,13 @@
 
 @section('content')
 
+
+ @foreach ($data->tintDetails as $tintDetail)
+    <li>
+    {{ $tintDetail->class_car }}:{{ $tintDetail->sub_class_car }}:{{ $tintDetail->window }}: ${{ $tintDetail->price }}
+        <!-- You can add more details here as needed -->
+    </li>
+@endforeach 
 <div class="row row-sm">
     <div class="col-lg-12 col-md-12">
         <div class="card">

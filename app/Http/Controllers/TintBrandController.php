@@ -57,7 +57,7 @@ class TintBrandController extends Controller
         }
     }
     public function edit($id){
-        $data = TintBrand::find($id);
+        $data = TintBrand::with('tintDetails')->find($id);
         return view('dashboard.pages.tint.edit',compact('data'));
     }
     public function update(Request $request, $id){

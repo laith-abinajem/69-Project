@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TintBrandController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\SubscriptionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,6 +52,14 @@ Route::middleware('auth')->prefix('dashboard')->name('dashboard.')->group(functi
         Route::post('/update/{id}',[TintBrandController::class,'update'])->name('update');
         Route::post('/delete/{id}',[TintBrandController::class,'delete'])->name('delete');
         Route::post('/store',[TintBrandController::class,'store'])->name('store');
+    });
+    Route::prefix('subscription')->name('subscription.')->middleware('role:Super Admin')->group(function () {
+        Route::get('/',[SubscriptionController::class,'index'])->name('index');
+        Route::get('/create',[SubscriptionController::class,'create'])->name('create');
+        Route::get('/edit/{id}',[SubscriptionController::class,'edit'])->name('edit');
+        Route::post('/update/{id}',[SubscriptionController::class,'update'])->name('update');
+        Route::post('/delete/{id}',[SubscriptionController::class,'delete'])->name('delete');
+        Route::post('/store',[SubscriptionController::class,'store'])->name('store');
     });
 
     Route::get('/logout',[AuthController::class,'logout'])->name('logout');
