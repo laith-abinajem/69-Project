@@ -160,6 +160,10 @@
         <script src="{{ asset('assets/plugins/fancyuploder/jquery.fancy-fileupload.js') }}"></script>
         <script src="{{ asset('assets/plugins/fancyuploder/fancy-uploader.js') }}"></script>
 
+		<!--- Internal Accordion Js -->
+		<script src="{{ asset('assets/plugins/accordion/accordion.min.js') }}"></script>
+		<script src="{{ asset('assets/js/accordion.js') }}"></script>
+
 		<!--- Scripts js --->
 		<script src="{{ asset('assets/js/script.js') }}"></script>
 
@@ -214,7 +218,7 @@
 					parentElement.find('.moonroof').val(moonroof);
 					parentElement.find('.full-car').val(full_car);
 				})
-				$(document).on('click', '.action a[href="#finish"]', function(e){
+				$(document).on('click', '.wizard .actions a[href="#finish"]', function(e){
 					e.preventDefault();
 					$('#tintform').submit();
 				})
