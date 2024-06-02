@@ -21,6 +21,11 @@ class TintBrand extends Model implements HasMedia
     {
         $this->addMediaCollection('photos')->singleFile();
     }
+    public function getMediaUrlAttribute()
+    {
+        $media = $this->getFirstMedia('photos');
+        return $media ? $media->getFullUrl() : null;
+    }
     public function user()
     {
         return $this->belongsTo(User::class);

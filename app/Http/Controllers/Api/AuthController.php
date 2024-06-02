@@ -43,7 +43,7 @@ class AuthController extends Controller
             $accessToken = $tokenResult->plainTextToken; 
             return response()->json(['token' => $accessToken], 200);
         } else {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return response()->json(['error' => 'Wrong email or password'], 401);
         }
     }
 

@@ -7,8 +7,8 @@
                 <a class="close-toggle"   href="javascript:void(0);"><i class="header-icons" data-eva="close-outline"></i></a>
             </div>
             <div class="responsive-logo">
-                <a href="index.html" class="header-logo"><img src="{{ asset('assets/img/brand/logo.png') }}" class="logo-11"></a>
-                <a href="index.html" class="header-logo"><img src="{{ asset('assets/img/brand/logo-white.png') }}" class="logo-1"></a>
+                <a href="index.html" class="header-logo"><img src="{{ asset('assets/img/dark_logo.png') }}" class="logo-11"></a>
+                <a href="index.html" class="header-logo"><img src="{{ asset('assets/img/light_logo.png') }}" class="logo-1"></a>
             </div>
             <ul class="header-megamenu-dropdown  nav">
                 <li class="nav-item">
@@ -278,11 +278,10 @@
                             </div>
                         </div>
                         <div class="dropdown main-profile-menu nav nav-item nav-link">
-                            <a class="profile-user d-flex" href=""><img src="{{ asset('assets/img/faces/6.jpg') }}" alt="user-img" class="rounded-circle mCS_img_loaded"><span></span></a>
+                            <a class="profile-user d-flex" href=""><img src="{{ asset('assets/img/light_logo-removebg-preview.png') }}" alt="user-img" class="rounded-circle mCS_img_loaded"><span></span></a>
 
                             <div class="dropdown-menu">
                                 <div class="main-header-profile header-img">
-                                    <div class="main-img-user"><img alt="" src="{{ asset('assets/img/faces/6.jpg') }}"></div>
                                     <h6>{{auth()->user()->name}}</h6><span>Premium Member</span>
                                 </div>
                                 <a class="dropdown-item" href="profile.html"><i class="far fa-user"></i> My Profile</a>
@@ -307,16 +306,12 @@
 <div class="app-sidebar__overlay" data-bs-toggle="sidebar"></div>
 <div class="sticky">
     <aside class="app-sidebar sidebar-scroll">
-        <div class="main-sidebar-header active">
-            <a class="desktop-logo active" href="{{ route('dashboard.home.index') }}"><img src="{{ asset('assets/img/brand/logo.png') }}" class="main-logo" alt="logo"></a>
-            <a class="logo-icon mobile-logo active" href="{{ route('dashboard.home.index') }}"><img src="{{ asset('assets/img/brand/favicon.png') }}" alt="logo"></a>
-        </div>
         <div class="main-sidemenu">
             <div class="main-sidebar-loggedin">
                 <div class="app-sidebar__user">
                     <div class="dropdown user-pro-body text-center">
                         <div class="user-pic">
-                            <img src="{{ asset('assets/img/faces/6.jpg') }}" alt="user-img" class="rounded-circle mCS_img_loaded">
+                            <img src="{{ asset('assets/img/light_logo-removebg-preview.png') }}" alt="user-img" class="rounded-circle mCS_img_loaded">
                         </div>
                         <div class="user-info">
                             <h6 class=" mb-0 text-dark">{{auth()->user()->name}}</h6>
@@ -371,7 +366,7 @@
                 @endcanany
 
                 <li class="slide">
-                    <a class="side-menu__item"  target="_blank"   href="https://mahmoud93p.itch.io/testwebgl "><i class="side-menu__icon fe fe-box "></i><span class="side-menu__label">Game</span></a>
+                    <a class="side-menu__item"  href="https://mahmoud93p.itch.io/testwebgl "><i class="side-menu__icon fe fe-box "></i><span class="side-menu__label">Game</span></a>
                 </li>
             </ul>
 

@@ -10,7 +10,7 @@ class UserController extends Controller
 {
     public function getUser(Request $request)
     { 
-        $user = User::with('tintBrands.tintDetails')->find($request->user()->id);
+        $user = User::with(['tintBrands.tintDetails', 'tintBrands.media'])->find($request->user()->id);
 
         if (!$user) {
             return response()->json([
@@ -19,7 +19,10 @@ class UserController extends Controller
                 'message' => 'User not found'
             ], 404);
         }
-
+        $user->tintBrands->each(function ($tintBrand) {
+            $tintBrand->tint_logo = $tintBrand->getFirstMediaUrl('photos');
+            unset($tintBrand->media); // Optionally, remove the media array
+        });
         return response()->json([
             'data' => $user,
             'code' => 200,

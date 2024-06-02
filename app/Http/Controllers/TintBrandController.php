@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\TintBrand;
 use App\Models\TintDetails;
 use RealRashid\SweetAlert\Facades\Alert;
-
+use Auth;
 class TintBrandController extends Controller
 {
     public function index(Request $request)
@@ -21,27 +21,37 @@ class TintBrandController extends Controller
     }
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'required|string',
-            'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'class_car' => 'required',
-            'sub_class_car' => 'required',
-            'window' => 'required',
-            'price' => 'required',
-        ]);
         try {
             $tintBrand = TintBrand::create([
-                'name' => $validated['name'],
-                'description' => $validated['description'],
+                'tint_brand' => $request->tint_brand,
+                'tint_description' => $request->tint_description,
+                'user_id'=> Auth::user()->id
             ]);
-
-            if ($request->hasFile('photo')) {
-                $tintBrand->addMedia($request->file('photo'))->toMediaCollection('photos');
+            if ($request->hasFile('tint_image')) {
+                $tintBrand->addMedia($request->file('tint_image'))->toMediaCollection('photos');
             }
+        
+            // Prepare data for the tint_details table
+            $prices = $request->price;
+            foreach ($prices as $classCar => $subClasses) {
+                foreach ($subClasses as $subClassCar => $windows) {
+                    foreach ($windows as $window => $price) {
+                    $windowNumber = explode('_', $window)[0];
+                    $details =   TintDetails::create([
+                            'tint_id' => $tintBrand->id,
+                            'class_car' => $classCar,
+                            'sub_class_car' => $subClassCar,
+                            'window' => $windowNumber,
+                            'price' => $price
+                        ]);
+                    }
+                }
+            }
+           
             Alert::toast('TintBrand created successfully', 'success');
-            return redirect()->route('tintbrands.index');
-        } catch (\Exception $e) {
+            return redirect()->route('dashboard.tint.index');
+        }
+         catch (\Exception $e) {
             Alert::toast('An error occurred while creating the TintBrand', 'error');
             return redirect()->back()->withInput();
         }
