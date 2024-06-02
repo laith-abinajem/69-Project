@@ -160,6 +160,10 @@
         <script src="{{ asset('assets/plugins/fancyuploder/jquery.fancy-fileupload.js') }}"></script>
         <script src="{{ asset('assets/plugins/fancyuploder/fancy-uploader.js') }}"></script>
 
+		<!--- Internal Accordion Js -->
+		<script src="{{ asset('assets/plugins/accordion/accordion.min.js') }}"></script>
+		<script src="{{ asset('assets/js/accordion.js') }}"></script>
+
 		<!--- Scripts js --->
 		<script src="{{ asset('assets/js/script.js') }}"></script>
 
@@ -188,6 +192,38 @@
 		<script src="{{ asset('assets/plugins/datatable/dataTables.responsive.min.js') }}"></script>
 		<script src="{{ asset('assets/plugins/datatable/responsive.bootstrap5.min.js') }}"></script>
 		<script src="{{ asset('assets/js/table-data.js') }}"></script>
+
+		<script type="text/javascript">
+			
+			$(document).ready(function(){
+				var front_ws;
+				var front_two;
+				var back_half;
+				var moonroof;
+				var full_car;
+				$(document).on('click', '.copy', function(){
+					var parentElement = $(this).closest('.prices_container');
+					front_ws = parentElement.find('.front-ws').val();
+					front_two = parentElement.find('.front-two').val();
+					back_half = parentElement.find('.back-half').val();
+					moonroof = parentElement.find('.moonroof').val();
+					full_car = parentElement.find('.full-car').val();
+					$('.paste').show();
+				});
+				$(document).on('click', '.paste', function(){
+					var parentElement = $(this).closest('.prices_container');
+					parentElement.find('.front-ws').val(front_ws);
+					parentElement.find('.front-two').val(front_two);
+					parentElement.find('.back-half').val(back_half);
+					parentElement.find('.moonroof').val(moonroof);
+					parentElement.find('.full-car').val(full_car);
+				})
+				$(document).on('click', '.wizard .actions a[href="#finish"]', function(e){
+					e.preventDefault();
+					$('#tintform').submit();
+				})
+			})
+		</script>
 
 
 	</body>

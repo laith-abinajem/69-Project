@@ -15,7 +15,7 @@
                         @endforeach
                     </div>
                 @endif
-                <form action="{{ route('dashboard.tint.store') }}" method="post">
+                <form action="{{ route('dashboard.tint.store') }}" method="post" id="tintform">
                     @csrf
                     <div id="wizard2">
                         <h3>Tint Brand</h3>
@@ -23,99 +23,73 @@
                             <div class="row row-sm">
                                 <div class="col-12 mb-2">
                                     <label class="form-control-label">Brand Image: <span class="tx-danger">*</span></label>
-                                    <input type="file" name="tint_image" class="dropify" data-height="200" />
+                                    <input type="file" name="tint_image" value="{{ old('tint_image') }}" id="brandimage" class="dropify" data-height="200" required />
                                 </div>
                                 <div class="col-md-5 col-lg-4 mb-2">
-                                    <label class="form-control-label">Brand Name: <span class="tx-danger">*</span></label> <input class="form-control" id="firstname" name="tint" placeholder="Tint Brand" required="" type="text">
+                                    <label class="form-control-label">Brand Name: <span class="tx-danger">*</span></label> <input class="form-control" id="brandname" name="tint_brand" value="{{ old('tint_brand') }}" placeholder="Tint Brand" required="" type="text">
                                 </div>
                                 <div class="col-12 mg-t-20 mg-md-t-0 mb-2">
                                     <label class="form-control-label">Brand Description: <span class="tx-danger">*</span></label>
-                                    <textarea class="form-control" id="lastname" name="tint_description" placeholder="Textarea" rows="3" required></textarea>
+                                    <textarea class="form-control" id="branddescription" name="tint_description" placeholder="Textarea" rows="3" required>{{ old('tint_description') }}</textarea>
                                 </div>
                             </div>
                         </section>
                         <h3>Tint Details</h3>
                         <section>
                             <div class="row row-sm">
-                                <div class="col-12 mb-2">
-                                    <label class="form-control-label"><h5>Luxury, Sedan:</h5></label>
-                                </div>
-                                <div class="col-12 mb-2">
-                                    <label class="form-control-label">Prices:</label>
-                                    <div class="row">
-                                        <div class="col-12 col-md-3">
-                                            <input class="form-control" placeholder="front w.s" required="" type="text">
+                                @php
+                                    $class = ['Luxury', 'Regular', 'Electric', 'Others'];
+                                    $subclass = ['SUV', 'Sedan', 'Coupe', 'Truck'];
+                                    $counter = 1;
+                                @endphp
+                                <div class="panel-group1" id="accordion11">
+                                    @foreach($class as $class_item)
+                                
+                                        <div class="panel panel-default  mb-4">
+                                            <div class="panel-heading1 bg-primary ">
+                                                <h4 class="panel-title1">
+                                                    <a class="accordion-toggle collapsed" data-bs-toggle="collapse"
+                                                        data-bs-parent="#accordion11" href="#collapse{{ $counter }}"
+                                                        aria-expanded="false"><i class="fe fe-arrow-right me-2"></i>{{ $class_item }}</a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapse{{ $counter }}" class="panel-collapse collapse" role="tabpanel"
+                                                aria-expanded="false">
+                                                @foreach($subclass as $subclass_item)
+                                                <div class="col-12 mb-2 mt-3">
+                                                    <label class="form-control-label"><h5>{{ $class_item }}, {{ $subclass_item }}:</h5></label>
+                                                </div>
+                                                <div class="col-12 mb-2">
+                                                    <label class="form-control-label">Prices:</label>
+                                                    <div class="row prices_container">
+                                                        <div class="col-12 col-md-2">
+                                                            <input class="form-control front-ws" name="price[{{ $class_item }}][{{ $subclass_item }}][frontws_price]" placeholder="front w.s" required="" type="text">
+                                                        </div>
+                                                        <div class="col-12 col-md-2">
+                                                            <input class="form-control front-two" name="price[{{ $class_item }}][{{ $subclass_item }}][fronttwo_price]" placeholder="front two" required="" type="text">
+                                                        </div>
+                                                        <div class="col-12 col-md-2">
+                                                            <input class="form-control back-half" name="price[{{ $class_item }}][{{ $subclass_item }}][backhalf_price]" placeholder="back half" required="" type="text">
+                                                        </div>
+                                                        <div class="col-12 col-md-2">
+                                                            <input class="form-control moonroof" name="price[{{ $class_item }}][{{ $subclass_item }}][moonroof_price]" placeholder="moonroof" required="" type="text">
+                                                        </div>
+                                                        <div class="col-12 col-md-2">
+                                                            <input class="form-control full-car" name="price[{{ $class_item }}][{{ $subclass_item }}][fullcar_price]" placeholder="full car" required="" type="text">
+                                                        </div>
+                                                        <div class="col-12 col-md-2">
+                                                            <button type="button" class="btn btn-secondary copy">Copy</button>
+                                                            <button type="button" class="btn btn-primary paste " style="display: none;">Paste</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                @php 
+                                                    $counter++;
+                                                @endphp
+                                                @endforeach
+                                            </div>
                                         </div>
-                                        <div class="col-12 col-md-3">
-                                            <input class="form-control" placeholder="front two" required="" type="text">
-                                        </div>
-                                        <div class="col-12 col-md-3">
-                                            <input class="form-control" placeholder="back half" required="" type="text">
-                                        </div>
-                                        <div class="col-12 col-md-3">
-                                            <input class="form-control" placeholder="full car" required="" type="text">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12 mb-2 mt-3">
-                                    <label class="form-control-label"><h5>Luxury, Coupe:</h5></label>
-                                </div>
-                                <div class="col-12 mb-2">
-                                    <label class="form-control-label">Prices:</label>
-                                    <div class="row">
-                                        <div class="col-12 col-md-3">
-                                            <input class="form-control" placeholder="front w.s" required="" type="text">
-                                        </div>
-                                        <div class="col-12 col-md-3">
-                                            <input class="form-control" placeholder="front two" required="" type="text">
-                                        </div>
-                                        <div class="col-12 col-md-3">
-                                            <input class="form-control" placeholder="back half" required="" type="text">
-                                        </div>
-                                        <div class="col-12 col-md-3">
-                                            <input class="form-control" placeholder="full car" required="" type="text">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12 mb-2 mt-3">
-                                    <label class="form-control-label"><h5>Electric, SUV:</h5></label>
-                                </div>
-                                <div class="col-12 mb-2">
-                                    <label class="form-control-label">Prices:</label>
-                                    <div class="row">
-                                        <div class="col-12 col-md-3">
-                                            <input class="form-control" placeholder="front w.s" required="" type="text">
-                                        </div>
-                                        <div class="col-12 col-md-3">
-                                            <input class="form-control" placeholder="front two" required="" type="text">
-                                        </div>
-                                        <div class="col-12 col-md-3">
-                                            <input class="form-control" placeholder="back half" required="" type="text">
-                                        </div>
-                                        <div class="col-12 col-md-3">
-                                            <input class="form-control" placeholder="full car" required="" type="text">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12 mb-2 mt-3">
-                                    <label class="form-control-label"><h5>Electric, Sedan:</h5></label>
-                                </div>
-                                <div class="col-12 mb-2">
-                                    <label class="form-control-label">Prices:</label>
-                                    <div class="row">
-                                        <div class="col-12 col-md-3">
-                                            <input class="form-control" placeholder="front w.s" required="" type="text">
-                                        </div>
-                                        <div class="col-12 col-md-3">
-                                            <input class="form-control" placeholder="front two" required="" type="text">
-                                        </div>
-                                        <div class="col-12 col-md-3">
-                                            <input class="form-control" placeholder="back half" required="" type="text">
-                                        </div>
-                                        <div class="col-12 col-md-3">
-                                            <input class="form-control" placeholder="full car" required="" type="text">
-                                        </div>
-                                    </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </section>
