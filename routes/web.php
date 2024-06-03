@@ -49,7 +49,7 @@ Route::middleware('auth')->prefix('dashboard')->name('dashboard.')->group(functi
         Route::get('/',[TintBrandController::class,'index'])->name('index');
         Route::get('/create',[TintBrandController::class,'create'])->name('create');
         Route::get('/edit/{id}',[TintBrandController::class,'edit'])->name('edit');
-        Route::post('/update/{id}',[TintBrandController::class,'update'])->name('update');
+        Route::put('/update/{id}',[TintBrandController::class,'update'])->name('update');
         Route::post('/delete/{id}',[TintBrandController::class,'delete'])->name('delete');
         Route::post('/store',[TintBrandController::class,'store'])->name('store');
     });

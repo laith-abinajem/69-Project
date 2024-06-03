@@ -39,7 +39,7 @@
                             <div class="row row-sm">
                                 @php
                                     $class = ['Luxury', 'Regular', 'Electric', 'Others'];
-                                    $subclass = ['SUV', 'Sedan', 'Coupe', 'Truck'];
+                                    $subclass = ['SUV', 'Sedan', 'Coupe', 'TRUCK','7 seater SUV'];
                                     $counter = 1;
                                 @endphp
                                 <div class="panel-group1" id="accordion11">

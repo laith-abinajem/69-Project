@@ -57,13 +57,45 @@ class TintBrandController extends Controller
         }
     }
     public function edit($id){
-        $data = TintBrand::with('tintDetails')->find($id);
-        return view('dashboard.pages.tint.edit',compact('data'));
+        $tintBrand = TintBrand::with('tintDetails')->find($id);
+        return view('dashboard.pages.tint.edit',compact('tintBrand'));
     }
     public function update(Request $request, $id){
+        try {
+            $tintBrand = TintBrand::findOrFail($id);
+            $tintBrand->update([
+                'tint_brand' => $request->tint_brand,
+                'tint_description' => $request->tint_description,
+            ]);
     
-        toast('Success', 'success');
-        return redirect()->route('dashboard.tint.index');
+            if ($request->hasFile('tint_image')) {
+                $tintBrand->clearMediaCollection('photos');
+                $tintBrand->addMedia($request->file('tint_image'))->toMediaCollection('photos');
+            }
+    
+            $prices = $request->price;
+            TintDetails::where('tint_id', $tintBrand->id)->delete(); 
+            foreach ($prices as $classCar => $subClasses) {
+                foreach ($subClasses as $subClassCar => $windows) {
+                    foreach ($windows as $window => $price) {
+                        $windowNumber = explode('_', $window)[0];
+                        TintDetails::create([
+                            'tint_id' => $tintBrand->id,
+                            'class_car' => $classCar,
+                            'sub_class_car' => $subClassCar,
+                            'window' => $windowNumber,
+                            'price' => $price
+                        ]);
+                    }
+                }
+            }
+    
+            Alert::toast('TintBrand updated successfully', 'success');
+            return redirect()->route('dashboard.tint.index');
+        } catch (\Exception $e) {
+            Alert::toast('An error occurred while updating the TintBrand', 'error');
+            return redirect()->back()->withInput();
+        }
     }
     public function delete(Request $request,$id){
         $data = TintBrand::find($id);
