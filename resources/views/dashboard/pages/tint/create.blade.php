@@ -63,19 +63,19 @@
                                                     <label class="form-control-label">Prices:</label>
                                                     <div class="row prices_container">
                                                         <div class="col-12 col-md-2">
-                                                            <input class="form-control front-ws" name="price[{{ $class_item }}][{{ $subclass_item }}][1_price]" placeholder="front w.s" required="" type="text">
+                                                            <input class="form-control front-ws" name="price[{{ $class_item }}][{{ $subclass_item }}][1_price]" value="{{ old('price.' . $class_item . '.' . $subclass_item . '.1_price') }}" placeholder="front w.s" required="" type="text">
                                                         </div>
                                                         <div class="col-12 col-md-2">
-                                                            <input class="form-control front-two" name="price[{{ $class_item }}][{{ $subclass_item }}][2_price]" placeholder="front two" required="" type="text">
+                                                            <input class="form-control front-two" name="price[{{ $class_item }}][{{ $subclass_item }}][2_price]" value="{{ old('price.' . $class_item . '.' . $subclass_item . '.2_price') }}" placeholder="front two" required="" type="text">
                                                         </div>
                                                         <div class="col-12 col-md-2">
-                                                            <input class="form-control back-half" name="price[{{ $class_item }}][{{ $subclass_item }}][3_price]" placeholder="back half" required="" type="text">
+                                                            <input class="form-control back-half" name="price[{{ $class_item }}][{{ $subclass_item }}][3_price]" value="{{ old('price.' . $class_item . '.' . $subclass_item . '.3_price') }}" placeholder="back half" required="" type="text">
                                                         </div>
                                                         <div class="col-12 col-md-2">
-                                                            <input class="form-control moonroof" name="price[{{ $class_item }}][{{ $subclass_item }}][4_price]" placeholder="moonroof" required="" type="text">
+                                                            <input class="form-control moonroof" name="price[{{ $class_item }}][{{ $subclass_item }}][4_price]" value="{{ old('price.' . $class_item . '.' . $subclass_item . '.4_price') }}" placeholder="moonroof" required="" type="text">
                                                         </div>
                                                         <div class="col-12 col-md-2">
-                                                            <input class="form-control full-car" name="price[{{ $class_item }}][{{ $subclass_item }}][5_price]" placeholder="full car" required="" type="text">
+                                                            <input class="form-control full-car" name="price[{{ $class_item }}][{{ $subclass_item }}][5_price]" value="{{ old('price.' . $class_item . '.' . $subclass_item . '.5_price') }}" placeholder="full car" required="" type="text">
                                                         </div>
                                                         <div class="col-12 col-md-2">
                                                             <button type="button" class="btn btn-secondary copy">Copy</button>

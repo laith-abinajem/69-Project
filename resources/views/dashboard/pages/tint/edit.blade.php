@@ -1,6 +1,6 @@
 @extends('dashboard.layouts.master')
 
-@section('title', 'Create Tint')
+@section('title', 'Edit Tint')
 
 @section('content')
 
