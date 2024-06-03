@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\TintBrand;
 use App\Models\TintDetails;
+use App\Models\User;
 use RealRashid\SweetAlert\Facades\Alert;
 use Auth;
 class TintBrandController extends Controller
@@ -22,6 +23,11 @@ class TintBrandController extends Controller
     public function store(Request $request)
     {
         try {
+            $user = User::find(auth()->user()->id);
+            if($user->tintBrands->count() >= 5){
+                Alert::toast('You cant add more than 5 tint', 'error');
+                return redirect()->route('dashboard.tint.index');
+            }
             $tintBrand = TintBrand::create([
                 'tint_brand' => $request->tint_brand,
                 'tint_description' => $request->tint_description,

@@ -51,15 +51,16 @@ class UserController extends Controller
     public function update(Request $request, $id){
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
+            'email' => 'required|string|email|max:255',
         ]);
-        $user = User::find($id);
         try {
+            $user = User::find($id);
             $user->update([
                 'name' => $request->name,
                 'email' => $request->email,
                 'type' => $request->type,
                 'status' => $request->status,
+                'password' => Hash::make($request->password),
             ]);
             Alert::toast('User created successfully', 'success');
             return redirect()->route('dashboard.user.index');
@@ -67,7 +68,6 @@ class UserController extends Controller
             Alert::toast('An error occurred while creating the User', 'error');
             return redirect()->back()->withInput();
         }
-        toast('Success', 'success');
         return redirect()->route('dashboard.user.index');
     }
     public function updateStatus(Request $request)

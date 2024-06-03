@@ -15,7 +15,7 @@ use Square\Models\Order;
 use Square\Models\OrderLineItem;
 use Square\Models\Money;
 
-
+use Carbon\Carbon;
 class PaymentController extends Controller
 {
     private $client;
@@ -67,12 +67,12 @@ class PaymentController extends Controller
         //subscription ==> customer_id , order_id(null), transaction_id(null), payment_status(pending), package_type(1 month) , start_date (null),end_date(null)
         $subscription = Subscription::create([
             "price"=>$request->amount,
-            "package_type"=>'$request->package_type',
-            "user_id"=>2,
+            "package_type"=>$request->type,
+            "user_id"=>auth()->user()->id,
         ]);
         $client = new SquareClient([
             'accessToken' => 'EAAAl4ZyBLIRqCXuoUe-u77nYVLdmAyxjFzYHgQHyv9TuaY6dYEWzYsqiWJekQHe',
-            'environment' => 'sandbox', // or 'production'
+            'environment' => 'sandbox', 
         ]);
         
         $checkout_api = $client->getCheckoutApi();
@@ -84,7 +84,7 @@ class PaymentController extends Controller
         $line_item = new OrderLineItem('1');
         $line_item->setName('Subscription');
         $base_price_money = new Money();
-        $base_price_money->setAmount(1); // amount in cents (e.g., $10.00)
+        $base_price_money->setAmount($request->amount); 
         $base_price_money->setCurrency('USD');
         $line_item->setBasePriceMoney($base_price_money);
                 
@@ -114,9 +114,11 @@ class PaymentController extends Controller
     function checkPayment(Request $request){
         $client = new SquareClient([
             'accessToken' => 'EAAAl4ZyBLIRqCXuoUe-u77nYVLdmAyxjFzYHgQHyv9TuaY6dYEWzYsqiWJekQHe',
-            'environment' => 'sandbox', // or 'production'
+            'environment' => 'sandbox', 
         ]);
         $subscription = Subscription::find($request->subscription_id);
+        $startDate = Carbon::now();
+        $endDate = (clone $startDate)->addMonths(2);
         $api_response = $client->getTransactionsApi()->retrieveTransaction('LJ17XDN9GP4GY',$request->transactionId);
         if ($api_response->isSuccess()) {
             $result = $api_response->getResult();
@@ -127,6 +129,8 @@ class PaymentController extends Controller
                         "payment_status"=>'success',
                         "transaction_id"=>$result->getTransaction()->getId(),
                         "order_id"=>$result->getTransaction()->getOrderId(),
+                        "start_date"=>$startDate->toDateString(),
+                        "end_date"=>$endDate->toDateString(),
                     ]);
                     dd('success');
                 }

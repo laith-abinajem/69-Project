@@ -107,7 +107,7 @@
                                 <ul>
                                     <li>
                                         <strong>Subscibe</strong>
-                                        <span>8</span>
+                                        <span>{{$subscriber_active}}</span>
                                     </li>
                                 </ul>
                             </div>

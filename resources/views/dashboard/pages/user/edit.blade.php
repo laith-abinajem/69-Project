@@ -16,7 +16,7 @@
                     </div>
                 @endif
                 <h3 class="tile-title">{{ __('Edit User') }}</h3>
-                <form action="{{ route('dashboard.user.edit', $data->id) }}" method="PUT">
+                <form action="{{ route('dashboard.user.update', $data->id) }}" method="post">
                     @csrf
                     <div class="row row-sm">
                             <div class="col-6">

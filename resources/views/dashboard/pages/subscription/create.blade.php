@@ -16,7 +16,7 @@
                     </div>
                 @endif
                 <h3 class="tile-title">{{ __('Create Subscription') }}</h3>
-                <form action="{{ route('dashboard.subscription.store') }}" method="post">
+                <form action="{{ route('process-payment') }}" method="post">
                     @csrf
                     <div class="row row-sm">
                             <div class="col-6">
@@ -27,8 +27,8 @@
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
-                                    <label class="form-label">Email: <span class="tx-danger">*</span></label>
-                                    <input value="{{ old('email') }}" class="form-control" name="email" placeholder="Enter Email" required="" type="email">
+                                    <label class="form-label">Address: <span class="tx-danger">*</span></label>
+                                    <input value="{{ old('address') }}" class="form-control" name="address" placeholder="Enter Address" required="" type="text">
                                 </div>
                             </div>
                             <div class="col-6">
@@ -36,11 +36,17 @@
                                     <label class="form-label">Subscription Type: <span class="tx-danger">*</span></label>
                                     <select name="type" id="type" required class="form-control paintProtectionFil select2" >
                                         <option value="3">3 Months</option>
-                                        <option selected value="6">6 Months</option>
+                                        <option value="6">6 Months</option>
                                         <option value="12">1 Year</option>
                                     </select>
                                 </div>
                             </div>
+                            <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Amount:</label>
+                                <input value="45" class="form-control" id="amount" name="amount" readonly type="text">
+                            </div>
+                        </div>
                         </div>
                     <div class="form-group text-end mt-2">
                         <button type="submit" class="button btn btn-primary">Continue to payment</button>
