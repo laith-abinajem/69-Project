@@ -129,8 +129,8 @@ class PaymentController extends Controller
                         "payment_status"=>'success',
                         "transaction_id"=>$result->getTransaction()->getId(),
                         "order_id"=>$result->getTransaction()->getOrderId(),
-                        "start_date"=>$startDate->toDateString(),
-                        "end_date"=>$endDate->toDateString(),
+                        "start_date"=>$startDate,
+                        "end_date"=>$endDate,
                     ]);
                     dd('success');
                 }

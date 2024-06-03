@@ -19,9 +19,12 @@ class UserController extends Controller
                 'message' => 'User not found'
             ], 404);
         }
+        $user->company_logo = $user->getFirstMediaUrl('company_logo');
+        $user->decal_logo = $user->getFirstMediaUrl('decal_logo');
+        unset($user->media);
         $user->tintBrands->each(function ($tintBrand) {
             $tintBrand->tint_logo = $tintBrand->getFirstMediaUrl('photos');
-            unset($tintBrand->media); // Optionally, remove the media array
+            unset($tintBrand->media); 
         });
         return response()->json([
             'data' => $user,

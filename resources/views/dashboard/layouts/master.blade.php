@@ -227,8 +227,28 @@
 				})
 				$(document).on('click', '.wizard .actions a[href="#finish"]', function(e){
 					e.preventDefault();
-					$('#tintform').submit();
-				})
+					
+					// Check if all required fields are filled
+					if(validateForm()) {
+						$('#tintform').submit();
+					} else {
+						alert('Please fill out all required fields.');
+					}
+				});
+
+				function validateForm() {
+					var isValid = true;
+					
+					// Check each required field
+					$('#tintform input[required], #tintform textarea[required], #tintform select[required]').each(function(){
+						if($(this).val() == '') {
+							isValid = false;
+							return false; // exit loop if a required field is empty
+						}
+					});
+
+				return isValid;
+}
 				$('#sub_type').on('select2:select', function(e) {
 					var selectedOption = e.params.data.id;
 					if(selectedOption == 1){

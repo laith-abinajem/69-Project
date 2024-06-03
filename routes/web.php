@@ -45,7 +45,7 @@ Route::middleware('auth')->prefix('dashboard')->name('dashboard.')->group(functi
         Route::post('/store',[UserController::class,'store'])->name('store');
         Route::post('/updateStatus',[UserController::class,'updateStatus'])->name('updateStatus');
     });
-    Route::prefix('tint')->name('tint.')->middleware('role:Super Admin')->group(function () {
+        Route::prefix('tint')->name('tint.')->group(function(){
         Route::get('/',[TintBrandController::class,'index'])->name('index');
         Route::get('/create',[TintBrandController::class,'create'])->name('create');
         Route::get('/edit/{id}',[TintBrandController::class,'edit'])->name('edit');

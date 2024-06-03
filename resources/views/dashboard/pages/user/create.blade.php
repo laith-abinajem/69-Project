@@ -16,7 +16,7 @@
                     </div>
                 @endif
                 <h3 class="tile-title">{{ __('Create User') }}</h3>
-                <form action="{{ route('dashboard.user.store') }}" method="post">
+                <form action="{{ route('dashboard.user.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="row row-sm">
                             <div class="col-6">
@@ -46,13 +46,21 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group col-6">
+                            <div class="form-group col-12">
                                 <label class="form-label">User status: <span class="tx-danger">*</span></label>
                                 <select name="status" id="status" required class="form-control paintProtectionFil select2" >
                                     <option value="approved">Approved</option>
                                     <option selected value="pending">Pending</option>
                                     <option value="rejected">Rejected</option>
                                 </select>
+                            </div>
+                            <div class="col-6 mb-2">
+                                <label class="form-control-label">Company Logo: <span class="tx-danger">*</span></label>
+                                <input type="file" name="company_logo" value="{{ old('company_logo') }}" id="brandimage" class="dropify" data-height="200" required />
+                            </div>
+                            <div class="col-6 mb-2">
+                                <label class="form-control-label">Decal Logo: <span class="tx-danger">*</span></label>
+                                <input type="file" name="decal_logo" value="{{ old('decal_logo') }}" id="brandimage" class="dropify" data-height="200" required />
                             </div>
                         </div>
                     <div class="form-group text-end mt-2">

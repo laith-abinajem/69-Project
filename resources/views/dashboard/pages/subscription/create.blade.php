@@ -18,7 +18,6 @@
                 <h3 class="tile-title">{{ __('Create Subscription') }}</h3>
                 <form action="{{ route('process-payment') }}" method="post">
                     @csrf
-                    <input id="amount" value="50" type="hidden" name="amount" readonly />
                     <div class="row row-sm">
                             <div class="col-6">
                                 <div class="form-group mg-b-0">
@@ -46,7 +45,7 @@
                             <div class="col-6">
                             <div class="form-group">
                                 <label class="form-label">Amount:</label>
-                                <input value="45" class="form-control" id="amount" name="amount" readonly type="text">
+                                <input value="50" class="form-control" id="amount" name="amount" readonly type="text">
                             </div>
                         </div>
                         </div>

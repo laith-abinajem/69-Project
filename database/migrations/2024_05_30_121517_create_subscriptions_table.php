@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('payment_status')->nullable();
             $table->double('price');
             $table->string('package_type');
-            $table->string('end_date')->nullable();
-            $table->string('start_date')->nullable();
+            $table->date('end_date')->nullable();
+            $table->date('start_date')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });

@@ -34,6 +34,12 @@ class UserController extends Controller
                 'status' => $request->status,
                 'password' => Hash::make($request->password),
             ]);
+            if ($request->hasFile('company_logo')) {
+                $user->addMedia($request->file('company_logo'))->toMediaCollection('company_logo');
+            }
+            if ($request->hasFile('decal_logo')) {
+                $user->addMedia($request->file('decal_logo'))->toMediaCollection('decal_logo');
+            }
             // $title = 'welcomes';
             // $this->sendEmailCreateUser($request->email ,$request->password , $title ,$request->name ,'');
             Alert::toast('User created successfully', 'success');

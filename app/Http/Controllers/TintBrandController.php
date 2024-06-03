@@ -13,7 +13,11 @@ class TintBrandController extends Controller
 {
     public function index(Request $request)
     {
-        $data = TintBrand::get();
+        if(auth()->user()->type === "super_admin"){
+            $data = TintBrand::get();
+        }else{
+            $data = TintBrand::where('user_id',auth()->user()->id)->get();
+        }
         return view('dashboard.pages.tint.index',compact('data'));
     }
     public function create(Request $request)

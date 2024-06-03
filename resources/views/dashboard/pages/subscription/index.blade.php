@@ -17,12 +17,18 @@
                         <thead>
                             <tr>
                                 <th class="border-bottom-0">ID</th>
+                                <th class="border-bottom-0">Subscription Type</th>
+                                <th class="border-bottom-0">Expiry date</th>
+                                <th class="border-bottom-0">User</th>
                             </tr>
                         </thead>
                         <tbody>
                         @foreach ($data as $item)
                             <tr>
                                 <td>{{$item->id}}</td>
+                                <td>{{$item->package_type}} Month</td>
+                                <td>{{$item->end_date}}</td>
+                                <td>{{$item->user->name}}</td>
                             </tr>
                         @endforeach
                         </tbody>

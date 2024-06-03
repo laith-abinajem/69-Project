@@ -25,7 +25,13 @@ class HomeController extends Controller
 
         $subscriber_active = Subscription::where('end_date', '>', $today)->count();
         // Display a table of subscriptions expiring within the week
-
+        // Calculate the start and end dates of the current week
+        $now = Carbon::now();
+        $endOfWeek = $now->copy()->endOfWeek();
+        
+        // Query to count subscriptions expiring within the current week
+        $subscriber_expiry_week = Subscription::whereBetween('end_date', [$now, $endOfWeek])->get();
+        
         // user With InWeek
         $user_withIn_day = User::whereBetween('created_at', [Carbon::now()->subDay(), Carbon::now()])
         ->get();
@@ -35,6 +41,6 @@ class HomeController extends Controller
 
         $user_withIn_month = User::whereBetween('created_at', [Carbon::now()->subMonth(), Carbon::now()])
         ->get();
-        return view('dashboard.pages.dashboard',compact('subscriber_active','pending_users','subscriber_pending','user_withIn_week','user_withIn_month','user_withIn_day','subscriber_approve','subscriber_rejected'));
+        return view('dashboard.pages.dashboard',compact('subscriber_expiry_week','subscriber_active','pending_users','subscriber_pending','user_withIn_week','user_withIn_month','user_withIn_day','subscriber_approve','subscriber_rejected'));
     }
 }
