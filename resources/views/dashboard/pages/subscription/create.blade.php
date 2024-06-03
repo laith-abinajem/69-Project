@@ -18,6 +18,7 @@
                 <h3 class="tile-title">{{ __('Create Subscription') }}</h3>
                 <form action="{{ route('process-payment') }}" method="post">
                     @csrf
+                    <input id="amount" value="50" type="hidden" name="amount" readonly />
                     <div class="row row-sm">
                             <div class="col-6">
                                 <div class="form-group mg-b-0">
@@ -34,8 +35,9 @@
                             <div class="col-6">
                                 <div class="form-group">
                                     <label class="form-label">Subscription Type: <span class="tx-danger">*</span></label>
-                                    <select name="type" id="type" required class="form-control paintProtectionFil select2" >
-                                        <option value="3">3 Months</option>
+                                    <select name="type" id="sub_type" required class="form-control paintProtectionFil select2" >
+                                        <option value="1">1 Months</option>
+                                        <option selected value="3">3 Months</option>
                                         <option value="6">6 Months</option>
                                         <option value="12">1 Year</option>
                                     </select>

@@ -67,8 +67,9 @@
                                                         <label class="form-control-label">Prices:</label>
                                                         <div class="row prices_container">
                                                             @foreach(['1_price' => 'front w.s', '2_price' => 'front two', '3_price' => 'back half', '4_price' => 'moonroof', '5_price' => 'full car'] as $key => $placeholder)
+                                                                @php $html_class = str_replace(" ","-",$placeholder); $html_class = str_replace(".","-",$html_class) @endphp
                                                                 <div class="col-12 col-md-2">
-                                                                    <input class="form-control" name="price[{{ $class_item }}][{{ $subclass_item }}][{{ $key }}]" value="{{ $details->firstWhere('window', explode('_', $key)[0])->price ?? '' }}" placeholder="{{ $placeholder }}" required type="text">
+                                                                    <input class="form-control {{ $html_class }}" name="price[{{ $class_item }}][{{ $subclass_item }}][{{ $key }}]" value="{{ $details->firstWhere('window', explode('_', $key)[0])->price ?? '' }}" placeholder="{{ $placeholder }}" required type="text">
                                                                 </div>
                                                             @endforeach
                                                             <div class="col-12 col-md-2">
