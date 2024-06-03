@@ -39,6 +39,8 @@
 
         @include('dashboard.partials.header')
 
+		@include('sweetalert::alert')
+
 		<div class="main-content app-content">
 			<div class="main-container container-fluid">
 				<!-- breadcrumb -->
@@ -193,6 +195,11 @@
 		<script src="{{ asset('assets/plugins/datatable/responsive.bootstrap5.min.js') }}"></script>
 		<script src="{{ asset('assets/js/table-data.js') }}"></script>
 
+		<!-- Example for including SweetAlert scripts -->
+		<script src="{{ asset('vendor/sweetalert/sweetalert.all.js') }}"></script>
+		<!-- Optionally, include the Swal styles -->
+		<link rel="stylesheet" href="{{ asset('vendor/sweetalert/sweetalert.css') }}">
+
 		<script type="text/javascript">
 			
 			$(document).ready(function(){
@@ -203,7 +210,7 @@
 				var full_car;
 				$(document).on('click', '.copy', function(){
 					var parentElement = $(this).closest('.prices_container');
-					front_ws = parentElement.find('.front-ws').val();
+					front_ws = parentElement.find('.front-w-s').val();
 					front_two = parentElement.find('.front-two').val();
 					back_half = parentElement.find('.back-half').val();
 					moonroof = parentElement.find('.moonroof').val();
@@ -212,7 +219,7 @@
 				});
 				$(document).on('click', '.paste', function(){
 					var parentElement = $(this).closest('.prices_container');
-					parentElement.find('.front-ws').val(front_ws);
+					parentElement.find('.front-w-s').val(front_ws);
 					parentElement.find('.front-two').val(front_two);
 					parentElement.find('.back-half').val(back_half);
 					parentElement.find('.moonroof').val(moonroof);
@@ -222,6 +229,18 @@
 					e.preventDefault();
 					$('#tintform').submit();
 				})
+				$('#sub_type').on('select2:select', function(e) {
+					var selectedOption = e.params.data.id;
+					if(selectedOption == 1){
+						$('#amount').val(20);
+					} else if(selectedOption == 3){
+						$('#amount').val(50);
+					} else if(selectedOption == 6){
+						$('#amount').val(100);
+					} else if(selectedOption == 12){
+						$('#amount').val(120);
+					}
+				});
 			})
 		</script>
 
