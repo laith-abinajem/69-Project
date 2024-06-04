@@ -16,7 +16,7 @@
                     </div>
                 @endif
                 <h3 class="tile-title">{{ __('Create Subscription') }}</h3>
-                <form action="{{ route('process-payment') }}" method="post">
+                <form id="subscription-form" action="{{ route('process-payment') }}" method="post">
                     @csrf
                     <div class="row row-sm">
                             <div class="col-6">
@@ -34,29 +34,43 @@
                             <div class="col-6">
                                 <div class="form-group">
                                     <label class="form-label">Subscription Type: <span class="tx-danger">*</span></label>
-                                    <select name="type" id="sub_type" required class="form-control paintProtectionFil select2" >
-                                        <option value="1">1 Months</option>
-                                        <option selected value="3">3 Months</option>
-                                        <option value="6">6 Months</option>
-                                        <option value="12">1 Year</option>
+                                    <select name="package_id" id="package_id" required class="form-control paintProtectionFil select2" >
+                                        @foreach($packages as $package)
+                                            <option value="{{$package->id}}">{{$package->name}} - {{$package->price}} $</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
                             <div class="col-6">
-                            <div class="form-group">
-                                <label class="form-label">Amount:</label>
-                                <input value="50" class="form-control" id="amount" name="amount" readonly type="text">
+                                <div class="form-group">
+                                    <label class="form-label">User<span class="tx-danger">*</span></label>
+                                    <select name="user_id" id="user_id" required class="form-control paintProtectionFil select2" >
+                                        @foreach($users as $user)
+                                            <option value="{{$user->id}}">{{$user->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
                         </div>
+                        <div class="form-group text-end mt-2">
+                            <button id="payment-button" type="submit" class="button btn btn-primary">Continue to payment</button>
+                            @if(auth()->user()->type === 'super_admin')
+                            <button id="trial-button" type="submit" class="button btn btn-primary">Continue without payment (trial sub)</button>
+                            @endif
+                            <button type="button" class="btn btn-secondary" onclick="window.location='{{ route('dashboard.subscription.index') }}'">Cancel</button>
                         </div>
-                    <div class="form-group text-end mt-2">
-                        <button type="submit" class="button btn btn-primary">Continue to payment</button>
-                        <button type="button" class="btn btn-secondary" onclick="window.location='{{ route('dashboard.subscription.index') }}'">Cancel</button>
-                    </div>
                 </form>
             </div> <!-- end card-body -->
         </div> <!-- end card-->
     </div> <!-- end col -->
 </div>
+<script>
+    document.getElementById('payment-button').addEventListener('click', function() {
+        document.getElementById('subscription-form').action = "{{ route('process-payment') }}";
+    });
 
+    document.getElementById('trial-button').addEventListener('click', function() {
+        document.getElementById('subscription-form').action = "{{ route('dashboard.subscription.store') }}";
+    });
+</script>
 @endsection

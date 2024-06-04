@@ -31,11 +31,13 @@
                                     <input value="{{ old('email') }}" class="form-control" name="email" placeholder="Enter Email" required="" type="email">
                                 </div>
                             </div>
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <label class="form-label">Password: <span class="tx-danger">*</span></label>
-                                    <input value="{{ old('password') }}"  class="form-control" name="password" placeholder="Enter password" required="" type="password">
-                                </div>
+                            <div class="form-group col-6">
+                                <label class="form-label">User status: <span class="tx-danger">*</span></label>
+                                <select name="status" id="status" required class="form-control paintProtectionFil select2" >
+                                    <option value="approved">Approved</option>
+                                    <option selected value="pending">Pending</option>
+                                    <option value="rejected">Rejected</option>
+                                </select>
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
@@ -46,13 +48,12 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group col-12">
-                                <label class="form-label">User status: <span class="tx-danger">*</span></label>
-                                <select name="status" id="status" required class="form-control paintProtectionFil select2" >
-                                    <option value="approved">Approved</option>
-                                    <option selected value="pending">Pending</option>
-                                    <option value="rejected">Rejected</option>
-                                </select>
+                         
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label class="form-label">Password: <span class="tx-danger">*</span></label>
+                                    <input value="{{ old('password') }}"  class="form-control" name="password" placeholder="Enter password" required="" type="password">
+                                </div>
                             </div>
                             <div class="col-6 mb-2">
                                 <label class="form-control-label">Company Logo: <span class="tx-danger">*</span></label>

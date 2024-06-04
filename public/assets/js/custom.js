@@ -1,7 +1,7 @@
 $(function () {
 	'use strict'
 
-	// ______________LOADER
+	// ______LOADER
 	$("#global-loader").fadeOut("slow");
 
 
@@ -20,7 +20,7 @@ $(function () {
 		$(this).find('.drop-flag').removeClass('show');
 	});
 
-	// ______________Full screen
+	// ______Full screen
 	$(document).on("click", ".fullscreen-button", function toggleFullScreen() {
 		$('html').addClass('fullscreen-button');
 		if ((document.fullScreenElement !== undefined && document.fullScreenElement === null) || (document.msFullscreenElement !== undefined && document.msFullscreenElement === null) || (document.mozFullScreen !== undefined && !document.mozFullScreen) || (document.webkitIsFullScreen !== undefined && !document.webkitIsFullScreen)) {
@@ -48,7 +48,7 @@ $(function () {
 	})
 
 
-	// ______________Cover Image
+	// ______Cover Image
 	$(".cover-image").each(function () {
 		var attr = $(this).attr('data-bs-image-src');
 		if (typeof attr !== typeof undefined && attr !== false) {
@@ -57,7 +57,7 @@ $(function () {
 	});
 
 
-	// ______________Search
+	// ______Search
 	$('body, .main-header form[role="search"] button[type="reset"]').on('click keyup', function (event) {
 		if (event.which == 27 && $('.main-header form[role="search"]').hasClass('active') ||
 			$(event.currentTarget).attr('type') == 'reset') {
@@ -77,7 +77,7 @@ $(function () {
 		$form.addClass('active');
 		$input.focus();
 	});
-	// if your form is ajax remember to call `closeSearch()` to close the search container
+	// if your form is ajax remember to call closeSearch() to close the search container
 	$(document).on('click', '.main-header form[role="search"].active button[type="submit"]', function (event) {
 		event.preventDefault();
 		var $form = $(this).closest('form'),
@@ -189,13 +189,13 @@ $(function () {
 	});
 
 
-	// ___________TOOLTIP
+	// _____TOOLTIP
 	var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
 	var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
 		return new bootstrap.Tooltip(tooltipTriggerEl)
 	})
 
-	// __________POPOVER
+	// ____POPOVER
 	var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
 	var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
 		return new bootstrap.Popover(popoverTriggerEl)
@@ -207,7 +207,7 @@ $(function () {
 	eva.replace();
 
 
-	// ______________Horizontal-menu Active Class
+	// ______Horizontal-menu Active Class
 	$(document).ready(function () {
 		$(".horizontalMenu-list li a").each(function () {
 			var pageUrl = window.location.href.split(/[?#]/)[0];
@@ -221,7 +221,7 @@ $(function () {
 	});
 
 
-	// ______________Active Class
+	// ______Active Class
 	$(document).ready(function () {
 		$(".horizontalMenu-list li a").each(function () {
 			var pageUrl = window.location.href.split(/[?#]/)[0];
@@ -253,7 +253,7 @@ $(function () {
 	});
 
 
-	// ______________ Back to Top
+	// ______ Back to Top
 	$(window).on("scroll", function (e) {
 		if ($(this).scrollTop() > 0) {
 			$('#back-to-top').fadeIn('slow');
@@ -267,29 +267,31 @@ $(function () {
 		}, 0);
 		return false;
 	});
-// ______________ SWITCHER-toggle ______________//
+	// _____ SWITCHER-toggle _____//
 
-    /*Switcher Toggle Start*/
+	/Switcher Toggle Start/
+	var isDarkMode = localStorage.getItem('aziraMode') === 'dark';
+
+	// Apply the mode on page load
+	if (isDarkMode) {
+		$('body').addClass('dark-theme');
+	} else {
+		$('body').addClass('light-theme');
+	}
+
+	// Toggle mode on click
 	$('.layout-setting').on("click", function (e) {
-		if (!(document.querySelector('body').classList.contains('dark-theme'))) {
-			$('body').addClass('dark-theme');
-			$('body').removeClass('light-theme');
-
-            localStorage.setItem('aziradarkMode', true)
-            localStorage.removeItem('aziralightMode', false)
-			$('#myonoffswitch2').prop('checked', true);
-			$('#myonoffswitch5').prop('checked', true);
+		if (!isDarkMode) {
+			$('body').removeClass('light-theme').addClass('dark-theme');
+			localStorage.setItem('aziraMode', 'dark'); // Store dark mode preference
 		} else {
-			$('body').removeClass('dark-theme');
-			$('body').addClass('light-theme');
-			$('#myonoffswitch1').prop('checked', true);
-			$('#myonoffswitch3').prop('checked', true);
-
-            localStorage.setItem('aziralightMode', true)
-            localStorage.removeItem('aziradarkMode', false)
+			$('body').removeClass('dark-theme').addClass('light-theme');
+			localStorage.setItem('aziraMode', 'light'); // Store light mode preference
 		}
+		// Update the stored preference
+		isDarkMode = !isDarkMode;
 	});
-	/*Switcher Toggle End*/
+	/Switcher Toggle End/
 
 
 

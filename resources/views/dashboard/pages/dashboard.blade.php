@@ -307,6 +307,32 @@
         @endcanany
     </div>
     <!-- /row -->
+    <script>
 
+function updateStatus(status, userId) {
+    fetch('{{ route('dashboard.user.updateStatus') }}', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        },
+        body: JSON.stringify({
+            status: status,
+            user_id: userId
+        })
+    })
+    .then(response => {
+        if (response.ok) {
+            console.log('Status updated successfully');
+        } else {
+            console.error('Failed to update status');
+        }
+    })
+    .catch(error => {
+        // Handle network errors here
+        console.error('Network error:', error);
+    });
+}
+</script>
 
 @endsection

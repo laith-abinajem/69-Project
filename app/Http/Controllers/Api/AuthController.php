@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Subscription;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -39,9 +41,16 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (auth()->attempt($credentials)) {
-            $tokenResult = auth()->user()->createToken('LaravelAuthApp');
-            $accessToken = $tokenResult->plainTextToken; 
-            return response()->json(['token' => $accessToken], 200);
+            $user = User::find(auth()->user()->id);
+            $today = Carbon::now()->toDateString();
+            $sub = Subscription::where('user_id',$user->id)->wherewhere('end_date', '>', $today)->count();
+            if($user->status === 'approved' && $sub > 0 ){
+                $tokenResult = auth()->user()->createToken('LaravelAuthApp');
+                $accessToken = $tokenResult->plainTextToken; 
+                return response()->json(['token' => $accessToken], 200);
+            }else {
+                return response()->json(['error' => 'Your account/subscription is not active '], 401);
+            }
         } else {
             return response()->json(['error' => 'Wrong email or password'], 401);
         }

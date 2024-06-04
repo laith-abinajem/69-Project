@@ -26,7 +26,14 @@
                         @foreach ($data as $item)
                             <tr>
                                 <td>{{$item->id}}</td>
-                                <td>{{$item->package_type}} Month</td>
+                                <td>
+                                    @if($item->package_type === 'trial')
+                                        {{$item->package_type}} 7 Days
+                                    @else
+                                        {{$item->package_type}} Months
+                                    @endif
+                                
+                                </td>
                                 <td>{{$item->end_date}}</td>
                                 <td>{{$item->user->name}}</td>
                             </tr>

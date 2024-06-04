@@ -37,15 +37,6 @@
                                     <input value="{{ old('password') }}"  class="form-control" name="password" placeholder="Enter password" required="" type="password">
                                 </div>
                             </div>
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <label class="form-label">User Type: <span class="tx-danger">*</span></label>
-                                    <select name="type" id="type" required class="form-control paintProtectionFil select2 select2-no-search" >
-                                        <option value="super_admin" {{ $data->type == 'super_admin' ? 'selected' : '' }}>Super admin</option>
-                                        <option value="subscriber" {{ $data->type == 'subscriber' ? 'selected' : '' }}>Subscriber</option>
-                                    </select>
-                                </div>
-                            </div>
                             <div class="form-group col-6">
                                 <label class="form-label">User status: <span class="tx-danger">*</span></label>
                                 <select name="status" id="status" required class="form-control paintProtectionFil select2 select2-no-search" >
@@ -53,6 +44,14 @@
                                     <option value="pending" {{ $data->status == 'pending' ? 'selected' : '' }}>Pending</option>
                                     <option value="rejected" {{ $data->status == 'rejected' ? 'selected' : '' }}>Rejected</option>
                                 </select>
+                            </div>
+                            <div class="col-6 mb-2">
+                                <label class="form-control-label">Company Logo: <span class="tx-danger">*</span></label>
+                                <input type="file" name="company_logo" value="{{ old('company_logo') }}" id="brandimage" class="dropify" data-height="200" required />
+                            </div>
+                            <div class="col-6 mb-2">
+                                <label class="form-control-label">Decal Logo: <span class="tx-danger">*</span></label>
+                                <input type="file" name="decal_logo" value="{{ old('decal_logo') }}" id="brandimage" class="dropify" data-height="200" required />
                             </div>
                         </div>
                     <div class="form-group text-end mt-2">

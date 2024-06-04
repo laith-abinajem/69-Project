@@ -4,16 +4,20 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Spatie\Permission\Models\Role;
 use RealRashid\SweetAlert\Facades\Alert;
 use Mail;
 use Illuminate\Support\Facades\Hash;
-
+use App\Models\Subscription;
+use Carbon\Carbon;
 class UserController extends Controller
 {
     public function index(Request $request)
     {
         $data = User::get();
-        return view('dashboard.pages.user.index',compact('data'));
+        $today_date = Carbon::today();
+
+        return view('dashboard.pages.user.index',compact('data','today_date'));
     }
     public function create(Request $request)
     {
@@ -34,6 +38,17 @@ class UserController extends Controller
                 'status' => $request->status,
                 'password' => Hash::make($request->password),
             ]);
+
+            if($request->type === "super_admin"){
+                $superAdminRole = Role::where('name','Super Admin')->first();
+                $user->assignRole($superAdminRole);
+            }else{
+                $subscriberRole = Role::where('name' ,'Subscriber')->first();
+                if($subscriberRole){
+                    $user->assignRole($subscriberRole);
+                }
+            }
+
             if ($request->hasFile('company_logo')) {
                 $user->addMedia($request->file('company_logo'))->toMediaCollection('company_logo');
             }
@@ -64,10 +79,17 @@ class UserController extends Controller
             $user->update([
                 'name' => $request->name,
                 'email' => $request->email,
-                'type' => $request->type,
                 'status' => $request->status,
                 'password' => Hash::make($request->password),
             ]);
+            if ($request->hasFile('company_logo')) {
+                $user->clearMediaCollection('company_logo');
+                $user->addMedia($request->file('company_logo'))->toMediaCollection('company_logo');
+            }
+            if ($request->hasFile('decal_logo')) {
+                $user->clearMediaCollection('decal_logo');
+                $user->addMedia($request->file('decal_logo'))->toMediaCollection('decal_logo');
+            }
             Alert::toast('User created successfully', 'success');
             return redirect()->route('dashboard.user.index');
         } catch (\Exception $e) {
@@ -82,6 +104,17 @@ class UserController extends Controller
         if ($user) {
             $user->update([
                 'status' => $request->status,
+            ]);
+            $startDate = Carbon::now();
+            $endDate = (clone $startDate)->addWeeks(1);
+            $sub = Subscription::create([
+                "price"=>0,
+                "package_type"=> 'trial',
+                "payment_status"=>'success',
+                "start_date"=>$startDate,
+                "end_date"=>$endDate,
+                "user_id"=>$user->id,
+
             ]);
             return response()->json(['message' => 'Status updated successfully'], 200);
         } else {

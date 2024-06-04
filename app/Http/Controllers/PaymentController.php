@@ -7,6 +7,7 @@ use Square\Environment;
 use Square\Exceptions\ApiException;
 use Square\Models\CreatePaymentRequest;
 use App\Models\Subscription;
+use App\Models\Package;
 
 use Square\SquareClient;
 use Square\Models\CreateCheckoutRequest;
@@ -63,12 +64,16 @@ class PaymentController extends Controller
     // }
 
     function createPayment(Request $request){
-
+        $package = Package::find($request->package_id);
         //subscription ==> customer_id , order_id(null), transaction_id(null), payment_status(pending), package_type(1 month) , start_date (null),end_date(null)
+        $startDate = Carbon::now();
+        $endDate = (clone $startDate)->addDays($package->days);
         $subscription = Subscription::create([
-            "price"=>$request->amount,
-            "package_type"=>$request->type,
+            "price"=>$package->price,
+            "package_type"=>$package->name,
             "user_id"=>auth()->user()->id,
+            "start_date"=>$startDate,
+            "end_date"=>$endDate,
         ]);
         $client = new SquareClient([
             'accessToken' => 'EAAAl4ZyBLIRqCXuoUe-u77nYVLdmAyxjFzYHgQHyv9TuaY6dYEWzYsqiWJekQHe',
@@ -84,7 +89,7 @@ class PaymentController extends Controller
         $line_item = new OrderLineItem('1');
         $line_item->setName('Subscription');
         $base_price_money = new Money();
-        $base_price_money->setAmount($request->amount); 
+        $base_price_money->setAmount($subscription->price); 
         $base_price_money->setCurrency('USD');
         $line_item->setBasePriceMoney($base_price_money);
                 
@@ -117,8 +122,7 @@ class PaymentController extends Controller
             'environment' => 'sandbox', 
         ]);
         $subscription = Subscription::find($request->subscription_id);
-        $startDate = Carbon::now();
-        $endDate = (clone $startDate)->addMonths(2);
+       
         $api_response = $client->getTransactionsApi()->retrieveTransaction('LJ17XDN9GP4GY',$request->transactionId);
         if ($api_response->isSuccess()) {
             $result = $api_response->getResult();
@@ -129,8 +133,7 @@ class PaymentController extends Controller
                         "payment_status"=>'success',
                         "transaction_id"=>$result->getTransaction()->getId(),
                         "order_id"=>$result->getTransaction()->getOrderId(),
-                        "start_date"=>$startDate,
-                        "end_date"=>$endDate,
+                        
                     ]);
                     dd('success');
                 }
@@ -140,10 +143,13 @@ class PaymentController extends Controller
 
         $errors = $api_response->getErrors();
 
-        dd($errors);
         $subscription->update([
             "payment_status"=>'failed',
+            "start_date"=>'',
+            "end_date"=>'',
         ]);
+        dd($errors);
+
     }
 
     function generateIdempotencyKey() {

@@ -40,7 +40,7 @@
 		<div>
             @yield('content')
         </div>
-
+		@include('sweetalert::alert')
 		<!--- JQuery min js --->
 		<script src="{{ asset('assets/plugins/jquery/jquery.min.js') }}"></script>
 
@@ -62,6 +62,9 @@
 
 		<!--- Custom js --->
 		<script src="{{ asset('assets/js/custom.js') }}"></script>
-
+		<!-- Example for including SweetAlert scripts -->
+		<script src="{{ asset('vendor/sweetalert/sweetalert.all.js') }}"></script>
+		<!-- Optionally, include the Swal styles -->
+		<link rel="stylesheet" href="{{ asset('vendor/sweetalert/sweetalert.css') }}">
 	</body>
 </html>

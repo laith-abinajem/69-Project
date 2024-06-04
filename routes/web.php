@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TintBrandController;
+use App\Http\Controllers\PackageController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\SubscriptionController;
@@ -45,7 +46,7 @@ Route::middleware('auth')->prefix('dashboard')->name('dashboard.')->group(functi
         Route::post('/store',[UserController::class,'store'])->name('store');
         Route::post('/updateStatus',[UserController::class,'updateStatus'])->name('updateStatus');
     });
-        Route::prefix('tint')->name('tint.')->group(function(){
+    Route::prefix('tint')->name('tint.')->group(function(){
         Route::get('/',[TintBrandController::class,'index'])->name('index');
         Route::get('/create',[TintBrandController::class,'create'])->name('create');
         Route::get('/edit/{id}',[TintBrandController::class,'edit'])->name('edit');
@@ -61,6 +62,13 @@ Route::middleware('auth')->prefix('dashboard')->name('dashboard.')->group(functi
         Route::post('/delete/{id}',[SubscriptionController::class,'delete'])->name('delete');
         Route::post('/store',[SubscriptionController::class,'store'])->name('store');
     });
-
+    Route::prefix('package')->name('package.')->middleware('role:Super Admin')->group(function () {
+        Route::get('/',[PackageController::class,'index'])->name('index');
+        Route::get('/create',[PackageController::class,'create'])->name('create');
+        Route::get('/edit/{id}',[PackageController::class,'edit'])->name('edit');
+        Route::post('/update/{id}',[PackageController::class,'update'])->name('update');
+        Route::post('/delete/{id}',[PackageController::class,'delete'])->name('delete');
+        Route::post('/store',[PackageController::class,'store'])->name('store');
+    });
     Route::get('/logout',[AuthController::class,'logout'])->name('logout');
 });

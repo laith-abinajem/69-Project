@@ -27,6 +27,12 @@
                             </thead>
                             <tbody>
                             @foreach ($data as $item)
+                            @php
+                                $last_active_subscription = $item->subscription
+                                    ->where('end_date', '>', $today_date)
+                                    ->sortByDesc('end_date')
+                                    ->first();
+                            @endphp
                                 <tr>
                                     <td>{{$item->id}}</td>
                                     <td>{{$item->name}}</td>
@@ -34,12 +40,22 @@
                                     <td>
                                         <select class="form-control" onchange="updateStatus(this.value, {{ $item->id }})">
                                             <option value="pending" {{ $item->status == 'pending' ? 'selected' : '' }}>Pending</option>
-                                            <option value="rejected" {{ $item->status == 'rejected' ? 'selected' : '' }}>Rejected</option>
-                                            <option value="approved" {{ $item->status == 'approved' ? 'selected' : '' }}>Approved</option>
+                                            <!-- <option value="rejected" {{ $item->status == 'rejected' ? 'selected' : '' }}>Rejected</option> -->
+                                            <!-- <option value="approved" {{ $item->status == 'approved' ? 'selected' : '' }}>Approved</option> -->
                                         </select>
                                     </td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>
+                                    @if ($last_active_subscription)
+                                        {{ $last_active_subscription->package_type }} <!-- or whatever property you want to display -->
+                                    @else
+                                        No active subscription
+                                    @endif
+                                    </td>
+                                    <td> @if ($last_active_subscription)
+                                        {{ $last_active_subscription->end_date }} <!-- or whatever property you want to display -->
+                                    @else
+                                        No active subscription
+                                    @endif</td>
                                     <td>
                                         <a class="button btn btn-secondary" href="{{ route('dashboard.user.edit',$item->id) }}">
                                             <i class="fas fa-edit"></i>

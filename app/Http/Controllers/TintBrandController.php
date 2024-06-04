@@ -22,12 +22,18 @@ class TintBrandController extends Controller
     }
     public function create(Request $request)
     {
-        return view('dashboard.pages.tint.create');
+        $users = User::get();
+
+        return view('dashboard.pages.tint.create',compact('users'));
     }
     public function store(Request $request)
     {
         try {
-            $user = User::find(auth()->user()->id);
+            if($request->user_id){
+                $user = User::find($request->user_id);
+            }else{
+                $user = User::find(auth()->user()->id);
+            }
             if($user->tintBrands->count() >= 5){
                 Alert::toast('You cant add more than 5 tint', 'error');
                 return redirect()->route('dashboard.tint.index');
