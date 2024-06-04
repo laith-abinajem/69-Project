@@ -28,20 +28,6 @@ class TintBrandsTableSeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
-            [
-                'user_id' => 3, // Assuming user with ID 3 exists
-                'tint_brand' => 'Brand C',
-                'tint_description' => 'Description for Brand C',
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
-            ],
-            [
-                'user_id' => 4, // Assuming user with ID 4 exists
-                'tint_brand' => 'Brand D',
-                'tint_description' => 'Description for Brand D',
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
-            ]
         ]);
     }
 }
