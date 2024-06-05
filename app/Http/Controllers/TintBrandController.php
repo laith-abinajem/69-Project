@@ -28,11 +28,12 @@ class TintBrandController extends Controller
     }
     public function store(Request $request)
     {
-        try {
             $user_id = auth()->user()->id;
             if($request->user_id){
                 $user = User::find($request->user_id);
                 $user_id  = $request->user_id;
+            }else{
+                $user = User::find(auth()->user()->id);
             }
             if($user->tintBrands->count() >= 5){
                 Alert::toast('You cant add more than 5 tint', 'error');
@@ -66,11 +67,7 @@ class TintBrandController extends Controller
            
             Alert::toast('TintBrand created successfully', 'success');
             return redirect()->route('dashboard.tint.index');
-        }
-         catch (\Exception $e) {
-            Alert::toast('An error occurred while creating the TintBrand', 'error');
-            return redirect()->back()->withInput();
-        }
+       
     }
     public function edit($id){
         $tintBrand = TintBrand::with('tintDetails')->find($id);
