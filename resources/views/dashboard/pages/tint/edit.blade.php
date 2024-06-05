@@ -32,6 +32,16 @@
                                     <label class="form-control-label">Brand Name: <span class="tx-danger">*</span></label>
                                     <input class="form-control" id="brandname" name="tint_brand" value="{{ $tintBrand->tint_brand }}" placeholder="Tint Brand" required type="text">
                                 </div>
+                                @if(auth()->user()->type === "super_admin")
+                                <div class="col-md-5 col-lg-4 mb-2">
+                                    <label class="form-control-label">Users: <span class="tx-danger">*</span></label>
+                                    <select name="type" id="user_id" class="form-control paintProtectionFil " >
+                                        @foreach($users as $user)
+                                        <option value="{{$user->id}}">{{$user->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                @endif
                                 <div class="col-12 mg-t-20 mg-md-t-0 mb-2">
                                     <label class="form-control-label">Brand Description: <span class="tx-danger">*</span></label>
                                     <textarea class="form-control" id="branddescription" name="tint_description" placeholder="Textarea" rows="3" required>{{ $tintBrand->tint_description }}</textarea>
