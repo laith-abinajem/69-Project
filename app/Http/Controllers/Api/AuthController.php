@@ -43,7 +43,7 @@ class AuthController extends Controller
         if (auth()->attempt($credentials)) {
             $user = User::find(auth()->user()->id);
             $today = Carbon::now()->toDateString();
-            $sub = Subscription::where('user_id',$user->id)->wherewhere('end_date', '>', $today)->count();
+            $sub = Subscription::where('user_id',$user->id)->where('end_date', '>', $today)->count();
             if($user->status === 'approved' && $sub > 0 ){
                 $tokenResult = auth()->user()->createToken('LaravelAuthApp');
                 $accessToken = $tokenResult->plainTextToken; 

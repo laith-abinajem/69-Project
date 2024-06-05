@@ -63,25 +63,8 @@
             </div>
             <div class="sidebar-navs">
                 <ul class="nav  nav-pills-circle">
-                    <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Settings" aria-describedby="tooltip365540">
-                        <a class="nav-link text-center m-2">
-                            <i class="fe fe-settings"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Chat" aria-describedby="tooltip143427">
-                        <a class="nav-link text-center m-2">
-                            <i class="fe fe-mail"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Followers">
-                        <a class="nav-link text-center m-2">
-                            <i class="fe fe-user"></i>
-                        </a>
-                    </li>
                     <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Logout">
-                        <a class="nav-link text-center m-2">
-                            <i class="fe fe-power"></i>
-                        </a>
+                      
                     </li>
                 </ul>
             </div>
@@ -106,6 +89,9 @@
                 @canany(['owne tint brand'])
                 <li class="slide">
                     <a class="side-menu__item"  href="{{ route('dashboard.tint.index') }} "><i class="side-menu__icon fe fe-aperture "></i><span class="side-menu__label">Tint</span></a>
+                </li>
+                <li class="slide">
+                    <a class="side-menu__item" href="{{ route('dashboard.subscription.index') }} "><i class="side-menu__icon fe fe-award "></i><span class="side-menu__label">Subscription</span></a>
                 </li>
                 @endcanany
 

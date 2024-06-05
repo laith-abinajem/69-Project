@@ -41,6 +41,7 @@
                                     </select>
                                 </div>
                             </div>
+                            @if(auth()->user()->type === 'super_admin')
                             <div class="col-6">
                                 <div class="form-group">
                                     <label class="form-label">User<span class="tx-danger">*</span></label>
@@ -51,6 +52,7 @@
                                     </select>
                                 </div>
                             </div>
+                            @endif
                         </div>
                         <div class="form-group text-end mt-2">
                             <button id="payment-button" type="submit" class="button btn btn-primary">Continue to payment</button>

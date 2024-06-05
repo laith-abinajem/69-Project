@@ -11,7 +11,11 @@ use App\Models\Package;
 class SubscriptionController extends Controller
 {
     public function index(){
-        $data = Subscription::get();
+        if(auth()->user()->type === "super_admin"){
+            $data = Subscription::get();
+        }else{
+            $data = Subscription::where('user_id',auth()->user()->id)->get();
+        }
         return view('dashboard.pages.subscription.index',compact('data'));
     }
     public function create(){
@@ -39,5 +43,11 @@ class SubscriptionController extends Controller
     }
     public function update($id,Request $request){
         
+    }
+    public function delete(Request $request,$id){
+        $data = Subscription::find($id);
+        $data->delete();
+        toast('Success','success');
+        return redirect()->route('dashboard.subscription.index');
     }
 }

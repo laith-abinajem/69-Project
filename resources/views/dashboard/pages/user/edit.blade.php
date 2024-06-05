@@ -25,6 +25,14 @@
                                     <input value="{{ $data->name }}" class="form-control" name="name" placeholder="Enter name" required="" type="text">
                                 </div>
                             </div>
+                            <div class="form-group col-6">
+                                <label class="form-label">User status: <span class="tx-danger">*</span></label>
+                                <select name="status" id="status" required class="form-control paintProtectionFil select2 select2-no-search" >
+                                    <option value="approved" {{ $data->status == 'approved' ? 'selected' : '' }}>Approved</option>
+                                    <option value="pending" {{ $data->status == 'pending' ? 'selected' : '' }}>Pending</option>
+                                    <option value="rejected" {{ $data->status == 'rejected' ? 'selected' : '' }}>Rejected</option>
+                                </select>
+                            </div>
                             <div class="col-6">
                                 <div class="form-group">
                                     <label class="form-label">Email: <span class="tx-danger">*</span></label>
@@ -37,21 +45,24 @@
                                     <input value="{{ old('password') }}"  class="form-control" name="password" placeholder="Enter password" required="" type="password">
                                 </div>
                             </div>
-                            <div class="form-group col-6">
-                                <label class="form-label">User status: <span class="tx-danger">*</span></label>
-                                <select name="status" id="status" required class="form-control paintProtectionFil select2 select2-no-search" >
-                                    <option value="approved" {{ $data->status == 'approved' ? 'selected' : '' }}>Approved</option>
-                                    <option value="pending" {{ $data->status == 'pending' ? 'selected' : '' }}>Pending</option>
-                                    <option value="rejected" {{ $data->status == 'rejected' ? 'selected' : '' }}>Rejected</option>
-                                </select>
-                            </div>
+                           
                             <div class="col-6 mb-2">
                                 <label class="form-control-label">Company Logo: <span class="tx-danger">*</span></label>
                                 <input type="file" name="company_logo" value="{{ old('company_logo') }}" id="brandimage" class="dropify" data-height="200" required />
+                                <small class="form-text text-muted">
+                                    Recommended dimensions: 1080x1080 or 2048x2048 pixels, transparent background
+                                </small>
                             </div>
                             <div class="col-6 mb-2">
                                 <label class="form-control-label">Decal Logo: <span class="tx-danger">*</span></label>
                                 <input type="file" name="decal_logo" value="{{ old('decal_logo') }}" id="brandimage" class="dropify" data-height="200" required />
+                            </div>
+                            <div class="col-12 mb-2">
+                                <label class="form-control-label">Videos: <span class="tx-danger">*</span></label>
+                                <input type="file" name="video" value="{{ old('video') }}" id="video" class="dropify" data-height="200" required  accept="video/*" />
+                                <small class="form-text text-muted">
+                                    Recommended dimensions: 2048x557 pixels, transparent background
+                                </small>
                             </div>
                         </div>
                     <div class="form-group text-end mt-2">

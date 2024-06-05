@@ -37,7 +37,7 @@
                                     <label class="form-control-label">Users: <span class="tx-danger">*</span></label>
                                     <select name="type" id="user_id" class="form-control paintProtectionFil " >
                                         @foreach($users as $user)
-                                        <option value="{{$user->id}}">{{$user->name}}</option>
+                                        <option value="{{$user->id}}" {{ $user->id == $tintBrand->user_id ? 'selected' : '' }}>{{$user->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>

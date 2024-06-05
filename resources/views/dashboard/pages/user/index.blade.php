@@ -40,8 +40,8 @@
                                     <td>
                                         <select class="form-control" onchange="updateStatus(this.value, {{ $item->id }})">
                                             <option value="pending" {{ $item->status == 'pending' ? 'selected' : '' }}>Pending</option>
-                                            <!-- <option value="rejected" {{ $item->status == 'rejected' ? 'selected' : '' }}>Rejected</option> -->
-                                            <!-- <option value="approved" {{ $item->status == 'approved' ? 'selected' : '' }}>Approved</option> -->
+                                            <option value="rejected" {{ $item->status == 'rejected' ? 'selected' : '' }}>Rejected</option>
+                                            <option value="approved" {{ $item->status == 'approved' ? 'selected' : '' }}>Approved</option>
                                         </select>
                                     </td>
                                     <td>

@@ -66,14 +66,15 @@ class PaymentController extends Controller
     function createPayment(Request $request){
         $package = Package::find($request->package_id);
         //subscription ==> customer_id , order_id(null), transaction_id(null), payment_status(pending), package_type(1 month) , start_date (null),end_date(null)
-        $startDate = Carbon::now();
-        $endDate = (clone $startDate)->addDays($package->days);
+        $user_id = auth()->user()->id;
+        if($request->user_id){
+            $user_id = $request->user_id;
+        }
         $subscription = Subscription::create([
             "price"=>$package->price,
             "package_type"=>$package->name,
-            "user_id"=>auth()->user()->id,
-            "start_date"=>$startDate,
-            "end_date"=>$endDate,
+            "user_id"=> $user_id,
+            "payment_status"=>'failed',
         ]);
         $client = new SquareClient([
             'accessToken' => 'EAAAl4ZyBLIRqCXuoUe-u77nYVLdmAyxjFzYHgQHyv9TuaY6dYEWzYsqiWJekQHe',
@@ -99,7 +100,7 @@ class PaymentController extends Controller
         $create_order_request->setOrder($order);
         
         $checkout_request = new CreateCheckoutRequest($idempotency_key, $create_order_request);
-        $checkout_request->setRedirectUrl(route('check-payment',['subscription_id' => $subscription->id]));
+        $checkout_request->setRedirectUrl(route('check-payment',['subscription_id' => $subscription->id , 'days' => $package->days]));
         
         $response = $checkout_api->createCheckout("LJ17XDN9GP4GY", $checkout_request);
         
@@ -129,10 +130,14 @@ class PaymentController extends Controller
 
             if($result->getTransaction() && $result->getTransaction()->getTenders() && $result->getTransaction()->getTenders()[0]->getCardDetails() ){
                 if( $result->getTransaction()->getTenders()[0]->getCardDetails()->getStatus() === "CAPTURED"){
+                    $startDate = Carbon::now();
+                    $endDate = (clone $startDate)->addDays($request->days);
                     $subscription->update([
                         "payment_status"=>'success',
                         "transaction_id"=>$result->getTransaction()->getId(),
                         "order_id"=>$result->getTransaction()->getOrderId(),
+                        "start_date"=>$startDate,
+                        "end_date"=>$endDate,
                         
                     ]);
                     dd('success');

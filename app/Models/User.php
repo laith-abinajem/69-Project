@@ -63,5 +63,9 @@ class User extends Authenticatable implements HasMedia
             ->singleFile(); 
         $this->addMediaCollection('decal_logo')
             ->singleFile(); 
+
+            $this->addMediaCollection('videos')
+            ->acceptsMimeTypes(['video/mp4', 'video/avi', 'video/mpeg', 'video/quicktime'])
+            ->useDisk('videos'); // Ensure 'videos' disk is defined in config/filesystems.php
     }
 }

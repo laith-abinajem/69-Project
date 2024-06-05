@@ -17,24 +17,21 @@
                         </div>
                     </div>
                 </div>
-                <div class="sign-up-body wd-md-50p">
-                    <div class="main-signin-header">
-                        <h2>Welcome back!</h2>
-                        <h4>Please sign in to continue</h4>
-                        <form method="POST" action="{{ route('submitLogin') }}">
-                            @csrf
-                            <div class="form-group">
-                                <label>Email</label><input class="form-control" name="email" placeholder="Enter your email" type="text" >
-                            </div>
-                            <div class="form-group">
-                                <label>Password</label> <input class="form-control" name="password"  placeholder="Enter your password" type="password" >
-                            </div><button  type="submit"  class="btn btn-primary btn-block">Sign In</button>
-                        </form>
-                    </div>
-                    <div class="main-signin-footer mt-3 mg-t-5">
-                        <p><a href="{{ route('forget-password') }}">Forgot password?</a></p>
-                    </div>
-                </div>
+                <div class="p-5 wd-md-50p">
+						<div class="main-signin-header">
+							<h2>Forgot Password!</h2>
+							<h4>Please Enter The Code</h4>
+							<form action="profile.html">
+								<div class="form-group">
+									<label>Code</label> <input class="form-control" placeholder="Enter the code" type="text">
+								</div>
+								<button class="btn btn-primary btn-block">Send</button>
+							</form>
+						</div>
+						<div class="main-signup-footer mg-t-10">
+							<p>Forget it, <a href="{{route('login')}}"> Send me back</a> to the sign in screen.</p>
+						</div>
+					</div>
             </div>
         </div>
     </div>

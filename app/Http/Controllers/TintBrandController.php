@@ -29,10 +29,10 @@ class TintBrandController extends Controller
     public function store(Request $request)
     {
         try {
+            $user_id = auth()->user()->id;
             if($request->user_id){
                 $user = User::find($request->user_id);
-            }else{
-                $user = User::find(auth()->user()->id);
+                $user_id  = $request->user_id;
             }
             if($user->tintBrands->count() >= 5){
                 Alert::toast('You cant add more than 5 tint', 'error');
@@ -41,7 +41,7 @@ class TintBrandController extends Controller
             $tintBrand = TintBrand::create([
                 'tint_brand' => $request->tint_brand,
                 'tint_description' => $request->tint_description,
-                'user_id'=> Auth::user()->id
+                'user_id'=> $user_id
             ]);
             if ($request->hasFile('tint_image')) {
                 $tintBrand->addMedia($request->file('tint_image'))->toMediaCollection('photos');
@@ -74,14 +74,21 @@ class TintBrandController extends Controller
     }
     public function edit($id){
         $tintBrand = TintBrand::with('tintDetails')->find($id);
-        return view('dashboard.pages.tint.edit',compact('tintBrand'));
+        $users = User::get();
+        return view('dashboard.pages.tint.edit',compact('tintBrand','users'));
     }
     public function update(Request $request, $id){
         try {
+            $user_id = auth()->user()->id;
+            if($request->user_id){
+                $user = User::find($request->user_id);
+                $user_id  = $request->user_id;
+            }
             $tintBrand = TintBrand::findOrFail($id);
             $tintBrand->update([
                 'tint_brand' => $request->tint_brand,
                 'tint_description' => $request->tint_description,
+                'user_id'=> $user_id
             ]);
     
             if ($request->hasFile('tint_image')) {

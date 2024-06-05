@@ -39,6 +39,14 @@ class AuthController extends Controller
         
     }
 
+    public function forgetPassword(){
+        return view('dashboard.pages.auth.forget');
+
+    }
+    public function check(){
+        return view('dashboard.pages.auth.check-code');
+
+    }
     public function logout()
     {
         Auth::logout();

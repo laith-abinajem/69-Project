@@ -249,18 +249,7 @@
 
 				return isValid;
 }
-				$('#sub_type').on('select2:select', function(e) {
-					var selectedOption = e.params.data.id;
-					if(selectedOption == 1){
-						$('#amount').val(20);
-					} else if(selectedOption == 3){
-						$('#amount').val(50);
-					} else if(selectedOption == 6){
-						$('#amount').val(100);
-					} else if(selectedOption == 12){
-						$('#amount').val(120);
-					}
-				});
+			
 			})
 		</script>
 

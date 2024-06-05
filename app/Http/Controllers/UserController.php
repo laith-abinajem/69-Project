@@ -39,6 +39,7 @@ class UserController extends Controller
                 'password' => Hash::make($request->password),
             ]);
 
+            
             if($request->type === "super_admin"){
                 $superAdminRole = Role::where('name','Super Admin')->first();
                 $user->assignRole($superAdminRole);
@@ -54,6 +55,22 @@ class UserController extends Controller
             }
             if ($request->hasFile('decal_logo')) {
                 $user->addMedia($request->file('decal_logo'))->toMediaCollection('decal_logo');
+            }
+            if ($request->hasFile('video')) {
+                $user->addMedia($request->file('video'))->toMediaCollection('videos');
+            }
+            if($request->status === 'approved'){
+                $startDate = Carbon::now();
+                $endDate = (clone $startDate)->addWeeks(1);
+                $sub = Subscription::create([
+                    "price"=>0,
+                    "package_type"=> 'trial',
+                    "payment_status"=>'success',
+                    "start_date"=>$startDate,
+                    "end_date"=>$endDate,
+                    "user_id"=>$user->id,
+    
+                ]);
             }
             // $title = 'welcomes';
             // $this->sendEmailCreateUser($request->email ,$request->password , $title ,$request->name ,'');
@@ -89,6 +106,23 @@ class UserController extends Controller
             if ($request->hasFile('decal_logo')) {
                 $user->clearMediaCollection('decal_logo');
                 $user->addMedia($request->file('decal_logo'))->toMediaCollection('decal_logo');
+            }
+            if ($request->hasFile('video')) {
+                $user->clearMediaCollection('video');
+                $user->addMedia($request->file('video'))->toMediaCollection('videos');
+            }
+            if($request->status === 'approved' &&  !$user->subscription ){
+                $startDate = Carbon::now();
+                $endDate = (clone $startDate)->addWeeks(1);
+                $sub = Subscription::create([
+                    "price"=>0,
+                    "package_type"=> 'trial',
+                    "payment_status"=>'success',
+                    "start_date"=>$startDate,
+                    "end_date"=>$endDate,
+                    "user_id"=>$user->id,
+    
+                ]);
             }
             Alert::toast('User created successfully', 'success');
             return redirect()->route('dashboard.user.index');

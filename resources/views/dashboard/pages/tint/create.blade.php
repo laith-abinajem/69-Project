@@ -24,6 +24,9 @@
                                 <div class="col-12 mb-2">
                                     <label class="form-control-label">Brand Image: <span class="tx-danger">*</span></label>
                                     <input type="file" name="tint_image" value="{{ old('tint_image') }}" id="brandimage" class="dropify" data-height="200" required />
+                                    <small class="form-text text-muted">
+                                     Recommended dimensions: 1000x500 pixels, transparent background
+                                    </small>
                                 </div>
                                 <div class="col-md-5 col-lg-4 mb-2">
                                     <label class="form-control-label">Brand Name: <span class="tx-danger">*</span></label> <input class="form-control" id="brandname" name="tint_brand" value="{{ old('tint_brand') }}" placeholder="Tint Brand" required="" type="text">

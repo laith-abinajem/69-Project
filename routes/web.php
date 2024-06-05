@@ -32,6 +32,8 @@ Route::get('/check-payment', [PaymentController::class, 'checkPayment'])->name('
 Route::prefix('auth')->middleware('checkLogin')->controller(AuthController::class)->group(function () {
     Route::get('/login', 'index')->name('login');
     Route::post('/login','login')->name('submitLogin');
+    Route::get('/forget-password','forgetPassword')->name('forget-password');
+    Route::get('/check','check')->name('check');
 });
 
 Route::middleware('auth')->prefix('dashboard')->name('dashboard.')->group(function(){
@@ -54,7 +56,8 @@ Route::middleware('auth')->prefix('dashboard')->name('dashboard.')->group(functi
         Route::post('/delete/{id}',[TintBrandController::class,'delete'])->name('delete');
         Route::post('/store',[TintBrandController::class,'store'])->name('store');
     });
-    Route::prefix('subscription')->name('subscription.')->middleware('role:Super Admin')->group(function () {
+    // Route::prefix('subscription')->name('subscription.')->middleware('role:Super Admin')->group(function () {
+        Route::prefix('subscription')->name('subscription.')->group(function(){
         Route::get('/',[SubscriptionController::class,'index'])->name('index');
         Route::get('/create',[SubscriptionController::class,'create'])->name('create');
         Route::get('/edit/{id}',[SubscriptionController::class,'edit'])->name('edit');
