@@ -11,6 +11,23 @@
                 <h3 class="card-title">Tint Brand Table</h3>
                 <button type="button" class="button btn btn-primary" onclick="window.location='{{ route('dashboard.tint.create') }}'">Add Tint</button>
             </div>
+            @if(auth()->user()->type === "super_admin")
+                <form action="{{ route('dashboard.tint.index') }}" method="GET">
+                    @csrf
+                    <div class="col-md-3 col-lg-4 mb-2">
+                        <label class="form-control-label">Filter by:</label>
+                        <select name="user_id" id="user_id" class="form-control paintProtectionFil select2">
+                            @foreach($users as $user)
+                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="col-md-2 col-lg-1 mb-2">
+                        <button type="submit" class="btn btn-primary">Filter</button>
+                    </div>
+                </form>
+            @endif
             <div class="card-body">
                 <div class="table-responsive">
                     <table id="example2" class="border-top-0  table table-bordered text-nowrap border-bottom">
@@ -19,6 +36,7 @@
                                 <th class="border-bottom-0">ID</th>
                                 <th class="border-bottom-0">Tint brand</th>
                                 <th class="border-bottom-0">Tint description</th>
+                                <th class="border-bottom-0">User</th>
                                 <th class="border-bottom-0">Action</th>
                             </tr>
                         </thead>
@@ -28,6 +46,7 @@
                                 <td>{{$item->id}}</td>
                                 <td>{{$item->tint_brand}}</td>
                                 <td>{{$item->tint_description}}</td>
+                                <td>{{$item->user->name}}</td>
                                 <td>
                                     <a class="button btn btn-secondary" href="{{ route('dashboard.tint.edit',$item->id) }}">
                                         <i class="fas fa-edit"></i>
