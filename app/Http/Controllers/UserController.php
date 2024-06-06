@@ -10,6 +10,7 @@ use Mail;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Subscription;
 use Carbon\Carbon;
+use App\Mail\AppMail;
 class UserController extends Controller
 {
     public function index(Request $request)
@@ -150,6 +151,10 @@ class UserController extends Controller
                 "user_id"=>$user->id,
 
             ]);
+            Mail::to('laithdd4@gmail.com')->send(new AppMail([
+                'title' => 'Welcome To 69simulator',
+                'body' => 'Your account has been approved, and we have given you a 7-day trial subscription. Enjoy using 69simulator!',
+            ]));
             return response()->json(['message' => 'Status updated successfully'], 200);
         } else {
             return response()->json(['message' => 'User not found'], 404);
@@ -161,23 +166,5 @@ class UserController extends Controller
         toast('Success','success');
         return redirect()->route('dashboard.user.index');
     }
-    public function sendEmailCreateUser($email , $password , $title , $name, $message){
-            
-            if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                $data = [
-                    'subject' =>  $title,
-                    'email'   =>  $email,
-                    'content' => $message,
-                    'name' => $name,
-                    'message' => $message,
-                    'password' => $password
-                ];
-                Mail::send('views.email', $data, function($message) use ($data) {
-                    $message->to($data['email'])
-                    ->subject($data['subject']);
-                });
-            }
-    
-             return true;
-    }
+  
 }

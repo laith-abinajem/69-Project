@@ -25,7 +25,25 @@ class UserController extends Controller
         unset($user->media);
         $user->tintBrands->each(function ($tintBrand) {
             $tintBrand->tint_logo = $tintBrand->getFirstMediaUrl('photos');
-            unset($tintBrand->media); 
+            unset($tintBrand->media);
+    
+            $groupedTintDetails = $tintBrand->tintDetails->groupBy(function ($detail) {
+                return $detail->class_car . '-' . $detail->sub_class_car;
+            })->map(function ($group) {
+                return [
+                    'id' => $group->first()->id,
+                    'tint_id' => $group->first()->tint_id,
+                    'class_car' => $group->first()->class_car,
+                    'sub_class_car' => $group->first()->sub_class_car,
+                    'window' => $group->pluck('window')->toArray(),
+                    'price' => $group->pluck('price')->toArray(),
+                    'created_at' => $group->first()->created_at,
+                    'updated_at' => $group->first()->updated_at,
+                ];
+            })->values()->toArray();
+    
+            $tintBrand->tint_details = $groupedTintDetails;
+            unset($tintBrand->tintDetails);
         });
         return response()->json([
             'data' => $user,

@@ -9,6 +9,7 @@ use App\Models\TintDetails;
 use App\Models\User;
 use RealRashid\SweetAlert\Facades\Alert;
 use Auth;
+
 class TintBrandController extends Controller
 {
     public function index(Request $request)
@@ -42,13 +43,12 @@ class TintBrandController extends Controller
             $tintBrand = TintBrand::create([
                 'tint_brand' => $request->tint_brand,
                 'tint_description' => $request->tint_description,
-                'user_id'=> $user_id
+                'user_id'=> $user->id
             ]);
             if ($request->hasFile('tint_image')) {
                 $tintBrand->addMedia($request->file('tint_image'))->toMediaCollection('photos');
             }
         
-            // Prepare data for the tint_details table
             $prices = $request->price;
             foreach ($prices as $classCar => $subClasses) {
                 foreach ($subClasses as $subClassCar => $windows) {

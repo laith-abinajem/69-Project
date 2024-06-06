@@ -26,6 +26,9 @@ Route::get('/', function () {
 Route::get('/payment-success', function () {
     return view('dashboard.success');
 });
+Route::get('/payment-failed', function () {
+    return view('dashboard.failed');
+});
 Route::get('/checkout', function () {
     return view('dashboard.checkout');
 });

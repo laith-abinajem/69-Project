@@ -140,7 +140,7 @@ class PaymentController extends Controller
                         "end_date"=>$endDate,
                         
                     ]);
-                    dd('success');
+                    return redirect()->route('payment-success');
                 }
                 
             }
@@ -153,8 +153,7 @@ class PaymentController extends Controller
             "start_date"=>'',
             "end_date"=>'',
         ]);
-        dd($errors);
-
+        return redirect()->route('payment-failed');
     }
 
     function generateIdempotencyKey() {
