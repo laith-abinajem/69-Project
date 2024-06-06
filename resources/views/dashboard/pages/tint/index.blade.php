@@ -24,7 +24,7 @@
                     </div>
 
                     <div class="col-md-2 col-lg-1 mb-2">
-                        <button type="submit" class="btn btn-primary">Filter</button>
+                        <button type="submit" class="btn btn-primary ms-2px">Filter</button>
                     </div>
                 </form>
             @endif

@@ -464,6 +464,10 @@ hr {
     border-top: 0px solid rgba(0, 0, 0, 0.1);
 }
 
+.ms-2px{
+    margin-left: 2px;
+}
+
 small,
 .small {
     font-size: 80%;
