@@ -23,12 +23,7 @@ Route::get('/', function () {
     return redirect()->route('dashboard.home.index');
 });
 //Laith change this route
-Route::get('/payment-success', function () {
-    return view('dashboard.success');
-});
-Route::get('/payment-failed', function () {
-    return view('dashboard.failed');
-});
+
 Route::get('/checkout', function () {
     return view('dashboard.checkout');
 });
@@ -45,7 +40,12 @@ Route::prefix('auth')->middleware('checkLogin')->controller(AuthController::clas
 
 Route::middleware('auth')->prefix('dashboard')->name('dashboard.')->group(function(){
     Route::get('/home',[HomeController::class,'index'])->name('home.index');
-
+    Route::get('/payment-success', function () {
+        return view('dashboard.success');
+    })->name('payment-success');
+    Route::get('/payment-failed', function () {
+        return view('dashboard.failed');
+    })->name('payment-failed');
     Route::prefix('user')->name('user.')->middleware('role:Super Admin')->group(function () {
         Route::get('/',[UserController::class,'index'])->name('index');
         Route::get('/create',[UserController::class,'create'])->name('create');

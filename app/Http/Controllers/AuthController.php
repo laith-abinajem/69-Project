@@ -20,8 +20,7 @@ class AuthController extends Controller
         $cred = $request->only(['email','password']);
         $user = User::where('email', $request->email)->first();
         $today = Carbon::now()->toDateString();
-        $sub = Subscription::where('user_id',$user->id)->where('end_date', '>', $today)->count();
-        if($user->status === 'approved' && $sub > 0 ){
+        if($user->status === 'approved' ){
             if(Auth::attempt($cred))
             {
                 Alert::toast('Welcome back','info');

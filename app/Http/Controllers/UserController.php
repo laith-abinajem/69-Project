@@ -7,10 +7,11 @@ use App\Models\User;
 use Spatie\Permission\Models\Role;
 use RealRashid\SweetAlert\Facades\Alert;
 use Mail;
+use App\Mail\AppMail;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Subscription;
 use Carbon\Carbon;
-use App\Mail\AppMail;
+
 class UserController extends Controller
 {
     public function index(Request $request)
@@ -151,7 +152,7 @@ class UserController extends Controller
                 "user_id"=>$user->id,
 
             ]);
-            Mail::to('laithdd4@gmail.com')->send(new AppMail([
+            Mail::to($user->email)->send(new AppMail([
                 'title' => 'Welcome To 69simulator',
                 'body' => 'Your account has been approved, and we have given you a 7-day trial subscription. Enjoy using 69simulator!',
             ]));

@@ -7,6 +7,7 @@ use Square\Environment;
 use Square\Exceptions\ApiException;
 use Square\Models\CreatePaymentRequest;
 use App\Models\Subscription;
+use App\Models\User;
 use App\Models\Package;
 
 use Square\SquareClient;
@@ -15,7 +16,8 @@ use Square\Models\CreateOrderRequest;
 use Square\Models\Order;
 use Square\Models\OrderLineItem;
 use Square\Models\Money;
-
+use Mail;
+use App\Mail\AppMail;
 use Carbon\Carbon;
 class PaymentController extends Controller
 {
@@ -140,6 +142,11 @@ class PaymentController extends Controller
                         "end_date"=>$endDate,
                         
                     ]);
+                    $user = User::find($subscription->user_id);
+                    Mail::to($user->email)->send(new AppMail([
+                        'title' => 'Thanks To Use 69simulator',
+                        'body' => 'Your subscription has been successfully activated. We hope you enjoy using 69simulator!',
+                    ]));
                     return redirect()->route('payment-success');
                 }
                 
@@ -150,9 +157,14 @@ class PaymentController extends Controller
 
         $subscription->update([
             "payment_status"=>'failed',
-            "start_date"=>'',
-            "end_date"=>'',
+            "start_date"=>null,
+            "end_date"=>null,
         ]);
+        $user = User::find($subscription->user_id);
+        Mail::to($user->email)->send(new AppMail([
+            'title' => 'Thanks To Use 69simulator',
+            'body' => 'Your subscription has been rejected. Please check your card and try again',
+        ]));
         return redirect()->route('payment-failed');
     }
 

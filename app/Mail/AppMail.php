@@ -29,8 +29,8 @@ class AppMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Test Mail',
-            from: new Address('test@mail.dev', 'Test Mail'),
+            subject: '69simulator!',
+            from: new Address('test@mail.dev', '69simulator!'),
         );
     }
 
