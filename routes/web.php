@@ -22,6 +22,10 @@ use App\Http\Controllers\SubscriptionController;
 Route::get('/', function () {
     return redirect()->route('dashboard.home.index');
 });
+//Laith change this route
+Route::get('/payment-success', function () {
+    return view('dashboard.success');
+});
 Route::get('/checkout', function () {
     return view('dashboard.checkout');
 });
