@@ -104,6 +104,7 @@ class UserController extends Controller
                 'status' => $request->status,
                 'password' => Hash::make($request->password),
             ]);
+
             if ($request->hasFile('company_logo')) {
                 $user->clearMediaCollection('company_logo');
                 $user->addMedia($request->file('company_logo'))->toMediaCollection('company_logo');

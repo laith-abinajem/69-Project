@@ -16,7 +16,7 @@
                     </div>
                 @endif
                 <h3 class="tile-title">{{ __('Edit User') }}</h3>
-                <form action="{{ route('dashboard.user.update', $data->id) }}" method="post">
+                <form action="{{ route('dashboard.user.update', $data->id) }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="row row-sm">
                             <div class="col-6">
@@ -61,14 +61,14 @@
                            
                             <div class="col-6 mb-2">
                                 <label class="form-control-label">Company Logo: <span class="tx-danger">*</span></label>
-                                <input type="file" name="company_logo" value="{{ old('company_logo') }}" id="brandimage" class="dropify" data-height="200" required />
+                                <input type="file" name="company_logo" value="{{ old('company_logo') }}" id="company_logo" class="dropify" data-height="200" required />
                                 <small class="form-text text-muted">
                                     Recommended dimensions: 1080x1080 or 2048x2048 pixels, transparent background
                                 </small>
                             </div>
                             <div class="col-6 mb-2">
                                 <label class="form-control-label">Decal Logo: <span class="tx-danger">*</span></label>
-                                <input type="file" name="decal_logo" value="{{ old('decal_logo') }}" id="brandimage" class="dropify" data-height="200" required />
+                                <input type="file" name="decal_logo" value="{{ old('decal_logo') }}" id="decal_logo" class="dropify" data-height="200" required />
                             </div>
                             <div class="col-12 mb-2">
                                 <label class="form-control-label">Videos: <span class="tx-danger">*</span></label>

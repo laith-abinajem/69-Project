@@ -23,6 +23,9 @@ class UserController extends Controller
         $user->decal_logo = $user->getFirstMediaUrl('decal_logo');
         $user->video = $user->getFirstMediaUrl('videos');
         unset($user->media);
+        unset($user->sub_id);
+        unset($user->email_verified_at);
+        unset($user->code);
         $user->tintBrands->each(function ($tintBrand) {
             $tintBrand->tint_logo = $tintBrand->getFirstMediaUrl('photos');
             unset($tintBrand->media);
