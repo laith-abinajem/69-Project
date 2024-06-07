@@ -16,9 +16,12 @@ class UserController extends Controller
 {
     public function index(Request $request)
     {
-        $data = User::get();
+        if(auth()->user()->type === "super_admin"){
+            $data = User::get();
+        } else {
+            $data = User::where('id', auth()->user()->id)->get();
+        }
         $today_date = Carbon::today();
-
         return view('dashboard.pages.user.index',compact('data','today_date'));
     }
     public function create(Request $request)

@@ -19,11 +19,9 @@
                 </div>
                 <div class="p-5 wd-md-50p">
                     <div class="main-signin-header">
-                        <h2>Forgot Password!</h2>
-                        <h4>Please Enter Your Email</h4>
-                        <form action="{{ route('SendCode') }}">
+                        <form action="{{ route('checkPassword') }}">
                             <div class="form-group">
-                                <label>Email</label> <input class="form-control" name="email"  required placeholder="Enter your email" type="text">
+                                <label>New Password</label> <input class="form-control" name="password"  required placeholder="Enter your password" type="password">
                             </div>
                             <button class="btn btn-primary btn-block">Send</button>
                         </form>

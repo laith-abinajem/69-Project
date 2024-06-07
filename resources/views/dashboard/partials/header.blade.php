@@ -90,17 +90,19 @@
                 @php
                     $today = \Carbon\Carbon::now()->toDateString();
                 @endphp
-
+               
                 @if(auth()->user()->subscription && auth()->user()->subscription->where('end_date', '>', $today)->count() > 0)
                     <li class="slide">
                         <a class="side-menu__item" href="{{ route('dashboard.tint.index') }}"><i class="side-menu__icon fe fe-aperture"></i><span class="side-menu__label">Tint</span></a>
+                    </li>
+                    <li class="slide">
+                        <a class="side-menu__item" href="{{ route('dashboard.user.index') }}"><i class="side-menu__icon fe fe-box"></i><span class="side-menu__label">My account</span></a>
                     </li>
                 @endif
                 <li class="slide">
                     <a class="side-menu__item" href="{{ route('dashboard.subscription.index') }} "><i class="side-menu__icon fe fe-award "></i><span class="side-menu__label">Subscription</span></a>
                 </li>
                 @endcanany
-
                 <li class="slide">
                     <a class="side-menu__item"  href="https://mahmoud93p.itch.io/testwebgl "><i class="side-menu__icon fe fe-box "></i><span class="side-menu__label">Game</span></a>
                 </li>

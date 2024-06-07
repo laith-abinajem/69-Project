@@ -35,7 +35,11 @@ Route::prefix('auth')->middleware('checkLogin')->controller(AuthController::clas
     Route::get('/login', 'index')->name('login');
     Route::post('/login','login')->name('submitLogin');
     Route::get('/forget-password','forgetPassword')->name('forget-password');
+    Route::get('/send-code','SendCode')->name('SendCode');
     Route::get('/check','check')->name('check');
+    Route::get('/checkCode','checkCode')->name('checkCode');
+    Route::get('/resetPassword','resetPassword')->name('resetPassword');
+    Route::get('/checkPassword', 'checkPassword')->middleware('checkResetStep')->name('checkPassword');
 });
 
 Route::middleware('auth')->prefix('dashboard')->name('dashboard.')->group(function(){
@@ -46,11 +50,15 @@ Route::middleware('auth')->prefix('dashboard')->name('dashboard.')->group(functi
     Route::get('/payment-failed', function () {
         return view('dashboard.failed');
     })->name('payment-failed');
-    Route::prefix('user')->name('user.')->middleware('role:Super Admin')->group(function () {
+
+    Route::prefix('user')->name('user.')->group(function(){
         Route::get('/',[UserController::class,'index'])->name('index');
-        Route::get('/create',[UserController::class,'create'])->name('create');
         Route::get('/edit/{id}',[UserController::class,'edit'])->name('edit');
         Route::post('/update/{id}',[UserController::class,'update'])->name('update');
+    });
+
+    Route::prefix('user')->name('user.')->middleware('role:Super Admin')->group(function () {
+        Route::get('/create',[UserController::class,'create'])->name('create');
         Route::post('/delete/{id}',[UserController::class,'delete'])->name('delete');
         Route::post('/store',[UserController::class,'store'])->name('store');
         Route::post('/updateStatus',[UserController::class,'updateStatus'])->name('updateStatus');

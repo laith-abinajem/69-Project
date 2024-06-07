@@ -21,9 +21,9 @@
 						<div class="main-signin-header">
 							<h2>Forgot Password!</h2>
 							<h4>Please Enter The Code</h4>
-							<form action="profile.html">
+							<form action="{{route('checkCode')}}">
 								<div class="form-group">
-									<label>Code</label> <input class="form-control" placeholder="Enter the code" type="text">
+									<label>Code</label> <input class="form-control" name="code" required placeholder="Enter the code" type="text">
 								</div>
 								<button class="btn btn-primary btn-block">Send</button>
 							</form>

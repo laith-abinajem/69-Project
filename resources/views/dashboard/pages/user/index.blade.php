@@ -7,10 +7,13 @@
     <div class="row row-sm">
         <div class="col-lg-12">
             <div class="card">
+                @if(auth()->user()->type === "super_admin")
                 <div class="card-header d-flex justify-content-between flex-wrap align-items-center">
                     <h3 class="card-title">Users Table</h3>
                     <button type="button" class="button btn btn-primary" onclick="window.location='{{ route('dashboard.user.create') }}'">Add User</button>
                 </div>
+                @endif
+
                 <div class="card-body">
                     <div class="table-responsive">
                         <table id="example2" class="border-top-0  table table-bordered text-nowrap border-bottom">
@@ -19,7 +22,9 @@
                                     <th class="border-bottom-0">ID</th>
                                     <th class="border-bottom-0">Name</th>
                                     <th class="border-bottom-0">Email</th>
+                                    @if(auth()->user()->type === "super_admin")
                                     <th class="border-bottom-0">Status</th>
+                                    @endif
                                     <th class="border-bottom-0">Subscription type</th>
                                     <th class="border-bottom-0">Expiry at</th>
                                     <th class="border-bottom-0">Action</th>
@@ -37,6 +42,7 @@
                                     <td>{{$item->id}}</td>
                                     <td>{{$item->name}}</td>
                                     <td>{{$item->email}}</td>
+                                    @if(auth()->user()->type === "super_admin")
                                     <td>
                                         <select class="form-control" onchange="updateStatus(this.value, {{ $item->id }})">
                                             <option value="pending" {{ $item->status == 'pending' ? 'selected' : '' }}>Pending</option>
@@ -44,6 +50,7 @@
                                             <option value="approved" {{ $item->status == 'approved' ? 'selected' : '' }}>Approved</option>
                                         </select>
                                     </td>
+                                    @endif
                                     <td>
                                     @if ($last_active_subscription)
                                         {{ $last_active_subscription->package_type }} <!-- or whatever property you want to display -->
@@ -60,6 +67,7 @@
                                         <a class="button btn btn-secondary" href="{{ route('dashboard.user.edit',$item->id) }}">
                                             <i class="fas fa-edit"></i>
                                         </a>
+                                        @if(auth()->user()->type === "super_admin")
                                         <a type="button" class="button btn btn-danger float-right" data-bs-toggle="modal" data-bs-target="#deleteModal{{$item->id}}">
                                             <i class="fas fa-trash"></i>
                                         </a>
@@ -86,6 +94,7 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach

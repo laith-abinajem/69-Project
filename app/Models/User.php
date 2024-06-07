@@ -27,6 +27,7 @@ class User extends Authenticatable implements HasMedia
         'status',
         'type',
         'sub_id',
+        'code',
     ];
 
     /**
