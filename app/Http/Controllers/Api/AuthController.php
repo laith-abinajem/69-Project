@@ -9,7 +9,7 @@ use App\Models\Subscription;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-
+use Illuminate\Support\Str;
 class AuthController extends Controller
 {
     public function register(Request $request)
@@ -38,18 +38,32 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $credentials = $request->only('email', 'password');
+            // Validate input
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'password' => 'required|string',
+        ]);
 
-        if (auth()->attempt($credentials)) {
-            $user = User::find(auth()->user()->id);
+        if ($validator->fails()) {
+            return response()->json(['error' => 'Invalid input'], 400);
+        }
+
+        // Normalize email to lowercase
+        $email = Str::lower($request->input('email'));
+        $password = $request->input('password');
+
+        // Fetch user by email case-insensitively
+        $user = User::whereRaw('lower(email) = ?', [$email])->first();
+
+        if ($user && Hash::check($password, $user->password)) {
             $today = Carbon::now()->toDateString();
-            $sub = Subscription::where('user_id',$user->id)->where('end_date', '>', $today)->count();
-            if($user->status === 'approved' && $sub > 0 ){
-                $tokenResult = auth()->user()->createToken('LaravelAuthApp');
-                $accessToken = $tokenResult->plainTextToken; 
+            $sub = Subscription::where('user_id', $user->id)->where('end_date', '>', $today)->count();
+            if ($user->status === 'approved' && $sub > 0) {
+                $tokenResult = $user->createToken('LaravelAuthApp');
+                $accessToken = $tokenResult->plainTextToken;
                 return response()->json(['token' => $accessToken], 200);
-            }else {
-                return response()->json(['error' => 'Your account/subscription is not active '], 401);
+            } else {
+                return response()->json(['error' => 'Your account/subscription is not active'], 401);
             }
         } else {
             return response()->json(['error' => 'Wrong email or password'], 401);

@@ -26,7 +26,7 @@
                             <div class="row row-sm">
                                 <div class="col-12 mb-2">
                                     <label class="form-control-label">Brand Image:</label>
-                                    <input type="file" name="tint_image" id="brandimage" class="dropify" data-height="200" />
+                                    <input type="file" name="tint_image" id="brandimage" class="dropify" data-default-file="{{ $photos }}" data-height="200" />
                                 </div>
                                 <div class="col-md-5 col-lg-4 mb-2">
                                     <label class="form-control-label">Brand Name: <span class="tx-danger">*</span></label>

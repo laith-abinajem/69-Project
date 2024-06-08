@@ -61,18 +61,18 @@
                            
                             <div class="col-6 mb-2">
                                 <label class="form-control-label">Company Logo: <span class="tx-danger">*</span></label>
-                                <input type="file" name="company_logo" value="{{ old('company_logo') }}" id="company_logo" class="dropify" data-height="200" required />
+                                <input type="file" name="company_logo" value="{{ old('company_logo') }}" id="company_logo" class="dropify" data-height="200" data-default-file="{{ $companyLogo }}" />
                                 <small class="form-text text-muted">
                                     Recommended dimensions: 1080x1080 or 2048x2048 pixels, transparent background
                                 </small>
                             </div>
                             <div class="col-6 mb-2">
                                 <label class="form-control-label">Decal Logo: <span class="tx-danger">*</span></label>
-                                <input type="file" name="decal_logo" value="{{ old('decal_logo') }}" id="decal_logo" class="dropify" data-height="200" required />
+                                <input type="file" name="decal_logo" value="{{ old('decal_logo') }}" id="decal_logo" class="dropify" data-height="200" data-default-file="{{ $decalLogo }}" />
                             </div>
                             <div class="col-12 mb-2">
                                 <label class="form-control-label">Videos: <span class="tx-danger">*</span></label>
-                                <input type="file" name="video" value="{{ old('video') }}" id="video" class="dropify" data-height="200" required  accept="video/*" />
+                                <input type="file" name="video" value="{{ old('video') }}" id="video" class="dropify" data-height="200" data-default-file="{{ $video }}" accept="video/*" />
                                 <small class="form-text text-muted">
                                     Recommended dimensions: 2048x557 pixels, transparent background
                                 </small>

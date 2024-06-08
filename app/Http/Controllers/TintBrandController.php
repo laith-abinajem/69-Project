@@ -77,7 +77,8 @@ class TintBrandController extends Controller
     public function edit($id){
         $tintBrand = TintBrand::with('tintDetails')->find($id);
         $users = User::get();
-        return view('dashboard.pages.tint.edit',compact('tintBrand','users'));
+        $photos = $tintBrand->getFirstMediaUrl('photos');
+        return view('dashboard.pages.tint.edit',compact('tintBrand','users','photos'));
     }
     public function update(Request $request, $id){
         try {

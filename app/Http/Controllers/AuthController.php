@@ -11,7 +11,9 @@ use Carbon\Carbon;
 use Mail;
 use Illuminate\Support\Str;
 use App\Mail\AppMail;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 class AuthController extends Controller
 {
     public function index()
@@ -21,22 +23,41 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $cred = $request->only(['email','password']);
-        $user = User::where('email', $request->email)->first();
-        $today = Carbon::now()->toDateString();
-        if($user->status === 'approved' ){
-            if(Auth::attempt($cred))
-            {
-                Alert::toast('Welcome back','info');
-                return redirect()->route('dashboard.home.index');
-            } else
-            {
-                Alert::toast('Wrong credentials!','error');
+         // Validate input
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'password' => 'required|string',
+        ]);
+
+        if ($validator->fails()) {
+            Alert::toast('Invalid input!', 'error');
+            return back();
+        }
+
+        // Normalize email to lowercase
+        $email = Str::lower($request->input('email'));
+        $password = $request->input('password');
+
+        // Fetch user by email case-insensitively
+        $user = User::whereRaw('lower(email) = ?', [$email])->first();
+
+        if ($user) {
+            $today = Carbon::now()->toDateString();
+            if ($user->status === 'approved') {
+                if (Hash::check($password, $user->password)) {
+                    Auth::login($user);
+                    Alert::toast('Welcome back', 'info');
+                    return redirect()->route('dashboard.home.index');
+                } else {
+                    Alert::toast('Wrong credentials!', 'error');
+                    return back();
+                }
+            } else {
+                Alert::toast('Your account is not approved!', 'error');
                 return back();
             }
-        } else
-        {
-            Alert::toast('Wrong credentials!','error');
+        } else {
+            Alert::toast('Wrong credentials!', 'error');
             return back();
         }
         
@@ -65,8 +86,6 @@ class AuthController extends Controller
             Alert::toast('Wrong credentials!','error');
             return back()->withErrors(['email' => 'The provided email does not match our records.']);
         }
-    
-
     }
     public function check(){
         return view('dashboard.pages.auth.check-code');
@@ -93,7 +112,6 @@ class AuthController extends Controller
         $request->validate([
             'password' => 'required|string',
         ]);
-
         $email = Session::get('email');
         $user = User::where('email', $email)->first();
 
