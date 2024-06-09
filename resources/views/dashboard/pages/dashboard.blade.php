@@ -3,7 +3,17 @@
 @section('title', 'Dashboard')
 
 @section('content')
-
+<style>
+ .status-select.pending {
+        color: yellow;
+    }
+    .status-select.rejected {
+        color: red;
+    }
+    .status-select.approved {
+        color: green;
+    }
+</style>
 
     <!-- main-content-body -->
     <div class="main-content-body">
@@ -144,11 +154,11 @@
                                     <td>{{$item->name}}</td>
                                     <td>{{$item->email}}</td>
                                     <td>
-                                        <select class="form-control" onchange="updateStatus(this.value, {{ $item->id }})">
-                                            <option value="pending" {{ $item->status == 'pending' ? 'selected' : '' }}>Pending</option>
-                                            <option value="rejected" {{ $item->status == 'rejected' ? 'selected' : '' }}>Rejected</option>
-                                            <option value="approved" {{ $item->status == 'approved' ? 'selected' : '' }}>Approved</option>
-                                        </select>
+                                    <select class="form-control status-select {{ $item->status }}" data-item-id="{{ $item->id }}">
+                                        <option value="pending" style="color: yellow;" {{ $item->status === 'pending' ? 'selected' : '' }}>Pending</option>
+                                        <option value="rejected" style="color: red;" {{ $item->status === 'rejected' ? 'selected' : '' }}>Rejected</option>
+                                        <option value="approved" style="color: green;" {{ $item->status === 'approved' ? 'selected' : '' }}>Approved</option>
+                                    </select>
                                     </td>
                                 </tr>
                             @endforeach
@@ -307,32 +317,119 @@
         @endcanany
     </div>
     <!-- /row -->
-    <script>
 
-function updateStatus(status, userId) {
-    fetch('{{ route('dashboard.user.updateStatus') }}', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-        },
-        body: JSON.stringify({
-            status: status,
-            user_id: userId
-        })
-    })
-    .then(response => {
-        if (response.ok) {
-            console.log('Status updated successfully');
-        } else {
-            console.error('Failed to update status');
-        }
-    })
-    .catch(error => {
-        // Handle network errors here
-        console.error('Network error:', error);
+    <div class="modal fade" id="managePlanModal" tabindex="-1" aria-labelledby="managePlanModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered  modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="managePlanModalLabel">Manage Plan</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                <form id="subscription-form" action="{{ route('process-payment') }}" method="post">
+                        @csrf
+                        <div class="row row-sm">
+                            @php
+                                $today = \Carbon\Carbon::now()->toDateString();
+                            @endphp
+                                <div class="col-12">
+                                    <div class="form-group">
+                                    <input type="hidden" id="userIdInput" name="user_id" value="">
+                                        <label class="form-label">Subscription Type ( To upgrade plan : please select Subscription Type) : <span class="tx-danger">*</span></label>
+                                        <select name="package_id" id="package_id" required class="form-control paintProtectionFil select2" >
+                                            @foreach($packages as $package)
+                                                <option value="{{$package->id}}">{{$package->name}} - {{$package->price}} $</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group text-end mt-2">
+                                <button id="payment-button" type="submit" class="button btn btn-primary">Continue to payment</button>
+                                @if(auth()->user()->type === 'super_admin')
+                                <button id="trial-button" type="submit" class="button btn btn-primary">Continue without payment (trial sub)</button>
+                                @endif
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+    document.getElementById('payment-button').addEventListener('click', function() {
+        document.getElementById('subscription-form').action = "{{ route('process-payment') }}";
     });
-}
+
+    document.getElementById('trial-button').addEventListener('click', function() {
+        document.getElementById('subscription-form').action = "{{ route('dashboard.subscription.store') }}";
+    });
 </script>
+<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.status-select').forEach(function(selectElement) {
+                var status = selectElement.value;
+                selectElement.classList.add(status);
+
+                // Set the initial color of the select element
+                if (status === 'pending') {
+                    selectElement.style.color = 'yellow';
+                } else if (status === 'rejected') {
+                    selectElement.style.color = 'red';
+                } else if (status === 'approved') {
+                    selectElement.style.color = 'green';
+                }
+
+                // Add change event listener to update status
+                selectElement.addEventListener('change', function() {
+                    var newStatus = this.value;
+                    var itemId = this.getAttribute('data-item-id');
+                    updateStatus(newStatus, itemId, this);
+                });
+            });
+        });
+
+        function updateStatus(status, itemId, element) {
+            fetch('{{ route('dashboard.user.updateStatus') }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: JSON.stringify({
+                    status: status,
+                    user_id: itemId // Corrected from userId to itemId
+                })
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Status updated successfully');
+                    // Update the select element's class based on the new status
+                    var selectElement = element;
+                    selectElement.classList.remove('pending', 'rejected', 'approved');
+                    selectElement.classList.add(status);
+
+                    // Update the inline style of the select element
+                    if (status === 'pending') {
+                        selectElement.style.color = 'yellow';
+                    } else if (status === 'rejected') {
+                        selectElement.style.color = 'red';
+                    } else if (status === 'approved') {
+                        document.getElementById('userIdInput').value = itemId;
+
+                        selectElement.style.color = 'green';
+                        var managePlanModal = new bootstrap.Modal(document.getElementById('managePlanModal'));
+                        managePlanModal.show();
+                    }
+                } else {
+                    console.error('Failed to update status');
+                }
+            })
+            .catch(error => {
+                // Handle network errors here
+                console.error('Network error:', error);
+            });
+        }
+    </script>
 
 @endsection

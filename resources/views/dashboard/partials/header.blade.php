@@ -23,12 +23,9 @@
 
                             <div class="dropdown-menu">
                                 <div class="main-header-profile header-img">
-                                    <h6>{{auth()->user()->name}}</h6><span>Premium Member</span>
+                                    <h6>{{auth()->user()->name}}</h6>
                                 </div>
-                                <a class="dropdown-item" href="profile.html"><i class="far fa-user"></i> My Profile</a>
-                                <a class="dropdown-item" href="profile.html"><i class="far fa-edit"></i> Edit Profile</a>
-                                <a class="dropdown-item" href="profile.html"><i class="far fa-clock"></i> Activity Logs</a>
-                                <a class="dropdown-item" href="profile.html"><i class="fas fa-sliders-h"></i> Account Settings</a>
+                                <a class="dropdown-item" href="{{ route('dashboard.user.edit',auth()->user()->id) }}"><i class="far fa-user"></i> My Profile</a>
                                 <a href="{{ route('dashboard.logout') }}" class="dropdown-item">
                                 <i class="fas fa-sign-out-alt"></i>
                                     <span>Logout</span>

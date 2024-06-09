@@ -31,43 +31,8 @@ class PaymentController extends Controller
         ]);
     }
 
-    // public function createPayment(Request $request)
-    // {
-    //     $request->validate([
-    //         'amount' => 'required|numeric',
-    //     ]);
-
-    //     $amount = $request->input('amount');
-
-    //     $money = new \Square\Models\Money();
-    //     $money->setAmount(1 * 100); // Amount in cents
-    //     $money->setCurrency('USD'); // Adjust based on your currency
-
-    //     $createPaymentRequest = new CreatePaymentRequest('CBASELLWAfAzJ0oCKMYU53ENIYE', uniqid(), $money);
-
-
-    //     try {
-    //         $response = $this->client->getPaymentsApi()->createPayment($createPaymentRequest);
-
-    //         if ($response->isSuccess()) {
-    //             $payment = $response->getResult()->getPayment();
-    //             Subscription::create([
-    //                 'payment_status' => $payment->getStatus(),
-    //                 'amount' => $amount,
-    //             ]);
-    //             return response()->json(['success' => true, 'message' => 'Payment successful!']);
-    //         } else {
-    //             return response()->json(['success' => false, 'message' => $response->getErrors()]);
-    //         }
-    //     } catch (ApiException $e) {
-    //         dd(1);
-    //         return response()->json(['success' => false, 'message' => $e->getMessage()]);
-    //     }
-    // }
-
     function createPayment(Request $request){
         $package = Package::find($request->package_id);
-        //subscription ==> customer_id , order_id(null), transaction_id(null), payment_status(pending), package_type(1 month) , start_date (null),end_date(null)
         $user_id = auth()->user()->id;
         if($request->user_id){
             $user_id = $request->user_id;

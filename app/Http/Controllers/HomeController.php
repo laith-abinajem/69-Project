@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Subscription;
 use Carbon\Carbon;
+use App\Models\Package;
+
 class HomeController extends Controller
 {
     public function index(Request $request)
@@ -41,6 +43,10 @@ class HomeController extends Controller
 
         $user_withIn_month = User::whereBetween('created_at', [Carbon::now()->subMonth(), Carbon::now()])
         ->get();
-        return view('dashboard.pages.dashboard',compact('subscriber_expiry_week','subscriber_active','pending_users','subscriber_pending','user_withIn_week','user_withIn_month','user_withIn_day','subscriber_approve','subscriber_rejected'));
+
+        $packages = Package::get();
+        // revenu 
+        $total = Subscription::sum('price');
+        return view('dashboard.pages.dashboard',compact('packages','total','subscriber_expiry_week','subscriber_active','pending_users','subscriber_pending','user_withIn_week','user_withIn_month','user_withIn_day','subscriber_approve','subscriber_rejected'));
     }
 }

@@ -33,24 +33,40 @@
                 <div class="card-body">
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-4">
-                                <div class="mb-3">
-                                    <p>Subscription Expiry</p>
-                                    <span class="peity-donut" data-peity='{ "fill": ["#285cf7", "#efeff5"], "height": 70, "width": 70 }'>3/10</span>
+                        <div class="col-8">
+                            <p>Money Spent</p>
+                            @php
+                                $totalMoney = 5000; // Total amount (e.g., $10,000)
+                                $moneySpent = $price; // Example: Money spent (e.g., $5,000)
+                                $moneyLeft = $totalMoney - $moneySpent;
+                            @endphp
+                            <div class="progress">
+                                <div class="progress-bar bg-success" role="progressbar" aria-valuenow="{{ $moneySpent }}"
+                                    aria-valuemin="0" aria-valuemax="{{ $totalMoney }}" style="width:{{ ($moneySpent / $totalMoney) * 100 }}%">
+                                    ${{ $moneySpent }} 
+                                </div>
+                                <div class="progress-bar bg-secondary" role="progressbar" aria-valuenow="{{ $moneyLeft }}"
+                                    aria-valuemin="0" aria-valuemax="{{ $totalMoney }}" style="width:{{ ($moneyLeft / $totalMoney) * 100 }}%">
                                 </div>
                             </div>
-                            <div class="col-4">
-                                <div class="mb-3">
-                                    <p>Subscription Expiry</p>
-                                    <span class="peity-donut" data-peity='{ "fill": ["#8500ff", "#efeff5"], "height": 70, "width": 70 }'>1/10</span>
+                        </div>
+                        <div class="col-8 mt-2">
+                        <p>Subscribtion times</p>
+                            @php
+                                $totalMoney = 10; // Total amount (e.g., $10,000)
+                                $moneySpent = $count; // Example: Money spent (e.g., $5,000)
+                                $moneyLeft = $totalMoney - $moneySpent;
+                            @endphp
+                            <div class="progress">
+                                <div class="progress-bar bg-success" role="progressbar" aria-valuenow="{{ $moneySpent }}"
+                                    aria-valuemin="0" aria-valuemax="{{ $totalMoney }}" style="width:{{ ($moneySpent / $totalMoney) * 100 }}%">
+                                    ${{ $moneySpent }} 
+                                </div>
+                                <div class="progress-bar bg-secondary" role="progressbar" aria-valuenow="{{ $moneyLeft }}"
+                                    aria-valuemin="0" aria-valuemax="{{ $totalMoney }}" style="width:{{ ($moneyLeft / $totalMoney) * 100 }}%">
                                 </div>
                             </div>
-                            <div class="col-4">
-                                <div class="mb-3">
-                                    <p>Subscription Expiry</p>
-                                    <span class="peity-donut" data-peity='{ "fill": ["#f10075", "#efeff5"], "height": 70, "width": 70 }'>9/10</span>
-                                </div>
-                            </div>
+                        </div>
                             <div class="col-12 mt-4">
                                 <button type="button" class="button btn btn-primary" data-bs-toggle="modal" data-bs-target="#managePlanModal">MANAGE PLAN</button>
                             </div>
@@ -65,7 +81,7 @@
         @if(auth()->user()->type === 'super_admin')
             <div class="card-header d-flex justify-content-between flex-wrap align-items-center">
                 <h3 class="card-title">Table Subscription</h3>
-                <button type="button" class="button btn btn-primary" onclick="window.location='{{ route('dashboard.subscription.create') }}'">Add Subscription</button>
+                <button type="button" class="button btn btn-primary" data-bs-toggle="modal" data-bs-target="#managePlanModal2">Add Subscription</button>
             </div>
         @else
         <div class="card-header d-flex justify-content-between flex-wrap align-items-center">
@@ -111,6 +127,9 @@
                                 @endif
                                 @if(auth()->user()->type === 'super_admin')
                                 <td>
+                                        <a class="button btn btn-secondary" data-bs-toggle="modal" data-bs-target="#managePlanModal" data-user-id="{{$item->id}}">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
                                         <a type="button" class="button btn btn-danger float-right" data-bs-toggle="modal" data-bs-target="#deleteModal{{$item->id}}">
                                             <i class="fas fa-trash"></i>
                                         </a>
@@ -162,14 +181,8 @@
                         @php
                             $today = \Carbon\Carbon::now()->toDateString();
                         @endphp
-                
+                        <input type="hidden" id="userIdInput" name="user_id" value="">
                             @if(auth()->user()->subscription && auth()->user()->subscription->where('end_date', '>', $today)->count() > 0)
-                                <div class="col-12">
-                                    <span> Note: Your Subscription type now is : {{$current_sub->package_type}} and its will end in : {{$current_sub->end_date}}  </span>
-                                </div>
-                                <div class="col-12">
-                                    <span> if you want to upgrade it We will increase the days over your previous subscription </span>
-                                </div>
                                 <div class="col-4  mt-2">
                                     <div class="form-group mg-b-0">
                                         <label class="form-label">Previous subscription </label>
@@ -219,4 +232,96 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="managePlanModal2" tabindex="-1" aria-labelledby="managePlanModalLabel2" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered  modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="managePlanModalLabel2">Add subscribtion</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            <form id="subscription-form2" action="{{ route('process-payment') }}" method="post">
+                    @csrf
+                    <div class="row row-sm">
+                            <div class="col-6">
+                                <div class="form-group mg-b-0">
+                                    <label class="form-label">Name: <span class="tx-danger">*</span></label>
+                                    <input value="{{ old('name') }}" class="form-control" name="name" placeholder="Enter name" required="" type="text">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label class="form-label">Address: <span class="tx-danger">*</span></label>
+                                    <input value="{{ old('address') }}" class="form-control" name="address" placeholder="Enter Address" required="" type="text">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label class="form-label">Subscription Type: <span class="tx-danger">*</span></label>
+                                    <select name="package_id" id="package_id" required class="form-control paintProtectionFil select2" >
+                                        @foreach($packages as $package)
+                                            <option value="{{$package->id}}">{{$package->name}} - {{$package->price}} $</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            @if(auth()->user()->type === 'super_admin')
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label class="form-label">User<span class="tx-danger">*</span></label>
+                                    <select name="user_id" id="user_id" required class="form-control paintProtectionFil select2" >
+                                        @foreach($users as $user)
+                                            <option value="{{$user->id}}">{{$user->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            @endif
+                        </div>
+                        <div class="form-group text-end mt-2">
+                            <button id="payment-button2" type="submit" class="button btn btn-primary">Continue to payment</button>
+                            @if(auth()->user()->type === 'super_admin')
+                            <button id="trial-button2" type="submit" class="button btn btn-primary">Continue without payment (trial sub)</button>
+                            @endif
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.getElementById('payment-button').addEventListener('click', function() {
+        document.getElementById('subscription-form').action = "{{ route('process-payment') }}";
+    });
+
+    document.getElementById('trial-button').addEventListener('click', function() {
+        document.getElementById('subscription-form').action = "{{ route('dashboard.subscription.store') }}";
+    });
+</script>
+<script>
+    document.getElementById('payment-button2').addEventListener('click', function() {
+        document.getElementById('subscription-form2').action = "{{ route('process-payment') }}";
+    });
+
+    document.getElementById('trial-button2').addEventListener('click', function() {
+        document.getElementById('subscription-form2').action = "{{ route('dashboard.subscription.store') }}";
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+    var managePlanModal = document.getElementById('managePlanModal');
+
+    managePlanModal.addEventListener('show.bs.modal', function(event) {
+        var button = event.relatedTarget; // Button that triggered the modal
+        var userId = button.getAttribute('data-user-id'); // Extract user ID from data-* attribute
+        var userIdInput = managePlanModal.querySelector('#userIdInput');
+        
+        // Update the value of the hidden input field
+        userIdInput.value = userId;
+    });
+
+    // Other scripts for handling form submission or status update
+});
+</script>
 @endsection

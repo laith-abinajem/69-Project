@@ -11,8 +11,10 @@ use App\Mail\AppMail;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Subscription;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage; 
 use App\Models\Package;
-
+use Pion\Laravel\ChunkUpload\Handler\HandlerFactory;
+use Pion\Laravel\ChunkUpload\Exceptions\UploadMissingFileException;
 class UserController extends Controller
 {
     public function index(Request $request)
@@ -36,8 +38,9 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required',
+            'video_path' => 'sometimes|string',
+            'video_filename' => 'sometimes|string',
         ]);
-        try {
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
@@ -63,30 +66,19 @@ class UserController extends Controller
             if ($request->hasFile('decal_logo')) {
                 $user->addMedia($request->file('decal_logo'))->toMediaCollection('decal_logo');
             }
-            if ($request->hasFile('video')) {
-                $user->addMedia($request->file('video'))->toMediaCollection('videos');
+            if ($request->filled('video_path') && $request->filled('video_filename')) {
+                $videoPath = $request->input('video_path');
+                $videoFilename = $request->input('video_filename');
+                $user->addMediaFromDisk($videoPath, 'videos')
+                    ->usingFileName($videoFilename)
+                    ->toMediaCollection('videos');
             }
-            if($request->status === 'approved'){
-                $startDate = Carbon::now();
-                $endDate = (clone $startDate)->addWeeks(1);
-                $sub = Subscription::create([
-                    "price"=>0,
-                    "package_type"=> 'trial',
-                    "payment_status"=>'success',
-                    "start_date"=>$startDate,
-                    "end_date"=>$endDate,
-                    "user_id"=>$user->id,
-    
-                ]);
-            }
+           
             // $title = 'welcomes';
             // $this->sendEmailCreateUser($request->email ,$request->password , $title ,$request->name ,'');
             Alert::toast('User created successfully', 'success');
             return redirect()->route('dashboard.user.index');
-        } catch (\Exception $e) {
-            Alert::toast('An error occurred while creating the User', 'error');
-            return redirect()->back()->withInput();
-        }
+     
        
     }
     public function edit($id){
@@ -107,9 +99,12 @@ class UserController extends Controller
                 'name' => $request->name,
                 'email' => $request->email,
                 'status' => $request->status,
-                'password' => Hash::make($request->password),
             ]);
-
+            if($request->password !== null){
+                $user->update([
+                    'password' => Hash::make($request->password),
+                ]);
+            }
             if ($request->hasFile('company_logo')) {
                 $user->clearMediaCollection('company_logo');
                 $user->addMedia($request->file('company_logo'))->toMediaCollection('company_logo');
@@ -118,9 +113,13 @@ class UserController extends Controller
                 $user->clearMediaCollection('decal_logo');
                 $user->addMedia($request->file('decal_logo'))->toMediaCollection('decal_logo');
             }
-            if ($request->hasFile('video')) {
-                $user->clearMediaCollection('video');
-                $user->addMedia($request->file('video'))->toMediaCollection('videos');
+            if ($request->filled('video_path') && $request->filled('video_filename')) {
+                $user->clearMediaCollection('videos');
+                $videoPath = $request->input('video_path');
+                $videoFilename = $request->input('video_filename');
+                $user->addMediaFromDisk($videoPath, 'videos')
+                    ->usingFileName($videoFilename)
+                    ->toMediaCollection('videos');
             }
             if($request->status === 'approved' &&  !$user->subscription ){
                 $startDate = Carbon::now();
@@ -176,5 +175,35 @@ class UserController extends Controller
         toast('Success','success');
         return redirect()->route('dashboard.user.index');
     }
-  
+    public function uploadLargeFiles(Request $request) {
+        $receiver = new \Pion\Laravel\ChunkUpload\Receiver\FileReceiver('file', $request, HandlerFactory::classFromRequest($request));
+    
+        if (!$receiver->isUploaded()) {
+            // file not uploaded
+        }
+    
+        $fileReceived = $receiver->receive(); // receive file
+        if ($fileReceived->isFinished()) { // file uploading is complete / all chunks are uploaded
+            $file = $fileReceived->getFile(); // get file
+            $extension = $file->getClientOriginalExtension();
+            $fileName = str_replace('.'.$extension, '', $file->getClientOriginalName()); //file name without extenstion
+            $fileName .= '_' . md5(time()) . '.' . $extension; // a unique file name
+            $disk = Storage::disk('videos');
+            $path = $disk->putFileAs('videos', $file, $fileName);
+            // delete chunked file
+            unlink($file->getPathname());
+            return [
+                'path' => asset('storage/' . $path),
+                'path_without_storage' =>  $path,
+                'filename' => $fileName
+            ];
+        }
+    
+        // otherwise return percentage information
+        $handler = $fileReceived->handler();
+        return [
+            'done' => $handler->getPercentageDone(),
+            'status' => true
+        ];
+    }
 }

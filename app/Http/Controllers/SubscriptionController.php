@@ -7,11 +7,14 @@ use App\Models\Subscription;
 use App\Models\User;
 use RealRashid\SweetAlert\Facades\Alert;
 use Carbon\Carbon;
+use Mail;
+use App\Mail\AppMail;
 use App\Models\Package;
 class SubscriptionController extends Controller
 {
     public function index(){
         $today = Carbon::now()->toDateString();
+        $users = User::get();
         if(auth()->user()->type === "super_admin"){
             $data = Subscription::get();
             $current_sub = Subscription::where('user_id', auth()->user()->id)
@@ -19,6 +22,8 @@ class SubscriptionController extends Controller
             ->latest()
             ->first();
             $packages = Package::get();
+            $price = Subscription::where('user_id',auth()->user()->id)->sum('price');
+            $count = Subscription::where('user_id',auth()->user()->id)->count();
 
         }else{
             $current_sub = Subscription::where('user_id', auth()->user()->id)
@@ -27,10 +32,13 @@ class SubscriptionController extends Controller
             ->first();
             $data = Subscription::where('user_id',auth()->user()->id)->get();
             $packages = Package::get();
+            $price = Subscription::where('user_id',auth()->user()->id)->sum('price');
+            $count = Subscription::where('user_id',auth()->user()->id)->count();
+
             // $selected_package = Package::where('name',$current_sub->package_type)->first();
 
         }
-        return view('dashboard.pages.subscription.index',compact('data','current_sub','packages'));
+        return view('dashboard.pages.subscription.index',compact('users','count','price','data','current_sub','packages'));
     }
     public function create(){
         $packages = Package::get();
@@ -41,13 +49,51 @@ class SubscriptionController extends Controller
             $package = Package::find($request->package_id);
             $startDate = Carbon::now();
             $endDate = (clone $startDate)->addDays($package->days);
-            $subscription = Subscription::create([
-                "price"=>0,
-                "package_type"=>$package->name,
-                "user_id"=>$request->user_id,
-                "start_date"=>$startDate,
-                "end_date"=>$endDate,
-            ]);
+            $user = User::find($request->user_id);
+            if(!$user->subscription){
+                $subscription = Subscription::create([
+                    "price"=>$package->price,
+                    "package_type"=>$package->name,
+                    "user_id"=>$request->user_id,
+                    "start_date"=>$startDate,
+                    "end_date"=>$endDate,
+                ]);
+    
+                $user = User::find($request->user_id);
+                Mail::to($user->email)->send(new AppMail([
+                    'title' => 'Welcome To 69simulator',
+                    'body' => 'Your account has been approved, and we have given you a new subscription. Enjoy using 69simulator!',
+                ]));
+            }else{
+                $subscription = Subscription::where('user_id',$request->user_id)->where('end_date', '>', $startDate)->first();
+                if($subscription){
+                    if ($subscription->end_date > $startDate) {
+                        $daysToAdd = $startDate->diffInDays($subscription->end_date);
+                        $endDateUpdate = (clone $endDate)->addDays($daysToAdd);
+                    } else {
+                        $endDateUpdate = $endDate;
+                    }
+                    $subscription->update([
+                        "end_date"=>$endDateUpdate,
+                        "package_type"=>$package->name,
+                    ]);
+                }else{
+                    $subscription = Subscription::create([
+                        "price"=>$package->price,
+                        "package_type"=>$package->name,
+                        "user_id"=>$request->user_id,
+                        "start_date"=>$startDate,
+                        "end_date"=>$endDate,
+                    ]);
+        
+                    $user = User::find($request->user_id);
+                    Mail::to($user->email)->send(new AppMail([
+                        'title' => 'Welcome To 69simulator',
+                        'body' => 'Your account has been approved, and we have given you a new subscription. Enjoy using 69simulator!',
+                    ]));
+                }
+            }
+          
             Alert::toast('Subscription created successfully', 'success');
             return redirect()->route('dashboard.subscription.index');
        

@@ -116,42 +116,52 @@
         </div>
     </div>
     <div class="modal fade" id="managePlanModal" tabindex="-1" aria-labelledby="managePlanModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered  modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="managePlanModalLabel">Manage Plan</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-            <form id="subscription-form" action="{{ route('process-payment') }}" method="post">
-                    @csrf
-                    <div class="row row-sm">
-                        @php
-                            $today = \Carbon\Carbon::now()->toDateString();
-                        @endphp
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label class="form-label">Subscription Type ( To upgrade plan : please select Subscription Type) : <span class="tx-danger">*</span></label>
-                                    <select name="package_id" id="package_id" required class="form-control paintProtectionFil select2" >
-                                        @foreach($packages as $package)
-                                            <option value="{{$package->id}}">{{$package->name}} - {{$package->price}} $</option>
-                                        @endforeach
-                                    </select>
+        <div class="modal-dialog modal-dialog-centered  modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="managePlanModalLabel">Manage Plan</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                <form id="subscription-form" action="{{ route('process-payment') }}" method="post">
+                        @csrf
+                        <div class="row row-sm">
+                            @php
+                                $today = \Carbon\Carbon::now()->toDateString();
+                            @endphp
+                                <div class="col-12">
+                                    <div class="form-group">
+                                    <input type="hidden" id="userIdInput" name="user_id" value="">
+                                        <label class="form-label">Subscription Type ( To upgrade plan : please select Subscription Type) : <span class="tx-danger">*</span></label>
+                                        <select name="package_id" id="package_id" required class="form-control paintProtectionFil select2" >
+                                            @foreach($packages as $package)
+                                                <option value="{{$package->id}}">{{$package->name}} - {{$package->price}} $</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="form-group text-end mt-2">
-                            <button id="payment-button" type="submit" class="button btn btn-primary">Continue to payment</button>
-                            @if(auth()->user()->type === 'super_admin')
-                            <button id="trial-button" type="submit" class="button btn btn-primary">Continue without payment (trial sub)</button>
-                            @endif
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        </div>
-                </form>
+                            <div class="form-group text-end mt-2">
+                                <button id="payment-button" type="submit" class="button btn btn-primary">Continue to payment</button>
+                                @if(auth()->user()->type === 'super_admin')
+                                <button id="trial-button" type="submit" class="button btn btn-primary">Continue without payment (trial sub)</button>
+                                @endif
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
+<script>
+    document.getElementById('payment-button').addEventListener('click', function() {
+        document.getElementById('subscription-form').action = "{{ route('process-payment') }}";
+    });
+
+    document.getElementById('trial-button').addEventListener('click', function() {
+        document.getElementById('subscription-form').action = "{{ route('dashboard.subscription.store') }}";
+    });
+</script>
 <script>
         document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('.status-select').forEach(function(selectElement) {
@@ -202,7 +212,11 @@
                     } else if (status === 'rejected') {
                         selectElement.style.color = 'red';
                     } else if (status === 'approved') {
+                        document.getElementById('userIdInput').value = itemId;
+
                         selectElement.style.color = 'green';
+                        var managePlanModal = new bootstrap.Modal(document.getElementById('managePlanModal'));
+                        managePlanModal.show();
                     }
                 } else {
                     console.error('Failed to update status');
