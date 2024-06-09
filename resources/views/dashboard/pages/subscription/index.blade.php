@@ -36,8 +36,8 @@
                         <div class="col-8">
                             <p>Money Spent</p>
                             @php
-                                $totalMoney = 5000; // Total amount (e.g., $10,000)
-                                $moneySpent = $price; // Example: Money spent (e.g., $5,000)
+                                $totalMoney = 2000;
+                                $moneySpent = $price; 
                                 $moneyLeft = $totalMoney - $moneySpent;
                             @endphp
                             <div class="progress">
@@ -53,8 +53,8 @@
                         <div class="col-8 mt-2">
                         <p>Subscribtion times</p>
                             @php
-                                $totalMoney = 10; // Total amount (e.g., $10,000)
-                                $moneySpent = $count; // Example: Money spent (e.g., $5,000)
+                                $totalMoney = 10;
+                                $moneySpent = $count; 
                                 $moneyLeft = $totalMoney - $moneySpent;
                             @endphp
                             <div class="progress">
