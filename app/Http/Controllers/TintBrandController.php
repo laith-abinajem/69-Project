@@ -26,6 +26,12 @@ class TintBrandController extends Controller
         $users = User::get();
         return view('dashboard.pages.tint.index',compact('data','users'));
     }
+
+    public function filter(Request $request)
+    {
+        $users = User::get();
+        return view('dashboard.pages.tint.filter',compact('users'));
+    }
     public function create(Request $request)
     {
         $users = User::get();

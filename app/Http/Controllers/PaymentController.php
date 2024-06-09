@@ -92,7 +92,7 @@ class PaymentController extends Controller
         $line_item = new OrderLineItem('1');
         $line_item->setName('Subscription');
         $base_price_money = new Money();
-        $cent_price = $subscription->price * 1;
+        $cent_price = $subscription->price * 100;
         $base_price_money->setAmount($cent_price); 
         $base_price_money->setCurrency('USD');
         $line_item->setBasePriceMoney($base_price_money);

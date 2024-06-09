@@ -65,6 +65,7 @@ Route::middleware('auth')->prefix('dashboard')->name('dashboard.')->group(functi
     });
     Route::prefix('tint')->name('tint.')->group(function(){
         Route::get('/',[TintBrandController::class,'index'])->name('index');
+        Route::get('/filter',[TintBrandController::class,'filter'])->name('filter');
         Route::get('/create',[TintBrandController::class,'create'])->name('create');
         Route::get('/edit/{id}',[TintBrandController::class,'edit'])->name('edit');
         Route::put('/update/{id}',[TintBrandController::class,'update'])->name('update');
