@@ -5,11 +5,63 @@
 @section('content')
 
 <div class="row row-sm">
+    <div class="col-lg-6 pb-3">
+        <div class="card h-100">
+            <div class="card-header">
+                <h3 class="card-title">Current Plan</h3>
+            </div>
+            <div class="card-body">
+                <div class="mb-2">
+                    <span class="font-weight-bold">Advanced</span> (Monthly)
+                </div>
+                <div class="my-4">
+                    <div class="fs-1">$49.00</div>
+                    <small class="text-muted">per month</small>
+                </div>
+                <div class="mb-3">
+                    You will be charged for $49.00 on Jun 17, 2024
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 pb-3">
+        <div class="card h-100">
+            <div class="card-header">
+                <h3 class="card-title">Usage</h3>
+            </div>
+            <div class="card-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="mb-3">
+                                <p>Subscription Expiry</p>
+                                <span class="peity-donut" data-peity='{ "fill": ["#285cf7", "#efeff5"], "height": 70, "width": 70 }'>3/10</span>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="mb-3">
+                                <p>Subscription Expiry</p>
+                                <span class="peity-donut" data-peity='{ "fill": ["#8500ff", "#efeff5"], "height": 70, "width": 70 }'>1/10</span>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="mb-3">
+                                <p>Subscription Expiry</p>
+                                <span class="peity-donut" data-peity='{ "fill": ["#f10075", "#efeff5"], "height": 70, "width": 70 }'>9/10</span>
+                            </div>
+                        </div>
+                        <div class="col-12 mt-4">                
+                            <button type="button" class="button btn btn-primary" onclick="window.location='{{ route('dashboard.subscription.create') }}'">MANAGE PLAN</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="col-lg-12">
         <div class="card">
             <div class="card-header d-flex justify-content-between flex-wrap align-items-center">
                 <h3 class="card-title">Subscription Table</h3>
-                <button type="button" class="button btn btn-primary" onclick="window.location='{{ route('dashboard.subscription.create') }}'">Add Subscription</button>
             </div>
             <div class="card-body">
                 <div class="table-responsive">

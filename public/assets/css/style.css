@@ -98242,3 +98242,40 @@ button.bg-purple-gradient:focus {
         padding-inline-start: 15rem;
     }
 }
+
+#togglePassword{
+    right: 12px;
+    bottom: 7px;
+    padding: 0 4px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+}
+
+.option-red {
+    color: #ff0000;
+}
+
+.option-green {
+    color: #00ff00;
+}
+
+.option-yellow {
+    color: #ffff00;
+}
+
+/* Highlighted option */
+.select2-results__option--highlighted.option-red {
+    background-color: #ffe6e6;
+    color: #ff0000;
+}
+
+.select2-results__option--highlighted.option-green {
+    background-color: #e6ffe6;
+    color: #00ff00;
+}
+
+.select2-results__option--highlighted.option-yellow {
+    background-color: #ffffe6;
+    color: #ffff00;
+}
+

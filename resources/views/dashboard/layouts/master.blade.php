@@ -120,6 +120,12 @@
 		<!--- Internal Sampledata js --->
 		<script src="{{ asset('assets/js/chart.flot.sampledata.js') }}"></script>
 
+		<!-- jQuery Peity js -->
+		<script src="{{ asset('assets/plugins/peity/jquery.peity.min.js') }}"></script>
+
+		<!-- Peity js -->
+		<script src="{{ asset('assets/js/chart.peity.js') }}"></script>
+
 		<!--- Eva-icons js --->
 		<script src="{{ asset('assets/js/eva-icons.min.js') }}"></script>
 
@@ -248,7 +254,7 @@
 					});
 
 				return isValid;
-}
+				}
 			
 			})
 		</script>
