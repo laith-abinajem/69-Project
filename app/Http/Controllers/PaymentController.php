@@ -72,12 +72,17 @@ class PaymentController extends Controller
         if($request->user_id){
             $user_id = $request->user_id;
         }
-        $subscription = Subscription::create([
-            "price"=>$package->price,
-            "package_type"=>$package->name,
-            "user_id"=> $user_id,
-            "payment_status"=>'failed',
-        ]);
+        $today = Carbon::now()->toDateString();
+        $subscription = Subscription::where('user_id',$user_id)->where('end_date', '>', $today)->first();
+        if(!$subscription){
+            $subscription = Subscription::create([
+                "price"=>$package->price,
+                "package_type"=>$package->name,
+                "user_id"=> $user_id,
+                "payment_status"=>'failed',
+            ]);
+        }
+       
         $client = new SquareClient([
             'accessToken' => 'EAAAl8Ag58FVcJ5Suwt4U3OUtp_yfLM7CL-Qt8G5Ng-0PcJ8ds7oLbYtYbzzciMz',
             'environment' => 'production', 
@@ -92,7 +97,7 @@ class PaymentController extends Controller
         $line_item = new OrderLineItem('1');
         $line_item->setName('Subscription');
         $base_price_money = new Money();
-        $cent_price = $subscription->price * 100;
+        $cent_price = $package->price * 100;
         $base_price_money->setAmount($cent_price); 
         $base_price_money->setCurrency('USD');
         $line_item->setBasePriceMoney($base_price_money);
@@ -126,7 +131,7 @@ class PaymentController extends Controller
             'environment' => 'production', 
         ]);
         $subscription = Subscription::find($request->subscription_id);
-       
+        
         $api_response = $client->getTransactionsApi()->retrieveTransaction('L09XH4WWXKBAN',$request->transactionId);
         if ($api_response->isSuccess()) {
             $result = $api_response->getResult();
@@ -135,12 +140,18 @@ class PaymentController extends Controller
                 if( $result->getTransaction()->getTenders()[0]->getCardDetails()->getStatus() === "CAPTURED"){
                     $startDate = Carbon::now();
                     $endDate = (clone $startDate)->addDays($request->days);
+                    if ($subscription->end_date > $startDate) {
+                        $daysToAdd = $startDate->diffInDays($subscription->end_date);
+                        $endDateUpdate = (clone $endDate)->addDays($daysToAdd);
+                    } else {
+                        $endDateUpdate = $endDate;
+                    }
                     $subscription->update([
                         "payment_status"=>'success',
                         "transaction_id"=>$result->getTransaction()->getId(),
                         "order_id"=>$result->getTransaction()->getOrderId(),
                         "start_date"=>$startDate,
-                        "end_date"=>$endDate,
+                        "end_date"=>$endDateUpdate,
                         
                     ]);
                     $user = User::find($subscription->user_id);
@@ -148,7 +159,7 @@ class PaymentController extends Controller
                         'title' => 'Thanks To Use 69simulator',
                         'body' => 'Your subscription has been successfully activated. We hope you enjoy using 69simulator!',
                     ]));
-                    return redirect()->route('payment-success');
+                    return redirect()->route('dashboard.payment-success');
                 }
                 
             }
@@ -158,15 +169,13 @@ class PaymentController extends Controller
 
         $subscription->update([
             "payment_status"=>'failed',
-            "start_date"=>null,
-            "end_date"=>null,
         ]);
         $user = User::find($subscription->user_id);
         Mail::to($user->email)->send(new AppMail([
             'title' => 'Thanks To Use 69simulator',
             'body' => 'Your subscription has been rejected. Please check your card and try again',
         ]));
-        return redirect()->route('payment-failed');
+        return redirect()->route('dashboard.payment-failed');
     }
 
     function generateIdempotencyKey() {

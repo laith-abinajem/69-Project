@@ -11,6 +11,7 @@ use App\Mail\AppMail;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Subscription;
 use Carbon\Carbon;
+use App\Models\Package;
 
 class UserController extends Controller
 {
@@ -21,8 +22,9 @@ class UserController extends Controller
         } else {
             $data = User::where('id', auth()->user()->id)->get();
         }
+        $packages = Package::get();
         $today_date = Carbon::today();
-        return view('dashboard.pages.user.index',compact('data','today_date'));
+        return view('dashboard.pages.user.index',compact('data','today_date','packages'));
     }
     public function create(Request $request)
     {
@@ -150,19 +152,19 @@ class UserController extends Controller
             ]);
             $startDate = Carbon::now();
             $endDate = (clone $startDate)->addWeeks(1);
-            $sub = Subscription::create([
-                "price"=>0,
-                "package_type"=> 'trial',
-                "payment_status"=>'success',
-                "start_date"=>$startDate,
-                "end_date"=>$endDate,
-                "user_id"=>$user->id,
+            // $sub = Subscription::create([
+            //     "price"=>0,
+            //     "package_type"=> 'trial',
+            //     "payment_status"=>'success',
+            //     "start_date"=>$startDate,
+            //     "end_date"=>$endDate,
+            //     "user_id"=>$user->id,
 
-            ]);
-            Mail::to($user->email)->send(new AppMail([
-                'title' => 'Welcome To 69simulator',
-                'body' => 'Your account has been approved, and we have given you a 7-day trial subscription. Enjoy using 69simulator!',
-            ]));
+            // ]);
+            // Mail::to($user->email)->send(new AppMail([
+            //     'title' => 'Welcome To 69simulator',
+            //     'body' => 'Your account has been approved, and we have given you a 7-day trial subscription. Enjoy using 69simulator!',
+            // ]));
             return response()->json(['message' => 'Status updated successfully'], 200);
         } else {
             return response()->json(['message' => 'User not found'], 404);

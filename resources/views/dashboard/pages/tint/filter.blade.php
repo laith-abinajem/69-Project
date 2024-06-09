@@ -12,21 +12,27 @@
                 <button type="button" class="button btn btn-primary" onclick="window.location='{{ route('dashboard.tint.create') }}'">Add Tint</button>
             </div>
             @if(auth()->user()->type === "super_admin")
+            <div class="card-body">
                 <form action="{{ route('dashboard.tint.index') }}" method="GET">
                     @csrf
-                    <div class="col-md-3 col-lg-4 mb-2">
+                    <div class="col-md-3 col-lg-6 mb-2 d-flex justify-content-between">
                         <label class="form-control-label">Filter by:</label>
+                    </div>
+
+                    <div class="col-md-3 col-lg-6 mb-2 d-flex justify-content-between">
                         <select name="user_id" id="user_id" class="form-control paintProtectionFil select2">
                             @foreach($users as $user)
                                 <option value="{{ $user->id }}">{{ $user->name }}</option>
                             @endforeach
                         </select>
+                        <div class="col-md-2 col-lg-1 mb-2">
+                            <button type="submit" class="btn btn-primary ms-2px">Filter</button>
+                        </div>
                     </div>
 
-                    <div class="col-md-2 col-lg-1 mb-2">
-                        <button type="submit" class="btn btn-primary ms-2px">Filter</button>
-                    </div>
+                  
                 </form>
+            </div>
             @endif
         </div>
     </div>

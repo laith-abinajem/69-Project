@@ -100,7 +100,7 @@
                     </li>
                 @endif
                 <li class="slide">
-                    <a class="side-menu__item" href="{{ route('dashboard.subscription.index') }} "><i class="side-menu__icon fe fe-award "></i><span class="side-menu__label">Subscription</span></a>
+                    <a class="side-menu__item" href="{{ route('dashboard.subscription.index') }} "><i class="side-menu__icon fe fe-award "></i><span class="side-menu__label">Plan & Billing</span></a>
                 </li>
                 @endcanany
                 <li class="slide">

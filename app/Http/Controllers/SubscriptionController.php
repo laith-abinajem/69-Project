@@ -11,12 +11,26 @@ use App\Models\Package;
 class SubscriptionController extends Controller
 {
     public function index(){
+        $today = Carbon::now()->toDateString();
         if(auth()->user()->type === "super_admin"){
             $data = Subscription::get();
+            $current_sub = Subscription::where('user_id', auth()->user()->id)
+            ->where('end_date', '>', $today)
+            ->latest()
+            ->first();
+            $packages = Package::get();
+
         }else{
+            $current_sub = Subscription::where('user_id', auth()->user()->id)
+            ->where('end_date', '>', $today)
+            ->latest()
+            ->first();
             $data = Subscription::where('user_id',auth()->user()->id)->get();
+            $packages = Package::get();
+            // $selected_package = Package::where('name',$current_sub->package_type)->first();
+
         }
-        return view('dashboard.pages.subscription.index',compact('data'));
+        return view('dashboard.pages.subscription.index',compact('data','current_sub','packages'));
     }
     public function create(){
         $packages = Package::get();

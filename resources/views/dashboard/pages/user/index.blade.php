@@ -115,61 +115,100 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="managePlanModal" tabindex="-1" aria-labelledby="managePlanModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered  modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="managePlanModalLabel">Manage Plan</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            <form id="subscription-form" action="{{ route('process-payment') }}" method="post">
+                    @csrf
+                    <div class="row row-sm">
+                        @php
+                            $today = \Carbon\Carbon::now()->toDateString();
+                        @endphp
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label class="form-label">Subscription Type ( To upgrade plan : please select Subscription Type) : <span class="tx-danger">*</span></label>
+                                    <select name="package_id" id="package_id" required class="form-control paintProtectionFil select2" >
+                                        @foreach($packages as $package)
+                                            <option value="{{$package->id}}">{{$package->name}} - {{$package->price}} $</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group text-end mt-2">
+                            <button id="payment-button" type="submit" class="button btn btn-primary">Continue to payment</button>
+                            @if(auth()->user()->type === 'super_admin')
+                            <button id="trial-button" type="submit" class="button btn btn-primary">Continue without payment (trial sub)</button>
+                            @endif
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
     <script>
 
-function updateStatus(status, itemId, element) {
-        fetch('{{ route('dashboard.user.updateStatus') }}', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            },
-            body: JSON.stringify({
-                status: status,
-                user_id: itemId // Corrected from userId to itemId
-            })
-        })
-        .then(response => {
-            if (response.ok) {
-                console.log('Status updated successfully');
-                // Update the select element's class based on the new status
-                var selectElement = element;
-                selectElement.classList.remove('pending', 'rejected', 'approved');
-                selectElement.classList.add(status);
+        function updateStatus(status, itemId, element) {
+                fetch('{{ route('dashboard.user.updateStatus') }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: JSON.stringify({
+                        status: status,
+                        user_id: itemId // Corrected from userId to itemId
+                    })
+                })
+                .then(response => {
+                    if (response.ok) {
+                        console.log('Status updated successfully');
+                        // Update the select element's class based on the new status
+                        var selectElement = element;
+                        selectElement.classList.remove('pending', 'rejected', 'approved');
+                        selectElement.classList.add(status);
 
-                // Update the inline style of the select element
-                if (status === 'pending') {
-                    selectElement.style.color = 'yellow';
-                } else if (status === 'rejected') {
-                    selectElement.style.color = 'red';
-                } else if (status === 'approved') {
-                    selectElement.style.color = 'green';
-                }
-            } else {
-                console.error('Failed to update status');
+                        // Update the inline style of the select element
+                        if (status === 'pending') {
+                            selectElement.style.color = 'yellow';
+                        } else if (status === 'rejected') {
+                            selectElement.style.color = 'red';
+                        } else if (status === 'approved') {
+                            selectElement.style.color = 'green';
+                            // var managePlanModal = new bootstrap.Modal(document.getElementById('managePlanModal'));
+                            // managePlanModal.show();
+                        }
+                    } else {
+                        console.error('Failed to update status');
+                    }
+                })
+                .catch(error => {
+                    // Handle network errors here
+                    console.error('Network error:', error);
+                });
             }
-        })
-        .catch(error => {
-            // Handle network errors here
-            console.error('Network error:', error);
-        });
-    }
 
-    // Initial call to set the correct color based on the current status
-    document.addEventListener('DOMContentLoaded', function() {
-        document.querySelectorAll('.status-select').forEach(function(selectElement) {
-            var status = selectElement.value;
-            selectElement.classList.add(status);
+            // Initial call to set the correct color based on the current status
+            document.addEventListener('DOMContentLoaded', function() {
+                document.querySelectorAll('.status-select').forEach(function(selectElement) {
+                    var status = selectElement.value;
+                    selectElement.classList.add(status);
 
-            // Set the initial color of the select element
-            if (status === 'pending') {
-                selectElement.style.color = 'yellow';
-            } else if (status === 'rejected') {
-                selectElement.style.color = 'red';
-            } else if (status === 'approved') {
-                selectElement.style.color = 'green';
-            }
-        });
-    });
+                    // Set the initial color of the select element
+                    if (status === 'pending') {
+                        selectElement.style.color = 'yellow';
+                    } else if (status === 'rejected') {
+                        selectElement.style.color = 'red';
+                    } else if (status === 'approved') {
+                        selectElement.style.color = 'green';
+                    }
+                });
+            });
     </script>
 @endsection
