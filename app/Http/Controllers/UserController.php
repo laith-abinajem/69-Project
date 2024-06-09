@@ -134,7 +134,7 @@ class UserController extends Controller
     
                 ]);
             }
-            Alert::toast('User created successfully', 'success');
+            Alert::toast('User Updated successfully', 'success');
             return redirect()->route('dashboard.user.index');
         } catch (\Exception $e) {
             Alert::toast('An error occurred while creating the User', 'error');
