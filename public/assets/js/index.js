@@ -35,10 +35,13 @@ $(function() {
 
 
 	/* p-scroll */
-	const ps3 = new PerfectScrollbar('.Activity-scroll', {
-	  useBothWheelAxes:true,
-	  suppressScrollX:true,
-	});
+	if($('.Activity-scroll').length){
+		const ps3 = new PerfectScrollbar('.Activity-scroll', {
+			useBothWheelAxes:true,
+			suppressScrollX:true,
+		  });
+	}
+	
 	
    
    

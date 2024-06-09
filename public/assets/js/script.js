@@ -31,10 +31,13 @@ $(function() {
 	
 	
 	/* p-scroll */
-	const ps12 = new PerfectScrollbar('.setting-scroll', {
-	  useBothWheelAxes:true,
-	  suppressScrollX:true,
-	});
+	if($('.setting-scroll').length){
+		const ps12 = new PerfectScrollbar('.setting-scroll', {
+			useBothWheelAxes:true,
+			suppressScrollX:true,
+		  });
+	}
+	
 	
 
 });

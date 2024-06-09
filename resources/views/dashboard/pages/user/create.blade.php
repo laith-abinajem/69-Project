@@ -97,46 +97,48 @@
         }
     }
 
-    document.getElementById('userForm').addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevent the form from submitting the traditional way
-        var fileInput = document.getElementById('video');
-        var file = fileInput.files[0];
+    
 
-        if (file) {
-            var formData = new FormData();
-            formData.append('file', file);
+    // document.getElementById('file').addEventListener('change', function(event) {
+    //     event.preventDefault(); // Prevent the form from submitting the traditional way
+    //     var fileInput = document.getElementById('video');
+    //     var file = fileInput.files[0];
 
-            var xhr = new XMLHttpRequest();
-            var submitButton = document.getElementById('submit');
-            var messageDiv = document.getElementById('message');
+    //     if (file) {
+    //         var formData = new FormData();
+    //         formData.append('file', file);
 
-            // Disable the submit button while uploading
-            submitButton.disabled = true;
+    //         var xhr = new XMLHttpRequest();
+    //         var submitButton = document.getElementById('submit');
+    //         var messageDiv = document.getElementById('message');
 
-            // Show a loading message
-            messageDiv.textContent = 'Uploading...';
+    //         // Disable the submit button while uploading
+    //         submitButton.disabled = true;
 
-            // Set up a handler for when the request finishes
-            xhr.onload = function() {
-                if (xhr.status === 200) {
-                    // Upload complete
-                    messageDiv.textContent = 'Upload complete!';
-                } else {
-                    // Error occurred
-                    messageDiv.textContent = 'Upload failed. Please try again.';
-                }
+    //         // Show a loading message
+    //         messageDiv.textContent = 'Uploading...';
 
-                // Re-enable the submit button
-                submitButton.disabled = false;
-            };
+    //         // Set up a handler for when the request finishes
+    //         xhr.onload = function() {
+    //             if (xhr.status === 200) {
+    //                 // Upload complete
+    //                 messageDiv.textContent = 'Upload complete!';
+    //             } else {
+    //                 // Error occurred
+    //                 messageDiv.textContent = 'Upload failed. Please try again.';
+    //             }
 
-            // Open the connection and send the formData
-            xhr.open('POST', '/upload-endpoint', true);
-            xhr.send(formData);
-        } else {
-            messageDiv.textContent = 'Please select a file to upload.';
-        }
-    });
+    //             // Re-enable the submit button
+    //             submitButton.disabled = false;
+    //         };
+
+    //         // Open the connection and send the formData
+    //         xhr.open('POST', '/upload-endpoint', true);
+    //         xhr.send(formData);
+    //     } else {
+    //         messageDiv.textContent = 'Please select a file to upload.';
+    //     }
+    // });
 </script>
 
 @endsection
