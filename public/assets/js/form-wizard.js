@@ -25,6 +25,8 @@ $(function() {
 						bdescription.validate();
 						bimage.validate();
 					}
+
+					
 				}
 				// Always allow step back to the previous step even if the current step is not valid.
 			} else {
@@ -32,6 +34,19 @@ $(function() {
 			}
 		}
 	});
+
+	$('.dropify2').dropify({
+		messages: {
+			'default': 'Drag and drop a file here or click',
+			'replace': 'Drag and drop or click to replace',
+			'remove': 'Remove',
+			'error': 'Ooops, something wrong appended.'
+		},
+		error: {
+			'fileSize': 'The file size is too big (2M max).'
+		}
+	});
+	
 	$('#wizard3').steps({
 		headerTag: 'h3',
 		bodyTag: 'section',

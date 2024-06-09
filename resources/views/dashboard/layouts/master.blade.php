@@ -204,7 +204,7 @@
 		<!-- Example for including SweetAlert scripts -->
 		<script src="{{ asset('vendor/sweetalert/sweetalert.all.js') }}"></script>
 		<!-- Optionally, include the Swal styles -->
-		<link rel="stylesheet" href="{{ asset('vendor/sweetalert/sweetalert.css') }}">
+		<!-- <link rel="stylesheet" href="{{ asset('vendor/sweetalert/sweetalert.css') }}"> -->
 
 		<script type="text/javascript">
 			
