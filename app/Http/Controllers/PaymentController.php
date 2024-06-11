@@ -29,9 +29,174 @@ class PaymentController extends Controller
             'accessToken' => env('SQUARE_ACCESS_TOKEN'),
             'environment' => Environment::SANDBOX, // Default to sandbox
         ]);
+        
     }
 
     function createPayment(Request $request){
+        $client = new SquareClient([
+            'accessToken' => 'EAAAl4ZyBLIRqCXuoUe-u77nYVLdmAyxjFzYHgQHyv9TuaY6dYEWzYsqiWJekQHe',
+            'environment' => 'sandbox', 
+        ]);
+
+        // Retrieve Catalog Objects
+
+        // $api_response = $client->getCatalogApi()->listCatalog();
+
+        // if ($api_response->isSuccess()) {
+        //     $result = $api_response->getResult();
+        //     dd($result);
+        // } else {
+        //     $errors = $api_response->getErrors();
+        //     dd($errors);
+
+        // }
+
+        // Build a Simple Catalog
+        // $price_money = new \Square\Models\Money();
+        // $price_money->setAmount(300);
+        // $price_money->setCurrency('USD');
+        
+        // $item_variation_data = new \Square\Models\CatalogItemVariation();
+        // $item_variation_data->setItemId('#coffee');
+        // $item_variation_data->setName('Small');
+        // $item_variation_data->setPricingType('FIXED_PRICING');
+        // $item_variation_data->setPriceMoney($price_money);
+        
+        // $catalog_object = new \Square\Models\CatalogObject('ITEM_VARIATION', '#small_coffee');
+        // $catalog_object->setItemVariationData($item_variation_data);
+        
+        // $price_money1 = new \Square\Models\Money();
+        // $price_money1->setAmount(350);
+        // $price_money1->setCurrency('USD');
+        
+        // $item_variation_data1 = new \Square\Models\CatalogItemVariation();
+        // $item_variation_data1->setItemId('#coffee');
+        // $item_variation_data1->setName('Large');
+        // $item_variation_data1->setPricingType('FIXED_PRICING');
+        // $item_variation_data1->setPriceMoney($price_money1);
+        
+        // $catalog_object1 = new \Square\Models\CatalogObject('ITEM_VARIATION', '#large_coffee');
+        // $catalog_object1->setItemVariationData($item_variation_data1);
+        
+        // $variations = [$catalog_object, $catalog_object1];
+        // $item_data = new \Square\Models\CatalogItem();
+        // $item_data->setName('Coffee');
+        // $item_data->setDescription('Coffee Drink');
+        // $item_data->setAbbreviation('Co');
+        // $item_data->setVariations($variations);
+        
+        // $object = new \Square\Models\CatalogObject('ITEM', '#coffee');
+        // $object->setItemData($item_data);
+        
+        // $body = new \Square\Models\UpsertCatalogObjectRequest('1111', $object);
+        
+        // $api_response = $client->getCatalogApi()->upsertCatalogObject($body);
+        
+        // if ($api_response->isSuccess()) {
+        //     $result = $api_response->getResult();
+        //     dd($result);
+        // } else {
+        //     $errors = $api_response->getErrors();
+        //     dd($errors);
+        // }
+
+
+        // Upsert catalog object
+
+        // price_money = new \Square\Models\Money();
+        // $price_money->setAmount(300);
+        // $price_money->setCurrency('USD');
+        
+        // $item_variation_data = new \Square\Models\CatalogItemVariation();
+        // $item_variation_data->setItemId('#KEG35HS3KPABVURLLXK6NZJO');
+        // $item_variation_data->setName('Small');
+        // $item_variation_data->setPricingType('FIXED_PRICING');
+        // $item_variation_data->setPriceMoney($price_money);
+        // $item_variation_data->setAvailableForBooking(true);
+        
+        // $catalog_object = new \Square\Models\CatalogObject('FTSD2VICSMVQLJMR65Z2QQFT');
+        // $catalog_object->setType('ITEM_VARIATION');
+        // $catalog_object->setVersion(1718038838443);
+        // $catalog_object->setItemVariationData($item_variation_data);
+        
+        // $variations = [$catalog_object];
+        // $item_data = new \Square\Models\CatalogItem();
+        // $item_data->setName('Coffee');
+        // $item_data->setAbbreviation('Co');
+        // $item_data->setAvailableOnline(true);
+        // $item_data->setAvailableForPickup(true);
+        // $item_data->setAvailableElectronically(true);
+        // $item_data->setVariations($variations);
+        // $item_data->setProductType('REGULAR');
+        
+        // $object = new \Square\Models\CatalogObject('#KEG35HS3KPABVURLLXK6NZJO');
+        // $object->setType('ITEM');
+        // $object->setItemData($item_data);
+        
+        // $body = new \Square\Models\UpsertCatalogObjectRequest('f8013347-8bc0-4fcd-b520-d754e4ca66bc', $object);
+        
+        // $api_response = $client->getCatalogApi()->upsertCatalogObject($body);
+        
+        // if ($api_response->isSuccess()) {
+        //     $result = $api_response->getResult();
+        // } else {
+        //     $errors = $api_response->getErrors();
+        // }
+
+
+
+        // {
+        //     "catalog_object": {
+        //       "type": "ITEM",
+        //       "id": "5UZLI32RRMWLQJOOVZCQA4IP",
+        //       "updated_at": "2024-06-10T18:14:51.606Z",
+        //       "created_at": "2024-06-10T18:14:51.606Z",
+        //       "version": 1718043291606,
+        //       "is_deleted": false,
+        //       "present_at_all_locations": true,
+        //       "item_data": {
+        //         "name": "Coffee",
+        //         "abbreviation": "Co",
+        //         "is_taxable": true,
+        //         "available_online": true,
+        //         "available_for_pickup": true,
+        //         "available_electronically": true,
+        //         "variations": [
+        //           {
+        //             "type": "ITEM_VARIATION",
+        //             "id": "FTSD2VICSMVQLJMR65Z2QQFT",
+        //             "updated_at": "2024-06-10T18:14:51.606Z",
+        //             "created_at": "2024-06-10T17:00:38.443Z",
+        //             "version": 1718043291606,
+        //             "is_deleted": false,
+        //             "present_at_all_locations": true,
+        //             "item_variation_data": {
+        //               "item_id": "5UZLI32RRMWLQJOOVZCQA4IP",
+        //               "name": "Small",
+        //               "ordinal": 0,
+        //               "pricing_type": "FIXED_PRICING",
+        //               "price_money": {
+        //                 "amount": 300,
+        //                 "currency": "USD"
+        //               },
+        //               "available_for_booking": true,
+        //               "sellable": true,
+        //               "stockable": true
+        //             }
+        //           }
+        //         ],
+        //         "product_type": "REGULAR",
+        //         "is_archived": false
+        //       }
+        //     },
+        //     "id_mappings": [
+        //       {
+        //         "client_object_id": "#KEG35HS3KPABVURLLXK6NZJO",
+        //         "object_id": "5UZLI32RRMWLQJOOVZCQA4IP"
+        //       }
+        //     ]
+        //   }
+
         $package = Package::find($request->package_id);
         $user_id = auth()->user()->id;
         if($request->user_id){
