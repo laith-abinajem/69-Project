@@ -19,6 +19,11 @@ use App\Http\Controllers\SubscriptionController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+/////////////////////////////
+Route::get('/create-package-square', [PaymentController::class, 'createSubscriptionPlans']);
+Route::get('/get-packages-square', [PaymentController::class, 'listSubscriptionPlans']);
+Route::get('/create-payment-2', [PaymentController::class, 'createPayment2']);
+//////////////////////////////////
 Route::get('/', function () {
     return redirect()->route('dashboard.home.index');
 });

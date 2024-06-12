@@ -19,6 +19,15 @@ use Square\Models\Money;
 use Mail;
 use App\Mail\AppMail;
 use Carbon\Carbon;
+
+use Square\Models\CatalogObject;
+use Square\Models\CatalogItem;
+use Square\Models\CatalogItemVariation;
+use Square\Models\CatalogSubscriptionPlan;
+use Square\Models\SubscriptionPhase;
+use Square\Models\UpsertCatalogObjectRequest;
+
+
 class PaymentController extends Controller
 {
     private $client;
@@ -311,4 +320,150 @@ class PaymentController extends Controller
     function generateIdempotencyKey() {
         return bin2hex(random_bytes(16));
     }
+
+
+    //Create plans 
+    
+
+    public function createSubscriptionPlans()
+{
+    $client = new SquareClient([
+        'accessToken' => 'EAAAl4ZyBLIRqCXuoUe-u77nYVLdmAyxjFzYHgQHyv9TuaY6dYEWzYsqiWJekQHe',
+            'environment' => 'sandbox', 
+    ]);
+
+    $catalogApi = $client->getCatalogApi();
+
+    $plans = [
+        [
+            'id' => 1,
+            'name' => 'Weekly Plan',
+            'interval' => 'WEEKLY',
+            'price' => 0, // Free plan
+        ],
+        [
+            'id' => 5,
+            'name' => 'Monthly Plan',
+            'interval' => 'MONTHLY',
+            'price' => 1000, // $10.00
+        ],
+        [
+            'id' => 2,
+            'name' => 'Quarterly Plan',
+            'interval' => 'THREE_MONTHS',
+            'price' => 2700, // $27.00
+        ],
+        [
+            'id' => 3,
+            'name' => 'Semi-Annual Plan',
+            'interval' => 'SIX_MONTHS',
+            'price' => 5000, // $50.00
+        ],
+        [
+            'id' => 4,
+            'name' => 'Annual Plan',
+            'interval' => 'ANNUAL',
+            'price' => 9000, // $90.00
+        ],
+    ];
+
+    foreach ($plans as $plan) {
+        $priceMoney = new Money();
+        $priceMoney->setAmount($plan['price']); // Amount in cents
+        $priceMoney->setCurrency('USD');
+
+        $subscriptionPhase = new SubscriptionPhase($plan['interval']);
+        $subscriptionPhase->setRecurringPriceMoney($priceMoney);
+
+        $subscriptionPlanData = new CatalogSubscriptionPlan($plan['name'], [$subscriptionPhase]);
+
+        $catalogObject = new CatalogObject('SUBSCRIPTION_PLAN', '#'.$plan['id']);
+        $catalogObject->setSubscriptionPlanData($subscriptionPlanData);
+
+        $upsertCatalogObjectRequest = new UpsertCatalogObjectRequest($this->generateIdempotencyKey(), $catalogObject);
+
+        try {
+            $result = $catalogApi->upsertCatalogObject($upsertCatalogObjectRequest);
+        
+            echo 'Successfully created subscription plan: ' . $plan['name'] . "\n";
+        } catch (ApiException $e) {
+            echo 'Error creating subscription plan: ' . $e->getMessage() . "\n";
+        }
+    }
+
+
+}
+
+public function listSubscriptionPlans()
+{
+    $client = new SquareClient([
+        'accessToken' => 'EAAAl4ZyBLIRqCXuoUe-u77nYVLdmAyxjFzYHgQHyv9TuaY6dYEWzYsqiWJekQHe',
+            'environment' => 'sandbox', 
+    ]);
+
+    $catalogApi = $client->getCatalogApi();
+
+    try {
+        $response = $catalogApi->listCatalog(null, 'SUBSCRIPTION_PLAN');
+       
+        $plans = $response->getResult()->getObjects();
+        //dd($response->getResult());
+        foreach ($plans as $plan) {
+            $planData = $plan->getSubscriptionPlanData();
+            // echo 'Plan Name: ' . $planData->getName() . "\n";
+            echo 'Plan ID: ' . $plan->getId() . "<br>";
+            // echo 'Cadence: ' . $planData->getPhases()[0]->getCadence() . "\n";
+            // echo 'Price: ' . $planData->getPhases()[0]->getRecurringPriceMoney()->getAmount() / 100 . "\n";
+            // echo "\n";
+        }
+    } catch (ApiException $e) {
+        echo 'Error listing subscription plans: ' . $e->getMessage() . "\n";
+    }
+}
+
+public function createPayment2(Request $request)
+{
+    
+
+
+
+    $client = new SquareClient([
+        'accessToken' => 'EAAAl4ZyBLIRqCXuoUe-u77nYVLdmAyxjFzYHgQHyv9TuaY6dYEWzYsqiWJekQHe',
+            'environment' => 'sandbox', 
+    ]);
+
+    $customersApi = $client->getCustomersApi();
+    $subscriptionsApi = $client->getSubscriptionsApi();
+
+    try {
+        // Create customer
+        $createCustomerRequest = new \Square\Models\CreateCustomerRequest();
+        $createCustomerRequest->setEmailAddress('yousef.qaood@gmail.com');
+        $createCustomerRequest->setGivenName('Yousef Qaoud');
+
+        $customerResponse = $customersApi->createCustomer($createCustomerRequest);
+        $customerId = $customerResponse->getResult()->getCustomer()->getId();
+
+        // Retrieve the plan ID based on the package type
+        $planId = 'VCK7A25GQ3NYWNWGRJFBO2F2';
+
+        // Create subscription
+        $createSubscriptionRequest = new \Square\Models\CreateSubscriptionRequest('LJ17XDN9GP4GY', $planId,$customerId);
+        $subscriptionResponse = $subscriptionsApi->createSubscription($createSubscriptionRequest);
+        
+        if ($subscriptionResponse->isSuccess()) {
+            // Retrieve the subscription ID and redirect URL for payment
+            $subscription = $subscriptionResponse->getResult()->getSubscription();
+            $redirectUrl = $subscription->getCardId(); 
+            dd($subscription);
+            
+
+        } else {
+            return redirect()->route('dashboard.payment-failed')->with('error', 'Failed to create subscription: ' . $subscriptionResponse->getErrors()[0]->getDetail());
+        }
+    } catch (ApiException $e) {
+        return redirect()->route('dashboard.payment-failed')->with('error', 'Failed to create subscription: ' . $e->getMessage());
+    }
+}
+
 }
