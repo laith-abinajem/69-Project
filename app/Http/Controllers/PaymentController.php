@@ -28,26 +28,19 @@ use Square\Models\CatalogSubscriptionPlan;
 use Square\Models\SubscriptionPhase;
 use Square\Models\UpsertCatalogObjectRequest;
 
-use App\Services\SquareService;
 
 class PaymentController extends Controller
 {
     private $client;
-    protected $squareService;
 
-    public function __construct(SquareService $squareService)
+    public function __construct()
     {
-        $this->squareService = $squareService;
-    }
-
-    // public function __construct()
-    // {
-    //     $this->client = new SquareClient([
-    //         'accessToken' => env('SQUARE_ACCESS_TOKEN'),
-    //         'environment' => Environment::SANDBOX, // Default to sandbox
-    //     ]);
+        $this->client = new SquareClient([
+            'accessToken' => env('SQUARE_ACCESS_TOKEN'),
+            'environment' => Environment::SANDBOX, // Default to sandbox
+        ]);
         
-    // }
+    }
 
     function createPayment(Request $request){
         $client = new SquareClient([
@@ -351,7 +344,12 @@ class PaymentController extends Controller
         $nonce = $request->input('nonce');
 
         try {
-            $card = $this->squareService->addCustomerCard($customerId, $nonce);
+            $billing_address = new \Square\Models\Address();
+            $body = new \Square\Models\CreateCustomerCardRequest($nonce);
+            $body->setBillingAddress($billing_address);
+
+            $card = $client->getCustomersApi()->createCustomerCard($customerId, $body);
+            // $card = $this->squareService->addCustomerCard($customerId, $nonce);
             $user = User::find(auth()->user()->id);
             $api_response = $client->getCardsApi()->listCards('', $user->square_customer_id);
             $card = Card::create([
