@@ -80,6 +80,10 @@ class PackageController extends Controller
     
             try {
                 $result = $catalogApi->upsertCatalogObject($upsertCatalogObjectRequest);
+                $planId = $result->getResult()->getCatalogObject()->getId();
+                $package->update([
+                    "plan_id" => $planId,
+                ]);
             } catch (ApiException $e) {
             }
         
@@ -164,9 +168,7 @@ class PackageController extends Controller
                 );
         
                 $result = $catalogApi->upsertCatalogObject($upsertCatalogObjectRequest);
-                echo "Price updated successfully.";
             } else {
-                echo "CatalogObject not found.";
             }
         } catch (ApiException $e) {
             echo "API Exception: " . $e->getMessage();

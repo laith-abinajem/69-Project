@@ -123,7 +123,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                <form id="subscription-form" action="{{ route('process-payment') }}" method="post">
+                <form id="subscription-form" action="{{ route('dashboard.process-payment') }}" method="post">
                         @csrf
                         <div class="row row-sm">
                             @php
@@ -155,7 +155,7 @@
     </div>
 <script>
     document.getElementById('payment-button').addEventListener('click', function() {
-        document.getElementById('subscription-form').action = "{{ route('process-payment') }}";
+        document.getElementById('subscription-form').action = "{{ route('dashboard.process-payment') }}";
     });
 
     document.getElementById('trial-button').addEventListener('click', function() {

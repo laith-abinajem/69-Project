@@ -30,7 +30,7 @@ Route::get('/checkout', function () {
     return view('dashboard.checkout');
 });
 
-Route::post('/process-payment', [PaymentController::class, 'createPayment'])->name('process-payment');
+// Route::post('/dashboard.process-payment', [PaymentController::class, 'createPayment'])->name('dashboard.process-payment');
 Route::post('/processPayment', [PaymentController::class, 'processPayment'])->name('processPayment');
 
 
@@ -49,7 +49,9 @@ Route::middleware('auth')->prefix('dashboard')->name('dashboard.')->group(functi
     Route::get('/check-payment', [PaymentController::class, 'checkPayment'])->name('check-payment');
     Route::get('/create-package-square', [PaymentController::class, 'createSubscriptionPlans']);
     Route::get('/get-packages-square', [PaymentController::class, 'listSubscriptionPlans']);
-    Route::get('/create-payment-2', [PaymentController::class, 'createPayment2']);
+    // Route::get('/create-payment-2', [PaymentController::class, 'createPayment2']);
+    Route::post('/process-payment', [PaymentController::class, 'createPayment2'])->name('process-payment');
+
     //////////////////////////////////
     Route::get('/home',[HomeController::class,'index'])->name('home.index');
     Route::get('/payment-success', function () {

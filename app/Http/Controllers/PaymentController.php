@@ -335,40 +335,32 @@ class PaymentController extends Controller
     }
 
     function processPayment(Request $request){
-        $nonce = $request->input('nonce');
-        dd($nonce);
-        $client = new SquareClient([
-            'accessToken' => 'EAAAl4ZyBLIRqCXuoUe-u77nYVLdmAyxjFzYHgQHyv9TuaY6dYEWzYsqiWJekQHe',
-            'environment' => 'sandbox', 
+        $request->validate([
+            'customer_id' => 'required|string',
+            'nonce' => 'required|string', 
         ]);
-        $customersApi = $client->getCustomersApi();
+
+        $customerId = $request->input('customer_id');
+        $nonce = $request->input('nonce');
 
         try {
-            $customerResponse = $customersApi->createCustomer([
-                'givenName' => 'John',
-                'familyName' => 'Doe',
-                'emailAddress' => 'john.doe@example.com'
+            $card = $this->squareService->addCustomerCard($customerId, $nonce);
+            $user = User::find(auth()->user()->id);
+            $api_response = $client->getCardsApi()->listCards('', $user->square_customer_id);
+            $card = Card::create([
+                "card_id" => $api_response->id,
+                "card_brand"=>$api_response->card_brand,
+                "card_type"=>$api_response->card_type,
+                "last_4"=>$api_response->last_4,
+                "cardholder_name"=>$api_response->cardholder_name,
+                "bin"=>$api_response->bin,
+                "customer_id"=>$api_response->customer_id,
             ]);
+            // return response()->json($card, 200);
+            return redirect()->route('dashboard.createPayment2');
 
-            $customerId = $customerResponse->getResult()->getCustomer()->getId();
-
-            $cardsApi = $this->client->getCardsApi();
-            $cardResponse = $cardsApi->createCard($customerId, [
-                'cardNonce' => $nonce,
-                'billingAddress' => [
-                    'addressLine1' => '500 Electric Ave',
-                    'addressLine2' => 'Suite 600',
-                    'locality' => 'New York',
-                    'administrativeDistrictLevel1' => 'NY',
-                    'postalCode' => '10003',
-                    'country' => 'US'
-                ],
-                'cardholderName' => 'John Doe'
-            ]);
-
-            return response()->json($cardResponse->getResult());
-        } catch (ApiException $e) {
-            return response()->json(['error' => $e->getMessage()], 500);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 400);
         }
     }
     function generateIdempotencyKey() {
@@ -448,104 +440,73 @@ class PaymentController extends Controller
 
     }
 
-public function listSubscriptionPlans()
-{
-    $client = new SquareClient([
-        'accessToken' => 'EAAAl4ZyBLIRqCXuoUe-u77nYVLdmAyxjFzYHgQHyv9TuaY6dYEWzYsqiWJekQHe',
-            'environment' => 'sandbox', 
-    ]);
+    public function listSubscriptionPlans()
+    {
+        $client = new SquareClient([
+            'accessToken' => 'EAAAl4ZyBLIRqCXuoUe-u77nYVLdmAyxjFzYHgQHyv9TuaY6dYEWzYsqiWJekQHe',
+                'environment' => 'sandbox', 
+        ]);
 
-    $catalogApi = $client->getCatalogApi();
+        $catalogApi = $client->getCatalogApi();
 
-    try {
-        $response = $catalogApi->listCatalog(null, 'SUBSCRIPTION_PLAN');
-       
-        $plans = $response->getResult()->getObjects();
-        //dd($response->getResult());
-        foreach ($plans as $plan) {
-            $planData = $plan->getSubscriptionPlanData();
-            // echo 'Plan Name: ' . $planData->getName() . "\n";
-            echo 'Plan ID: ' . $plan->getId() . "<br>";
-            // echo 'Cadence: ' . $planData->getPhases()[0]->getCadence() . "\n";
-            // echo 'Price: ' . $planData->getPhases()[0]->getRecurringPriceMoney()->getAmount() / 100 . "\n";
-            // echo "\n";
-        }
-    } catch (ApiException $e) {
-        echo 'Error listing subscription plans: ' . $e->getMessage() . "\n";
-    }
-}
-
-public function createPayment2(Request $request)
-{
-    $client = new SquareClient([
-        'accessToken' => 'EAAAl4ZyBLIRqCXuoUe-u77nYVLdmAyxjFzYHgQHyv9TuaY6dYEWzYsqiWJekQHe',
-            'environment' => 'sandbox', 
-    ]);
-
-    $customersApi = $client->getCustomersApi();
-    $subscriptionsApi = $client->getSubscriptionsApi();
-    $user = User::find(auth()->user()->id);
-    $card = Card::where('customer_id',$user->square_customer_id)->first();
-    try {
-        if($card){
-            $customerId = 'SHDVHJTP02Z3ABT0FTTZ5T2J7R';
-            // Retrieve the plan ID based on the package type
-            $planId = 'VCK7A25GQ3NYWNWGRJFBO2F2';
-    
-            // Create subscription
-            $createSubscriptionRequest = new \Square\Models\CreateSubscriptionRequest('LJ17XDN9GP4GY', $planId,$customerId);
-            $createSubscriptionRequest->setCardId('ccof:CA4SEHUHuNihTlYIhWyULXgQRtMoAg');
-            $subscriptionResponse = $subscriptionsApi->createSubscription($createSubscriptionRequest);
-            // dd($subscriptionResponse);
-            
-            if ($subscriptionResponse->isSuccess()) {
-                // Retrieve the subscription ID and redirect URL for payment
-                $subscription = $subscriptionResponse->getResult()->getSubscription();
-                $redirectUrl = $subscription->getCardId(); 
-                
-    
-            } else {
-                return redirect()->route('dashboard.payment-failed')->with('error', 'Failed to create subscription: ' . $subscriptionResponse->getErrors()[0]->getDetail());
-            }
-        }else{
-            $money = new \Square\Models\Money();
-            $money->setAmount(100); // Amount in cents
-            $money->setCurrency('USD');
-            // Create order
-            $lineItem = new \Square\Models\OrderLineItem('1'); // Quantity
-            $lineItem->setName('Subscription Payment (refund)');
-            $lineItem->setBasePriceMoney($money);
-    
-            $order = new \Square\Models\Order('LJ17XDN9GP4GY'); // Location ID
-            $order->setLineItems([$lineItem]);
-    
-            $createOrderRequest = new \Square\Models\CreateOrderRequest();
-            $createOrderRequest->setOrder($order);
-            // Create checkout request
-            $idempotencyKey = uniqid();
-            $createCheckoutRequest = new \Square\Models\CreateCheckoutRequest($idempotencyKey, $createOrderRequest);
-            $createCheckoutRequest->setRedirectUrl(route('dashboard.check-payment'));
-            $checkout_api = $client->getCheckoutApi();
-    
-            $checkoutResponse = $checkout_api->createCheckout('LJ17XDN9GP4GY', $createCheckoutRequest);
-            $planId = 'VCK7A25GQ3NYWNWGRJFBO2F2';
-          
-            if ($checkoutResponse->isSuccess()) {
-                $checkout = $checkoutResponse->getResult()->getCheckout();
-                $checkoutUrl = $checkout->getCheckoutPageUrl();
-                return redirect($checkoutUrl);
-
-                $createSubscriptionRequest = new \Square\Models\CreateSubscriptionRequest('LJ17XDN9GP4GY', $planId,$customerId);
-                $createSubscriptionRequest->setCardId($user->card->id);
-                $subscriptionResponse = $subscriptionsApi->createSubscription($createSubscriptionRequest);
-            } else {
-                return redirect()->route('dashboard.payment-failed')->with('error', 'Failed to create checkout: ' . $checkoutResponse->getErrors()[0]->getDetail());
-            }
-        }
+        try {
+            $response = $catalogApi->listCatalog(null, 'SUBSCRIPTION_PLAN');
         
-    } catch (ApiException $e) {
-        return redirect()->route('dashboard.payment-failed')->with('error', 'Failed to create subscription: ' . $e->getMessage());
+            $plans = $response->getResult()->getObjects();
+            //dd($response->getResult());
+            foreach ($plans as $plan) {
+                $planData = $plan->getSubscriptionPlanData();
+                // echo 'Plan Name: ' . $planData->getName() . "\n";
+                echo 'Plan ID: ' . $plan->getId() . "<br>";
+                // echo 'Cadence: ' . $planData->getPhases()[0]->getCadence() . "\n";
+                // echo 'Price: ' . $planData->getPhases()[0]->getRecurringPriceMoney()->getAmount() / 100 . "\n";
+                // echo "\n";
+            }
+        } catch (ApiException $e) {
+            echo 'Error listing subscription plans: ' . $e->getMessage() . "\n";
+        }
     }
-}
+
+    public function createPayment2(Request $request)
+    {
+        $client = new SquareClient([
+            'accessToken' => 'EAAAl4ZyBLIRqCXuoUe-u77nYVLdmAyxjFzYHgQHyv9TuaY6dYEWzYsqiWJekQHe',
+            'environment' => 'sandbox', 
+        ]);
+        $customersApi = $client->getCustomersApi();
+        $subscriptionsApi = $client->getSubscriptionsApi();
+        $user = User::find(auth()->user()->id);
+        $card = Card::where('customer_id',$user->square_customer_id)->first();
+        $package = Package::find($request->package_id);
+        try {
+            if($card){
+                $customerId = $user->square_customer_id;
+                // Retrieve the plan ID based on the package type
+                $planId = $package->plan_id;
+        
+                // Create subscription
+                $createSubscriptionRequest = new \Square\Models\CreateSubscriptionRequest('LJ17XDN9GP4GY', $planId,$customerId);
+                $createSubscriptionRequest->setCardId($card->id);
+                $subscriptionResponse = $subscriptionsApi->createSubscription($createSubscriptionRequest);
+                // dd($subscriptionResponse);
+                
+                if ($subscriptionResponse->isSuccess()) {
+                    // Retrieve the subscription ID and redirect URL for payment
+                    $subscription = $subscriptionResponse->getResult()->getSubscription();
+                    $redirectUrl = $subscription->getCardId(); 
+                    
+        
+                } else {
+                    return redirect()->route('dashboard.payment-failed')->with('error', 'Failed to create subscription: ' . $subscriptionResponse->getErrors()[0]->getDetail());
+                }
+            }else{
+                return redirect()->route('dashboard.subscription.create');
+            
+            }
+            
+        } catch (ApiException $e) {
+            return redirect()->route('dashboard.payment-failed')->with('error', 'Failed to create subscription: ' . $e->getMessage());
+        }
+    }
 
 }

@@ -16,7 +16,7 @@
                         <div class="alert alert-danger">{{ session('error') }}</div>
                     @endif
 
-                    <form id="payment-form" method="POST" action="{{ route('process-payment') }}">
+                    <form id="payment-form" method="POST" action="{{ route('dashboard.process-payment') }}">
                         @csrf
                         <div class="form-group">
                                 <label for="amount">Amount:</label>

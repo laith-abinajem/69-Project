@@ -17,7 +17,7 @@
                 return;
             }
             console.log(token)
-            const response = await fetch('/add-card', {
+            const response = await fetch('/processPayment', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -25,7 +25,7 @@
                 },
                 body: JSON.stringify({
                     nonce: token,
-                    customer_id: '5H6FNDRBN0DTQ40CKPAAPTGM1G'
+                    customer_id: {{auth()->user()->square_customer_id}}
                 })
             });
 
