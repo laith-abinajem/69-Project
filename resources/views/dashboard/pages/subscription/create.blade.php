@@ -9,7 +9,7 @@
         const payments = Square.payments('sandbox-sq0idb-YUWObSyjVpaI6A4yV6iX9A', 'sandbox'); // or 'production'
         const card = await payments.card();
         await card.attach('#card-container');
-
+        const customerId = @json(auth()->user()->square_customer_id);
         document.getElementById('card-button').addEventListener('click', async () => {
             const { token, error } = await card.tokenize();
             if (error) {
@@ -25,7 +25,7 @@
                 },
                 body: JSON.stringify({
                     nonce: token,
-                    customer_id: {{auth()->user()->square_customer_id}}
+                    customer_id:customerId
                 })
             });
 
