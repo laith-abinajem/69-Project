@@ -499,24 +499,54 @@ class PaymentController extends Controller
         
                 // Create subscription
                 $createSubscriptionRequest = new \Square\Models\CreateSubscriptionRequest('LJ17XDN9GP4GY', $planId,$customerId);
-                $createSubscriptionRequest->setCardId($card->id);
+                $createSubscriptionRequest->setCardId($card->card_id);
                 $subscriptionResponse = $subscriptionsApi->createSubscription($createSubscriptionRequest);
-                // dd($subscriptionResponse);
                 
                 if ($subscriptionResponse->isSuccess()) {
                     // Retrieve the subscription ID and redirect URL for payment
                     $subscription = $subscriptionResponse->getResult()->getSubscription();
+                    $subscriptionId = $subscription->getId();
                     $redirectUrl = $subscription->getCardId(); 
-                    
-        
+                    $startDate = Carbon::now();
+                    $endDate = (clone $startDate)->addDays($package->days);
+                    $sub = Subscription::create([
+                        "user_id"=> $user->id,
+                        "order_id"=> 1,
+                        "transaction_id"=> $subscriptionId ,
+                        "subscription_id"=> $subscriptionId ,
+                        "payment_status"=> 'success',
+                        "price"=> $package->price,
+                        "package_type"=> $package->name,
+                        "end_date"=> $endDate,
+                        "start_date"=> $startDate,
+                    ]);
+                    $user->update([
+                        "sub_id"=> $sub->id
+                    ]);
+                    return redirect()->route('dashboard.payment-success');
                 } else {
+                    dd($subscriptionResponse->getErrors()[0]->getDetail());
                     return redirect()->route('dashboard.payment-failed')->with('error', 'Failed to create subscription: ' . $subscriptionResponse->getErrors()[0]->getDetail());
                 }
             }else{
                 return redirect()->route('dashboard.subscription.create');
             
             }
+            
       
     }
+    public function deleteSubscribtion(Request $request,$id){
+        $client = new SquareClient([
+            'accessToken' => 'EAAAl4ZyBLIRqCXuoUe-u77nYVLdmAyxjFzYHgQHyv9TuaY6dYEWzYsqiWJekQHe',
+            'environment' => 'sandbox', 
+        ]);
+        $api_response = $client->getSubscriptionsApi()->cancelSubscription($id);
 
+        $data = Subscription::where('subscription_id',$id)->first();
+        $data->update([
+            'end_date'=>null
+        ]);
+        toast('Success','success');
+        return redirect()->route('dashboard.subscription.index');
+    }
 }

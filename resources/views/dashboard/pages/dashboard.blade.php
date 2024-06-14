@@ -345,9 +345,8 @@
                                 </div>
                             </div>
                             <div class="form-group text-end mt-2">
-                                <button id="payment-button" type="submit" class="button btn btn-primary">Continue to payment</button>
                                 @if(auth()->user()->type === 'super_admin')
-                                <button id="trial-button" type="submit" class="button btn btn-primary">Continue without payment (trial sub)</button>
+                                <button id="trial-button" type="submit" class="button btn btn-primary">Continue without payment</button>
                                 @endif
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                             </div>

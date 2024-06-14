@@ -11,6 +11,8 @@ use Carbon\Carbon;
 use Mail;
 use App\Mail\AppMail;
 use App\Models\Package;
+use Square\SquareClient;
+
 class SubscriptionController extends Controller
 {
     public function index(){
@@ -97,13 +99,32 @@ class SubscriptionController extends Controller
           
             Alert::toast('Subscription created successfully', 'success');
             return redirect()->route('dashboard.subscription.index');
-       
     }
     public function edit($id,Request $request){
 
     }
-    public function update($id,Request $request){
-        
+    public function update(Request $request){
+        dd($request);
+        $client = new SquareClient([
+            'accessToken' => 'EAAAl4ZyBLIRqCXuoUe-u77nYVLdmAyxjFzYHgQHyv9TuaY6dYEWzYsqiWJekQHe',
+            'environment' => 'sandbox', 
+        ]);
+        $package = Package::find($request->package_id);
+        $body = new \Square\Models\SwapPlanRequest($package->plan_id);
+        $user = User::find(auth()->user()->id);
+        if($request->user_id){
+            $user = User::find($request->user_id);
+        }
+        $subscription = Subscription::find($request->current_sub);
+        if($subscription){
+            $api_response = $client->getSubscriptionsApi()->swapPlan($subscription->subscription_id, $body);
+            Alert::toast('Subscription updated successfully', 'success');
+            return redirect()->route('dashboard.subscription.index');
+        }else{
+            Alert::toast('something wrong', 'error');
+            return redirect()->route('dashboard.subscription.index');
+        }
+     
     }
     public function delete(Request $request,$id){
         $data = Subscription::find($id);

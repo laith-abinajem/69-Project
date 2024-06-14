@@ -14,6 +14,8 @@ use App\Mail\AppMail;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use Square\SquareClient;
+
 class AuthController extends Controller
 {
     public function index()
@@ -37,12 +39,26 @@ class AuthController extends Controller
         // Normalize email to lowercase
         $email = Str::lower($request->input('email'));
         $password = $request->input('password');
-
+        $client = new SquareClient([
+            'accessToken' => 'EAAAl4ZyBLIRqCXuoUe-u77nYVLdmAyxjFzYHgQHyv9TuaY6dYEWzYsqiWJekQHe',
+            'environment' => 'sandbox', 
+        ]);
         // Fetch user by email case-insensitively
         $user = User::whereRaw('lower(email) = ?', [$email])->first();
-
         if ($user) {
-            $today = Carbon::now()->toDateString();
+            if($user->type !== 'super_admin'){
+                $today = Carbon::now()->toDateString();
+                $sub = Subscription::where('user_id', $user->id)->where('end_date', '>', $today)->first();
+                if($sub){
+                    $api_response = $client->getSubscriptionsApi()->retrieveSubscription($sub->subscription_id);
+                    $subscription = $api_response->getResult()->getSubscription();
+                    $chargedThroughDate = $subscription->getChargedThroughDate();
+                    $sub->update([
+                        'end_date'=>$chargedThroughDate
+                    ]);
+                }
+            }
+          
             if ($user->status === 'approved') {
                 if (Hash::check($password, $user->password)) {
                     Auth::login($user);

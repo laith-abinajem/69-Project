@@ -31,7 +31,7 @@ class PackageController extends Controller
 
             $package = Package::create([
                 'name' => $request->name,
-                'price' => $request->price * 100,
+                'price' => $request->price,
                 'days'=> 0,
                 'interval'=> $request->interval
             ]);
@@ -43,11 +43,11 @@ class PackageController extends Controller
                 $package->update([
                     'days'=>30
                 ]);
-            }elseif($request->interval === "THREE_MONTHS"){
+            }elseif($request->interval === "NINETY_DAYS"){
                 $package->update([
                     'days'=>90
                 ]);
-            }elseif($request->interval === "SIX_MONTHS"){
+            }elseif($request->interval === "QUARTERLY"){
                 $package->update([
                     'days'=>180
                 ]);
@@ -80,10 +80,19 @@ class PackageController extends Controller
     
             try {
                 $result = $catalogApi->upsertCatalogObject($upsertCatalogObjectRequest);
-                $planId = $result->getResult()->getCatalogObject()->getId();
-                $package->update([
-                    "plan_id" => $planId,
-                ]);
+    
+                // Check if the result is successful and contains the catalog object
+                if ($result->isSuccess() && $result->getResult() && $result->getResult()->getCatalogObject()) {
+                    $planId = $result->getResult()->getCatalogObject()->getId();
+                    $package->update(["plan_id" => $planId]);
+                } else {
+                    // Log or handle errors
+                    $errors = $result->getErrors();
+                    foreach ($errors as $error) {
+                        // Log errors
+                        dd($error);
+                    }
+                }
             } catch (ApiException $e) {
             }
         

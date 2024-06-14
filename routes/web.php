@@ -51,6 +51,7 @@ Route::middleware('auth')->prefix('dashboard')->name('dashboard.')->group(functi
     Route::get('/get-packages-square', [PaymentController::class, 'listSubscriptionPlans']);
     // Route::get('/create-payment-2', [PaymentController::class, 'createPayment2']);
     Route::post('/process-payment', [PaymentController::class, 'createPayment2'])->name('process-payment');
+    Route::post('/delete/{id}',[PaymentController::class,'deleteSubscribtion'])->name('deleteSubscribtion');
 
     //////////////////////////////////
     Route::get('/home',[HomeController::class,'index'])->name('home.index');
@@ -88,7 +89,7 @@ Route::middleware('auth')->prefix('dashboard')->name('dashboard.')->group(functi
         Route::get('/',[SubscriptionController::class,'index'])->name('index');
         Route::get('/create',[SubscriptionController::class,'create'])->name('create');
         Route::get('/edit/{id}',[SubscriptionController::class,'edit'])->name('edit');
-        Route::post('/update/{id}',[SubscriptionController::class,'update'])->name('update');
+        Route::post('/update',[SubscriptionController::class,'update'])->name('update');
         Route::post('/delete/{id}',[SubscriptionController::class,'delete'])->name('delete');
         Route::post('/store',[SubscriptionController::class,'store'])->name('store');
     });

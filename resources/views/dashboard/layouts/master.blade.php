@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" data-theme-mode="dark" data-header-styles="gradient" data-menu-styles="dark">
 	<head>
@@ -56,7 +57,7 @@
 					</div>
 					@canany(['edit user', 'delete user', 'view user'])
 					<div class="d-flex my-auto">
-						<div class=" d-flex right-page">
+						<!-- <div class=" d-flex right-page">
 							<div class="d-flex justify-content-center me-5">
 								<div class="">
 									<span class="d-block">
@@ -83,7 +84,7 @@
 									<span class="sparkline_bar31"></span>
 								</div>
 							</div>
-						</div>
+						</div> -->
 					</div>
 					@endcanany
 				</div>

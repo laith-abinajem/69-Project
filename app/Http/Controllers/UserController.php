@@ -89,7 +89,6 @@ class UserController extends Controller
             $user->update([
                 'square_customer_id' => $customerId
             ]);
-
             // $title = 'welcomes';
             // $this->sendEmailCreateUser($request->email ,$request->password , $title ,$request->name ,'');
             Alert::toast('User created successfully', 'success');
@@ -101,7 +100,7 @@ class UserController extends Controller
         $data = User::find($id);
         $companyLogo = $data->getFirstMediaUrl('company_logo');
         $decalLogo = $data->getFirstMediaUrl('decal_logo');
-        $video = $data->getFirstMediaUrl('videos'); // Make sure to use 'videos' here
+        $video = $data->getFirstMediaUrl('videos'); 
         return view('dashboard.pages.user.edit',compact('data','companyLogo','decalLogo','video'));
     }
     public function update(Request $request, $id){
@@ -137,19 +136,19 @@ class UserController extends Controller
                     ->usingFileName($videoFilename)
                     ->toMediaCollection('videos');
             }
-            if($request->status === 'approved' &&  !$user->subscription ){
-                $startDate = Carbon::now();
-                $endDate = (clone $startDate)->addWeeks(1);
-                $sub = Subscription::create([
-                    "price"=>0,
-                    "package_type"=> 'trial',
-                    "payment_status"=>'success',
-                    "start_date"=>$startDate,
-                    "end_date"=>$endDate,
-                    "user_id"=>$user->id,
+            // if($request->status === 'approved' &&  !$user->subscription ){
+            //     $startDate = Carbon::now();
+            //     $endDate = (clone $startDate)->addWeeks(1);
+            //     $sub = Subscription::create([
+            //         "price"=>0,
+            //         "package_type"=> 'trial',
+            //         "payment_status"=>'success',
+            //         "start_date"=>$startDate,
+            //         "end_date"=>$endDate,
+            //         "user_id"=>$user->id,
     
-                ]);
-            }
+            //     ]);
+            // }
             Alert::toast('User Updated successfully', 'success');
             return redirect()->route('dashboard.user.index');
         } catch (\Exception $e) {

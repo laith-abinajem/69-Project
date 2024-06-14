@@ -121,10 +121,38 @@
                             <div class="col-12 mt-4">
                                 <div class="d-flex flex-wrap">
                                     <button type="button" class="button btn btn-primary me-3" data-bs-toggle="modal" data-bs-target="#managePlanModal">MANAGE PLAN</button>
-                                    <form action="route" method="POST">
+                                    <!-- <form action="route" method="POST">
                                         <input type="hidden" name="customer_id" />
-                                        <button type="submit" class="button btn btn-danger">CANCEL SUBSCRIPTION</button>
-                                    </form>
+                                        <button type="submit" class="button btn btn-danger"></button>
+                                    </form> -->
+                                    @if($current_sub)
+
+                                    <a type="button" class="button btn btn-danger float-right" data-bs-toggle="modal" data-bs-target="#deleteModal{{$current_sub->subscription_id}}">
+                                        CANCEL SUBSCRIPTION
+                                    </a>
+                                    <div class="modal fade" id="deleteModal{{$current_sub->subscription_id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteModalLabel{{$current_sub->subscription_id}}" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Confirmation</h4>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="modal-body">
+                                                        Are you sure you want to delete the subscription ? 
+                                                    </div>
+                                                    <form action="{{ route('dashboard.deleteSubscribtion', $current_sub->subscription_id) }}" method="POST" >
+                                                        @csrf
+                                                        <div class="modal-footer mt-3">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                            <button type="submit" class="btn btn-danger">Confirm Delete</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -145,10 +173,10 @@
                         <div class="row">
                             <div class="col-lg-6 col-12">
                                 <div class="my-3">
-                                    <span class="font-weight-bold">Visa ending 1111</span>
+                                    <span class="font-weight-bold">Visa ending {{$card->last_4}}</span>
                                 </div>
                                 <div class="mb-3">
-                                    <span>Expiration: 25 / 2026</span>
+                                    <span>Expiration: {{$card->exp_month}} / {{$card->exp_year}}</span>
                                 </div>
                                 <div class="mb-3">
                                     <span>Card Brand: VISA</span>
@@ -165,12 +193,12 @@
                                     <div class="card-details">
                                         <div class="name-number">
                                             <h6>Card Number</h6>
-                                            <h5 class="number">**** **** **** 3020</h5>
-                                            <h5 class="name">holder name</h5>
+                                            <h5 class="number">**** **** **** {{$card->last_4}}</h5>
+                                            <h5 class="name">{{$card->cardholder_name}}</h5>
                                         </div>
                                         <div class="valid-date">
                                             <h6>Valid Thru</h6>
-                                            <h5>05/28</h5>
+                                            <h5>{{$card->exp_month}} / {{$card->exp_year}}</h5>
                                         </div>
                                     </div>
                                 </div>
@@ -287,7 +315,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-            <form id="subscription-form" action="{{ route('dashboard.process-payment') }}" method="post">
+            <form id="subscription-form" action="{{ route('dashboard.subscription.update') }}" method="post">
                     @csrf
                     <div class="row row-sm">
                         @php
@@ -333,10 +361,7 @@
                             </div>
                         </div>
                         <div class="form-group text-end mt-2">
-                            <button id="payment-button" type="submit" class="button btn btn-primary">Continue to payment</button>
-                            @if(auth()->user()->type === 'super_admin')
-                            <button id="trial-button" type="submit" class="button btn btn-primary">Continue without payment (trial sub)</button>
-                            @endif
+                            <button  type="submit" class="button btn btn-primary">Change plan</button>
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                         </div>
                 </form>
@@ -356,18 +381,6 @@
             <form id="subscription-form2" action="{{ route('dashboard.process-payment') }}" method="post">
                     @csrf
                     <div class="row row-sm">
-                            <div class="col-6">
-                                <div class="form-group mg-b-0">
-                                    <label class="form-label">Name: <span class="tx-danger">*</span></label>
-                                    <input value="{{ old('name') }}" class="form-control" name="name" placeholder="Enter name" required="" type="text">
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <label class="form-label">Address: <span class="tx-danger">*</span></label>
-                                    <input value="{{ old('address') }}" class="form-control" name="address" placeholder="Enter Address" required="" type="text">
-                                </div>
-                            </div>
                             <div class="col-6">
                                 <div class="form-group">
                                     <label class="form-label">Subscription Type: <span class="tx-danger">*</span></label>
@@ -392,10 +405,12 @@
                             @endif
                         </div>
                         <div class="form-group text-end mt-2">
-                            <button id="payment-button2" type="submit" class="button btn btn-primary">Continue to payment</button>
                             @if(auth()->user()->type === 'super_admin')
-                            <button id="trial-button2" type="submit" class="button btn btn-primary">Continue without payment (trial sub)</button>
+                            <button id="trial-button2" type="submit" class="button btn btn-primary">Continue without payment</button>
+                            @else
+                            <button id="payment-button2" type="submit" class="button btn btn-primary">Continue to payment</button>
                             @endif
+                            
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                         </div>
                 </form>

@@ -34,10 +34,11 @@
                         <div class="form-group col-6">
                             <label class="form-label">interval<span class="tx-danger">*</span></label>
                             <select name="interval" id="interval" required class="form-control paintProtectionFil select2" >
-                                <option value="WEEKLY">WEEKLY</option>
-                                <option selected value="MONTHLY">Weekly Plan</option>
-                                <option value="THREE_MONTHS">Monthly Plan</option>
-                                <option value="SIX_MONTHS">Quarterly Plan</option>
+                                <option value="WEEKLY">7 days trail</option>
+                                <option selected value="WEEKLY">Weekly Plan</option>
+                                <option value="MONTHLY">Monthly Plan</option>
+                                <option value="NINETY_DAYS">3 Months Plan</option>
+                                <option value="QUARTERLY">Quarterly Plan</option>
                                 <option value="ANNUAL">Annual Plan</option>
                             </select>
                         </div>
