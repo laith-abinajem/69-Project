@@ -25,7 +25,7 @@
                 },
                 body: JSON.stringify({
                     nonce: token,
-                    customer_id: 'your-customer-id'
+                    customer_id: '5H6FNDRBN0DTQ40CKPAAPTGM1G'
                 })
             });
 
