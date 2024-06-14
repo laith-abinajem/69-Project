@@ -342,7 +342,10 @@ class PaymentController extends Controller
 
         $customerId = $request->input('customer_id');
         $nonce = $request->input('nonce');
-
+        $client = new SquareClient([
+            'accessToken' => 'EAAAl4ZyBLIRqCXuoUe-u77nYVLdmAyxjFzYHgQHyv9TuaY6dYEWzYsqiWJekQHe',
+            'environment' => 'sandbox', 
+        ]);
         try {
             $billing_address = new \Square\Models\Address();
             $body = new \Square\Models\CreateCustomerCardRequest($nonce);
