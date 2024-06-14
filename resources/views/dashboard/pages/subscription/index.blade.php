@@ -68,9 +68,63 @@
                             </div>
                         </div>
                             <div class="col-12 mt-4">
-                                <button type="button" class="button btn btn-primary" data-bs-toggle="modal" data-bs-target="#managePlanModal">MANAGE PLAN</button>
+                                <div class="d-flex flex-wrap">
+                                    <button type="button" class="button btn btn-primary me-3" data-bs-toggle="modal" data-bs-target="#managePlanModal">MANAGE PLAN</button>
+                                    <form action="route" method="POST">
+                                        <input type="hidden" name="customer_id" />
+                                        <button type="submit" class="button btn btn-danger">CANCEL SUBSCRIPTION</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12">
+        <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Payment Method</h3>
+                </div>
+                <div class="card-body">
+                    <div class="container-fluid">
+                        <!-- add if user has card -->
+                        <div class="row">
+                            <div class="col-lg-6 col-12">
+                                <div class="my-3">
+                                    <span class="font-weight-bold">Visa ending 1111</span>
+                                </div>
+                                <div class="mb-3">
+                                    <span>Expiration: 25 / 2026</span>
+                                </div>
+                                <div class="mb-3">
+                                    <span>Card Brand: VISA</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-12">
+                                <div class="visa-container" style="background-image: url('{{ asset('assets/img/bg.png') }}');">
+                                    <header>
+                                        <span class="logo">
+                                            <img src="{{ asset('assets/img/logo.png') }}" alt="" />
+                                        </span>
+                                        <img src="{{ asset('assets/img/chip.png') }}" alt="" class="chip" />
+                                    </header>
+                                    <div class="card-details">
+                                        <div class="name-number">
+                                            <h6>Card Number</h6>
+                                            <h5 class="number">** ** ** 3020</h5>
+                                            <h5 class="name">holder name</h5>
+                                        </div>
+                                        <div class="valid-date">
+                                            <h6>Valid Thru</h6>
+                                            <h5>05/28</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- add else -->
+                        <!-- add (Card form) -->
                     </div>
                 </div>
             </div>
@@ -175,7 +229,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-            <form id="subscription-form" action="{{ route('dashboard.process-payment') }}" method="post">
+            <form id="subscription-form" action="{{ route('process-payment') }}" method="post">
                     @csrf
                     <div class="row row-sm">
                         @php
@@ -241,7 +295,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-            <form id="subscription-form2" action="{{ route('dashboard.process-payment') }}" method="post">
+            <form id="subscription-form2" action="{{ route('process-payment') }}" method="post">
                     @csrf
                     <div class="row row-sm">
                             <div class="col-6">
@@ -293,7 +347,7 @@
 </div>
 <script>
     document.getElementById('payment-button').addEventListener('click', function() {
-        document.getElementById('subscription-form').action = "{{ route('dashboard.process-payment') }}";
+        document.getElementById('subscription-form').action = "{{ route('process-payment') }}";
     });
 
     document.getElementById('trial-button').addEventListener('click', function() {
@@ -302,7 +356,7 @@
 </script>
 <script>
     document.getElementById('payment-button2').addEventListener('click', function() {
-        document.getElementById('subscription-form2').action = "{{ route('dashboard.process-payment') }}";
+        document.getElementById('subscription-form2').action = "{{ route('process-payment') }}";
     });
 
     document.getElementById('trial-button2').addEventListener('click', function() {
