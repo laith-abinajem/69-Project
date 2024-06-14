@@ -229,7 +229,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-            <form id="subscription-form" action="{{ route('process-payment') }}" method="post">
+            <form id="subscription-form" action="{{ route('dashboard.process-payment') }}" method="post">
                     @csrf
                     <div class="row row-sm">
                         @php
@@ -295,7 +295,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-            <form id="subscription-form2" action="{{ route('process-payment') }}" method="post">
+            <form id="subscription-form2" action="{{ route('dashboard.process-payment') }}" method="post">
                     @csrf
                     <div class="row row-sm">
                             <div class="col-6">
@@ -347,7 +347,7 @@
 </div>
 <script>
     document.getElementById('payment-button').addEventListener('click', function() {
-        document.getElementById('subscription-form').action = "{{ route('process-payment') }}";
+        document.getElementById('subscription-form').action = "{{ route('dashboard.process-payment') }}";
     });
 
     document.getElementById('trial-button').addEventListener('click', function() {
@@ -356,7 +356,7 @@
 </script>
 <script>
     document.getElementById('payment-button2').addEventListener('click', function() {
-        document.getElementById('subscription-form2').action = "{{ route('process-payment') }}";
+        document.getElementById('subscription-form2').action = "{{ route('dashboard.process-payment') }}";
     });
 
     document.getElementById('trial-button2').addEventListener('click', function() {
