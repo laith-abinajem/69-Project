@@ -3,7 +3,58 @@
 @section('title', 'Subscription')
 
 @section('content')
+<style> 
 
+.visa-container {
+  position: relative;
+  background-size: cover;
+  padding: 25px;
+  border-radius: 28px;
+  max-width: 380px;
+  width: 100%;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+.visa-container header,
+.visa-container .logo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.visa-container .logo img {
+  width: 48px;
+  margin-right: 10px;
+}
+.visa-container h5 {
+  font-size: 16px;
+  font-weight: 400;
+  color: #fff;
+}
+.visa-container header .chip {
+  width: 60px;
+}
+.visa-container h6 {
+  color: #fff;
+  font-size: 10px;
+  font-weight: 400;
+}
+.visa-container h5.number {
+  margin-top: 4px;
+  font-size: 18px;
+  letter-spacing: 1px;
+}
+.visa-container h5.name {
+  margin-top: 20px;
+}
+.visa-container .card-details {
+  margin-top: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+.visa-container{
+    background-image: url('{{ asset('assets/img/pg.png') }}');
+}
+</style>
 
 <div class="row row-sm">
     @if(auth()->user()->type !== 'super_admin' )
@@ -102,7 +153,7 @@
                                 </div>
                             </div>
                             <div class="col-lg-6 col-12">
-                                <div class="visa-container" style="background-image: url('{{ asset('assets/img/bg.png') }}');">
+                                <div class="visa-container" style="">
                                     <header>
                                         <span class="logo">
                                             <img src="{{ asset('assets/img/logo.png') }}" alt="" />
@@ -112,7 +163,7 @@
                                     <div class="card-details">
                                         <div class="name-number">
                                             <h6>Card Number</h6>
-                                            <h5 class="number">** ** ** 3020</h5>
+                                            <h5 class="number">**** **** **** 3020</h5>
                                             <h5 class="name">holder name</h5>
                                         </div>
                                         <div class="valid-date">
