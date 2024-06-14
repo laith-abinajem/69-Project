@@ -3,7 +3,36 @@
 @section('title', 'Edit Tint')
 
 @section('content')
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+    }
 
+    .color-picker-container {
+        display: inline-flex;
+        align-items: center;
+        border: 1px solid #ccc;
+        padding: 5px;
+        border-radius: 5px;
+    }
+
+    .color-picker-container input[type="text"] {
+        width: 80px;
+        margin-left: 10px;
+        border: none;
+        border-left: 1px solid #ccc;
+        padding-left: 5px;
+        height: 30px;
+    }
+
+    .color-picker-container input[type="color"] {
+        border: none;
+        height: 30px;
+        width: 40px;
+        padding: 0;
+    }
+</style>
 
 
 <div class="row row-sm">
@@ -28,12 +57,12 @@
                                     <label class="form-control-label">Brand Image:</label>
                                     <input type="file" name="tint_image" id="brandimage" class="dropify" data-default-file="{{ $photos }}" data-height="200" />
                                 </div>
-                                <div class="col-md-5 col-lg-4 mb-2">
+                                <div class="col-md-5 col-lg-6 mb-2">
                                     <label class="form-control-label">Brand Name: <span class="tx-danger">*</span></label>
                                     <input class="form-control" id="brandname" name="tint_brand" value="{{ $tintBrand->tint_brand }}" placeholder="Tint Brand" required type="text">
                                 </div>
                                 @if(auth()->user()->type === "super_admin")
-                                <div class="col-md-5 col-lg-4 mb-2">
+                                <div class="col-md-5 col-lg-6 mb-2">
                                     <label class="form-control-label">Users: <span class="tx-danger">*</span></label>
                                     <select name="user_id" id="user_id" class="form-control paintProtectionFil " >
                                         @foreach($users as $user)
@@ -42,6 +71,25 @@
                                     </select>
                                 </div>
                                 @endif
+                               
+                                <div class="col-md-5 col-lg-6 mb-2">
+                                    <label class="form-control-label">guage level<span class="tx-danger">*</span></label>
+                                    <select name="guage_level" id="guage_level" class="form-control paintProtectionFil">
+                                        <option value="1" {{ $tintBrand->guage_level == 1 ? 'selected' : '' }}>1 minimum heat rejection</option>
+                                        <option value="2" {{ $tintBrand->guage_level == 2 ? 'selected' : '' }}>2 good heat rejection</option>
+                                        <option value="3" {{ $tintBrand->guage_level == 3 ? 'selected' : '' }}>3 very good heat rejection</option>
+                                        <option value="4" {{ $tintBrand->guage_level == 4 ? 'selected' : '' }}>4 excellent heat rejection</option>
+                                        <option value="5" {{ $tintBrand->guage_level == 5 ? 'selected' : '' }}>5 maximum heat reject</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-5 col-lg-6 mb-2">
+                                    <label class="form-control-label">Choose a Color <span class="tx-danger">*</span></label>
+                                    <br>
+                                    <div class="color-picker-container">
+                                        <input type="color" id="colorPicker" name="colorPicker"  value="{{$tintBrand->hex}}">
+                                        <input type="text" id="hex" name="hex" required="" value="{{$tintBrand->hex}}" maxlength="7">
+                                    </div>
+                                </div>
                                 <div class="col-12 mg-t-20 mg-md-t-0 mb-2">
                                     <label class="form-control-label">Brand Description: <span class="tx-danger">*</span></label>
                                     <textarea class="form-control" id="branddescription" name="tint_description" placeholder="Textarea" rows="3" required>{{ $tintBrand->tint_description }}</textarea>

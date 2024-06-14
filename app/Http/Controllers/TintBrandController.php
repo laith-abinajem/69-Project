@@ -54,6 +54,8 @@ class TintBrandController extends Controller
             $tintBrand = TintBrand::create([
                 'tint_brand' => $request->tint_brand,
                 'tint_description' => $request->tint_description,
+                'hex' => $request->hex,
+                'guage_level' => $request->guage_level,
                 'user_id'=> $user->id
             ]);
             if ($request->hasFile('tint_image')) {
@@ -97,6 +99,8 @@ class TintBrandController extends Controller
             $tintBrand->update([
                 'tint_brand' => $request->tint_brand,
                 'tint_description' => $request->tint_description,
+                'hex' => $request->hex,
+                'guage_level' => $request->guage_level,
                 'user_id'=> $user_id
             ]);
     

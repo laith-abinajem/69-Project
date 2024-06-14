@@ -1,4 +1,4 @@
-$(function() {
+$(function () {
 	'use strict'
 	$('#wizard1').steps({
 		headerTag: 'h3',
@@ -11,7 +11,7 @@ $(function() {
 		bodyTag: 'section',
 		autoFocus: true,
 		titleTemplate: '<span class="number">#index#<\/span> <span class="title">#title#<\/span>',
-		onStepChanging: function(event, currentIndex, newIndex) {
+		onStepChanging: function (event, currentIndex, newIndex) {
 			if (currentIndex < newIndex) {
 				// Step 1 form validation
 				if (currentIndex === 0) {
@@ -26,7 +26,7 @@ $(function() {
 						bimage.validate();
 					}
 
-					
+
 				}
 				// Always allow step back to the previous step even if the current step is not valid.
 			} else {
@@ -46,7 +46,21 @@ $(function() {
 			'fileSize': 'The file size is too big (2M max).'
 		}
 	});
-	
+
+
+	$('#colorPicker').on('input', function () {
+		$('#hex').val($(this).val());
+		$('#selectedColor').text($(this).val());
+	});
+
+	$('#hex').on('input', function () {
+		const hexValue = $(this).val();
+		if (/^#[0-9A-F]{6}$/i.test(hexValue)) {
+			$('#colorPicker').val(hexValue);
+			$('#selectedColor').text(hexValue);
+		}
+	});
+
 	$('#wizard3').steps({
 		headerTag: 'h3',
 		bodyTag: 'section',
