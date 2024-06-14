@@ -355,6 +355,7 @@ class PaymentController extends Controller
             // $card = $this->squareService->addCustomerCard($customerId, $nonce);
             $user = User::find(auth()->user()->id);
             $api_response = $client->getCardsApi()->listCards('', $user->square_customer_id);
+            dd($api_response);
             $card = Card::create([
                 "card_id" => $api_response->id,
                 "card_brand"=>$api_response->card_brand,
