@@ -315,7 +315,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-            <form id="subscription-form" action="{{ route('dashboard.subscription.update') }}" method="post">
+            <form id="subscription-form" action="{{ route('dashboard.process-payment') }}" method="post">
                     @csrf
                     <div class="row row-sm">
                         @php
@@ -361,7 +361,10 @@
                             </div>
                         </div>
                         <div class="form-group text-end mt-2">
-                            <button  type="submit" class="button btn btn-primary">Change plan</button>
+                            <button id="payment-button" type="submit" class="button btn btn-primary">Continue to payment</button>
+                            @if(auth()->user()->type === 'super_admin')
+                            <button id="trial-button" type="submit" class="button btn btn-primary">Continue without payment (trial sub)</button>
+                            @endif
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                         </div>
                 </form>
