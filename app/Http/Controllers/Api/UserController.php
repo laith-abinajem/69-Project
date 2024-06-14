@@ -26,6 +26,7 @@ class UserController extends Controller
         unset($user->sub_id);
         unset($user->email_verified_at);
         unset($user->code);
+        unset($user->card_id);
         $user->tintBrands->each(function ($tintBrand) {
             $tintBrand->tint_logo = $tintBrand->getFirstMediaUrl('photos');
             unset($tintBrand->media);
