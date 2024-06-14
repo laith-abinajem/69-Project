@@ -1,52 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Square Payment Form</title>
-  <script type="text/javascript" src="https://js.squareup.com/v2/paymentform"></script>
-  <script type="text/javascript">
-    document.addEventListener("DOMContentLoaded", function () {
-      const paymentForm = new SqPaymentForm({
-        applicationId: "{{ env('sq0idp-W9lc4EFyc_29C48m16hIHA') }}",
-        inputClass: "sq-input",
-        autoBuild: false,
-        inputStyles: [{ fontSize: "16px" }],
-        cardNumber: { elementId: "sq-card-number" },
-        cvv: { elementId: "sq-cvv" },
-        expirationDate: { elementId: "sq-expiration-date" },
-        postalCode: { elementId: "sq-postal-code" },
-        callbacks: {
-          cardNonceResponseReceived: function (errors, nonce, cardData) {
-            if (errors) {
-              console.error("Encountered errors:");
-              errors.forEach(function (error) {
-                console.error(error.message);
-              });
-              return;
+<div id="form-container">
+    <div id="card-container"></div>
+    <button id="card-button">Save Card</button>
+</div>
+
+<script src="https://sandbox.web.squarecdn.com/v1/square.js"></script>
+<script>
+    async function initializeSquarePayments() {
+        const payments = Square.payments('sq0idp-W9lc4EFyc_29C48m16hIHA', 'sandbox'); // or 'production'
+        const card = await payments.card();
+        await card.attach('#card-container');
+
+        document.getElementById('card-button').addEventListener('click', async () => {
+            const { token, error } = await card.tokenize();
+            if (error) {
+                console.error(error);
+                return;
             }
-            alert("Nonce received: " + nonce);
-            document.getElementById('card-nonce').value = nonce;
-            document.getElementById('payment-form').submit();
-          }
-        }
-      });
-      paymentForm.build();
-      document.getElementById("pay-button").addEventListener("click", function (event) {
-        event.preventDefault();
-        paymentForm.requestCardNonce();
-      });
-    });
-  </script>
-</head>
-<body>
-  <form id="payment-form" action="{{ route('processPayment') }}" method="post">
-    @csrf
-    <div id="sq-card-number"></div>
-    <div id="sq-cvv"></div>
-    <div id="sq-expiration-date"></div>
-    <div id="sq-postal-code"></div>
-    <input type="hidden" id="card-nonce" name="nonce">
-    <button id="pay-button">Pay</button>
-  </form>
-</body>
-</html>
+
+            const response = await fetch('/processPayment', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-Token': '{{ csrf_token() }}',
+                },
+                body: JSON.stringify({
+                    nonce: token,
+                    customer_id: '5H6FNDRBN0DTQ40CKPAAPTGM1G'
+                })
+            });
+
+            if (response.ok) {
+                const cardData = await response.json();
+                console.log('Card added:', cardData);
+            } else {
+                const errorData = await response.json();
+                console.error('Error adding card:', errorData);
+            }
+        });
+    }
+
+    initializeSquarePayments();
+</script>
