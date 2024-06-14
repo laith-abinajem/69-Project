@@ -352,26 +352,26 @@ class PaymentController extends Controller
             $body->setBillingAddress($billing_address);
 
             $card = $client->getCustomersApi()->createCustomerCard($customerId, $body);
-            // $card = $this->squareService->addCustomerCard($customerId, $nonce);
             $user = User::find(auth()->user()->id);
             $api_response = $client->getCardsApi()->listCards('', $user->square_customer_id);
             if ($api_response->isSuccess() && !empty($api_response->getResult()->getCards())) {
                 $cards = $api_response->getResult()->getCards();
-                $cardData = $cards[0]; // Get the first card, or you can loop through all cards if needed
-                // Create the Card model in your application
+                $cardData = $cards[0];
                 $card = Card::create([
                     "card_id" => $cardData->getId(),
                     "card_brand" => $cardData->getCardBrand(),
-                    "card_type" => $cardData->getCardType(), // Note: Make sure this property exists
+                    "card_type" => $cardData->getCardType(), 
                     "last_4" => $cardData->getLast4(),
                     "cardholder_name" => $cardData->getCardholderName(),
                     "bin" => $cardData->getBin(),
                     "customer_id" => $user->square_customer_id,
+                    "exp_month" => $cardData->getExpMonth(), // Add expiration month
+                    "exp_year" => $cardData->getExpYear(), // Add expiration year
                 ]);
             
             }
             // return response()->json($card, 200);
-            return redirect()->route('dashboard.createPayment2');
+            return redirect()->route('dashboard.process-payment');
 
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 400);

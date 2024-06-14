@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('cardholder_name')->nullable();
             $table->string('bin')->nullable();
             $table->string('customer_id')->nullable();
+            $table->string('exp_year')->nullable();
+            $table->string('exp_month')->nullable();
 
             $table->timestamps();
         });
