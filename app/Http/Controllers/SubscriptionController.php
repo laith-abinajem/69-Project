@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Subscription;
 use App\Models\User;
+use App\Models\Card;
 use RealRashid\SweetAlert\Facades\Alert;
 use Carbon\Carbon;
 use Mail;
@@ -24,7 +25,7 @@ class SubscriptionController extends Controller
             $packages = Package::get();
             $price = Subscription::where('user_id',auth()->user()->id)->sum('price');
             $count = Subscription::where('user_id',auth()->user()->id)->count();
-
+            $card = Card::where('customer_id',auth()->user()->square_customer_id)->first();
         }else{
             $current_sub = Subscription::where('user_id', auth()->user()->id)
             ->where('end_date', '>', $today)
@@ -34,11 +35,11 @@ class SubscriptionController extends Controller
             $packages = Package::get();
             $price = Subscription::where('user_id',auth()->user()->id)->sum('price');
             $count = Subscription::where('user_id',auth()->user()->id)->count();
-
+            $card = Card::where('customer_id',auth()->user()->square_customer_id)->first();
             // $selected_package = Package::where('name',$current_sub->package_type)->first();
 
         }
-        return view('dashboard.pages.subscription.index',compact('users','count','price','data','current_sub','packages'));
+        return view('dashboard.pages.subscription.index',compact('users','count','price','data','current_sub','packages','card'));
     }
     public function create(){
         $packages = Package::get();

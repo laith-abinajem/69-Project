@@ -140,6 +140,8 @@
                 <div class="card-body">
                     <div class="container-fluid">
                         <!-- add if user has card -->
+                     
+                         @if($card)
                         <div class="row">
                             <div class="col-lg-6 col-12">
                                 <div class="my-3">
@@ -174,11 +176,13 @@
                                 </div>
                             </div>
                         </div>
+                        @else
                         <!-- add else -->
                         <div id="form-container">
                             <div id="card-container"></div>
                             <button class="button btn btn-primary me-3" id="card-button">Save Card</button>
                         </div>
+                        @endif
                     </div>
                 </div>
             </div>

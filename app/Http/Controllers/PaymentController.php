@@ -371,7 +371,7 @@ class PaymentController extends Controller
             
             }
             // return response()->json($card, 200);
-            return redirect()->route('dashboard.process-payment');
+            return redirect()->route('dashboard.subscription.index');
 
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 400);
@@ -492,7 +492,6 @@ class PaymentController extends Controller
         $user = User::find(auth()->user()->id);
         $card = Card::where('customer_id',$user->square_customer_id)->first();
         $package = Package::find($request->package_id);
-        try {
             if($card){
                 $customerId = $user->square_customer_id;
                 // Retrieve the plan ID based on the package type
@@ -517,10 +516,7 @@ class PaymentController extends Controller
                 return redirect()->route('dashboard.subscription.create');
             
             }
-            
-        } catch (ApiException $e) {
-            return redirect()->route('dashboard.payment-failed')->with('error', 'Failed to create subscription: ' . $e->getMessage());
-        }
+      
     }
 
 }
