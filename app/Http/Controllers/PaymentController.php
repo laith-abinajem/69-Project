@@ -28,19 +28,26 @@ use Square\Models\CatalogSubscriptionPlan;
 use Square\Models\SubscriptionPhase;
 use Square\Models\UpsertCatalogObjectRequest;
 
+use App\Services\SquareService;
 
 class PaymentController extends Controller
 {
     private $client;
+    protected $squareService;
 
-    public function __construct()
+    public function __construct(SquareService $squareService)
     {
-        $this->client = new SquareClient([
-            'accessToken' => env('SQUARE_ACCESS_TOKEN'),
-            'environment' => Environment::SANDBOX, // Default to sandbox
-        ]);
-        
+        $this->squareService = $squareService;
     }
+
+    // public function __construct()
+    // {
+    //     $this->client = new SquareClient([
+    //         'accessToken' => env('SQUARE_ACCESS_TOKEN'),
+    //         'environment' => Environment::SANDBOX, // Default to sandbox
+    //     ]);
+        
+    // }
 
     function createPayment(Request $request){
         $client = new SquareClient([
