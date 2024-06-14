@@ -399,6 +399,7 @@
         </div>
     </div>
 </div>
+
 <script src="https://sandbox.web.squarecdn.com/v1/square.js"></script>
 <script>
     async function initializeSquarePayments() {
