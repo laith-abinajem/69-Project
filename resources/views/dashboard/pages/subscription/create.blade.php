@@ -16,7 +16,7 @@
                 console.error(error);
                 return;
             }
-
+            console.log(token)
             const response = await fetch('/add-card', {
                 method: 'POST',
                 headers: {
