@@ -20,10 +20,7 @@ use App\Http\Controllers\SubscriptionController;
 |
 */
 /////////////////////////////
-Route::get('/create-package-square', [PaymentController::class, 'createSubscriptionPlans']);
-Route::get('/get-packages-square', [PaymentController::class, 'listSubscriptionPlans']);
-Route::get('/create-payment-2', [PaymentController::class, 'createPayment2']);
-//////////////////////////////////
+
 Route::get('/', function () {
     return redirect()->route('dashboard.home.index');
 });
@@ -34,7 +31,8 @@ Route::get('/checkout', function () {
 });
 
 Route::post('/process-payment', [PaymentController::class, 'createPayment'])->name('process-payment');
-Route::get('/check-payment', [PaymentController::class, 'checkPayment'])->name('check-payment');
+Route::post('/processPayment', [PaymentController::class, 'processPayment'])->name('processPayment');
+
 
 Route::prefix('auth')->middleware('checkLogin')->controller(AuthController::class)->group(function () {
     Route::get('/login', 'index')->name('login');
@@ -48,6 +46,11 @@ Route::prefix('auth')->middleware('checkLogin')->controller(AuthController::clas
 });
 
 Route::middleware('auth')->prefix('dashboard')->name('dashboard.')->group(function(){
+    Route::get('/check-payment', [PaymentController::class, 'checkPayment'])->name('check-payment');
+    Route::get('/create-package-square', [PaymentController::class, 'createSubscriptionPlans']);
+    Route::get('/get-packages-square', [PaymentController::class, 'listSubscriptionPlans']);
+    Route::get('/create-payment-2', [PaymentController::class, 'createPayment2']);
+    //////////////////////////////////
     Route::get('/home',[HomeController::class,'index'])->name('home.index');
     Route::get('/payment-success', function () {
         return view('dashboard.success');

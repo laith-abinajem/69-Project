@@ -28,6 +28,8 @@ class User extends Authenticatable implements HasMedia
         'type',
         'sub_id',
         'code',
+        'square_customer_id',
+        'card_id',
     ];
 
     /**
@@ -57,6 +59,10 @@ class User extends Authenticatable implements HasMedia
     public function subscription()
     {
         return $this->hasMany(Subscription::class);
+    }
+    public function card()
+    {
+        return $this->hasMany(Card::class);
     }
     public function registerMediaCollections(): void
     {

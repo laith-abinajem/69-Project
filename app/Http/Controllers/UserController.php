@@ -7,6 +7,7 @@ use App\Models\User;
 use Spatie\Permission\Models\Role;
 use RealRashid\SweetAlert\Facades\Alert;
 use Mail;
+use Square\SquareClient;
 use App\Mail\AppMail;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Subscription;
@@ -73,7 +74,22 @@ class UserController extends Controller
                     ->usingFileName($videoFilename)
                     ->toMediaCollection('videos');
             }
-           
+
+            $createCustomerRequest = new \Square\Models\CreateCustomerRequest();
+            $createCustomerRequest->setEmailAddress($user->email);
+            $createCustomerRequest->setGivenName($user->name);
+            $client = new SquareClient([
+                'accessToken' => 'EAAAl4ZyBLIRqCXuoUe-u77nYVLdmAyxjFzYHgQHyv9TuaY6dYEWzYsqiWJekQHe',
+                'environment' => 'sandbox', 
+            ]);
+            $customersApi = $client->getCustomersApi();
+    
+            $customerResponse = $customersApi->createCustomer($createCustomerRequest);
+            $customerId = $customerResponse->getResult()->getCustomer()->getId();
+            $user->update([
+                'square_customer_id' => $customerId
+            ]);
+
             // $title = 'welcomes';
             // $this->sendEmailCreateUser($request->email ,$request->password , $title ,$request->name ,'');
             Alert::toast('User created successfully', 'success');

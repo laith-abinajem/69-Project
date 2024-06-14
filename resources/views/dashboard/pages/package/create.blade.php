@@ -19,25 +19,29 @@
                 <form action="{{ route('dashboard.package.store') }}" method="post">
                     @csrf
                     <div class="row row-sm">
-                            <div class="col-6">
-                                <div class="form-group mg-b-0">
-                                    <label class="form-label">Name: <span class="tx-danger">*</span></label>
-                                    <input value="{{ old('name') }}" class="form-control" name="name" placeholder="Enter name" required="" type="text">
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <label class="form-label">Price: <span class="tx-danger">*</span></label>
-                                    <input value="{{ old('price') }}" class="form-control" name="price" placeholder="Enter Price" required="" type="text">
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <label class="form-label">Days (Package Period in days): <span class="tx-danger">*</span></label>
-                                    <input value="{{ old('days') }}" class="form-control" name="days" placeholder="Enter Days" required="" type="text">
-                                </div>
+                        <div class="col-6">
+                            <div class="form-group mg-b-0">
+                                <label class="form-label">Name: <span class="tx-danger">*</span></label>
+                                <input value="{{ old('name') }}" class="form-control" name="name" placeholder="Enter name" required="" type="text">
                             </div>
                         </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Price: <span class="tx-danger">*</span></label>
+                                <input value="{{ old('price') }}" class="form-control" name="price" placeholder="Enter Price" required="" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group col-6">
+                            <label class="form-label">interval<span class="tx-danger">*</span></label>
+                            <select name="interval" id="interval" required class="form-control paintProtectionFil select2" >
+                                <option value="WEEKLY">WEEKLY</option>
+                                <option selected value="MONTHLY">Weekly Plan</option>
+                                <option value="THREE_MONTHS">Monthly Plan</option>
+                                <option value="SIX_MONTHS">Quarterly Plan</option>
+                                <option value="ANNUAL">Annual Plan</option>
+                            </select>
+                        </div>
+                    </div>
                     <div class="form-group text-end mt-2">
                         <button type="submit" class="button btn btn-primary">Save</button>
                         <button type="button" class="btn btn-secondary" onclick="window.location='{{ route('dashboard.subscription.index') }}'">Cancel</button>
