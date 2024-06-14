@@ -6,7 +6,7 @@
 <script src="https://sandbox.web.squarecdn.com/v1/square.js"></script>
 <script>
     async function initializeSquarePayments() {
-        const payments = Square.payments('sq0idp-W9lc4EFyc_29C48m16hIHA', 'sandbox'); // or 'production'
+        const payments = Square.payments('sq0idp-8mKT7to57PX7XoTmEAiTPA', 'production'); // or 'production'
         const card = await payments.card();
         await card.attach('#card-container');
 
