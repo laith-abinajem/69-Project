@@ -267,7 +267,7 @@
                                 @endif
                                 @if(auth()->user()->type === 'super_admin')
                                 <td>
-                                        <a class="button btn btn-secondary" data-bs-toggle="modal" data-bs-target="#managePlanModal" data-user-id="{{$item->id}}">
+                                        <a class="button btn btn-secondary" data-bs-toggle="modal" data-bs-target="#managePlanModal3" data-item="{{ $item->toJson() }}">
                                             <i class="fas fa-edit"></i>
                                         </a>
                                         <a type="button" class="button btn btn-danger float-right" data-bs-toggle="modal" data-bs-target="#deleteModal{{$item->id}}">
@@ -315,7 +315,60 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-            <form id="subscription-form" action="{{ route('dashboard.process-payment') }}" method="post">
+                @if($current_sub)
+                <form id="subscription-form" action="{{ route('dashboard.subscription.update') }}" method="post">
+                    @csrf
+                    <div class="row row-sm">
+                        @php
+                            $today = \Carbon\Carbon::now()->toDateString();
+                        @endphp
+                        <input type="hidden" id="userIdInput" name="user_id" value="{{auth()->user()->id}}">
+                        <input type="hidden" id="subscription_id" name="subscription_id" value="{{$current_sub->id}}">
+                            @if(auth()->user()->subscription && auth()->user()->subscription->where('end_date', '>', $today)->count() > 0)
+                                <div class="col-4  mt-2">
+                                    <div class="form-group mg-b-0">
+                                        <label class="form-label">Previous subscription </label>
+                                        <input value="{{ $current_sub->package_type }}" class="form-control" readonly name="name" placeholder="Enter name" required="" type="text">
+                                    </div>
+                                </div>
+                                <div class="col-4  mt-2">
+                                    <div class="form-group">
+                                        <label class="form-label">Start date: </label>
+                                        <input value="{{ $current_sub->start_date }}" class="form-control" readonly placeholder="Enter Address" required="" type="text">
+                                    </div>
+                                </div>
+                                <div class="col-4  mt-2">
+                                    <div class="form-group">
+                                        <label class="form-label">End date: </label>
+                                        <input value="{{ $current_sub->end_date }}" class="form-control"  readonly placeholder="Enter Address" required="" type="text">
+                                    </div>
+                                </div>
+                            @else
+                                <div class="col-12">
+                                    <span> Note: You don't have active subscription</span>
+                                </div>
+                            @endif
+                            <div class="col-12">
+                                <span> </span>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label class="form-label">Subscription Type ( To upgrade plan : please select Subscription Type) : <span class="tx-danger">*</span></label>
+                                    <select name="package_id" id="package_id" required class="form-control paintProtectionFil select2" >
+                                        @foreach($packages as $package)
+                                            <option value="{{$package->id}}">{{$package->name}} - {{$package->price}} $</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group text-end mt-2">
+                            <button type="submit" class="button btn btn-primary">Continue</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        </div>
+                </form>
+                @else
+                <form id="subscription-form" action="{{ route('dashboard.process-payment') }}" method="post">
                     @csrf
                     <div class="row row-sm">
                         @php
@@ -343,7 +396,7 @@
                                 </div>
                             @else
                                 <div class="col-12">
-                                    <span> Note: Your Subscription is expierd   </span>
+                                    <span> Note: You don't have active subscription</span>
                                 </div>
                             @endif
                             <div class="col-12">
@@ -361,13 +414,17 @@
                             </div>
                         </div>
                         <div class="form-group text-end mt-2">
-                            <button id="payment-button" type="submit" class="button btn btn-primary">Continue to payment</button>
                             @if(auth()->user()->type === 'super_admin')
-                            <button id="trial-button" type="submit" class="button btn btn-primary">Continue without payment (trial sub)</button>
+                            <button id="trial-button" type="submit" class="button btn btn-primary">Continue without payment</button>
+                            @else
+                            <button id="payment-button" type="submit" class="button btn btn-primary">Continue to payment</button>
                             @endif
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                         </div>
                 </form>
+
+                @endif
+                
             </div>
         </div>
     </div>
@@ -421,7 +478,69 @@
         </div>
     </div>
 </div>
-
+<div class="modal fade" id="managePlanModal3" tabindex="-1" aria-labelledby="managePlanModalLabel3" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered  modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="managePlanModalLabel3">Edit Plan</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="subscription-form" action="{{ route('dashboard.subscription.update') }}" method="post">
+                    @csrf
+                    <div class="row row-sm">
+                        @php
+                            $today = \Carbon\Carbon::now()->toDateString();
+                        @endphp
+                        <input type="hidden" id="userIdInputEdit" name="user_id" value="">
+                        <input type="hidden" id="subscriptionID" name="subscription_id" value="">
+                            @if(auth()->user()->subscription && auth()->user()->subscription->where('end_date', '>', $today)->count() > 0)
+                                <div class="col-4  mt-2">
+                                    <div class="form-group mg-b-0">
+                                        <label class="form-label">Previous subscription </label>
+                                        <input value="{{ $current_sub->package_type }}" class="form-control" readonly name="name" placeholder="Enter name" required="" type="text">
+                                    </div>
+                                </div>
+                                <div class="col-4  mt-2">
+                                    <div class="form-group">
+                                        <label class="form-label">Start date: </label>
+                                        <input value="{{ $current_sub->start_date }}" class="form-control" readonly placeholder="Enter Address" required="" type="text">
+                                    </div>
+                                </div>
+                                <div class="col-4  mt-2">
+                                    <div class="form-group">
+                                        <label class="form-label">End date: </label>
+                                        <input value="{{ $current_sub->end_date }}" class="form-control"  readonly placeholder="Enter Address" required="" type="text">
+                                    </div>
+                                </div>
+                            @else
+                                <div class="col-12">
+                                    <span> Note: You don't have active subscription</span>
+                                </div>
+                            @endif
+                            <div class="col-12">
+                                <span> </span>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label class="form-label">Subscription Type ( To upgrade plan : please select subscription type) : <span class="tx-danger">*</span></label>
+                                    <select name="package_id" id="package_id" required class="form-control paintProtectionFil select2" >
+                                        @foreach($packages as $package)
+                                            <option value="{{$package->id}}">{{$package->name}} - {{$package->price}} $</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group text-end mt-2">
+                            <button  type="submit" class="button btn btn-primary">Continue</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 <script src="https://sandbox.web.squarecdn.com/v1/square.js"></script>
 <script>
     async function initializeSquarePayments() {
@@ -473,28 +592,36 @@
    
 </script>
 <script>
-    document.getElementById('payment-button2').addEventListener('click', function() {
-        document.getElementById('subscription-form2').action = "{{ route('dashboard.process-payment') }}";
-    });
-    var trial_btn2 = document.getElementById('trial-button2');
-    if(trial_btn2){
-        trial_btn2.addEventListener('click', function() {
-            document.getElementById('subscription-form2').action = "{{ route('dashboard.subscription.store') }}";
-        });
-    }
-    document.addEventListener('DOMContentLoaded', function() {
-    var managePlanModal = document.getElementById('managePlanModal');
 
-    managePlanModal.addEventListener('show.bs.modal', function(event) {
-        var button = event.relatedTarget; // Button that triggered the modal
-        var userId = button.getAttribute('data-user-id'); // Extract user ID from data-* attribute
-        var userIdInput = managePlanModal.querySelector('#userIdInput');
-        
-        // Update the value of the hidden input field
-        userIdInput.value = userId;
+    document.addEventListener('DOMContentLoaded', function() {
+        var managePlanModal = document.getElementById('managePlanModal3');
+
+        if (managePlanModal) {
+            managePlanModal.addEventListener('show.bs.modal', function(event) {
+                var button = event.relatedTarget; // Button that triggered the modal
+                var itemData = button.getAttribute('data-item'); // Extract data-item attribute
+                var item = JSON.parse(itemData); // Parse JSON string to object
+
+                // Populate the hidden input with the user ID subscriptionID
+                var userIdInput = managePlanModal.querySelector('#userIdInputEdit');
+                userIdInput.value = item.user_id;
+
+                var subscriptionID = managePlanModal.querySelector('#subscriptionID');
+                subscriptionID.value = item.id;
+              
+            });
+        }
+        document.getElementById('payment-button2').addEventListener('click', function() {
+            document.getElementById('subscription-form2').action = "{{ route('dashboard.process-payment') }}";
+        });
+        var trial_btn2 = document.getElementById('trial-button2');
+        if(trial_btn2){
+            trial_btn2.addEventListener('click', function() {
+                document.getElementById('subscription-form2').action = "{{ route('dashboard.subscription.store') }}";
+            });
+        }
     });
 
     // Other scripts for handling form submission or status update
-});
 </script>
 @endsection

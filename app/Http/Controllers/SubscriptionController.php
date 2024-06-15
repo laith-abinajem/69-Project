@@ -104,7 +104,6 @@ class SubscriptionController extends Controller
 
     }
     public function update(Request $request){
-        dd($request);
         $client = new SquareClient([
             'accessToken' => 'EAAAl4ZyBLIRqCXuoUe-u77nYVLdmAyxjFzYHgQHyv9TuaY6dYEWzYsqiWJekQHe',
             'environment' => 'sandbox', 
@@ -115,7 +114,7 @@ class SubscriptionController extends Controller
         if($request->user_id){
             $user = User::find($request->user_id);
         }
-        $subscription = Subscription::find($request->current_sub);
+        $subscription = Subscription::find($request->subscription_id);
         if($subscription){
             $api_response = $client->getSubscriptionsApi()->swapPlan($subscription->subscription_id, $body);
             Alert::toast('Subscription updated successfully', 'success');

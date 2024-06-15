@@ -49,7 +49,7 @@ class AuthController extends Controller
             if($user->type !== 'super_admin'){
                 $today = Carbon::now()->toDateString();
                 $sub = Subscription::where('user_id', $user->id)->where('end_date', '>', $today)->first();
-                if($sub){
+                if($sub && $sub->end_date !== null && $sub->subscription_id){
                     $api_response = $client->getSubscriptionsApi()->retrieveSubscription($sub->subscription_id);
                     $subscription = $api_response->getResult()->getSubscription();
                     $chargedThroughDate = $subscription->getChargedThroughDate();
