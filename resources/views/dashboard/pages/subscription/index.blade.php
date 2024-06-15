@@ -354,7 +354,7 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label class="form-label">Subscription Type ( To upgrade plan : please select Subscription Type) : <span class="tx-danger">*</span></label>
-                                    <select name="package_id" id="package_id" required class="form-control paintProtectionFil select2" >
+                                    <select name="package_id" id="package_id" required class="form-control paintProtectionFil select2 manage-select2" >
                                         @foreach($packages as $package)
                                             <option value="{{$package->id}}">{{$package->name}} - {{$package->price}} $</option>
                                         @endforeach
@@ -404,7 +404,7 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label class="form-label">Subscription Type<span class="tx-danger">*</span></label>
-                                    <select name="package_id" id="package_id" required class="form-control paintProtectionFil select2" >
+                                    <select name="package_id" id="package_id" required class="form-control paintProtectionFil select2 manage-select2" >
                                         @foreach($packages as $package)
                                             <option value="{{$package->id}}">{{$package->name}} - {{$package->price}} $</option>
                                         @endforeach
@@ -443,7 +443,7 @@
                             <div class="col-6">
                                 <div class="form-group">
                                     <label class="form-label">Subscription Type: <span class="tx-danger">*</span></label>
-                                    <select name="package_id" id="package_id" required class="form-control paintProtectionFil select2" >
+                                    <select name="package_id" id="package_id" required class="form-control paintProtectionFil select2 add-select2" >
                                         @foreach($packages as $package)
                                             <option value="{{$package->id}}">{{$package->name}} - {{$package->price}} $</option>
                                         @endforeach
@@ -454,7 +454,7 @@
                             <div class="col-6">
                                 <div class="form-group">
                                     <label class="form-label">User<span class="tx-danger">*</span></label>
-                                    <select name="user_id" id="user_id" required class="form-control paintProtectionFil select2" >
+                                    <select name="user_id" id="user_id" required class="form-control paintProtectionFil select2 add-select2" >
                                         @foreach($users as $user)
                                             <option value="{{$user->id}}">{{$user->name}}</option>
                                         @endforeach
@@ -523,7 +523,7 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label class="form-label">Subscription Type ( To upgrade plan : please select subscription type) : <span class="tx-danger">*</span></label>
-                                    <select name="package_id" id="package_id" required class="form-control paintProtectionFil select2" >
+                                    <select name="package_id" id="package_id" required class="form-control paintProtectionFil select2 edit-select" >
                                         @foreach($packages as $package)
                                             <option value="{{$package->id}}">{{$package->name}} - {{$package->price}} $</option>
                                         @endforeach

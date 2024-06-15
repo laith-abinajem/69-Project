@@ -37,6 +37,31 @@ $(function() {
 			suppressScrollX:true,
 		  });
 	}
+
+
+	$(document).ready(function(){
+		$('#managePlanModal').on('show.bs.modal', function (e) {
+			$('.manage-select2').select2({
+				dropdownParent: $('#managePlanModal')
+			});
+		});
+		$('#managePlanModal2').on('show.bs.modal', function (e) {
+			$('.add-select2').select2({
+				dropdownParent: $('#managePlanModal2')
+			});
+		});
+		$('#managePlanModal3').on('show.bs.modal', function (e) {
+			$('.edit-select').select2({
+				dropdownParent: $('#managePlanModal3')
+			});
+		});
+
+		$('#user_id').select2({
+			placeholder: 'Choose one',
+			searchInputPlaceholder: 'Search',
+			 width: '100%'
+		});
+	})
 	
 	
 

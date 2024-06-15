@@ -63,7 +63,7 @@
                                 @if(auth()->user()->type === "super_admin")
                                 <div class="col-md-5 col-lg-6 mb-2">
                                     <label class="form-control-label ">Users: <span class="tx-danger">*</span></label>
-                                    <select name="user_id" id="user_id" class="form-control paintProtectionFil " >
+                                    <select name="user_id" id="user_id" class="form-control paintProtectionFil ">
                                         @foreach($users as $user)
                                         <option value="{{$user->id}}">{{$user->name}}</option>
                                         @endforeach
