@@ -49,56 +49,61 @@ class SubscriptionController extends Controller
         return view('dashboard.pages.subscription.create',compact('packages','users'));
     }
     public function store(Request $request){
-            $package = Package::find($request->package_id);
-            $startDate = Carbon::now();
-            $endDate = (clone $startDate)->addDays($package->days);
+        $package = Package::find($request->package_id);
+        $startDate = Carbon::now();
+        $endDate = (clone $startDate)->addDays($package->days);
+        $user = User::find($request->user_id);
+         $subscription = Subscription::where('user_id',$request->user_id)->where('end_date', '>', $startDate)->first();
+        if(!$subscription){
+            $subscription = Subscription::create([
+                "price"=>$package->price,
+                "package_type"=>$package->name,
+                "user_id"=>$request->user_id,
+                "start_date"=>$startDate,
+                "end_date"=>$endDate,
+            ]);
+
             $user = User::find($request->user_id);
-            if(!$user->subscription){
-                $subscription = Subscription::create([
-                    "price"=>$package->price,
-                    "package_type"=>$package->name,
-                    "user_id"=>$request->user_id,
-                    "start_date"=>$startDate,
-                    "end_date"=>$endDate,
-                ]);
-    
-                $user = User::find($request->user_id);
-                Mail::to($user->email)->send(new AppMail([
-                    'title' => 'Welcome To 69simulator',
-                    'body' => 'Your account has been approved, and we have given you a new subscription. Enjoy using 69simulator!',
-                ]));
-            }else{
-                $subscription = Subscription::where('user_id',$request->user_id)->where('end_date', '>', $startDate)->first();
-                if($subscription){
-                    if ($subscription->end_date > $startDate) {
-                        $daysToAdd = $startDate->diffInDays($subscription->end_date);
-                        $endDateUpdate = (clone $endDate)->addDays($daysToAdd);
-                    } else {
-                        $endDateUpdate = $endDate;
-                    }
-                    $subscription->update([
-                        "end_date"=>$endDateUpdate,
-                        "package_type"=>$package->name,
-                    ]);
-                }else{
-                    $subscription = Subscription::create([
-                        "price"=>$package->price,
-                        "package_type"=>$package->name,
-                        "user_id"=>$request->user_id,
-                        "start_date"=>$startDate,
-                        "end_date"=>$endDate,
-                    ]);
-        
-                    $user = User::find($request->user_id);
-                    Mail::to($user->email)->send(new AppMail([
-                        'title' => 'Welcome To 69simulator',
-                        'body' => 'Your account has been approved, and we have given you a new subscription. Enjoy using 69simulator!',
-                    ]));
-                }
-            }
-          
+            Mail::to($user->email)->send(new AppMail([
+                'title' => 'Welcome To 69simulator',
+                'body' => 'Your account has been approved, and we have given you a new subscription. Enjoy using 69simulator!',
+            ]));
             Alert::toast('Subscription created successfully', 'success');
             return redirect()->route('dashboard.subscription.index');
+        }else{
+
+            Alert::toast('This user already have active subscription', 'error');
+            return redirect()->route('dashboard.subscription.index');
+            // $subscription = Subscription::where('user_id',$request->user_id)->where('end_date', '>', $startDate)->first();
+            // if($subscription){
+            //     if ($subscription->end_date > $startDate) {
+            //         $daysToAdd = $startDate->diffInDays($subscription->end_date);
+            //         $endDateUpdate = (clone $endDate)->addDays($daysToAdd);
+            //     } else {
+            //         $endDateUpdate = $endDate;
+            //     }
+            //     $subscription->update([
+            //         "end_date"=>$endDateUpdate,
+            //         "package_type"=>$package->name,
+            //     ]);
+            // }else{
+            //     $subscription = Subscription::create([
+            //         "price"=>$package->price,
+            //         "package_type"=>$package->name,
+            //         "user_id"=>$request->user_id,
+            //         "start_date"=>$startDate,
+            //         "end_date"=>$endDate,
+            //     ]);
+    
+            //     $user = User::find($request->user_id);
+            //     Mail::to($user->email)->send(new AppMail([
+            //         'title' => 'Welcome To 69simulator',
+            //         'body' => 'Your account has been approved, and we have given you a new subscription. Enjoy using 69simulator!',
+            //     ]));
+            // }
+        }
+        
+       
     }
     public function edit($id,Request $request){
 
