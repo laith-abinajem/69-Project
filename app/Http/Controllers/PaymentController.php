@@ -370,8 +370,8 @@ class PaymentController extends Controller
                 ]);
             
             }
-            // return response()->json($card, 200);
-            return redirect()->route('dashboard.subscription.index');
+            return response()->json($card, 200);
+            // return redirect()->route('dashboard.subscription.index');
 
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 400);
