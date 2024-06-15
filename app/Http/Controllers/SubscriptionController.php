@@ -34,7 +34,7 @@ class SubscriptionController extends Controller
             ->latest()
             ->first();
             $data = Subscription::where('user_id',auth()->user()->id)->get();
-            $packages = Package::get();
+            $packages = Package::where('interval','!==','WEEKLY')->get();
             $price = Subscription::where('user_id',auth()->user()->id)->sum('price');
             $count = Subscription::where('user_id',auth()->user()->id)->count();
             $card = Card::where('customer_id',auth()->user()->square_customer_id)->first();
