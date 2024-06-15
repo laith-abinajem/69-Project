@@ -101,7 +101,7 @@
                 </li>
                 @endcanany
                 <li class="slide">
-                    <a class="side-menu__item"  href="https://69simulator.com/69sim/webversionDisableGzip/index.html"><i class="side-menu__icon fe fe-box "></i><span class="side-menu__label">Game</span></a>
+                    <a class="side-menu__item"  href="{{ route('dashboard.game') }}"><i class="side-menu__icon fe fe-box "></i><span class="side-menu__label">Game</span></a>
                 </li>
             </ul>
 

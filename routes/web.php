@@ -61,6 +61,13 @@ Route::middleware('auth')->prefix('dashboard')->name('dashboard.')->group(functi
     Route::get('/payment-failed', function () {
         return view('dashboard.failed');
     })->name('payment-failed');
+
+    Route::get('/game', function () {
+        return view('dashboard.game');
+    })->name('game');
+
+    
+
     Route::post('/upload',[UserController::class,'uploadLargeFiles'])->name('upload');
 
     Route::prefix('user')->name('user.')->group(function(){
