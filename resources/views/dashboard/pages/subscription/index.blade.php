@@ -396,7 +396,6 @@
                                 </div>
                             @else
                                 <div class="col-12">
-                                    <span> Note: You don't have active subscription</span>
                                 </div>
                             @endif
                             <div class="col-12">
@@ -404,7 +403,7 @@
                             </div>
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label class="form-label">Subscription Type ( To upgrade plan : please select Subscription Type) : <span class="tx-danger">*</span></label>
+                                    <label class="form-label">Subscription Type<span class="tx-danger">*</span></label>
                                     <select name="package_id" id="package_id" required class="form-control paintProtectionFil select2" >
                                         @foreach($packages as $package)
                                             <option value="{{$package->id}}">{{$package->name}} - {{$package->price}} $</option>
