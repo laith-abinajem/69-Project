@@ -570,6 +570,7 @@
             if (response.ok) {
                 const cardData = await response.json();
                 console.log('Card added:', cardData);
+                window.location.reload()
             } else {
                 const errorData = await response.json();
                 console.error('Error adding card:', errorData);
