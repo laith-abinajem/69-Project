@@ -326,7 +326,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                <form id="subscription-form" action="{{ route('dashboard.process-payment') }}" method="post">
+                <form id="subscription-form" action="{{ route('dashboard.subscription.store') }}" method="post">
                         @csrf
                         <div class="row row-sm">
                             @php
