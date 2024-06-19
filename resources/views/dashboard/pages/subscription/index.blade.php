@@ -259,7 +259,9 @@
                                     @endif
                                 
                                 </td>
-                                <td>{{$item->end_date}}</td>
+                                <td>
+                                {{ \Carbon\Carbon::parse($item->end_date)->format('m-d-Y') ?? 0 }}
+                                </td>
                                
                                 @if(auth()->user()->type === 'super_admin')
                                 <td>{{$item->user->name}}</td>
