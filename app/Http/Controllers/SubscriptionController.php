@@ -110,8 +110,8 @@ class SubscriptionController extends Controller
     }
     public function update(Request $request){
         $client = new SquareClient([
-            'accessToken' => 'EAAAl4ZyBLIRqCXuoUe-u77nYVLdmAyxjFzYHgQHyv9TuaY6dYEWzYsqiWJekQHe',
-            'environment' => 'sandbox', 
+            'accessToken' => 'EAAAl8Ag58FVcJ5Suwt4U3OUtp_yfLM7CL-Qt8G5Ng-0PcJ8ds7oLbYtYbzzciMz',
+            'environment' => 'production', 
         ]);
         $package = Package::find($request->package_id);
         $body = new \Square\Models\SwapPlanRequest($package->plan_id);

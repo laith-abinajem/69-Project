@@ -44,8 +44,8 @@ class PaymentController extends Controller
 
     function createPayment(Request $request){
         $client = new SquareClient([
-            'accessToken' => 'EAAAl4ZyBLIRqCXuoUe-u77nYVLdmAyxjFzYHgQHyv9TuaY6dYEWzYsqiWJekQHe',
-            'environment' => 'sandbox', 
+            'accessToken' => 'EAAAl8Ag58FVcJ5Suwt4U3OUtp_yfLM7CL-Qt8G5Ng-0PcJ8ds7oLbYtYbzzciMz',
+            'environment' => 'production', 
         ]);
 
         // Retrieve Catalog Objects
@@ -224,15 +224,15 @@ class PaymentController extends Controller
         }
        
         $client = new SquareClient([
-            'accessToken' => 'EAAAl4ZyBLIRqCXuoUe-u77nYVLdmAyxjFzYHgQHyv9TuaY6dYEWzYsqiWJekQHe',
-            'environment' => 'sandbox', 
+            'accessToken' => 'EAAAl8Ag58FVcJ5Suwt4U3OUtp_yfLM7CL-Qt8G5Ng-0PcJ8ds7oLbYtYbzzciMz',
+            'environment' => 'production', 
         ]);
         
         $checkout_api = $client->getCheckoutApi();
 
         $idempotency_key = $this->generateIdempotencyKey();
         
-        $order = new Order("LJ17XDN9GP4GY");
+        $order = new Order("L09XH4WWXKBAN");
         
         $line_item = new OrderLineItem('1');
         $line_item->setName('Subscription refund');
@@ -250,7 +250,7 @@ class PaymentController extends Controller
         $checkout_request = new CreateCheckoutRequest($idempotency_key, $create_order_request);
         $checkout_request->setRedirectUrl(route('dashboard.check-payment',['subscription_id' => $subscription->id , 'days' => $package->days]));
         
-        $response = $checkout_api->createCheckout("LJ17XDN9GP4GY", $checkout_request);
+        $response = $checkout_api->createCheckout("L09XH4WWXKBAN", $checkout_request);
         
 
         if ($response->isSuccess()) {
@@ -267,12 +267,12 @@ class PaymentController extends Controller
 
     function checkPayment(Request $request){
         $client = new SquareClient([
-            'accessToken' => 'EAAAl4ZyBLIRqCXuoUe-u77nYVLdmAyxjFzYHgQHyv9TuaY6dYEWzYsqiWJekQHe',
-            'environment' => 'sandbox', 
+            'accessToken' => 'EAAAl8Ag58FVcJ5Suwt4U3OUtp_yfLM7CL-Qt8G5Ng-0PcJ8ds7oLbYtYbzzciMz',
+            'environment' => 'production', 
         ]);
         // $subscription = Subscription::find($request->subscription_id);
         
-        $api_response = $client->getTransactionsApi()->retrieveTransaction('LJ17XDN9GP4GY',$request->transactionId);
+        $api_response = $client->getTransactionsApi()->retrieveTransaction('L09XH4WWXKBAN',$request->transactionId);
         if ($api_response->isSuccess()) {
 
             // get list card + save it in table + then we can refund money
@@ -343,8 +343,8 @@ class PaymentController extends Controller
         $customerId = $request->input('customer_id');
         $nonce = $request->input('nonce');
         $client = new SquareClient([
-            'accessToken' => 'EAAAl4ZyBLIRqCXuoUe-u77nYVLdmAyxjFzYHgQHyv9TuaY6dYEWzYsqiWJekQHe',
-            'environment' => 'sandbox', 
+            'accessToken' => 'EAAAl8Ag58FVcJ5Suwt4U3OUtp_yfLM7CL-Qt8G5Ng-0PcJ8ds7oLbYtYbzzciMz',
+            'environment' => 'production', 
         ]);
         try {
             $billing_address = new \Square\Models\Address();
@@ -388,8 +388,8 @@ class PaymentController extends Controller
     public function createSubscriptionPlans()
     {
         $client = new SquareClient([
-            'accessToken' => 'EAAAl4ZyBLIRqCXuoUe-u77nYVLdmAyxjFzYHgQHyv9TuaY6dYEWzYsqiWJekQHe',
-                'environment' => 'sandbox', 
+            'accessToken' => 'EAAAl8Ag58FVcJ5Suwt4U3OUtp_yfLM7CL-Qt8G5Ng-0PcJ8ds7oLbYtYbzzciMz',
+                'environment' => 'production', 
         ]);
 
         $catalogApi = $client->getCatalogApi();
@@ -457,8 +457,8 @@ class PaymentController extends Controller
     public function listSubscriptionPlans()
     {
         $client = new SquareClient([
-            'accessToken' => 'EAAAl4ZyBLIRqCXuoUe-u77nYVLdmAyxjFzYHgQHyv9TuaY6dYEWzYsqiWJekQHe',
-                'environment' => 'sandbox', 
+            'accessToken' => 'EAAAl8Ag58FVcJ5Suwt4U3OUtp_yfLM7CL-Qt8G5Ng-0PcJ8ds7oLbYtYbzzciMz',
+                'environment' => 'production', 
         ]);
 
         $catalogApi = $client->getCatalogApi();
@@ -484,8 +484,8 @@ class PaymentController extends Controller
     public function createPayment2(Request $request)
     {
         $client = new SquareClient([
-            'accessToken' => 'EAAAl4ZyBLIRqCXuoUe-u77nYVLdmAyxjFzYHgQHyv9TuaY6dYEWzYsqiWJekQHe',
-            'environment' => 'sandbox', 
+            'accessToken' => 'EAAAl8Ag58FVcJ5Suwt4U3OUtp_yfLM7CL-Qt8G5Ng-0PcJ8ds7oLbYtYbzzciMz',
+            'environment' => 'production', 
         ]);
         $customersApi = $client->getCustomersApi();
         $subscriptionsApi = $client->getSubscriptionsApi();
@@ -498,7 +498,7 @@ class PaymentController extends Controller
                 $planId = $package->plan_id;
         
                 // Create subscription
-                $createSubscriptionRequest = new \Square\Models\CreateSubscriptionRequest('LJ17XDN9GP4GY', $planId,$customerId);
+                $createSubscriptionRequest = new \Square\Models\CreateSubscriptionRequest('L09XH4WWXKBAN', $planId,$customerId);
                 $createSubscriptionRequest->setCardId($card->card_id);
                 $subscriptionResponse = $subscriptionsApi->createSubscription($createSubscriptionRequest);
                 
@@ -537,8 +537,8 @@ class PaymentController extends Controller
     }
     public function deleteSubscribtion(Request $request,$id){
         $client = new SquareClient([
-            'accessToken' => 'EAAAl4ZyBLIRqCXuoUe-u77nYVLdmAyxjFzYHgQHyv9TuaY6dYEWzYsqiWJekQHe',
-            'environment' => 'sandbox', 
+            'accessToken' => 'EAAAl8Ag58FVcJ5Suwt4U3OUtp_yfLM7CL-Qt8G5Ng-0PcJ8ds7oLbYtYbzzciMz',
+            'environment' => 'production', 
         ]);
         $api_response = $client->getSubscriptionsApi()->cancelSubscription($id);
 
