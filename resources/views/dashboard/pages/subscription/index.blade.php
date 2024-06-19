@@ -125,11 +125,12 @@
                                         <input type="hidden" name="customer_id" />
                                         <button type="submit" class="button btn btn-danger"></button>
                                     </form> -->
-                                    @if($current_sub)
+                                    @if($current_sub->subscription_id)
 
                                     <a type="button" class="button btn btn-danger float-right" data-bs-toggle="modal" data-bs-target="#deleteModal{{$current_sub->subscription_id}}">
                                         CANCEL SUBSCRIPTION
                                     </a>
+
                                     <div class="modal fade" id="deleteModal{{$current_sub->subscription_id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteModalLabel{{$current_sub->subscription_id}}" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
@@ -315,7 +316,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                @if($current_sub)
+                @if($current_sub && auth()->user()->type !== 'super_admin')
                 <form id="subscription-form" action="{{ route('dashboard.subscription.update') }}" method="post">
                     @csrf
                     <div class="row row-sm">
@@ -368,8 +369,8 @@
                         </div>
                 </form>
                 @else
-                @if(auth()->user()->type !== 'super_admin')
-                <form id="subscription-form" action="{{ route('dashboard.process-payment') }}" method="post">
+                @if(auth()->user()->type === 'super_admin')
+                <form  action="{{ route('dashboard.subscription.store') }}" method="post">
                     @csrf
                     <div class="row row-sm">
                         @php
@@ -414,17 +415,12 @@
                             </div>
                         </div>
                         <div class="form-group text-end mt-2">
-                            @if(auth()->user()->type === 'super_admin')
                             <button id="trial-button" type="submit" class="button btn btn-primary">Continue without payment</button>
-                            @else
-                            <button id="payment-button" type="submit" class="button btn btn-primary">Continue to payment</button>
-                            @endif
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                         </div>
                 </form>
-
                 @else
-                <form id="subscription-form" action="{{ route('dashboard.subscription.store') }}" method="post">
+                <form id="subscription-form" action="{{ route('dashboard.process-payment') }}" method="post">
                     @csrf
                     <div class="row row-sm">
                         @php

@@ -71,7 +71,7 @@ class SubscriptionController extends Controller
             Alert::toast('Subscription created successfully', 'success');
             return redirect()->route('dashboard.subscription.index');
         }else{
-
+            
             Alert::toast('This user already have active subscription', 'error');
             return redirect()->route('dashboard.subscription.index');
             // $subscription = Subscription::where('user_id',$request->user_id)->where('end_date', '>', $startDate)->first();
