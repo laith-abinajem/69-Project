@@ -529,7 +529,7 @@ class PaymentController extends Controller
                     return redirect()->route('dashboard.payment-failed')->with('error', 'Failed to create subscription: ' . $subscriptionResponse->getErrors()[0]->getDetail());
                 }
             }else{
-                return redirect()->route('dashboard.subscription.create');
+                return redirect()->route('dashboard.subscription.index');
             
             }
             
