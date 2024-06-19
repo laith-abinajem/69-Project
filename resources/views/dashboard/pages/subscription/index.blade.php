@@ -368,6 +368,7 @@
                         </div>
                 </form>
                 @else
+                @if(auth()->user()->type !== 'super_admin')
                 <form id="subscription-form" action="{{ route('dashboard.process-payment') }}" method="post">
                     @csrf
                     <div class="row row-sm">
@@ -422,6 +423,61 @@
                         </div>
                 </form>
 
+                @else
+                <form id="subscription-form" action="{{ route('dashboard.subscription.store') }}" method="post">
+                    @csrf
+                    <div class="row row-sm">
+                        @php
+                            $today = \Carbon\Carbon::now()->toDateString();
+                        @endphp
+                        <input type="hidden" id="userIdInput" name="user_id" value="">
+                            @if(auth()->user()->subscription && auth()->user()->subscription->where('end_date', '>', $today)->count() > 0)
+                                <div class="col-4  mt-2">
+                                    <div class="form-group mg-b-0">
+                                        <label class="form-label">Previous subscription </label>
+                                        <input value="{{ $current_sub->package_type }}" class="form-control" readonly name="name" placeholder="Enter name" required="" type="text">
+                                    </div>
+                                </div>
+                                <div class="col-4  mt-2">
+                                    <div class="form-group">
+                                        <label class="form-label">Start date: </label>
+                                        <input value="{{ $current_sub->start_date }}" class="form-control" readonly placeholder="Enter Address" required="" type="text">
+                                    </div>
+                                </div>
+                                <div class="col-4  mt-2">
+                                    <div class="form-group">
+                                        <label class="form-label">End date: </label>
+                                        <input value="{{ $current_sub->end_date }}" class="form-control"  readonly placeholder="Enter Address" required="" type="text">
+                                    </div>
+                                </div>
+                            @else
+                                <div class="col-12">
+                                </div>
+                            @endif
+                            <div class="col-12">
+                                <span> </span>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label class="form-label">Subscription Type<span class="tx-danger">*</span></label>
+                                    <select name="package_id" id="package_id" required class="form-control paintProtectionFil select2 manage-select2" >
+                                        @foreach($packages as $package)
+                                            <option value="{{$package->id}}">{{$package->name}} - {{$package->price}} $</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group text-end mt-2">
+                            @if(auth()->user()->type === 'super_admin')
+                            <button id="trial-button" type="submit" class="button btn btn-primary">Continue without payment</button>
+                            @else
+                            <button id="payment-button" type="submit" class="button btn btn-primary">Continue to payment</button>
+                            @endif
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        </div>
+                </form>
+                @endif
                 @endif
                 
             </div>
