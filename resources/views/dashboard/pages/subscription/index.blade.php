@@ -71,7 +71,7 @@
                         <div class="fs-1">{{$current_sub->price ?? 0}} $</div>
                     </div>
                     <div class="mb-3">
-                        You will be charged for ${{$current_sub->price ?? 0}} on {{$current_sub->end_date ?? 0}}
+                        You will be charged for ${{$current_sub->price ?? 0}} on {{ \Carbon\Carbon::parse($current_sub->end_date)->format('m-d-Y') ?? 0 }} 
                     </div>
                 </div>
             </div>

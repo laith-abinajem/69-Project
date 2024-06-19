@@ -25,6 +25,9 @@
                             <div class="form-group">
                                 <label>Email</label> <input class="form-control" name="email"  required placeholder="Enter your email" type="text">
                             </div>
+                            @if($errors->has('email'))
+                                <span class="text-danger">{{ $errors->first('email') }}</span>
+                            @endif
                             <button class="btn btn-primary btn-block">Send</button>
                         </form>
                     </div>

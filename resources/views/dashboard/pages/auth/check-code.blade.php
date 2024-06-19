@@ -25,11 +25,11 @@
 								<div class="form-group">
 									<label>Code</label> <input class="form-control" name="code" required placeholder="Enter the code" type="text">
 								</div>
+                                @if($errors->has('code'))
+                                    <span class="text-danger">{{ $errors->first('code') }}</span>
+                                @endif
 								<button class="btn btn-primary btn-block">Send</button>
 							</form>
-						</div>
-						<div class="main-signup-footer mg-t-10">
-							<p>Forget it, <a href="{{route('login')}}"> Send me back</a> to the sign in screen.</p>
 						</div>
 					</div>
             </div>
