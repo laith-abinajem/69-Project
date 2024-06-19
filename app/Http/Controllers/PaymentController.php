@@ -454,6 +454,72 @@ class PaymentController extends Controller
 
     }
 
+    public function createPayment2(Request $request)
+    {
+        $client = new SquareClient([
+            'accessToken' => 'EAAAl8Ag58FVcJ5Suwt4U3OUtp_yfLM7CL-Qt8G5Ng-0PcJ8ds7oLbYtYbzzciMz',
+            'environment' => 'production', 
+        ]);
+        $customersApi = $client->getCustomersApi();
+        $subscriptionsApi = $client->getSubscriptionsApi();
+        $user = User::find(auth()->user()->id);
+        $card = Card::where('customer_id',$user->square_customer_id)->first();
+        $package = Package::find($request->package_id);
+        if($card){
+            $customerId = $user->square_customer_id;
+            // Retrieve the plan ID based on the package type
+            $planId = $package->plan_id;
+    
+            // Create subscription
+            $createSubscriptionRequest = new \Square\Models\CreateSubscriptionRequest('L09XH4WWXKBAN', $planId,$customerId);
+            $createSubscriptionRequest->setCardId($card->card_id);
+            $subscriptionResponse = $subscriptionsApi->createSubscription($createSubscriptionRequest);
+            
+            if ($subscriptionResponse->isSuccess()) {
+                // Retrieve the subscription ID and redirect URL for payment
+                $subscription = $subscriptionResponse->getResult()->getSubscription();
+                $subscriptionId = $subscription->getId();
+                $redirectUrl = $subscription->getCardId(); 
+                $startDate = Carbon::now();
+                $endDate = (clone $startDate)->addDays($package->days);
+                $sub = Subscription::create([
+                    "user_id"=> $user->id,
+                    "order_id"=> 1,
+                    "transaction_id"=> $subscriptionId ,
+                    "subscription_id"=> $subscriptionId ,
+                    "payment_status"=> 'success',
+                    "price"=> $package->price,
+                    "package_type"=> $package->name,
+                    "end_date"=> $endDate,
+                    "start_date"=> $startDate,
+                ]);
+                $user->update([
+                    "sub_id"=> $sub->id
+                ]);
+                return redirect()->route('dashboard.payment-success');
+            } else {
+                // dd($subscriptionResponse->getErrors()[0]->getDetail());
+                return redirect()->route('dashboard.payment-failed')->with('error', 'Failed to create subscription: ' . $subscriptionResponse->getErrors()[0]->getDetail());
+            }
+        }else{
+            return redirect()->route('dashboard.subscription.index');
+        }
+    }
+    public function deleteSubscribtion(Request $request,$id){
+        $client = new SquareClient([
+            'accessToken' => 'EAAAl8Ag58FVcJ5Suwt4U3OUtp_yfLM7CL-Qt8G5Ng-0PcJ8ds7oLbYtYbzzciMz',
+            'environment' => 'production', 
+        ]);
+        $api_response = $client->getSubscriptionsApi()->cancelSubscription($id);
+
+        $data = Subscription::where('subscription_id',$id)->first();
+        $data->update([
+            'end_date'=>null
+        ]);
+        toast('Success','success');
+        return redirect()->route('dashboard.subscription.index');
+    }
+    
     public function listSubscriptionPlans()
     {
         $client = new SquareClient([
@@ -479,74 +545,5 @@ class PaymentController extends Controller
         } catch (ApiException $e) {
             echo 'Error listing subscription plans: ' . $e->getMessage() . "\n";
         }
-    }
-
-    public function createPayment2(Request $request)
-    {
-        $client = new SquareClient([
-            'accessToken' => 'EAAAl8Ag58FVcJ5Suwt4U3OUtp_yfLM7CL-Qt8G5Ng-0PcJ8ds7oLbYtYbzzciMz',
-            'environment' => 'production', 
-        ]);
-        $customersApi = $client->getCustomersApi();
-        $subscriptionsApi = $client->getSubscriptionsApi();
-        $user = User::find(auth()->user()->id);
-        $card = Card::where('customer_id',$user->square_customer_id)->first();
-        $package = Package::find($request->package_id);
-            if($card){
-                $customerId = $user->square_customer_id;
-                // Retrieve the plan ID based on the package type
-                $planId = $package->plan_id;
-        
-                // Create subscription
-                $createSubscriptionRequest = new \Square\Models\CreateSubscriptionRequest('L09XH4WWXKBAN', $planId,$customerId);
-                $createSubscriptionRequest->setCardId($card->card_id);
-                $subscriptionResponse = $subscriptionsApi->createSubscription($createSubscriptionRequest);
-                
-                if ($subscriptionResponse->isSuccess()) {
-                    // Retrieve the subscription ID and redirect URL for payment
-                    $subscription = $subscriptionResponse->getResult()->getSubscription();
-                    $subscriptionId = $subscription->getId();
-                    $redirectUrl = $subscription->getCardId(); 
-                    $startDate = Carbon::now();
-                    $endDate = (clone $startDate)->addDays($package->days);
-                    $sub = Subscription::create([
-                        "user_id"=> $user->id,
-                        "order_id"=> 1,
-                        "transaction_id"=> $subscriptionId ,
-                        "subscription_id"=> $subscriptionId ,
-                        "payment_status"=> 'success',
-                        "price"=> $package->price,
-                        "package_type"=> $package->name,
-                        "end_date"=> $endDate,
-                        "start_date"=> $startDate,
-                    ]);
-                    $user->update([
-                        "sub_id"=> $sub->id
-                    ]);
-                    return redirect()->route('dashboard.payment-success');
-                } else {
-                    // dd($subscriptionResponse->getErrors()[0]->getDetail());
-                    return redirect()->route('dashboard.payment-failed')->with('error', 'Failed to create subscription: ' . $subscriptionResponse->getErrors()[0]->getDetail());
-                }
-            }else{
-                return redirect()->route('dashboard.subscription.index');
-            
-            }
-            
-      
-    }
-    public function deleteSubscribtion(Request $request,$id){
-        $client = new SquareClient([
-            'accessToken' => 'EAAAl8Ag58FVcJ5Suwt4U3OUtp_yfLM7CL-Qt8G5Ng-0PcJ8ds7oLbYtYbzzciMz',
-            'environment' => 'production', 
-        ]);
-        $api_response = $client->getSubscriptionsApi()->cancelSubscription($id);
-
-        $data = Subscription::where('subscription_id',$id)->first();
-        $data->update([
-            'end_date'=>null
-        ]);
-        toast('Success','success');
-        return redirect()->route('dashboard.subscription.index');
     }
 }

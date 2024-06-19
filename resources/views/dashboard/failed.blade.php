@@ -1,6 +1,6 @@
 @extends('dashboard.layouts.master')
 
-@section('title', 'Payment Failed')
+@section('title', '')
 
 @section('content')
 
