@@ -335,13 +335,13 @@
                                 <div class="col-4  mt-2">
                                     <div class="form-group">
                                         <label class="form-label">Start date: </label>
-                                        <input value="{{ $current_sub->start_date }}" class="form-control" readonly placeholder="Enter Address" required="" type="text">
+                                        <input value="{{ \Carbon\Carbon::parse($current_sub->start_date)->format('m-d-Y') }}" class="form-control" readonly placeholder="Enter Address" required="" type="text">
                                     </div>
                                 </div>
                                 <div class="col-4  mt-2">
                                     <div class="form-group">
                                         <label class="form-label">End date: </label>
-                                        <input value="{{ $current_sub->end_date }}" class="form-control"  readonly placeholder="Enter Address" required="" type="text">
+                                        <input value="{{ \Carbon\Carbon::parse($current_sub->end_date)->format('m-d-Y') }}" class="form-control"  readonly placeholder="Enter Address" required="" type="text">
                                     </div>
                                 </div>
                             @else
@@ -387,13 +387,13 @@
                                 <div class="col-4  mt-2">
                                     <div class="form-group">
                                         <label class="form-label">Start date: </label>
-                                        <input value="{{ $current_sub->start_date }}" class="form-control" readonly placeholder="Enter Address" required="" type="text">
+                                        <input value="{{ \Carbon\Carbon::parse($current_sub->start_date)->format('m-d-Y') }}" class="form-control" readonly placeholder="Enter Address" required="" type="text">
                                     </div>
                                 </div>
                                 <div class="col-4  mt-2">
                                     <div class="form-group">
                                         <label class="form-label">End date: </label>
-                                        <input value="{{ $current_sub->end_date }}" class="form-control"  readonly placeholder="Enter Address" required="" type="text">
+                                        <input value="{{ \Carbon\Carbon::parse($current_sub->end_date)->format('m-d-Y') }}" class="form-control"  readonly placeholder="Enter Address" required="" type="text">
                                     </div>
                                 </div>
                             @else
@@ -437,13 +437,13 @@
                                 <div class="col-4  mt-2">
                                     <div class="form-group">
                                         <label class="form-label">Start date: </label>
-                                        <input value="{{ $current_sub->start_date }}" class="form-control" readonly placeholder="Enter Address" required="" type="text">
+                                        <input value="{{ \Carbon\Carbon::parse($current_sub->start_date)->format('m-d-Y') }}" class="form-control" readonly placeholder="Enter Address" required="" type="text">
                                     </div>
                                 </div>
                                 <div class="col-4  mt-2">
                                     <div class="form-group">
                                         <label class="form-label">End date: </label>
-                                        <input value="{{ $current_sub->end_date }}" class="form-control"  readonly placeholder="Enter Address" required="" type="text">
+                                        <input value="{{ \Carbon\Carbon::parse($current_sub->end_date)->format('m-d-Y') }}" class="form-control"  readonly placeholder="Enter Address" required="" type="text">
                                     </div>
                                 </div>
                             @else
@@ -555,13 +555,13 @@
                                 <div class="col-4  mt-2">
                                     <div class="form-group">
                                         <label class="form-label">Start date: </label>
-                                        <input value="{{ $current_sub->start_date }}" class="form-control" readonly placeholder="Enter Address" required="" type="text">
+                                        <input value="{{ \Carbon\Carbon::parse($current_sub->start_date)->format('m-d-Y') }}" class="form-control" readonly placeholder="Enter Address" required="" type="text">
                                     </div>
                                 </div>
                                 <div class="col-4  mt-2">
                                     <div class="form-group">
                                         <label class="form-label">End date: </label>
-                                        <input value="{{ $current_sub->end_date }}" class="form-control"  readonly placeholder="Enter Address" required="" type="text">
+                                        <input value="{{ \Carbon\Carbon::parse($current_sub->end_date)->format('m-d-Y') }}" class="form-control"  readonly placeholder="Enter Address" required="" type="text">
                                     </div>
                                 </div>
                             @else

@@ -69,7 +69,7 @@
                                     @endif
                                     </td>
                                     <td> @if ($last_active_subscription)
-                                        {{ $last_active_subscription->end_date }} <!-- or whatever property you want to display -->
+                                        {{ \Carbon\Carbon::parse($last_active_subscription->end_date)->format('m-d-Y') }} <!-- or whatever property you want to display -->
                                     @else
                                         No active subscription
                                     @endif</td>

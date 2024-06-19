@@ -145,8 +145,14 @@ class SubscriptionController extends Controller
                 Alert::toast('Subscription updated successfully', 'success');
                 return redirect()->route('dashboard.subscription.index');
             }else{
-                Alert::toast('You should add card !', 'error');
-                return redirect()->route('dashboard.subscription.index');
+                if(!$card){
+                    Alert::toast('You should add card !', 'error');
+                    return redirect()->route('dashboard.subscription.index');
+                }else{
+                    Alert::toast('This user already have active subscription', 'error');
+                    return redirect()->route('dashboard.subscription.index');
+                }
+                    
             }
            
         }
