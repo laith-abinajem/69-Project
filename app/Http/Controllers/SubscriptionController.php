@@ -114,19 +114,41 @@ class SubscriptionController extends Controller
             'environment' => 'production', 
         ]);
         $package = Package::find($request->package_id);
-        $body = new \Square\Models\SwapPlanRequest($package->plan_id);
         $user = User::find(auth()->user()->id);
         if($request->user_id){
             $user = User::find($request->user_id);
         }
         $subscription = Subscription::find($request->subscription_id);
-        if($subscription){
-            $api_response = $client->getSubscriptionsApi()->swapPlan($subscription->subscription_id, $body);
-            Alert::toast('Subscription updated successfully', 'success');
-            return redirect()->route('dashboard.subscription.index');
+        $card = Card::where('customer_id',$user->square_customer_id)->first();
+        if($subscription->subscription_id){
+            if($card){
+                $body = new \Square\Models\SwapPlanRequest($package->plan_id);
+                $api_response = $client->getSubscriptionsApi()->swapPlan($subscription->subscription_id, $body);
+                Alert::toast('Subscription updated successfully', 'success');
+                return redirect()->route('dashboard.subscription.index');
+            }else{
+                Alert::toast('You should add card !', 'error');
+                return redirect()->route('dashboard.subscription.index');
+            }
+           
         }else{
-            Alert::toast('something wrong', 'error');
-            return redirect()->route('dashboard.subscription.index');
+            if(auth()->user()->type === 'super_admin'){
+                $startDate = Carbon::now();
+                $endDate = (clone $startDate)->addDays($package->days);
+                $subscription->update([
+                    "price"=>$package->price,
+                    "package_type"=>$package->name,
+                    "user_id"=>$request->user_id,
+                    "start_date"=>$startDate,
+                    "end_date"=>$endDate,
+                ]);
+                Alert::toast('Subscription updated successfully', 'success');
+                return redirect()->route('dashboard.subscription.index');
+            }else{
+                Alert::toast('This user already have active subscription', 'error');
+                return redirect()->route('dashboard.subscription.index');
+            }
+           
         }
      
     }
