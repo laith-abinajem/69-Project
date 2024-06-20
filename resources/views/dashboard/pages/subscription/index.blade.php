@@ -71,7 +71,11 @@
                         <div class="fs-1">{{$current_sub->price ?? 0}} $</div>
                     </div>
                     <div class="mb-3">
-                        You will be charged for ${{$current_sub->price ?? 0}} on {{ \Carbon\Carbon::parse($current_sub->end_date)->format('m-d-Y') ?? 0 }} 
+                        @if (isset($current_sub->end_date))
+                            You will be charged for ${{$current_sub->price ?? 0}} on {{ \Carbon\Carbon::parse($current_sub->end_date)->format('m-d-Y') ?? 0 }} 
+                        @else
+                            You do not have a current subscription.
+                        @endif
                     </div>
                 </div>
             </div>
@@ -125,7 +129,7 @@
                                         <input type="hidden" name="customer_id" />
                                         <button type="submit" class="button btn btn-danger"></button>
                                     </form> -->
-                                    @if($current_sub->subscription_id)
+                                    @if(isset($current_sub->subscription_id))
 
                                     <a type="button" class="button btn btn-danger float-right" data-bs-toggle="modal" data-bs-target="#deleteModal{{$current_sub->subscription_id}}">
                                         CANCEL SUBSCRIPTION
