@@ -14,7 +14,7 @@
 		<title>@yield('title', 'Default Title')</title>
 
 		<!--- Favicon --->
-		<link rel="icon" href="{{ asset('assets/img/brand/favicon.png') }}" type="image/x-icon"/>
+		<link rel="icon" href="{{ asset('assets/img/light_logo-removebg-preview.png') }}" type="image/x-icon"/>
 
 		<!-- Bootstrap css -->
 		<link href="{{ asset('assets/plugins/bootstrap/css/bootstrap.css') }}" rel="stylesheet" id="style"/>

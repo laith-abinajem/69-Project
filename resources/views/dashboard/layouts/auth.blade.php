@@ -13,7 +13,7 @@
 		<title>@yield('title', 'Default Title')</title>
 
 		<!--- Favicon --->
-		<link rel="icon" href="{{ asset('assets/img/brand/favicon.png') }}" type="image/x-icon"/>
+		<link rel="icon" href="{{ asset('assets/img/light_logo-removebg-preview.png') }}" type="image/x-icon"/>
 
 		<!-- Bootstrap css -->
 		<link href="{{ asset('assets/plugins/bootstrap/css/bootstrap.css') }}" rel="stylesheet" id="style"/>
@@ -64,7 +64,5 @@
 		<script src="{{ asset('assets/js/custom.js') }}"></script>
 		<!-- Example for including SweetAlert scripts -->
 		<script src="{{ asset('vendor/sweetalert/sweetalert.all.js') }}"></script>
-		<!-- Optionally, include the Swal styles -->
-		<link rel="stylesheet" href="{{ asset('vendor/sweetalert/sweetalert.css') }}">
 	</body>
 </html>

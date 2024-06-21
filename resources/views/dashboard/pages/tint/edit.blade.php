@@ -100,8 +100,8 @@
                         <section>
                             <div class="row row-sm">
                                 @php
-                                    $class = ['Luxury', 'Regular', 'Electric', 'Others'];
-                                    $subclass = ['SUV', 'Sedan', 'Coupe', 'TRUCK','7 seater SUV'];
+                                    $class = ['Regular', 'Luxury', 'Electric (Tesla)', 'Electric'];
+                                    $subclass = ['Coupe', 'Sedan', 'SUV', '7 seater SUV' 'TRUCK',];
                                 @endphp
                                 <div class="panel-group1" id="accordion11">
                                     @foreach($class as $class_index => $class_item)
