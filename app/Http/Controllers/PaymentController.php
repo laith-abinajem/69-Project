@@ -461,20 +461,21 @@ class PaymentController extends Controller
             'environment' => 'production', 
         ]);
         $customersApi = $client->getCustomersApi();
+        // get Subscriptions 
         $subscriptionsApi = $client->getSubscriptionsApi();
         $user = User::find(auth()->user()->id);
         $card = Card::where('customer_id',$user->square_customer_id)->first();
         $package = Package::find($request->package_id);
+        // check card before go to payment 
         if($card){
             $customerId = $user->square_customer_id;
             // Retrieve the plan ID based on the package type
             $planId = $package->plan_id;
-    
             // Create subscription
             $createSubscriptionRequest = new \Square\Models\CreateSubscriptionRequest('L09XH4WWXKBAN', $planId,$customerId);
             $createSubscriptionRequest->setCardId($card->card_id);
             $subscriptionResponse = $subscriptionsApi->createSubscription($createSubscriptionRequest);
-            
+            // check if subscription success
             if ($subscriptionResponse->isSuccess()) {
                 // Retrieve the subscription ID and redirect URL for payment
                 $subscription = $subscriptionResponse->getResult()->getSubscription();

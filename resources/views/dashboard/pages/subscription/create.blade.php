@@ -3,10 +3,10 @@
     <button id="card-button">Save Card</button>
 </div>
 
-<script src="https://sandbox.web.squarecdn.com/v1/square.js"></script>
+<script src="https://web.squarecdn.com/v1/square.js"></script>
 <script>
     async function initializeSquarePayments() {
-        const payments = Square.payments('sandbox-sq0idb-YUWObSyjVpaI6A4yV6iX9A', 'sandbox'); // or 'production'
+        const payments = Square.payments('sq0idp-8mKT7to57PX7XoTmEAiTPA', 'production'); // or 'production'
         const card = await payments.card();
         await card.attach('#card-container');
         const customerId = @json(auth()->user()->square_customer_id);
