@@ -56,6 +56,11 @@ class User extends Authenticatable implements HasMedia
     {
         return $this->hasMany(TintBrand::class);
     }
+    
+    public function ppfBrands()
+    {
+        return $this->hasMany(PpfBrand::class);
+    }
     public function subscription()
     {
         return $this->hasMany(Subscription::class);

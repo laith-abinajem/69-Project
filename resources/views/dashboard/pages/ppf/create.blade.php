@@ -44,7 +44,7 @@
                         @endforeach
                     </div>
                 @endif
-                <form action="{{ route('dashboard.tint.store') }}" method="post" id="tintform" enctype="multipart/form-data">
+                <form action="{{ route('dashboard.ppf.store') }}" method="post" id="ppfform" enctype="multipart/form-data">
                     @csrf
                     <div id="wizard2">
                         <h3>Tint Brand</h3>
@@ -52,13 +52,13 @@
                             <div class="row row-sm">
                                 <div class="col-12 mb-2">
                                     <label class="form-control-label">Brand Image: <span class="tx-danger">*</span></label>
-                                    <input type="file" name="tint_image" value="{{ old('tint_image') }}" id="brandimage" class="dropify2" data-height="200" required />
+                                    <input type="file" name="ppf_image" value="{{ old('ppf_image') }}" id="brandimage" class="dropify2" data-height="200" required />
                                     <small class="form-text text-muted">
                                      Recommended dimensions: 1000x500 pixels, transparent background
                                     </small>
                                 </div>
                                 <div class="col-md-5 col-lg-6 mb-2">
-                                    <label class="form-control-label">Brand Name: <span class="tx-danger">*</span></label> <input class="form-control" id="brandname" name="tint_brand" value="{{ old('tint_brand') }}" placeholder="Tint Brand" required="" type="text">
+                                    <label class="form-control-label">Brand Name: <span class="tx-danger">*</span></label> <input class="form-control" id="brandname" name="ppf_brand" value="{{ old('ppf_brand') }}" placeholder="ppf Brand" required="" type="text">
                                 </div>
                                 @if(auth()->user()->type === "super_admin")
                                 <div class="col-md-5 col-lg-6 mb-2">
@@ -91,11 +91,11 @@
                                 
                                 <div class="col-12 mg-t-20 mg-md-t-0 mb-2">
                                     <label class="form-control-label">Brand Description: <span class="tx-danger">*</span></label>
-                                    <textarea class="form-control" id="branddescription" name="tint_description" placeholder="Textarea" rows="3" required>{{ old('tint_description') }}</textarea>
+                                    <textarea class="form-control" id="branddescription" name="ppf_description" placeholder="Textarea" rows="3" required>{{ old('ppf_description') }}</textarea>
                                 </div>
                             </div>
                         </section>
-                        <h3>Tint Details</h3>
+                        <h3>Ppf Details</h3>
                         <section>
                             <div class="row row-sm">
                                 @php
