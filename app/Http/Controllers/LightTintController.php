@@ -76,14 +76,14 @@ class LightTintController extends Controller
             }
            
             Alert::toast('Light tint created successfully', 'success');
-            return redirect()->route('dashboard.ppf.index');
+            return redirect()->route('dashboard.light.index');
        
     }
     public function edit($id){
         $lightTint = LightTint::with('lightDetails')->find($id);
         $users = User::get();
         $photos = $lightTint->getFirstMediaUrl('light_image');
-        return view('dashboard.pages.ppf.edit',compact('lightTint','users','photos'));
+        return view('dashboard.pages.light.edit',compact('lightTint','users','photos'));
     }
     public function update(Request $request, $id){
         try {
@@ -124,7 +124,7 @@ class LightTintController extends Controller
             }
     
             Alert::toast('Light tint updated successfully', 'success');
-            return redirect()->route('dashboard.ppf.index');
+            return redirect()->route('dashboard.light.index');
         } catch (\Exception $e) {
             Alert::toast('An error occurred while updating the Light tint', 'error');
             return redirect()->back()->withInput();
@@ -134,6 +134,6 @@ class LightTintController extends Controller
         $data = LightTint::find($id);
         $data->delete();
         toast('Success','success');
-        return redirect()->route('dashboard.ppf.index');
+        return redirect()->route('dashboard.light.index');
     }
 }

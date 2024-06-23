@@ -44,8 +44,8 @@
                         @foreach ($data as $item)
                             <tr>
                                 <td>{{$item->id}}</td>
-                                <td>{{$item->ppf_brand}}</td>
-                                <td>{{$item->ppf_description}}</td>
+                                <td>{{$item->light_brand}}</td>
+                                <td>{{$item->light_description}}</td>
                                 <td>{{$item->user->name}}</td>
                                 <td>
                                     <a class="button btn btn-secondary" href="{{ route('dashboard.light.edit',$item->id) }}">

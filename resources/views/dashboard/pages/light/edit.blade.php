@@ -128,7 +128,7 @@
                                                                 @php
                                                                     $html_class = str_replace(" ", "-", $placeholder);
                                                                     $html_class = str_replace(".", "-", $html_class);
-                                                                    $price = $details->firstWhere('ppf_type', explode('_', $key)[0])->price ?? '';
+                                                                    $price = $details->firstWhere('light_type', explode('_', $key)[0])->price ?? '';
                                                                 @endphp
                                                                 <div class="col-12 col-md-3">
                                                                     <input class="form-control {{ $html_class }}" name="price[{{ $class_item }}][{{ $subclass_item }}][{{ $key }}]" value="{{ $price }}" placeholder="{{ $placeholder }}" required type="text">

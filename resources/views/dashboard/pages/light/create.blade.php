@@ -59,7 +59,7 @@
                                 </div>
                                 <div class="col-md-5 col-lg-6 mb-2">
                                     <label class="form-control-label">Brand Name: <span class="tx-danger">*</span></label>
-                                    <input class="form-control" id="brandname" name="light_brand" value="{{ old('light_brand') }}" placeholder="ppf Brand" required="" type="text">
+                                    <input class="form-control" id="brandname" name="light_brand" value="{{ old('light_brand') }}" placeholder="light tint Brand" required="" type="text">
                                 </div>
                                 @if(auth()->user()->type === "super_admin")
                                 <div class="col-md-5 col-lg-6 mb-2">
