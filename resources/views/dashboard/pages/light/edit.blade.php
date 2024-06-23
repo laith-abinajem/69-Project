@@ -1,6 +1,6 @@
 @extends('dashboard.layouts.master')
 
-@section('title', 'Edit PPF')
+@section('title', 'Edit Light tint')
 
 @section('content')
 <style>
@@ -46,27 +46,27 @@
                         @endforeach
                     </div>
                 @endif
-                <form action="{{ route('dashboard.ppf.update', $ppfBrand->id) }}" method="post" id="tintform" enctype="multipart/form-data">
+                <form action="{{ route('dashboard.light.update', $lightTint->id) }}" method="post" id="tintform" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div id="wizard2">
-                        <h3>Ppf Brand</h3>
+                        <h3>Light Tint Brand</h3>
                         <section>
                             <div class="row row-sm">
                                 <div class="col-12 mb-2">
                                     <label class="form-control-label">Brand Image:</label>
-                                    <input type="file" name="ppf_image" id="brandimage" class="dropify" data-default-file="{{ $photos }}" data-height="200" />
+                                    <input type="file" name="light_image" id="brandimage" class="dropify" data-default-file="{{ $photos }}" data-height="200" />
                                 </div>
                                 <div class="col-md-5 col-lg-6 mb-2">
                                     <label class="form-control-label">Brand Name: <span class="tx-danger">*</span></label>
-                                    <input class="form-control" id="brandname" name="ppf_brand" value="{{ $ppfBrand->ppf_brand }}" placeholder="Ppf Brand" required type="text">
+                                    <input class="form-control" id="brandname" name="light_brand" value="{{ $lightTint->light_brand }}" placeholder="Light Tint Brand" required type="text">
                                 </div>
                                 @if(auth()->user()->type === "super_admin")
                                 <div class="col-md-5 col-lg-6 mb-2">
                                     <label class="form-control-label">Users: <span class="tx-danger">*</span></label>
                                     <select name="user_id" id="user_id" class="form-control paintProtectionFil " >
                                         @foreach($users as $user)
-                                        <option value="{{$user->id}}" {{ $user->id == $ppfBrand->user_id ? 'selected' : '' }}>{{$user->name}}</option>
+                                        <option value="{{$user->id}}" {{ $user->id == $lightTint->user_id ? 'selected' : '' }}>{{$user->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -75,38 +75,28 @@
                                 <div class="col-md-5 col-lg-6 mb-2">
                                     <label class="form-control-label">Warranty<span class="tx-danger">*</span></label>
                                     <select name="warranty" id="warranty" class="form-control paintProtectionFil">
-                                        <option value="1" {{ $ppfBrand->warranty == 1 ? 'selected' : '' }}>1 warranty</option>
-                                        <option value="2" {{ $ppfBrand->warranty == 2 ? 'selected' : '' }}>2 warranty</option>
-                                        <option value="3" {{ $ppfBrand->warranty == 3 ? 'selected' : '' }}>3 warranty</option>
-                                        <option value="4" {{ $ppfBrand->warranty == 4 ? 'selected' : '' }}>4 warranty</option>
-                                        <option value="5" {{ $ppfBrand->warranty == 5 ? 'selected' : '' }}>5 warranty</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-5 col-lg-6 mb-2">
-                                    <label class="form-control-label">Thickness<span class="tx-danger">*</span></label>
-                                    <select name="thickness" id="thickness" class="form-control paintProtectionFil">
-                                        <option value="1" {{ $ppfBrand->thickness == 1 ? 'selected' : '' }}>1 thickness</option>
-                                        <option value="2" {{ $ppfBrand->thickness == 2 ? 'selected' : '' }}>2 thickness</option>
-                                        <option value="3" {{ $ppfBrand->thickness == 3 ? 'selected' : '' }}>3 thickness</option>
-                                        <option value="4" {{ $ppfBrand->thickness == 4 ? 'selected' : '' }}>4 thickness</option>
-                                        <option value="5" {{ $ppfBrand->thickness == 5 ? 'selected' : '' }}>5 thickness</option>
+                                        <option value="1" {{ $lightTint->warranty == 1 ? 'selected' : '' }}>1 warranty</option>
+                                        <option value="2" {{ $lightTint->warranty == 2 ? 'selected' : '' }}>2 warranty</option>
+                                        <option value="3" {{ $lightTint->warranty == 3 ? 'selected' : '' }}>3 warranty</option>
+                                        <option value="4" {{ $lightTint->warranty == 4 ? 'selected' : '' }}>4 warranty</option>
+                                        <option value="5" {{ $lightTint->warranty == 5 ? 'selected' : '' }}>5 warranty</option>
                                     </select>
                                 </div>
                                 <div class="col-md-5 col-lg-6 mb-2">
                                     <label class="form-control-label">Choose a Color <span class="tx-danger">*</span></label>
                                     <br>
                                     <div class="color-picker-container">
-                                        <input type="color" id="colorPicker" name="colorPicker"  value="{{$ppfBrand->hex}}">
-                                        <input type="text" id="hex" name="hex" required="" value="{{$ppfBrand->hex}}" maxlength="7">
+                                        <input type="color" id="colorPicker" name="colorPicker"  value="{{$lightTint->hex}}">
+                                        <input type="text" id="hex" name="hex" required="" value="{{$lightTint->hex}}" maxlength="7">
                                     </div>
                                 </div>
                                 <div class="col-12 mg-t-20 mg-md-t-0 mb-2">
                                     <label class="form-control-label">Brand Description: <span class="tx-danger">*</span></label>
-                                    <textarea class="form-control" id="branddescription" name="ppf_description" placeholder="Textarea" rows="3" required>{{ $ppfBrand->ppf_description }}</textarea>
+                                    <textarea class="form-control" id="branddescription" name="light_description" placeholder="Textarea" rows="3" required>{{ $lightTint->light_description }}</textarea>
                                 </div>
                             </div>
                         </section>
-                        <h3>Ppf Details</h3>
+                        <h3>Light Tint Details</h3>
                         <section>
                             <div class="row row-sm">
                                 @php
@@ -126,7 +116,7 @@
                                             <div id="collapse{{ $class_index }}" class="panel-collapse collapse" role="tabpanel" aria-expanded="false">
                                                 @foreach($subclass as $subclass_index => $subclass_item)
                                                     @php
-                                                        $details = $ppfBrand->ppfDetails->where('class_car', $class_item)->where('sub_class_car', $subclass_item);
+                                                        $details = $lightTint->lightDetails->where('class_car', $class_item)->where('sub_class_car', $subclass_item);
                                                     @endphp
                                                     <div class="col-12 mb-2 mt-3">
                                                         <label class="form-control-label"><h5>{{ $class_item }}, {{ $subclass_item }}:</h5></label>
@@ -134,13 +124,13 @@
                                                     <div class="col-12 mb-2">
                                                         <label class="form-control-label">Prices:</label>
                                                         <div class="row prices_container">
-                                                            @foreach(['partialFront_price' => 'Partial front', 'fullFront_price' => 'Full front', 'trackPack_price' => 'Track Pack', 'fullkit_price' => 'Full kit'] as $key => $placeholder)
+                                                            @foreach(['head_price' => 'Head Price', 'fog_price' => 'Fog Price', 'tail_price' => 'tail Price'] as $key => $placeholder)
                                                                 @php
                                                                     $html_class = str_replace(" ", "-", $placeholder);
                                                                     $html_class = str_replace(".", "-", $html_class);
                                                                     $price = $details->firstWhere('ppf_type', explode('_', $key)[0])->price ?? '';
                                                                 @endphp
-                                                                <div class="col-12 col-md-2">
+                                                                <div class="col-12 col-md-3">
                                                                     <input class="form-control {{ $html_class }}" name="price[{{ $class_item }}][{{ $subclass_item }}][{{ $key }}]" value="{{ $price }}" placeholder="{{ $placeholder }}" required type="text">
                                                                 </div>
                                                             @endforeach

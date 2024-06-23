@@ -10,7 +10,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 class LightTint extends Model implements HasMedia
 {
     use HasFactory, InteractsWithMedia;
-    
+
     protected $guarded = [];
 
     public function lightDetails()
@@ -19,11 +19,11 @@ class LightTint extends Model implements HasMedia
     }
     public function registerMediaCollections(): void
     {
-        $this->addMediaCollection('photos')->singleFile();
+        $this->addMediaCollection('light_image')->singleFile();
     }
     public function getMediaUrlAttribute()
     {
-        $media = $this->getFirstMedia('photos');
+        $media = $this->getFirstMedia('light_image');
         return $media ? $media->getFullUrl() : null;
     }
     public function user()

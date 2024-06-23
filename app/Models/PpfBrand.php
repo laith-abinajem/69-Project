@@ -18,11 +18,11 @@ class PpfBrand extends Model implements HasMedia
     }
     public function registerMediaCollections(): void
     {
-        $this->addMediaCollection('photos')->singleFile();
+        $this->addMediaCollection('ppf_image')->singleFile();
     }
     public function getMediaUrlAttribute()
     {
-        $media = $this->getFirstMedia('photos');
+        $media = $this->getFirstMedia('ppf_image');
         return $media ? $media->getFullUrl() : null;
     }
     public function user()

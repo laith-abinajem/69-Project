@@ -1,6 +1,6 @@
 @extends('dashboard.layouts.master')
 
-@section('title', 'Ppfs')
+@section('title', 'Light Tint')
 
 @section('content')
 
@@ -9,11 +9,11 @@
         <div class="card">
             <div class="card-header d-flex justify-content-between flex-wrap align-items-center">
                 <h3 class="card-title">Ppf Brand Table</h3>
-                <button type="button" class="button btn btn-primary" onclick="window.location='{{ route('dashboard.ppf.create') }}'">Add Ppf</button>
+                <button type="button" class="button btn btn-primary" onclick="window.location='{{ route('dashboard.light.create') }}'">Add Light Tint</button>
             </div>
             @if(auth()->user()->type === "super_admin")
             <div class="card-body">
-                <form action="{{ route('dashboard.ppf.index') }}" method="GET">
+                <form action="{{ route('dashboard.light.index') }}" method="GET">
                     @csrf
                     <div class="col-md-3 col-lg-6 mb-2 d-flex justify-content-between">
                         <label class="form-control-label">Filter by:</label>

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('light_tint_details', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('light_id');
-            $table->enum('class_car', ['Luxury', 'Regular', 'Electric', 'Others']);
+            $table->enum('class_car', ['Luxury', 'Regular', 'Electric', 'Electric (Tesla)']);
             $table->enum('sub_class_car', ['Coupe', 'Sedan', 'SUV', '7 seater SUV', 'TRUCK']);
             $table->string('light_type');
             $table->double('price');

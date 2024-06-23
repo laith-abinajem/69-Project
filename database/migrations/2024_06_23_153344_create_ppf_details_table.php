@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('ppf_details', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('ppf_id');
-            $table->enum('class_car', ['Luxury', 'Regular', 'Electric', 'Others']);
+            $table->enum('class_car', ['Luxury', 'Regular', 'Electric', 'Electric (Tesla)']);
             $table->enum('sub_class_car', ['Coupe', 'Sedan', 'SUV', '7 seater SUV', 'TRUCK']);
             $table->string('ppf_type');
             $table->double('price');

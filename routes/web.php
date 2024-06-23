@@ -9,6 +9,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\PpfBrandController;
+use App\Http\Controllers\LightTintController;
 
 /*
 |--------------------------------------------------------------------------
@@ -100,6 +101,15 @@ Route::middleware('auth')->prefix('dashboard')->name('dashboard.')->group(functi
         Route::put('/update/{id}',[PpfBrandController::class,'update'])->name('update');
         Route::post('/delete/{id}',[PpfBrandController::class,'delete'])->name('delete');
         Route::post('/store',[PpfBrandController::class,'store'])->name('store');
+    });
+    Route::prefix('light')->name('light.')->group(function(){
+        Route::get('/',[LightTintController::class,'index'])->name('index');
+        Route::get('/filter',[LightTintController::class,'filter'])->name('filter');
+        Route::get('/create',[LightTintController::class,'create'])->name('create');
+        Route::get('/edit/{id}',[LightTintController::class,'edit'])->name('edit');
+        Route::put('/update/{id}',[LightTintController::class,'update'])->name('update');
+        Route::post('/delete/{id}',[LightTintController::class,'delete'])->name('delete');
+        Route::post('/store',[LightTintController::class,'store'])->name('store');
     });
     // Route::prefix('subscription')->name('subscription.')->middleware('role:Super Admin')->group(function () {
         Route::prefix('subscription')->name('subscription.')->group(function(){
