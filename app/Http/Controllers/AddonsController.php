@@ -11,8 +11,17 @@ class AddonsController extends Controller
 {
     public function index(Request $request)
     {
+        if(auth()->user()->type === "super_admin"){
+            $query = AddsOn::query();
+            if ($request->has('user_id')) {
+                $query->where('user_id', $request->user_id);
+            }
+            $data = $query->get();
+        } else {
+            $data = AddsOn::where('user_id', auth()->user()->id)->get();
+        }
         $users = User::get();
-        return view('dashboard.pages.addons.index',compact('users'));
+        return view('dashboard.pages.addons.index',compact('data','users'));
     }
     public function create(Request $request)
     {
@@ -45,7 +54,7 @@ class AddonsController extends Controller
        
     }
     public function edit($id){
-        $data = AddsOn::with('tintDetails')->find($id);
+        $data = AddsOn::find($id);
         $users = User::get();
         $photos = $data->getFirstMediaUrl('addon_image');
         return view('dashboard.pages.addons.edit',compact('data','users','photos'));

@@ -86,6 +86,9 @@
                     <a class="side-menu__item"  href="{{ route('dashboard.ppf.filter') }} "><i class="side-menu__icon fe fe-award "></i><span class="side-menu__label">Ppf</span></a>
                 </li>
                 <li class="slide">
+                    <a class="side-menu__item"  href="{{ route('dashboard.addons.index') }} "><i class="side-menu__icon fe fe-award "></i><span class="side-menu__label">Add-ons</span></a>
+                </li>
+                <li class="slide">
                     <a class="side-menu__item"  href="{{ route('dashboard.package.index') }} "><i class="side-menu__icon fe fe-award "></i><span class="side-menu__label">Package</span></a>
                 </li>
                 @endcanany
