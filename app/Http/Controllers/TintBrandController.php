@@ -54,6 +54,7 @@ class TintBrandController extends Controller
             $tintBrand = TintBrand::create([
                 'tint_brand' => $request->tint_brand,
                 'tint_description' => $request->tint_description,
+                'tint_brand_level' => $request->tint_brand_level,
                 'hex' => $request->hex,
                 'guage_level' => $request->guage_level,
                 'user_id'=> $user->id
@@ -99,6 +100,7 @@ class TintBrandController extends Controller
             $tintBrand->update([
                 'tint_brand' => $request->tint_brand,
                 'tint_description' => $request->tint_description,
+                'tint_brand_level' => $request->tint_brand_level,
                 'hex' => $request->hex,
                 'guage_level' => $request->guage_level,
                 'user_id'=> $user_id

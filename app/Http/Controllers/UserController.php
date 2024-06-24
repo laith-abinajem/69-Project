@@ -39,6 +39,7 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required',
+            'company_name' => 'required',
             'video_path' => 'sometimes|string',
             'video_filename' => 'sometimes|string',
         ]);
@@ -48,6 +49,7 @@ class UserController extends Controller
                 'type' => $request->type,
                 'status' => $request->status,
                 'password' => Hash::make($request->password),
+                'company_name' => $request->company_name,
             ]);
 
             
@@ -66,6 +68,9 @@ class UserController extends Controller
             }
             if ($request->hasFile('decal_logo')) {
                 $user->addMedia($request->file('decal_logo'))->toMediaCollection('decal_logo');
+            }
+            if ($request->hasFile('detailing_decal')) {
+                $user->addMedia($request->file('detailing_decal'))->toMediaCollection('detailing_decal');
             }
             if ($request->filled('video_path') && $request->filled('video_filename')) {
                 $videoPath = $request->input('video_path');
@@ -107,6 +112,7 @@ class UserController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255',
+            'company_name' => $request->company_name,
         ]);
         try {
             $user = User::find($id);
@@ -114,6 +120,7 @@ class UserController extends Controller
                 'name' => $request->name,
                 'email' => $request->email,
                 'status' => $request->status,
+                'company_name' => $request->company_name,
             ]);
             if($request->password !== null){
                 $user->update([
@@ -127,6 +134,10 @@ class UserController extends Controller
             if ($request->hasFile('decal_logo')) {
                 $user->clearMediaCollection('decal_logo');
                 $user->addMedia($request->file('decal_logo'))->toMediaCollection('decal_logo');
+            }
+            if ($request->hasFile('detailing_decal')) {
+                $user->clearMediaCollection('detailing_decal');
+                $user->addMedia($request->file('detailing_decal'))->toMediaCollection('detailing_decal');
             }
             if ($request->filled('video_path') && $request->filled('video_filename')) {
                 $user->clearMediaCollection('videos');
