@@ -90,6 +90,9 @@
                                         <input type="text" id="hex" name="hex" required="" value="{{$tintBrand->hex}}" maxlength="7">
                                     </div>
                                 </div>
+                                <div class="col-md-5 col-lg-6 mb-2">
+                                    <label class="form-control-label">Tint brand level: <span class="tx-danger">*</span></label> <input class="form-control" id="brandlevel" name="tint_brand_level" value="{{ $tintBrand->tint_brand_level }}" placeholder="Tint Brand Level" required="" type="text">
+                                </div>
                                 <div class="col-12 mg-t-20 mg-md-t-0 mb-2">
                                     <label class="form-control-label">Brand Description: <span class="tx-danger">*</span></label>
                                     <textarea class="form-control" id="branddescription" name="tint_description" placeholder="Textarea" rows="3" required>{{ $tintBrand->tint_description }}</textarea>
@@ -124,13 +127,13 @@
                                                     <div class="col-12 mb-2">
                                                         <label class="form-control-label">Prices:</label>
                                                         <div class="row prices_container">
-                                                            @foreach(['1_price' => 'front w.s', '2_price' => 'front two', '3_price' => 'back half', '4_price' => 'moonroof', '5_price' => 'full car'] as $key => $placeholder)
+                                                            @foreach(['1_price' => 'front w.s', '2_price' => 'front two', '3_price' => 'back half', '4_price' => 'moonroof', '5_price' => 'full car', '6_price' => 'panoramic_moonroof', '7_price' => 'stripe tint'] as $key => $placeholder)
                                                                 @php $html_class = str_replace(" ","-",$placeholder); $html_class = str_replace(".","-",$html_class) @endphp
-                                                                <div class="col-12 col-md-2">
+                                                                <div class="col-12 col-md-3 mb-2">
                                                                     <input class="form-control {{ $html_class }}" name="price[{{ $class_item }}][{{ $subclass_item }}][{{ $key }}]" value="{{ $details->firstWhere('window', explode('_', $key)[0])->price ?? '' }}" placeholder="{{ $placeholder }}" required type="text">
                                                                 </div>
                                                             @endforeach
-                                                            <div class="col-12 col-md-2">
+                                                            <div class="col-12 col-md-3">
                                                                 <button type="button" class="btn btn-secondary copy">Copy</button>
                                                                 <button type="button" class="btn btn-primary paste" style="display: none;">Paste</button>
                                                             </div>

@@ -46,7 +46,7 @@
                 @endif
                 <form action="{{ route('dashboard.light.store') }}" method="post" id="tintform" enctype="multipart/form-data">
                     @csrf
-                    <div id="wizard2">
+                    <div id="wizardnew">
                         <h3>Light Brand</h3>
                         <section>
                             <div class="row row-sm">

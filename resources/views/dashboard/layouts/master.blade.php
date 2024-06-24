@@ -215,6 +215,8 @@
 				var back_half;
 				var moonroof;
 				var full_car;
+				var panoramic_moonroof;
+				var srtipe_tint;
 				$(document).on('click', '.copy', function(){
 					var parentElement = $(this).closest('.prices_container');
 					front_ws = parentElement.find('.front-w-s').val();
@@ -222,6 +224,9 @@
 					back_half = parentElement.find('.back-half').val();
 					moonroof = parentElement.find('.moonroof').val();
 					full_car = parentElement.find('.full-car').val();
+					panoramic_moonroof = parentElement.find('.panoramic-moonroof').val();
+					srtipe_tint = parentElement.find('.stripe-tint').val();
+					
 					$('.paste').show();
 				});
 				$(document).on('click', '.paste', function(){
@@ -231,6 +236,8 @@
 					parentElement.find('.back-half').val(back_half);
 					parentElement.find('.moonroof').val(moonroof);
 					parentElement.find('.full-car').val(full_car);
+					parentElement.find('.panoramic-moonroof').val(panoramic_moonroof);
+					parentElement.find('.stripe-tint').val(srtipe_tint);
 				})
 				$(document).on('click', '.wizard .actions a[href="#finish"]', function(e){
 					e.preventDefault();

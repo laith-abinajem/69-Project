@@ -49,7 +49,7 @@
                 <form action="{{ route('dashboard.light.update', $lightTint->id) }}" method="post" id="tintform" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
-                    <div id="wizard2">
+                    <div id="wizardnew">
                         <h3>Light Tint Brand</h3>
                         <section>
                             <div class="row row-sm">

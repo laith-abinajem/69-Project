@@ -49,7 +49,7 @@
                 <form action="{{ route('dashboard.ppf.update', $ppfBrand->id) }}" method="post" id="tintform" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
-                    <div id="wizard2">
+                    <div id="wizardnew">
                         <h3>Ppf Brand</h3>
                         <section>
                             <div class="row row-sm">

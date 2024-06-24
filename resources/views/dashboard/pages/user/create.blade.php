@@ -48,9 +48,13 @@
                                     </select>
                                 </div>
                             </div>
-                        
-                         
-                            <div class="col-12">
+                            <div class="col-6">
+                                <div class="form-group mg-b-0">
+                                    <label class="form-label">Company Name: <span class="tx-danger">*</span></label>
+                                    <input value="{{ old('company_name') }}" class="form-control" name="company_name" placeholder="Company name" required="" type="text">
+                                </div>
+                            </div>
+                            <div class="col-6">
                                 <div class="form-group position-relative">
                                     <label class="form-label">Password: <span class="tx-danger">*</span></label>
                                     <input value="{{ old('password') }}" id="password" class="form-control" name="password" placeholder="Enter password" required="" type="password">
@@ -67,6 +71,13 @@
                             <div class="col-6 mb-2">
                                 <label class="form-control-label">Decal Logo: <span class="tx-danger">*</span></label>
                                 <input type="file" name="decal_logo" value="{{ old('decal_logo') }}" id="decallogo" class="dropify" data-height="200" required />
+                                <small class="form-text text-muted">
+                                    Recommended dimensions: 1000x500 pixels, transparent background
+                                </small>
+                            </div>
+                            <div class="col-6 mb-2">
+                                <label class="form-control-label">Detailing Decal: <span class="tx-danger">*</span></label>
+                                <input type="file" name="detailing_decal" value="{{ old('detailing_decal') }}" id="detailingdecal" class="dropify" data-height="200" required />
                                 <small class="form-text text-muted">
                                     Recommended dimensions: 1000x500 pixels, transparent background
                                 </small>

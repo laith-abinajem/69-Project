@@ -42,8 +42,12 @@
                                     <input value="{{ $data->email }}" class="form-control" name="email" placeholder="Enter Email" required="" type="email">
                                 </div>
                             </div>
-                            @if(auth()->user()->type === "super_admin")
-
+                            <div class="col-6">
+                                <div class="form-group mg-b-0">
+                                    <label class="form-label">Company Name: <span class="tx-danger">*</span></label>
+                                    <input value="{{ $data->company_name }}" class="form-control" name="company_name" placeholder="Company name" required="" type="text">
+                                </div>
+                            </div>
                             <div class="col-6">
                                 <div class="form-group position-relative">
                                     <label class="form-label">Password:</label>
@@ -51,15 +55,6 @@
                                     <i class="bi bi-eye-slash position-absolute" id="togglePassword"  onclick="showPassword()"></i>
                                 </div>
                             </div>
-                            @else
-                            <div class="col-12">
-                                <div class="form-group position-relative">
-                                    <label class="form-label">Password:</label>
-                                    <input value="{{ old('password') }}" id="password" class="form-control" name="password" placeholder="Enter password" type="password">
-                                    <i class="bi bi-eye-slash position-absolute" id="togglePassword" onclick="showPassword()"></i>
-                                </div>
-                            </div>
-                            @endif
                            
                             <div class="col-6 mb-2">
                                 <label class="form-control-label">Company Logo: <span class="tx-danger">*</span></label>
@@ -73,6 +68,13 @@
                                 <input type="file" name="decal_logo" value="{{ old('decal_logo') }}" id="decal_logo" class="dropify" data-height="200" data-default-file="{{ $decalLogo }}" />
                                 <small class="form-text text-muted">
                                     Recommended dimensions: 1000x500 or 2048x2048 pixels, transparent background
+                                </small>
+                            </div>
+                            <div class="col-6 mb-2">
+                                <label class="form-control-label">Detailing Decal: <span class="tx-danger">*</span></label>
+                                <input type="file" name="detailing_decal" value="{{ old('detailing_decal') }}" id="detailingdecal" class="dropify" data-height="200" data-default-file="{{ $detailing_decal }}" required />
+                                <small class="form-text text-muted">
+                                    Recommended dimensions: 1000x500 pixels, transparent background
                                 </small>
                             </div>
                             <div class="col-12 mb-2">

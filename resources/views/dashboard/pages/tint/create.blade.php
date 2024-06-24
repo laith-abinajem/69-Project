@@ -88,7 +88,9 @@
                                         <input type="text" id="hex" name="hex" required="" value="#ff0000" maxlength="7">
                                     </div>
                                 </div>
-                                
+                                <div class="col-md-5 col-lg-6 mb-2">
+                                    <label class="form-control-label">Tint brand level: <span class="tx-danger">*</span></label> <input class="form-control" id="brandlevel" name="tint_brand_level" value="{{ old('tint_brand_level') }}" placeholder="Tint Brand Level" required="" type="text">
+                                </div>
                                 <div class="col-12 mg-t-20 mg-md-t-0 mb-2">
                                     <label class="form-control-label">Brand Description: <span class="tx-danger">*</span></label>
                                     <textarea class="form-control" id="branddescription" name="tint_description" placeholder="Textarea" rows="3" required>{{ old('tint_description') }}</textarea>
@@ -123,22 +125,28 @@
                                                 <div class="col-12 mb-2">
                                                     <label class="form-control-label">Prices:</label>
                                                     <div class="row prices_container">
-                                                        <div class="col-12 col-md-2">
+                                                        <div class="col-12 col-md-3 mb-2">
                                                             <input class="form-control front-w-s" name="price[{{ $class_item }}][{{ $subclass_item }}][1_price]" value="{{ old('price.' . $class_item . '.' . $subclass_item . '.1_price') }}" placeholder="front w.s" required="" type="text">
                                                         </div>
-                                                        <div class="col-12 col-md-2">
+                                                        <div class="col-12 col-md-3 mb-2">
                                                             <input class="form-control front-two" name="price[{{ $class_item }}][{{ $subclass_item }}][2_price]" value="{{ old('price.' . $class_item . '.' . $subclass_item . '.2_price') }}" placeholder="front two" required="" type="text">
                                                         </div>
-                                                        <div class="col-12 col-md-2">
+                                                        <div class="col-12 col-md-3 mb-2">
                                                             <input class="form-control back-half" name="price[{{ $class_item }}][{{ $subclass_item }}][3_price]" value="{{ old('price.' . $class_item . '.' . $subclass_item . '.3_price') }}" placeholder="back half" required="" type="text">
                                                         </div>
-                                                        <div class="col-12 col-md-2">
+                                                        <div class="col-12 col-md-3 mb-2">
                                                             <input class="form-control moonroof" name="price[{{ $class_item }}][{{ $subclass_item }}][4_price]" value="{{ old('price.' . $class_item . '.' . $subclass_item . '.4_price') }}" placeholder="moonroof" required="" type="text">
                                                         </div>
-                                                        <div class="col-12 col-md-2">
+                                                        <div class="col-12 col-md-3 mb-2">
                                                             <input class="form-control full-car" name="price[{{ $class_item }}][{{ $subclass_item }}][5_price]" value="{{ old('price.' . $class_item . '.' . $subclass_item . '.5_price') }}" placeholder="full car" required="" type="text">
                                                         </div>
-                                                        <div class="col-12 col-md-2">
+                                                        <div class="col-12 col-md-3 mb-2">
+                                                            <input class="form-control panoramic-moonroof" name="price[{{ $class_item }}][{{ $subclass_item }}][6_price]" value="{{ old('price.' . $class_item . '.' . $subclass_item . '.6_price') }}" placeholder="panoramic moonroof" required="" type="text">
+                                                        </div>
+                                                        <div class="col-12 col-md-3 mb-2">
+                                                            <input class="form-control stripe-tint" name="price[{{ $class_item }}][{{ $subclass_item }}][7_price]" value="{{ old('price.' . $class_item . '.' . $subclass_item . '.7_price') }}" placeholder="stripe tint" required="" type="text">
+                                                        </div>
+                                                        <div class="col-12 col-md-3">
                                                             <button type="button" class="btn btn-secondary copy">Copy</button>
                                                             <button type="button" class="btn btn-primary paste " style="display: none;">Paste</button>
                                                         </div>
