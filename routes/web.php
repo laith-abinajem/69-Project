@@ -10,6 +10,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\PpfBrandController;
 use App\Http\Controllers\LightTintController;
+use App\Http\Controllers\AddonsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -111,8 +112,16 @@ Route::middleware('auth')->prefix('dashboard')->name('dashboard.')->group(functi
         Route::post('/delete/{id}',[LightTintController::class,'delete'])->name('delete');
         Route::post('/store',[LightTintController::class,'store'])->name('store');
     });
+    Route::prefix('addons')->name('addons.')->group(function(){
+        Route::get('/',[AddonsController::class,'index'])->name('index');
+        Route::get('/create',[AddonsController::class,'create'])->name('create');
+        Route::get('/edit/{id}',[AddonsController::class,'edit'])->name('edit');
+        Route::put('/update/{id}',[AddonsController::class,'update'])->name('update');
+        Route::post('/delete/{id}',[AddonsController::class,'delete'])->name('delete');
+        Route::post('/store',[AddonsController::class,'store'])->name('store');
+    });
     // Route::prefix('subscription')->name('subscription.')->middleware('role:Super Admin')->group(function () {
-        Route::prefix('subscription')->name('subscription.')->group(function(){
+    Route::prefix('subscription')->name('subscription.')->group(function(){
         Route::get('/',[SubscriptionController::class,'index'])->name('index');
         Route::get('/create',[SubscriptionController::class,'create'])->name('create');
         Route::get('/edit/{id}',[SubscriptionController::class,'edit'])->name('edit');

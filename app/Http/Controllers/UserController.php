@@ -105,8 +105,9 @@ class UserController extends Controller
         $data = User::find($id);
         $companyLogo = $data->getFirstMediaUrl('company_logo');
         $decalLogo = $data->getFirstMediaUrl('decal_logo');
+        $detailing_decal = $data->getFirstMediaUrl('detailing_decal');
         $video = $data->getFirstMediaUrl('videos'); 
-        return view('dashboard.pages.user.edit',compact('data','companyLogo','decalLogo','video'));
+        return view('dashboard.pages.user.edit',compact('data','companyLogo','decalLogo','video','detailing_decal'));
     }
     public function update(Request $request, $id){
         $validated = $request->validate([
