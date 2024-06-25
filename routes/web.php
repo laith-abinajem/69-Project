@@ -116,6 +116,7 @@ Route::middleware(['auth', 'check.single.session'])->prefix('dashboard')->name('
     });
     Route::prefix('addons')->name('addons.')->group(function(){
         Route::get('/',[AddonsController::class,'index'])->name('index');
+        Route::get('/filter',[AddonsController::class,'filter'])->name('filter');
         Route::get('/create',[AddonsController::class,'create'])->name('create');
         Route::get('/edit/{id}',[AddonsController::class,'edit'])->name('edit');
         Route::put('/update/{id}',[AddonsController::class,'update'])->name('update');

@@ -23,6 +23,11 @@ class AddonsController extends Controller
         $users = User::get();
         return view('dashboard.pages.addons.index',compact('data','users'));
     }
+    public function filter(Request $request)
+    {
+        $users = User::get();
+        return view('dashboard.pages.addons.filter',compact('users'));
+    }
     public function create(Request $request)
     {
         $users = User::get();

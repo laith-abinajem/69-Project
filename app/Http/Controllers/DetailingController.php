@@ -32,7 +32,7 @@ class DetailingController extends Controller
     {
         $users = User::get();
         $exterior_count=0;
-        $interior_count=0;
+        $interior_count=4;
         $inout_count=0;
         return view('dashboard.pages.detailing.create',compact('users','exterior_count','interior_count','inout_count',));
     }
