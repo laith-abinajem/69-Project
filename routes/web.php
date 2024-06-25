@@ -11,6 +11,7 @@ use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\PpfBrandController;
 use App\Http\Controllers\LightTintController;
 use App\Http\Controllers\AddonsController;
+use App\Http\Controllers\DetailingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,7 +49,9 @@ Route::prefix('auth')->middleware('checkLogin')->controller(AuthController::clas
     Route::get('/checkPassword', 'checkPassword')->middleware('checkResetStep')->name('checkPassword');
 });
 
-Route::middleware('auth')->prefix('dashboard')->name('dashboard.')->group(function(){
+Route::middleware(['auth', 'check.single.session'])->prefix('dashboard')->name('dashboard.')->group(function(){
+    Route::get('/home',[HomeController::class,'index'])->name('home.index');
+
     Route::get('/check-payment', [PaymentController::class, 'checkPayment'])->name('check-payment');
     Route::get('/create-package-square', [PaymentController::class, 'createSubscriptionPlans']);
     Route::get('/get-packages-square', [PaymentController::class, 'listSubscriptionPlans']);
@@ -57,7 +60,6 @@ Route::middleware('auth')->prefix('dashboard')->name('dashboard.')->group(functi
     Route::post('/delete/{id}',[PaymentController::class,'deleteSubscribtion'])->name('deleteSubscribtion');
 
     //////////////////////////////////
-    Route::get('/home',[HomeController::class,'index'])->name('home.index');
     Route::get('/payment-success', function () {
         return view('dashboard.success');
     })->name('payment-success');
@@ -136,6 +138,15 @@ Route::middleware('auth')->prefix('dashboard')->name('dashboard.')->group(functi
         Route::post('/update/{id}',[PackageController::class,'update'])->name('update');
         Route::post('/delete/{id}',[PackageController::class,'delete'])->name('delete');
         Route::post('/store',[PackageController::class,'store'])->name('store');
+    });
+    Route::prefix('detailing')->name('detailing.')->group(function(){
+        Route::get('/',[DetailingController::class,'index'])->name('index');
+        Route::get('/filter',[DetailingController::class,'filter'])->name('filter');
+        Route::get('/create',[DetailingController::class,'create'])->name('create');
+        Route::get('/edit/{id}',[DetailingController::class,'edit'])->name('edit');
+        Route::put('/update/{id}',[DetailingController::class,'update'])->name('update');
+        Route::post('/delete/{id}',[DetailingController::class,'delete'])->name('delete');
+        Route::post('/store',[DetailingController::class,'store'])->name('store');
     });
     Route::get('/logout',[AuthController::class,'logout'])->name('logout');
 });

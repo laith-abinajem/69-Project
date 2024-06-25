@@ -30,6 +30,7 @@ class User extends Authenticatable implements HasMedia
         'code',
         'square_customer_id',
         'card_id',
+        'session_id',
     ];
 
     /**

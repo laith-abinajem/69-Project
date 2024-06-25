@@ -61,7 +61,12 @@ class AuthController extends Controller
           
             if ($user->status === 'approved') {
                 if (Hash::check($password, $user->password)) {
+                    if ($user->session_id && $user->session_id !== session()->getId()) {
+                        return back();
+                    }
                     Auth::login($user);
+                    $user->session_id = session()->getId();
+                    $user->save();
                     Alert::toast('Welcome back', 'info');
                     return redirect()->route('dashboard.home.index');
                 } else {
@@ -141,9 +146,15 @@ class AuthController extends Controller
             return back()->withErrors(['code' => 'The provided code is incorrect.']);
         }
     }
-    public function logout()
+    public function logout(Request $request)
     {
+        $user = Auth::user();
+        $user->session_id = null;
+        $user->save();
+
         Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
         return redirect()->route('login');
     }
 }
