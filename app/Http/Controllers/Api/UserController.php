@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\AddsOn;
 
 class UserController extends Controller
 {
@@ -21,16 +22,34 @@ class UserController extends Controller
         }
         $user->company_logo = $user->getFirstMediaUrl('company_logo');
         $user->decal_logo = $user->getFirstMediaUrl('decal_logo');
+        $user->detailing_decal = $user->getFirstMediaUrl('detailing_decals');
         $user->video = $user->getFirstMediaUrl('videos');
         unset($user->media);
         unset($user->sub_id);
         unset($user->email_verified_at);
         unset($user->code);
         unset($user->card_id);
-        $user->tintBrands->each(function ($tintBrand) {
+        // Fetch add-ons related to 'tint' service for the user
+        $addons = AddsOn::where('user_id', $user->id)
+        ->where('service', 'tint')
+        ->get()
+        ->map(function ($addon) {
+            return [
+                'id' => $addon->id,
+                'service' => $addon->service,
+                'media_url' => $addon->getMediaUrlAttribute(),
+                'created_at' => $addon->created_at,
+                'updated_at' => $addon->updated_at,
+            ];
+        });
+
+        // $user->addons = $addons;
+
+        $user->tintBrands->each(function ($tintBrand) use ($addons) {
             $tintBrand->tint_logo = $tintBrand->getFirstMediaUrl('photos');
             unset($tintBrand->media);
-    
+            // Attach add-ons to the tint brand
+            $tintBrand->addons = $addons;
             $groupedTintDetails = $tintBrand->tintDetails->groupBy(function ($detail) {
                 return $detail->class_car . '-' . $detail->sub_class_car;
             })->map(function ($group) {
@@ -48,6 +67,50 @@ class UserController extends Controller
     
             $tintBrand->tint_details = $groupedTintDetails;
             unset($tintBrand->tintDetails);
+        });
+        $user->ppfBrands->each(function ($ppfBrand) {
+            $ppfBrand->ppf_image = $ppfBrand->getFirstMediaUrl('ppf_image');
+            unset($ppfBrand->media);
+    
+            $groupedPpfDetails = $ppfBrand->ppfDetails->groupBy(function ($detail) {
+                return $detail->class_car . '-' . $detail->sub_class_car;
+            })->map(function ($group) {
+                return [
+                    'id' => $group->first()->id,
+                    'ppf_id' => $group->first()->ppf_id,
+                    'class_car' => $group->first()->class_car,
+                    'sub_class_car' => $group->first()->sub_class_car,
+                    'ppf_type' => $group->pluck('ppf_type')->toArray(),
+                    'price' => $group->pluck('price')->toArray(),
+                    'created_at' => $group->first()->created_at,
+                    'updated_at' => $group->first()->updated_at,
+                ];
+            })->values()->toArray();
+    
+            $ppfBrand->ppf_details = $groupedPpfDetails;
+            unset($ppfBrand->ppfDetails);
+        });
+        $user->lightTints->each(function ($lightTint) {
+            $lightTint->light_image = $lightTint->getFirstMediaUrl('light_image');
+            unset($lightTint->media);
+    
+            $groupedLightsDetails = $lightTint->lightDetails->groupBy(function ($detail) {
+                return $detail->class_car . '-' . $detail->sub_class_car;
+            })->map(function ($group) {
+                return [
+                    'id' => $group->first()->id,
+                    'light_id' => $group->first()->light_id,
+                    'class_car' => $group->first()->class_car,
+                    'sub_class_car' => $group->first()->sub_class_car,
+                    'light_type' => $group->pluck('light_type')->toArray(),
+                    'price' => $group->pluck('price')->toArray(),
+                    'created_at' => $group->first()->created_at,
+                    'updated_at' => $group->first()->updated_at,
+                ];
+            })->values()->toArray();
+    
+            $lightTint->light_details = $groupedLightsDetails;
+            unset($ppfBrand->lightDetails);
         });
         return response()->json([
             'data' => $user,
