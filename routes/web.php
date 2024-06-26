@@ -51,7 +51,6 @@ Route::prefix('auth')->middleware('checkLogin')->controller(AuthController::clas
 
 Route::middleware(['auth', 'check.single.session'])->prefix('dashboard')->name('dashboard.')->group(function(){
     Route::get('/home',[HomeController::class,'index'])->name('home.index');
-
     Route::get('/check-payment', [PaymentController::class, 'checkPayment'])->name('check-payment');
     Route::get('/create-package-square', [PaymentController::class, 'createSubscriptionPlans']);
     Route::get('/get-packages-square', [PaymentController::class, 'listSubscriptionPlans']);
@@ -74,16 +73,18 @@ Route::middleware(['auth', 'check.single.session'])->prefix('dashboard')->name('
     
 
     Route::post('/upload',[UserController::class,'uploadLargeFiles'])->name('upload');
-
     Route::prefix('user')->name('user.')->group(function(){
         Route::get('/',[UserController::class,'index'])->name('index');
         Route::get('/edit/{id}',[UserController::class,'edit'])->name('edit');
         Route::post('/update/{id}',[UserController::class,'update'])->name('update');
+        Route::post('/delete/{id}',[UserController::class,'delete'])->name('delete');
     });
-
+    Route::prefix('user')->name('user.')->middleware('role:Subscriber')->group(function () {
+        Route::get('/createEmployee',[UserController::class,'createEmployee'])->name('createEmployee');
+        Route::post('/storeEmployee',[UserController::class,'storeEmployee'])->name('storeEmployee');
+    });
     Route::prefix('user')->name('user.')->middleware('role:Super Admin')->group(function () {
         Route::get('/create',[UserController::class,'create'])->name('create');
-        Route::post('/delete/{id}',[UserController::class,'delete'])->name('delete');
         Route::post('/store',[UserController::class,'store'])->name('store');
         Route::post('/updateStatus',[UserController::class,'updateStatus'])->name('updateStatus');
     });
@@ -123,7 +124,6 @@ Route::middleware(['auth', 'check.single.session'])->prefix('dashboard')->name('
         Route::post('/delete/{id}',[AddonsController::class,'delete'])->name('delete');
         Route::post('/store',[AddonsController::class,'store'])->name('store');
     });
-    // Route::prefix('subscription')->name('subscription.')->middleware('role:Super Admin')->group(function () {
     Route::prefix('subscription')->name('subscription.')->group(function(){
         Route::get('/',[SubscriptionController::class,'index'])->name('index');
         Route::get('/create',[SubscriptionController::class,'create'])->name('create');

@@ -31,6 +31,7 @@ class User extends Authenticatable implements HasMedia
         'square_customer_id',
         'card_id',
         'session_id',
+        'parent_id',
     ];
 
     /**
@@ -76,7 +77,7 @@ class User extends Authenticatable implements HasMedia
     }
     public function card()
     {
-        return $this->hasMany(Card::class);
+        return $this->belongsTo(Card::class, 'card_id');
     }
     public function registerMediaCollections(): void
     {

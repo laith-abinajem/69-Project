@@ -8,7 +8,7 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-header d-flex justify-content-between flex-wrap align-items-center">
-                <h3 class="card-title">Tint Brand Table</h3>
+                <h3 class="card-title">Detailing Brand Table</h3>
                 <button type="button" class="button btn btn-primary" onclick="window.location='{{ route('dashboard.detailing.create') }}'">Add detailing package</button>
             </div>
             @if(auth()->user()->type === "super_admin")

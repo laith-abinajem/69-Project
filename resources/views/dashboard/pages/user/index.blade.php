@@ -23,7 +23,12 @@
                     <button type="button" class="button btn btn-primary" onclick="window.location='{{ route('dashboard.user.create') }}'">Add User</button>
                 </div>
                 @endif
-
+                @if(auth()->user()->type === "subscriber" && ( auth()->user()->card_id != null) )
+                <div class="card-header d-flex justify-content-between flex-wrap align-items-center">
+                    <h3 class="card-title">Users Table</h3>
+                    <button type="button" class="button btn btn-primary" onclick="window.location='{{ route('dashboard.user.createEmployee') }}'">Add Employee</button>
+                </div>
+                @endif
                 <div class="card-body">
                     <div class="table-responsive">
                         <table id="example2" class="border-top-0  table table-bordered text-nowrap border-bottom">
@@ -132,7 +137,7 @@
                                 <div class="col-12">
                                     <div class="form-group">
                                     <input type="hidden" id="userIdInput" name="user_id" value="">
-                                        <label class="form-label">Subscription Type ( To upgrade plan : please select Subscription Type) : <span class="tx-danger">*</span></label>
+                                        <label class="form-label">Subscription Type <span class="tx-danger">*</span></label>
                                         <select name="package_id" id="package_id" required class="form-control paintProtectionFil select2" >
                                             @foreach($packages as $package)
                                                 <option value="{{$package->id}}">{{$package->name}} - {{$package->price}} $</option>

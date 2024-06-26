@@ -33,7 +33,11 @@ class SubscriptionController extends Controller
             ->where('end_date', '>', $today)
             ->latest()
             ->first();
-            $data = Subscription::where('user_id',auth()->user()->id)->get();
+            $data = Subscription::whereHas('user',function($query){
+                $query->where('id', auth()->user()->id)
+                ->orWhere('parent_id', auth()->user()->id);
+                
+            })->get();
             $packages = Package::where('interval','!=','WEEKLY')->get();
             $price = Subscription::where('user_id',auth()->user()->id)->sum('price');
             $count = Subscription::where('user_id',auth()->user()->id)->count();

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->enum('type', ['super_admin', 'subscriber'])->default('subscriber');
+            $table->enum('type', ['super_admin', 'subscriber','employee'])->default('subscriber');
             $table->enum('status', ['approved', 'rejected', 'pending'])->default('pending');
             $table->rememberToken();
             $table->foreignId('sub_id')->nullable();

@@ -42,12 +42,7 @@
                                     <input value="{{ $data->email }}" class="form-control" name="email" placeholder="Enter Email" required="" type="email">
                                 </div>
                             </div>
-                            <div class="col-6">
-                                <div class="form-group mg-b-0">
-                                    <label class="form-label">Company Name: <span class="tx-danger">*</span></label>
-                                    <input value="{{ $data->company_name }}" class="form-control" name="company_name" placeholder="Company name" required="" type="text">
-                                </div>
-                            </div>
+                            
                             <div class="col-6">
                                 <div class="form-group position-relative">
                                     <label class="form-label">Password:</label>
@@ -55,7 +50,13 @@
                                     <i class="bi bi-eye-slash position-absolute" id="togglePassword"  onclick="showPassword()"></i>
                                 </div>
                             </div>
-                           
+                            @if(auth()->user()->type === "super_admin" || (auth()->user()->type === "subscriber" && $data->type !== 'employee' ) )
+                            <div class="col-6">
+                                <div class="form-group mg-b-0">
+                                    <label class="form-label">Company Name: <span class="tx-danger">*</span></label>
+                                    <input value="{{ $data->company_name }}" class="form-control" name="company_name" placeholder="Company name" required="" type="text">
+                                </div>
+                            </div>
                             <div class="col-6 mb-2">
                                 <label class="form-control-label">Company Logo: <span class="tx-danger">*</span></label>
                                 <input type="file" name="company_logo" value="{{ old('company_logo') }}" id="company_logo" class="dropify" data-height="200" data-default-file="{{ $companyLogo }}" />
@@ -92,6 +93,7 @@
                             </div>
                             <input type="hidden" name="video_path" id="videoPath">
                             <input type="hidden" name="video_filename" id="videoFilename">
+                            @endif
                         </div>
                     <div class="form-group text-end mt-2">
                         <button type="submit" id="submit" class="button btn btn-primary">Save</button>

@@ -23,7 +23,9 @@ class UserController extends Controller
         if(auth()->user()->type === "super_admin"){
             $data = User::get();
         } else {
-            $data = User::where('id', auth()->user()->id)->get();
+            $data = User::where('id', auth()->user()->id)
+            ->orWhere('parent_id', auth()->user()->id)
+            ->get();
         }
         $packages = Package::get();
         $today_date = Carbon::today();
@@ -34,15 +36,16 @@ class UserController extends Controller
         return view('dashboard.pages.user.create');
     }
     public function store(Request $request)
-    {   
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required',
-            'company_name' => 'required',
-            'video_path' => 'sometimes|string',
-            'video_filename' => 'sometimes|string',
-        ]);
+    { 
+        try{
+            $validated = $request->validate([
+                'name' => 'required|string|max:255',
+                'email' => 'required|string|email|max:255|unique:users',
+                'password' => 'required',
+                'company_name' => 'required',
+                'video_path' => 'sometimes|string',
+                'video_filename' => 'sometimes|string',
+            ]);
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
@@ -51,18 +54,17 @@ class UserController extends Controller
                 'password' => Hash::make($request->password),
                 'company_name' => $request->company_name,
             ]);
-
-            
+    
             if($request->type === "super_admin"){
                 $superAdminRole = Role::where('name','Super Admin')->first();
                 $user->assignRole($superAdminRole);
-            }else{
+            }elseif($request->type === "subscriber"){
                 $subscriberRole = Role::where('name' ,'Subscriber')->first();
                 if($subscriberRole){
                     $user->assignRole($subscriberRole);
                 }
             }
-
+    
             if ($request->hasFile('company_logo')) {
                 $user->addMedia($request->file('company_logo'))->toMediaCollection('company_logo');
             }
@@ -79,7 +81,7 @@ class UserController extends Controller
                     ->usingFileName($videoFilename)
                     ->toMediaCollection('videos');
             }
-
+    
             $createCustomerRequest = new \Square\Models\CreateCustomerRequest();
             $createCustomerRequest->setEmailAddress($user->email);
             $createCustomerRequest->setGivenName($user->name);
@@ -94,11 +96,12 @@ class UserController extends Controller
             $user->update([
                 'square_customer_id' => $customerId
             ]);
-            // $title = 'welcomes';
-            // $this->sendEmailCreateUser($request->email ,$request->password , $title ,$request->name ,'');
             Alert::toast('User created successfully', 'success');
             return redirect()->route('dashboard.user.index');
-     
+        } catch (\Exception $e) {
+            Alert::toast('An error occurred while creating the User', 'error');
+            return redirect()->back()->withInput();
+        }
        
     }
     public function edit($id){
@@ -113,19 +116,23 @@ class UserController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255',
-            'company_name' => $request->company_name,
         ]);
         try {
             $user = User::find($id);
             $user->update([
                 'name' => $request->name,
                 'email' => $request->email,
-                'status' => $request->status,
-                'company_name' => $request->company_name,
+                
             ]);
             if($request->password !== null){
                 $user->update([
                     'password' => Hash::make($request->password),
+                ]);
+            }
+            if($request->status !== null){
+                $user->update([
+                   'status' => $request->status,
+                    'company_name' => $request->company_name,
                 ]);
             }
             if ($request->hasFile('company_logo')) {
@@ -148,23 +155,10 @@ class UserController extends Controller
                     ->usingFileName($videoFilename)
                     ->toMediaCollection('videos');
             }
-            // if($request->status === 'approved' &&  !$user->subscription ){
-            //     $startDate = Carbon::now();
-            //     $endDate = (clone $startDate)->addWeeks(1);
-            //     $sub = Subscription::create([
-            //         "price"=>0,
-            //         "package_type"=> 'trial',
-            //         "payment_status"=>'success',
-            //         "start_date"=>$startDate,
-            //         "end_date"=>$endDate,
-            //         "user_id"=>$user->id,
-    
-            //     ]);
-            // }
             Alert::toast('User Updated successfully', 'success');
             return redirect()->route('dashboard.user.index');
         } catch (\Exception $e) {
-            Alert::toast('An error occurred while creating the User', 'error');
+            Alert::toast('An error occurred while Updating the User', 'error');
             return redirect()->back()->withInput();
         }
         return redirect()->route('dashboard.user.index');
@@ -178,19 +172,10 @@ class UserController extends Controller
             ]);
             $startDate = Carbon::now();
             $endDate = (clone $startDate)->addWeeks(1);
-            // $sub = Subscription::create([
-            //     "price"=>0,
-            //     "package_type"=> 'trial',
-            //     "payment_status"=>'success',
-            //     "start_date"=>$startDate,
-            //     "end_date"=>$endDate,
-            //     "user_id"=>$user->id,
-
-            // ]);
-            // Mail::to($user->email)->send(new AppMail([
-            //     'title' => 'Welcome To 69simulator',
-            //     'body' => 'Your account has been approved, and we have given you a 7-day trial subscription. Enjoy using 69simulator!',
-            // ]));
+            Mail::to($user->email)->send(new AppMail([
+                'title' => 'Welcome To 69simulator',
+                'body' => 'Your account has been approved , Enjoy using 69simulator!',
+            ]));
             return response()->json(['message' => 'Status updated successfully'], 200);
         } else {
             return response()->json(['message' => 'User not found'], 404);
@@ -232,5 +217,51 @@ class UserController extends Controller
             'done' => $handler->getPercentageDone(),
             'status' => true
         ];
+    }
+
+    public function createEmployee(Request $request)
+    {
+        return view('dashboard.pages.user.create_employee');
+    }
+    public function storeEmployee(Request $request)
+    { 
+        try{
+            $validated = $request->validate([
+                'name' => 'required|string|max:255',
+                'email' => 'required|string|email|max:255|unique:users',
+                'password' => 'required',
+            ]);
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'type' => 'employee',
+                'status' => 'approved',
+                'password' => Hash::make($request->password),
+            ]);
+    
+            $superAdminRole = Role::where('name','Employee')->first();
+            $user->assignRole($superAdminRole);
+    
+            $createCustomerRequest = new \Square\Models\CreateCustomerRequest();
+            $createCustomerRequest->setEmailAddress($user->email);
+            $createCustomerRequest->setGivenName($user->name);
+            $client = new SquareClient([
+                'accessToken' => 'EAAAl4ZyBLIRqCXuoUe-u77nYVLdmAyxjFzYHgQHyv9TuaY6dYEWzYsqiWJekQHe',
+                'environment' => 'sandbox', 
+            ]);
+            $customersApi = $client->getCustomersApi();
+    
+            $customerResponse = $customersApi->createCustomer($createCustomerRequest);
+            $customerId = $customerResponse->getResult()->getCustomer()->getId();
+            $user->update([
+                'square_customer_id' => $customerId
+            ]);
+            Alert::toast('User created successfully', 'success');
+            return redirect()->route('dashboard.user.index');
+        } catch (\Exception $e) {
+            Alert::toast('An error occurred while creating the User', 'error');
+            return redirect()->back()->withInput();
+        }
+       
     }
 }
