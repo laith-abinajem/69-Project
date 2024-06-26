@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text('detailing_description');
             $table->string('hex')->nullable();
             $table->string('guage_level')->nullable();
+            $table->string('detailing_type');
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });

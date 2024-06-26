@@ -14,21 +14,23 @@ class CheckSingleSession
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next)
-    {
-        if (Auth::check()) {
-            $user = Auth::user();
-            // Check if the current session ID matches the one stored in the database
-            if ($user->session_id !== session()->getId()) {
-                // Log out the user
-                Auth::logout();
-                session()->invalidate();
-                session()->regenerateToken();
+    public function handle($request, Closure $next)
+       {
+           if (Auth::check()) {
+               $user = Auth::user();
+               $currentSessionId = session()->getId();
 
-                return redirect()->route('login')->withErrors('Your account is logged in from another device.');
-            }
-        }
+               // Check if the session ID stored in the user's record is different
+               if ($user->session_id !== $currentSessionId) {
+                   // Log out the user from other sessions
+                   session()->getHandler()->destroy($user->session_id);
 
-        return $next($request);
-    }
+                   // Update the user's record with the current session ID
+                   $user->session_id = $currentSessionId;
+                   $user->save();
+               }
+           }
+
+           return $next($request);
+       }
 }

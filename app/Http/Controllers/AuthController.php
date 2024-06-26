@@ -61,12 +61,12 @@ class AuthController extends Controller
           
             if ($user->status === 'approved') {
                 if (Hash::check($password, $user->password)) {
-                    if ($user->session_id && $user->session_id !== session()->getId()) {
-                        return back();
-                    }
+                    // if ($user->session_id && $user->session_id !== session()->getId()) {
+                    //     return back();
+                    // }
                     Auth::login($user);
-                    $user->session_id = session()->getId();
-                    $user->save();
+                    // $user->session_id = session()->getId();
+                    // $user->save();
                     Alert::toast('Welcome back', 'info');
                     return redirect()->route('dashboard.home.index');
                 } else {
