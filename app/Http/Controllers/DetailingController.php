@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\DetailingDetails;
 use App\Models\Detailing;
 use App\Models\User;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class DetailingController extends Controller
 {
@@ -51,25 +52,26 @@ class DetailingController extends Controller
         $inout_count= Detailing::where('user_id',$user->id)->where('detailing_type','inout')->count();
 
         if($exterior_count > 4){
-            Alert::toast('You cant add more than 4 exterior', 'error');
+            Alert::toast("You can't add more than 4 exterior", 'error');
             return redirect()->route('dashboard.detailing.index');
         }
         
         if($interior_count > 4){
-            Alert::toast('You cant add more than 4 exterior', 'error');
+            Alert::toast("You can't add more than 4 exterior", 'error');
             return redirect()->route('dashboard.detailing.index');
         }
         
         if($inout_count > 4){
-            Alert::toast('You cant add more than 4 exterior', 'error');
+            Alert::toast("You can't add more than 4 exterior", 'error');
             return redirect()->route('dashboard.detailing.index');
         }
 
         $detailingBrand = Detailing::create([
             'detailing_brand' => $request->detailing_brand,
             'detailing_description' => $request->detailing_description,
+            'detailing_type' => $request->detailing_type,
             'hex' => $request->hex,
-            'warranty' => $request->warranty,
+            'guage_level' => $request->guage_level,
             'user_id'=> $user->id
         ]);
         if ($request->hasFile('detailing_image')) {
@@ -80,7 +82,7 @@ class DetailingController extends Controller
         foreach ($prices as $classCar => $subClasses) {
             foreach ($subClasses as $subClassCar => $windows) {
                 foreach ($windows as $window => $price) {
-                $details =   LightTintDetails::create([
+                $details =   DetailingDetails::create([
                         'detailing_id' => $detailingBrand->id,
                         'class_car' => $classCar,
                         'sub_class_car' => $subClassCar,
@@ -95,7 +97,7 @@ class DetailingController extends Controller
     
     }
     public function edit($id){
-        $detailingBrand = Detailing::find($id);
+        $detailingBrand = Detailing::with('detailingDetails')->find($id);
         $users = User::get();
         $photos = $detailingBrand->getFirstMediaUrl('detailing_image');
         $exterior_count= Detailing::where('user_id',auth()->user()->id)->where('detailing_type','exterior')->count();

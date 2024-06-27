@@ -15,6 +15,10 @@ class Detailing extends Model implements HasMedia
     {
         $this->addMediaCollection('detailing_image')->singleFile();
     }
+    public function detailingDetails()
+    {
+        return $this->hasMany(DetailingDetails::class, 'detailing_id');
+    }
     public function getMediaUrlAttribute()
     {
         $media = $this->getFirstMedia('detailing_image');

@@ -71,28 +71,24 @@
                     <a class="side-menu__item" href="{{ route('dashboard.home.index') }}" ><i class="side-menu__icon fe fe-airplay"></i><span class="side-menu__label">Dashboard</span></a>
                 </li>
                 <li class="slide">
-                    <a class="side-menu__item" href="{{ route('dashboard.user.index') }}"><i class="side-menu__icon fe fe-box"></i><span class="side-menu__label">Users</span></a>
+                    <a class="side-menu__item" data-bs-toggle="slide"   href="javascript:void(0);"><i class="side-menu__icon fe fe-briefcase "></i><span class="side-menu__label">Services</span><i class="angle fe fe-chevron-down"></i></a>
+                    <ul class="slide-menu">
+                        <li class="side-menu__label1"><a href="javascript:void(0);">Services</a></li>
+                        <li><a class="slide-item" href="{{ route('dashboard.tint.filter') }}">Tint</a></li>
+                        <li><a class="slide-item" href="{{ route('dashboard.light.filter') }}">Light tint</a></li>
+                        <li><a class="slide-item" href="{{ route('dashboard.ppf.filter') }}">Ppf</a></li>
+                        <li><a class="slide-item" href="{{ route('dashboard.detailing.filter') }}">Detailing</a></li>
+                        <li><a class="slide-item" href="{{ route('dashboard.addons.filter') }}">Add-ons</a></li>
+                    </ul>
                 </li>
                 <li class="slide">
-                    <a class="side-menu__item" href="{{ route('dashboard.subscription.index') }} "><i class="side-menu__icon fe fe-award "></i><span class="side-menu__label">Subscription</span></a>
+                    <a class="side-menu__item" href="{{ route('dashboard.subscription.index') }} "><i class="side-menu__icon fe fe-dollar-sign "></i><span class="side-menu__label">Subscription</span></a>
                 </li>
                 <li class="slide">
-                    <a class="side-menu__item"  href="{{ route('dashboard.tint.filter') }} "><i class="side-menu__icon fe fe-award "></i><span class="side-menu__label">Tint</span></a>
+                    <a class="side-menu__item"  href="{{ route('dashboard.package.index') }} "><i class="side-menu__icon fe fe-package "></i><span class="side-menu__label">Package</span></a>
                 </li>
                 <li class="slide">
-                    <a class="side-menu__item"  href="{{ route('dashboard.light.filter') }} "><i class="side-menu__icon fe fe-award "></i><span class="side-menu__label">Light tint</span></a>
-                </li>
-                <li class="slide">
-                    <a class="side-menu__item"  href="{{ route('dashboard.ppf.filter') }} "><i class="side-menu__icon fe fe-award "></i><span class="side-menu__label">Ppf</span></a>
-                </li>
-                <li class="slide">
-                    <a class="side-menu__item"  href="{{ route('dashboard.addons.filter') }} "><i class="side-menu__icon fe fe-award "></i><span class="side-menu__label">Add-ons</span></a>
-                </li>
-                <li class="slide">
-                    <a class="side-menu__item"  href="{{ route('dashboard.detailing.filter') }} "><i class="side-menu__icon fe fe-award "></i><span class="side-menu__label">Detailing</span></a>
-                </li>
-                <li class="slide">
-                    <a class="side-menu__item"  href="{{ route('dashboard.package.index') }} "><i class="side-menu__icon fe fe-award "></i><span class="side-menu__label">Package</span></a>
+                    <a class="side-menu__item" href="{{ route('dashboard.user.index') }}"><i class="side-menu__icon fe fe-user"></i><span class="side-menu__label">Users</span></a>
                 </li>
                 @endcanany
                 @canany(['owne tint brand'])
@@ -102,26 +98,22 @@
                
                 @if(auth()->user()->subscription && auth()->user()->subscription->where('end_date', '>', $today)->count() > 0)
                 <li class="slide">
-                    <a class="side-menu__item" href="{{ route('dashboard.user.index') }}"><i class="side-menu__icon fe fe-box"></i><span class="side-menu__label">Accounts</span></a>
+                    <a class="side-menu__item" data-bs-toggle="slide"   href="javascript:void(0);"><i class="side-menu__icon fe fe-briefcase "></i><span class="side-menu__label">Services</span><i class="angle fe fe-chevron-down"></i></a>
+                    <ul class="slide-menu">
+                        <li class="side-menu__label1"><a href="javascript:void(0);">Services</a></li>
+                        <li><a class="slide-item" href="{{ route('dashboard.tint.index') }}">Tint</a></li>
+                        <li><a class="slide-item" href="{{ route('dashboard.light.index') }}">Light tint</a></li>
+                        <li><a class="slide-item" href="{{ route('dashboard.ppf.index') }}">Ppf</a></li>
+                        <li><a class="slide-item" href="{{ route('dashboard.detailing.index') }}">Detailing</a></li>
+                        <li><a class="slide-item" href="{{ route('dashboard.addons.index') }}">Add-ons</a></li>
+                    </ul>
                 </li>
                 <li class="slide">
-                    <a class="side-menu__item"  href="{{ route('dashboard.tint.index') }} "><i class="side-menu__icon fe fe-award "></i><span class="side-menu__label">Tint</span></a>
-                </li>
-                <li class="slide">
-                    <a class="side-menu__item"  href="{{ route('dashboard.light.index') }} "><i class="side-menu__icon fe fe-award "></i><span class="side-menu__label">Light tint</span></a>
-                </li>
-                <li class="slide">
-                    <a class="side-menu__item"  href="{{ route('dashboard.ppf.index') }} "><i class="side-menu__icon fe fe-award "></i><span class="side-menu__label">Ppf</span></a>
-                </li>
-                <li class="slide">
-                    <a class="side-menu__item"  href="{{ route('dashboard.addons.index') }} "><i class="side-menu__icon fe fe-award "></i><span class="side-menu__label">Add-ons</span></a>
-                </li>
-                <li class="slide">
-                    <a class="side-menu__item"  href="{{ route('dashboard.detailing.index') }} "><i class="side-menu__icon fe fe-award "></i><span class="side-menu__label">Detailing</span></a>
+                    <a class="side-menu__item" href="{{ route('dashboard.user.index') }}"><i class="side-menu__icon fe fe-user"></i><span class="side-menu__label">Accounts</span></a>
                 </li>
                 @endif
                 <li class="slide">
-                    <a class="side-menu__item" href="{{ route('dashboard.subscription.index') }} "><i class="side-menu__icon fe fe-award "></i><span class="side-menu__label">Plan & Billing</span></a>
+                    <a class="side-menu__item" href="{{ route('dashboard.subscription.index') }} "><i class="side-menu__icon fe fe-dollar-sign "></i><span class="side-menu__label">Plan & Billing</span></a>
                 </li>
                 @endcanany
 
@@ -133,30 +125,26 @@
                
                 @if(auth()->user()->subscription && auth()->user()->subscription->where('end_date', '>', $today)->count() > 0)
                 <li class="slide">
-                    <a class="side-menu__item" href="{{ route('dashboard.user.edit',$id) }}"><i class="side-menu__icon fe fe-box"></i><span class="side-menu__label">My account</span></a>
+                    <a class="side-menu__item" href="{{ route('dashboard.user.edit',$id) }}"><i class="side-menu__icon fe fe-user"></i><span class="side-menu__label">My account</span></a>
                 </li>
                 <li class="slide">
-                    <a class="side-menu__item"  href="{{ route('dashboard.tint.index') }} "><i class="side-menu__icon fe fe-award "></i><span class="side-menu__label">Tint</span></a>
-                </li>
-                <li class="slide">
-                    <a class="side-menu__item"  href="{{ route('dashboard.light.index') }} "><i class="side-menu__icon fe fe-award "></i><span class="side-menu__label">Light tint</span></a>
-                </li>
-                <li class="slide">
-                    <a class="side-menu__item"  href="{{ route('dashboard.ppf.index') }} "><i class="side-menu__icon fe fe-award "></i><span class="side-menu__label">Ppf</span></a>
-                </li>
-                <li class="slide">
-                    <a class="side-menu__item"  href="{{ route('dashboard.addons.index') }} "><i class="side-menu__icon fe fe-award "></i><span class="side-menu__label">Add-ons</span></a>
-                </li>
-                <li class="slide">
-                    <a class="side-menu__item"  href="{{ route('dashboard.detailing.index') }} "><i class="side-menu__icon fe fe-award "></i><span class="side-menu__label">Detailing</span></a>
+                    <a class="side-menu__item" data-bs-toggle="slide"   href="javascript:void(0);"><i class="side-menu__icon fe fe-briefcase"></i><span class="side-menu__label">Services</span><i class="angle fe fe-chevron-down"></i></a>
+                    <ul class="slide-menu">
+                        <li class="side-menu__label1"><a href="javascript:void(0);">Services</a></li>
+                        <li><a class="slide-item" href="{{ route('dashboard.tint.index') }}">Tint</a></li>
+                        <li><a class="slide-item" href="{{ route('dashboard.light.index') }}">Light tint</a></li>
+                        <li><a class="slide-item" href="{{ route('dashboard.ppf.index') }}">Ppf</a></li>
+                        <li><a class="slide-item" href="{{ route('dashboard.detailing.index') }}">Detailing</a></li>
+                        <li><a class="slide-item" href="{{ route('dashboard.addons.index') }}">Add-ons</a></li>
+                    </ul>
                 </li>
                 @endif
                 <li class="slide">
-                    <a class="side-menu__item" href="{{ route('dashboard.subscription.index') }} "><i class="side-menu__icon fe fe-award "></i><span class="side-menu__label">Plan & Billing</span></a>
+                    <a class="side-menu__item" href="{{ route('dashboard.subscription.index') }} "><i class="side-menu__icon fe fe-dollar-sign "></i><span class="side-menu__label">Plan & Billing</span></a>
                 </li>
                 @endcanany
                 <li class="slide">
-                    <a class="side-menu__item"  href="{{ route('dashboard.game') }}"><i class="side-menu__icon fe fe-box "></i><span class="side-menu__label">Game</span></a>
+                    <a class="side-menu__item"  href="{{ route('dashboard.game') }}"><i class="side-menu__icon fe fe-play "></i><span class="side-menu__label">Game</span></a>
                 </li>
             </ul>
 

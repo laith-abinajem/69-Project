@@ -217,6 +217,7 @@
 				var full_car;
 				var panoramic_moonroof;
 				var srtipe_tint;
+				
 				$(document).on('click', '.copy', function(){
 					var parentElement = $(this).closest('.prices_container');
 					front_ws = parentElement.find('.front-w-s').val();
@@ -244,7 +245,7 @@
 					
 					// Check if all required fields are filled
 					if(validateForm()) {
-						$('#tintform').submit();
+						$(this).closest('form').submit();
 					} else {
 						alert('Please fill out all required fields.');
 					}

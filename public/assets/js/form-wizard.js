@@ -68,6 +68,34 @@ $(function () {
 		}
 	});
 
+	$('#wizardedit').steps({
+		headerTag: 'h3',
+		bodyTag: 'section',
+		autoFocus: true,
+		titleTemplate: '<span class="number">#index#<\/span> <span class="title">#title#<\/span>',
+		onStepChanging: function (event, currentIndex, newIndex) {
+			if (currentIndex < newIndex) {
+				// Step 1 form validation
+				if (currentIndex === 0) {
+					var bname = $('#brandname').parsley();
+					var bdescription = $('#branddescription').parsley();
+					
+					if (bname.isValid() && bdescription.isValid()) {
+						return true;
+					} else {
+						bname.validate();
+						bdescription.validate();
+					}
+
+
+				}
+				// Always allow step back to the previous step even if the current step is not valid.
+			} else {
+				return true;
+			}
+		}
+	});
+
 	$('.dropify2').dropify({
 		messages: {
 			'default': 'Drag and drop a file here or click',
