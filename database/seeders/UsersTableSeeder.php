@@ -44,7 +44,7 @@ class UsersTableSeeder extends Seeder
             ],
             [
                 'name' => 'Employee',
-                'email' => 'sub@sub.com',
+                'email' => 'employee@sub.com',
                 'email_verified_at' => Carbon::now(),
                 'password' => Hash::make('123'),
                 'type' => 'employee',
