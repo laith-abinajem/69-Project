@@ -29,8 +29,10 @@ class UserController extends Controller
         unset($user->email_verified_at);
         unset($user->code);
         unset($user->card_id);
+        unset($user->session_id);
+        unset($user->parent_id);
         // Fetch add-ons related to 'tint' service for the user
-        $addons = AddsOn::where('user_id', $user->id)
+        $addons_tint = AddsOn::where('user_id', $user->id)
         ->where('service', 'tint')
         ->get()
         ->map(function ($addon) {
@@ -45,11 +47,11 @@ class UserController extends Controller
 
         // $user->addons = $addons;
 
-        $user->tintBrands->each(function ($tintBrand) use ($addons) {
+        $user->tintBrands->each(function ($tintBrand) use ($addons_tint) {
             $tintBrand->tint_logo = $tintBrand->getFirstMediaUrl('photos');
             unset($tintBrand->media);
             // Attach add-ons to the tint brand
-            $tintBrand->addons = $addons;
+            $tintBrand->addons = $addons_tint;
             $groupedTintDetails = $tintBrand->tintDetails->groupBy(function ($detail) {
                 return $detail->class_car . '-' . $detail->sub_class_car;
             })->map(function ($group) {
@@ -68,9 +70,22 @@ class UserController extends Controller
             $tintBrand->tint_details = $groupedTintDetails;
             unset($tintBrand->tintDetails);
         });
-        $user->ppfBrands->each(function ($ppfBrand) {
+        $addons_ppf = AddsOn::where('user_id', $user->id)
+        ->where('service', 'ppf')
+        ->get()
+        ->map(function ($addon) {
+            return [
+                'id' => $addon->id,
+                'service' => $addon->service,
+                'media_url' => $addon->getMediaUrlAttribute(),
+                'created_at' => $addon->created_at,
+                'updated_at' => $addon->updated_at,
+            ];
+        });
+        $user->ppfBrands->each(function ($ppfBrand)  use ($addons_ppf){
             $ppfBrand->ppf_image = $ppfBrand->getFirstMediaUrl('ppf_image');
             unset($ppfBrand->media);
+            $ppfBrand->addons = $addons_ppf;
     
             $groupedPpfDetails = $ppfBrand->ppfDetails->groupBy(function ($detail) {
                 return $detail->class_car . '-' . $detail->sub_class_car;
@@ -90,9 +105,22 @@ class UserController extends Controller
             $ppfBrand->ppf_details = $groupedPpfDetails;
             unset($ppfBrand->ppfDetails);
         });
-        $user->lightTints->each(function ($lightTint) {
+        $addons_light = AddsOn::where('user_id', $user->id)
+        ->where('service', 'light-tint')
+        ->get()
+        ->map(function ($addon) {
+            return [
+                'id' => $addon->id,
+                'service' => $addon->service,
+                'media_url' => $addon->getMediaUrlAttribute(),
+                'created_at' => $addon->created_at,
+                'updated_at' => $addon->updated_at,
+            ];
+        });
+        $user->lightTints->each(function ($lightTint) use ($addons_light) {
             $lightTint->light_image = $lightTint->getFirstMediaUrl('light_image');
             unset($lightTint->media);
+            $lightTint->addons = $addons_light;
     
             $groupedLightsDetails = $lightTint->lightDetails->groupBy(function ($detail) {
                 return $detail->class_car . '-' . $detail->sub_class_car;
@@ -111,6 +139,40 @@ class UserController extends Controller
     
             $lightTint->light_details = $groupedLightsDetails;
             unset($ppfBrand->lightDetails);
+        });
+        $addons_detailing = AddsOn::where('user_id', $user->id)
+        ->where('service', 'detailing')
+        ->get()
+        ->map(function ($addon) {
+            return [
+                'id' => $addon->id,
+                'service' => $addon->service,
+                'media_url' => $addon->getMediaUrlAttribute(),
+                'created_at' => $addon->created_at,
+                'updated_at' => $addon->updated_at,
+            ];
+        });
+        $user->detailingBrands->each(function ($detailingBrand) use ($addons_detailing)  {
+            $detailingBrand->detailing_image = $detailingBrand->getFirstMediaUrl('detailing_image');
+            unset($detailingBrand->media);
+            // Attach add-ons to the tint brand
+            $detailingBrand->addons = $addons_detailing;
+            $groupedDetailingDetails = $detailingBrand->detailingDetails->groupBy(function ($detail) {
+                return $detail->class_car . '-' . $detail->sub_class_car;
+            })->map(function ($group) {
+                return [
+                    'id' => $group->first()->id,
+                    'detailing_id' => $group->first()->detailing_id,
+                    'class_car' => $group->first()->class_car,
+                    'sub_class_car' => $group->first()->sub_class_car,
+                    'price' => $group->first()->price,  // Use the price of the first item in the group
+                    'created_at' => $group->first()->created_at,
+                    'updated_at' => $group->first()->updated_at,
+                ];
+            })->values()->toArray();
+    
+            $detailingBrand->detailing_details = $groupedDetailingDetails;
+            unset($detailingBrand->detailingDetails);
         });
         return response()->json([
             'data' => $user,

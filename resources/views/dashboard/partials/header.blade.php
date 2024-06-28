@@ -117,7 +117,7 @@
                 </li>
                 @endcanany
 
-                @canany(['employee'])
+                @canany(['Employee'])
                 @php
                     $today = \Carbon\Carbon::now()->toDateString();
                     $id = auth()->user()->id;

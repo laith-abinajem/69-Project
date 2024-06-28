@@ -107,11 +107,67 @@ class DetailingController extends Controller
     }
     public function update(Request $request, $id){
         try {
+            $user_id = auth()->user()->id;
+            if($request->user_id){
+                $user = User::find($request->user_id);
+                $user_id  = $request->user_id;
+            }else{
+                $user = User::find(auth()->user()->id);
+            }
+            $exterior_count= Detailing::where('user_id',$user->id)->where('detailing_type','exterior')->count();
+            $interior_count= Detailing::where('user_id',$user->id)->where('detailing_type','interior')->count();
+            $inout_count= Detailing::where('user_id',$user->id)->where('detailing_type','inout')->count();
+    
+            if($exterior_count > 4){
+                Alert::toast("You can't add more than 4 exterior", 'error');
+                return redirect()->route('dashboard.detailing.index');
+            }
+            
+            if($interior_count > 4){
+                Alert::toast("You can't add more than 4 exterior", 'error');
+                return redirect()->route('dashboard.detailing.index');
+            }
+            
+            if($inout_count > 4){
+                Alert::toast("You can't add more than 4 exterior", 'error');
+                return redirect()->route('dashboard.detailing.index');
+            }
+    
+            $detailingBrand = Detailing::findOrFail($id);
+            $detailingBrand->update([
+                'detailing_brand' => $request->detailing_brand,
+                'detailing_description' => $request->detailing_description,
+                'detailing_type' => $request->detailing_type,
+                'hex' => $request->hex,
+                'guage_level' => $request->guage_level,
+                'user_id'=> $user->id
+            ]);
+            if ($request->hasFile('detailing_image')) {
+                $detailingBrand->addMedia($request->file('detailing_image'))->toMediaCollection('detailing_image');
+            }
         
-        } catch (\Exception $e) {
-            Alert::toast('An error occurred while updating the TintBrand', 'error');
-            return redirect()->back()->withInput();
-        }
+            $prices = $request->price;
+            DetailingDetails::where('detailing_id', $detailingBrand->id)->delete(); 
+            foreach ($prices as $classCar => $subClasses) {
+                foreach ($subClasses as $subClassCar => $windows) {
+                    foreach ($windows as $window => $price) {
+                    $details =   DetailingDetails::create([
+                            'detailing_id' => $detailingBrand->id,
+                            'class_car' => $classCar,
+                            'sub_class_car' => $subClassCar,
+                            'price' => $price
+                        ]);
+                    }
+                }
+            }
+        
+            Alert::toast('detailing Brand created successfully', 'success');
+            return redirect()->route('dashboard.detailing.index');
+        
+            } catch (\Exception $e) {
+                Alert::toast('An error occurred while updating the TintBrand', 'error');
+                return redirect()->back()->withInput();
+            }
     }
     public function delete(Request $request,$id){
         $detailingBrand = Detailing::find($id);
