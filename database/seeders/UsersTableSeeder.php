@@ -42,6 +42,18 @@ class UsersTableSeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
+            [
+                'name' => 'Employee',
+                'email' => 'sub@sub.com',
+                'email_verified_at' => Carbon::now(),
+                'password' => Hash::make('123'),
+                'type' => 'employee',
+                'status' => 'pending',
+                'remember_token' => Str::random(10),
+                'sub_id' => 2,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
         ]);
         DB::table('subscriptions')->insert([
             [
