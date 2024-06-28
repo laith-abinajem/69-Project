@@ -29,6 +29,7 @@ class UserController extends Controller
         unset($user->email_verified_at);
         unset($user->code);
         unset($user->card_id);
+        unset($user->square_customer_id);
         unset($user->session_id);
         unset($user->parent_id);
         // Fetch add-ons related to 'tint' service for the user
