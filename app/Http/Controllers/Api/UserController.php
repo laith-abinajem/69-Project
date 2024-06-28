@@ -22,7 +22,7 @@ class UserController extends Controller
         }
         $user->company_logo = $user->getFirstMediaUrl('company_logo');
         $user->decal_logo = $user->getFirstMediaUrl('decal_logo');
-        $user->detailing_decal = $user->getFirstMediaUrl('detailing_decals');
+        $user->detailing_decal = $user->getFirstMediaUrl('detailing_decal');
         $user->video = $user->getFirstMediaUrl('videos');
         unset($user->media);
         unset($user->sub_id);
