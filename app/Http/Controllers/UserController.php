@@ -122,7 +122,7 @@ class UserController extends Controller
             $user->update([
                 'name' => $request->name,
                 'email' => $request->email,
-                
+                'company_name' => $request->company_name,
             ]);
             if($request->password !== null){
                 $user->update([
@@ -132,7 +132,6 @@ class UserController extends Controller
             if($request->status !== null){
                 $user->update([
                    'status' => $request->status,
-                    'company_name' => $request->company_name,
                 ]);
             }
             if ($request->hasFile('company_logo')) {
