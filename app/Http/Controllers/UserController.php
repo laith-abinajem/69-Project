@@ -230,6 +230,12 @@ class UserController extends Controller
                 'email' => 'required|string|email|max:255|unique:users',
                 'password' => 'required',
             ]);
+            $package = Package::where('name', 'like', '%' . "epmloyee" . '%')->first();
+
+            if(!$package){
+                Alert::toast('An error occurred while Updating the User', 'error');
+                return redirect()->back()->withInput();
+            }
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
@@ -259,7 +265,6 @@ class UserController extends Controller
             ]);
             $subscriptionsApi = $client->getSubscriptionsApi();
             $card = Card::where('customer_id',$user->square_customer_id)->first();
-            $package = Package::find($request->package_id);
             // check card before go to payment 
             if($card){
                 $customerId = $user->square_customer_id;

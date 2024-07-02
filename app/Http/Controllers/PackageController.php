@@ -113,75 +113,74 @@ class PackageController extends Controller
     public function update($id,Request $request){
         $package = Package::find($request->id);
         $package->update([
-            'name' => $request->name,
-            'price' => $request->price * 100,
-            'days'=> 0,
-            'interval'=> $request->interval
+            'price' => $request->price,
         ]);
-        if($request->interval === "WEEKLY"){
-            $package->update([
-                'days'=>7
-            ]);
-        }elseif($request->interval === "MONTHLY"){
-            $package->update([
-                'days'=>30
-            ]);
-        }elseif($request->interval === "THREE_MONTHS"){
-            $package->update([
-                'days'=>90
-            ]);
-        }elseif($request->interval === "SIX_MONTHS"){
-            $package->update([
-                'days'=>180
-            ]);
-        }elseif($request->interval === "ANNUAL"){
-            $package->update([
-                'days'=>360
-            ]);
-        }
+        // if($request->interval === "WEEKLY"){
+        //     $package->update([
+        //         'days'=>7
+        //     ]);
+        // }elseif($request->interval === "MONTHLY"){
+        //     $package->update([
+        //         'days'=>30
+        //     ]);
+        // }elseif($request->interval === "THREE_MONTHS"){
+        //     $package->update([
+        //         'days'=>90
+        //     ]);
+        // }elseif($request->interval === "SIX_MONTHS"){
+        //     $package->update([
+        //         'days'=>180
+        //     ]);
+        // }elseif($request->interval === "ANNUAL"){
+        //     $package->update([
+        //         'days'=>360
+        //     ]);
+        // }
      
-        $client = new SquareClient([
-            'accessToken' => 'EAAAl8Ag58FVcJ5Suwt4U3OUtp_yfLM7CL-Qt8G5Ng-0PcJ8ds7oLbYtYbzzciMz',
-            'environment' => 'production', 
-        ]);
+        // $client = new SquareClient([
+        //     'accessToken' => 'EAAAl8Ag58FVcJ5Suwt4U3OUtp_yfLM7CL-Qt8G5Ng-0PcJ8ds7oLbYtYbzzciMz',
+        //     'environment' => 'production', 
+        // ]);
         
-        $catalogApi = $client->getCatalogApi();
+        // $catalogApi = $client->getCatalogApi();
         
-        // Replace with your package details
-        $packageId = '#'.$package->id;
-        $newPrice = $package->price * 100; // Price in cents
+        // // Replace with your package details
+        // $packageId = '#'.$package->id;
+        // $newPrice = $package->price * 100; // Price in cents
         
-        try {
-            // Fetch the existing CatalogObject
-            $catalogObjectResponse = $catalogApi->listCatalog($packageId, 'SUBSCRIPTION_PLAN');
-            $existingCatalogObject = $catalogObjectResponse->getResult()->getObjects();
+        // try {
+        //     // Fetch the existing CatalogObject
+        //     $catalogObjectResponse = $catalogApi->listCatalog($packageId, 'SUBSCRIPTION_PLAN');
+        //     $existingCatalogObject = $catalogObjectResponse->getResult()->getObjects();
         
-            if ($existingCatalogObject) {
-                // Update the price in the existing CatalogObject
-                $priceMoney = new Money();
-                $priceMoney->setAmount($newPrice); 
-                $priceMoney->setCurrency('USD');
+        //     if ($existingCatalogObject) {
+        //         // Update the price in the existing CatalogObject
+        //         $priceMoney = new Money();
+        //         $priceMoney->setAmount($newPrice); 
+        //         $priceMoney->setCurrency('USD');
         
-                $subscriptionPhase = new SubscriptionPhase($package->interval);
-                $subscriptionPhase->setRecurringPriceMoney($priceMoney);
+        //         $subscriptionPhase = new SubscriptionPhase($package->interval);
+        //         $subscriptionPhase->setRecurringPriceMoney($priceMoney);
         
-                $subscriptionPlanData = $existingCatalogObject->getSubscriptionPlanData();
-                $subscriptionPlanData->setPhases([$subscriptionPhase]);
+        //         $subscriptionPlanData = $existingCatalogObject->getSubscriptionPlanData();
+        //         $subscriptionPlanData->setPhases([$subscriptionPhase]);
         
-                $existingCatalogObject->setSubscriptionPlanData($subscriptionPlanData);
+        //         $existingCatalogObject->setSubscriptionPlanData($subscriptionPlanData);
         
-                // Upsert the updated CatalogObject
-                $upsertCatalogObjectRequest = new UpsertCatalogObjectRequest(
-                    uniqid(), // Use a unique idempotency key
-                    $existingCatalogObject
-                );
+        //         // Upsert the updated CatalogObject
+        //         $upsertCatalogObjectRequest = new UpsertCatalogObjectRequest(
+        //             uniqid(), // Use a unique idempotency key
+        //             $existingCatalogObject
+        //         );
         
-                $result = $catalogApi->upsertCatalogObject($upsertCatalogObjectRequest);
-            } else {
-            }
-        } catch (ApiException $e) {
-            echo "API Exception: " . $e->getMessage();
-        }
+        //         $result = $catalogApi->upsertCatalogObject($upsertCatalogObjectRequest);
+        //     } else {
+        //     }
+        // } catch (ApiException $e) {
+        //     echo "API Exception: " . $e->getMessage();
+        // }
+        Alert::toast('package Updated successfully', 'success');
+        return redirect()->route('dashboard.package.index');
     }
     public function delete(Request $request,$id){
         $data = Package::find($id);
