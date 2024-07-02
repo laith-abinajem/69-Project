@@ -257,46 +257,46 @@ class UserController extends Controller
             $user->update([
                 'square_customer_id' => $customerId
             ]);
-            // $subscriptionsApi = $client->getSubscriptionsApi();
-            // $card = Card::where('customer_id',$user->square_customer_id)->first();
-            // $package = Package::find($request->package_id);
-            // // check card before go to payment 
-            // if($card){
-            //     $customerId = $user->square_customer_id;
-            //     // Retrieve the plan ID based on the package type
-            //     $planId = $package->plan_id;
-            //     // Create subscription
-            //     $createSubscriptionRequest = new \Square\Models\CreateSubscriptionRequest('L09XH4WWXKBAN', $planId,$customerId);
-            //     $createSubscriptionRequest->setCardId($card->card_id);
-            //     $subscriptionResponse = $subscriptionsApi->createSubscription($createSubscriptionRequest);
-            //     // check if subscription success
-            //     if ($subscriptionResponse->isSuccess()) {
-            //         // Retrieve the subscription ID and redirect URL for payment
-            //         $subscription = $subscriptionResponse->getResult()->getSubscription();
-            //         $subscriptionId = $subscription->getId();
-            //         $redirectUrl = $subscription->getCardId(); 
-            //         $startDate = Carbon::now();
-            //         $endDate = (clone $startDate)->addDays($package->days);
-            //         $sub = Subscription::create([
-            //             "user_id"=> $user->id,
-            //             "order_id"=> 1,
-            //             "transaction_id"=> $subscriptionId ,
-            //             "subscription_id"=> $subscriptionId ,
-            //             "payment_status"=> 'success',
-            //             "price"=> $package->price,
-            //             "package_type"=> $package->name,
-            //             "end_date"=> $endDate,
-            //             "start_date"=> $startDate,
-            //         ]);
-            //         $user->update([
-            //             "sub_id"=> $sub->id
-            //         ]);
-            //         return redirect()->route('dashboard.payment-success');
-            //     } else {
-            //         // dd($subscriptionResponse->getErrors()[0]->getDetail());
-            //         return redirect()->route('dashboard.payment-failed')->with('error', 'Failed to create subscription: ' . $subscriptionResponse->getErrors()[0]->getDetail());
-            //     }
-            // }
+            $subscriptionsApi = $client->getSubscriptionsApi();
+            $card = Card::where('customer_id',$user->square_customer_id)->first();
+            $package = Package::find($request->package_id);
+            // check card before go to payment 
+            if($card){
+                $customerId = $user->square_customer_id;
+                // Retrieve the plan ID based on the package type
+                $planId = $package->plan_id;
+                // Create subscription
+                $createSubscriptionRequest = new \Square\Models\CreateSubscriptionRequest('L09XH4WWXKBAN', $planId,$customerId);
+                $createSubscriptionRequest->setCardId($card->card_id);
+                $subscriptionResponse = $subscriptionsApi->createSubscription($createSubscriptionRequest);
+                // check if subscription success
+                if ($subscriptionResponse->isSuccess()) {
+                    // Retrieve the subscription ID and redirect URL for payment
+                    $subscription = $subscriptionResponse->getResult()->getSubscription();
+                    $subscriptionId = $subscription->getId();
+                    $redirectUrl = $subscription->getCardId(); 
+                    $startDate = Carbon::now();
+                    $endDate = (clone $startDate)->addDays($package->days);
+                    $sub = Subscription::create([
+                        "user_id"=> $user->id,
+                        "order_id"=> 1,
+                        "transaction_id"=> $subscriptionId ,
+                        "subscription_id"=> $subscriptionId ,
+                        "payment_status"=> 'success',
+                        "price"=> $package->price,
+                        "package_type"=> $package->name,
+                        "end_date"=> $endDate,
+                        "start_date"=> $startDate,
+                    ]);
+                    $user->update([
+                        "sub_id"=> $sub->id
+                    ]);
+                    return redirect()->route('dashboard.payment-success');
+                } else {
+                    // dd($subscriptionResponse->getErrors()[0]->getDetail());
+                    return redirect()->route('dashboard.payment-failed')->with('error', 'Failed to create subscription: ' . $subscriptionResponse->getErrors()[0]->getDetail());
+                }
+            }
             Alert::toast('User created successfully', 'success');
             return redirect()->route('dashboard.user.index');
         } catch (\Exception $e) {

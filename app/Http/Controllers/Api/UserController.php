@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\AddsOn;
+use App\Models\Car;
 
 class UserController extends Controller
 {
@@ -40,6 +41,10 @@ class UserController extends Controller
             return [
                 'id' => $addon->id,
                 'service' => $addon->service,
+                'name' => $addon->name,
+                'description' => $addon->description,
+                'price' => $addon->price,
+                'hex' => $addon->hex,
                 'media_url' => $addon->getMediaUrlAttribute(),
                 'created_at' => $addon->created_at,
                 'updated_at' => $addon->updated_at,
@@ -78,6 +83,10 @@ class UserController extends Controller
             return [
                 'id' => $addon->id,
                 'service' => $addon->service,
+                'name' => $addon->name,
+                'description' => $addon->description,
+                'price' => $addon->price,
+                'hex' => $addon->hex,
                 'media_url' => $addon->getMediaUrlAttribute(),
                 'created_at' => $addon->created_at,
                 'updated_at' => $addon->updated_at,
@@ -113,6 +122,10 @@ class UserController extends Controller
             return [
                 'id' => $addon->id,
                 'service' => $addon->service,
+                'name' => $addon->name,
+                'description' => $addon->description,
+                'price' => $addon->price,
+                'hex' => $addon->hex,
                 'media_url' => $addon->getMediaUrlAttribute(),
                 'created_at' => $addon->created_at,
                 'updated_at' => $addon->updated_at,
@@ -148,6 +161,10 @@ class UserController extends Controller
             return [
                 'id' => $addon->id,
                 'service' => $addon->service,
+                'name' => $addon->name,
+                'description' => $addon->description,
+                'price' => $addon->price,
+                'hex' => $addon->hex,
                 'media_url' => $addon->getMediaUrlAttribute(),
                 'created_at' => $addon->created_at,
                 'updated_at' => $addon->updated_at,
@@ -181,5 +198,13 @@ class UserController extends Controller
             'message' => 'Data returned successfully'
         ], 200);
     }
-
+    public function getCars(Request $request)
+    {    
+        $cars = Car::select('Year', 'Make', 'Model')->get();
+        return response()->json([
+            'data' => $cars,
+            'code' => 200,
+            'message' => 'Data returned successfully'
+        ], 200);
+    }
 }

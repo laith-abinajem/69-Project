@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\InvoiceController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -18,4 +19,6 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/user', [UserController::class, 'getUser']);
+Route::middleware(['auth:sanctum', 'verified'])->get('/cars', [UserController::class, 'getCars']);
+Route::middleware(['auth:sanctum', 'verified'])->post('/createInvoice', [InvoiceController::class, 'createInvoice']);
 

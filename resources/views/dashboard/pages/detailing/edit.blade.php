@@ -64,15 +64,15 @@
                                     <label class="form-control-label ">Users: <span class="tx-danger">*</span></label>
                                     <select name="user_id" id="user_id" class="form-control paintProtectionFil ">
                                         @foreach($users as $user)
-                                        <option value="{{$user->id}}" {{ $user->id == $tintBrand->user_id ? 'selected' : '' }}>{{$user->name}}</option>
+                                        <option value="{{$user->id}}" {{ $user->id == $detailingBrand->user_id ? 'selected' : '' }}>{{$user->name}}</option>
                                         @endforeach
-                                    </select>
+                                    </select>detailingBrand
                                 </div>
                                 @endif
                                 <div class="col-md-5 col-lg-6 mb-2">
                                     <label class="form-control-label">Detailing type<span class="tx-danger">*</span></label>
                                     <select name="detailing_type" id="detailing_type" class="form-control paintProtectionFil " >
-                                        <option value="exterior" {{ $detailingBrand->detailing_type == 'exterior' ? 'selected' : '' }}>Exterior</option>
+                                        <option value="exterior" {{ $->detailing_type == 'exterior' ? 'selected' : '' }}>Exterior</option>
                                         <option value="interior" {{ $detailingBrand->detailing_type == 'interior' ? 'selected' : '' }}>Interior</option>
                                         <option value="in&out" {{ $detailingBrand->detailing_type == 'in&out' ? 'selected' : '' }}>IN & OUT</option>
                                     </select>
