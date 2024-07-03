@@ -111,74 +111,53 @@ class PackageController extends Controller
         return view('dashboard.pages.package.edit',compact('data'));
     }
     public function update($id,Request $request){
-        $package = Package::find($request->id);
-        $package->update([
+        $old_package = Package::find($request->id);
+        $package = Package::create([
+            'name' => $old_package->name,
             'price' => $request->price,
+            'days'=> $old_package->days,
+            'interval'=> $old_package->interval
         ]);
-        // if($request->interval === "WEEKLY"){
-        //     $package->update([
-        //         'days'=>7
-        //     ]);
-        // }elseif($request->interval === "MONTHLY"){
-        //     $package->update([
-        //         'days'=>30
-        //     ]);
-        // }elseif($request->interval === "THREE_MONTHS"){
-        //     $package->update([
-        //         'days'=>90
-        //     ]);
-        // }elseif($request->interval === "SIX_MONTHS"){
-        //     $package->update([
-        //         'days'=>180
-        //     ]);
-        // }elseif($request->interval === "ANNUAL"){
-        //     $package->update([
-        //         'days'=>360
-        //     ]);
-        // }
+        $old_package->delete();
+      
      
-        // $client = new SquareClient([
-        //     'accessToken' => 'EAAAl8Ag58FVcJ5Suwt4U3OUtp_yfLM7CL-Qt8G5Ng-0PcJ8ds7oLbYtYbzzciMz',
-        //     'environment' => 'production', 
-        // ]);
+        $client = new SquareClient([
+            'accessToken' => 'EAAAl8Ag58FVcJ5Suwt4U3OUtp_yfLM7CL-Qt8G5Ng-0PcJ8ds7oLbYtYbzzciMz',
+            'environment' => 'production', 
+        ]);
+    
+        $catalogApi = $client->getCatalogApi();
         
-        // $catalogApi = $client->getCatalogApi();
-        
-        // // Replace with your package details
-        // $packageId = '#'.$package->id;
-        // $newPrice = $package->price * 100; // Price in cents
-        
-        // try {
-        //     // Fetch the existing CatalogObject
-        //     $catalogObjectResponse = $catalogApi->listCatalog($packageId, 'SUBSCRIPTION_PLAN');
-        //     $existingCatalogObject = $catalogObjectResponse->getResult()->getObjects();
-        
-        //     if ($existingCatalogObject) {
-        //         // Update the price in the existing CatalogObject
-        //         $priceMoney = new Money();
-        //         $priceMoney->setAmount($newPrice); 
-        //         $priceMoney->setCurrency('USD');
-        
-        //         $subscriptionPhase = new SubscriptionPhase($package->interval);
-        //         $subscriptionPhase->setRecurringPriceMoney($priceMoney);
-        
-        //         $subscriptionPlanData = $existingCatalogObject->getSubscriptionPlanData();
-        //         $subscriptionPlanData->setPhases([$subscriptionPhase]);
-        
-        //         $existingCatalogObject->setSubscriptionPlanData($subscriptionPlanData);
-        
-        //         // Upsert the updated CatalogObject
-        //         $upsertCatalogObjectRequest = new UpsertCatalogObjectRequest(
-        //             uniqid(), // Use a unique idempotency key
-        //             $existingCatalogObject
-        //         );
-        
-        //         $result = $catalogApi->upsertCatalogObject($upsertCatalogObjectRequest);
-        //     } else {
-        //     }
-        // } catch (ApiException $e) {
-        //     echo "API Exception: " . $e->getMessage();
-        // }
+        $priceMoney = new Money();
+        $priceMoney->setAmount($package->price * 100); 
+        $priceMoney->setCurrency('USD');
+
+        $subscriptionPhase = new SubscriptionPhase($package->interval);
+        $subscriptionPhase->setRecurringPriceMoney($priceMoney);
+
+        $subscriptionPlanData = new CatalogSubscriptionPlan($package->name, [$subscriptionPhase]);
+
+        $catalogObject = new CatalogObject('SUBSCRIPTION_PLAN', '#'.$package->id);
+        $catalogObject->setSubscriptionPlanData($subscriptionPlanData);
+
+        $upsertCatalogObjectRequest = new UpsertCatalogObjectRequest($this->generateIdempotencyKey(), $catalogObject);
+
+        try {
+            $result = $catalogApi->upsertCatalogObject($upsertCatalogObjectRequest);
+
+            // Check if the result is successful and contains the catalog object
+            if ($result->isSuccess() && $result->getResult() && $result->getResult()->getCatalogObject()) {
+                $planId = $result->getResult()->getCatalogObject()->getId();
+                $package->update(["plan_id" => $planId]);
+            } else {
+                // Log or handle errors
+                $errors = $result->getErrors();
+                foreach ($errors as $error) {
+                    // Log errors
+                }
+            }
+        } catch (ApiException $e) {
+        }
         Alert::toast('package Updated successfully', 'success');
         return redirect()->route('dashboard.package.index');
     }
