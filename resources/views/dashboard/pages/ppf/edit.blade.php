@@ -85,7 +85,7 @@
                                         <option value="8" {{ $ppfBrand->warranty == 8 ? 'selected' : '' }}>8 year</option>
                                         <option value="9" {{ $ppfBrand->warranty == 9 ? 'selected' : '' }}>9 year</option>
                                         <option value="10" {{ $ppfBrand->warranty == 10 ? 'selected' : '' }}>10 year</option>
-                                        <option value="11" {{ $ppfBrand->warranty == 11 ? 'selected' : '' }}>life time</option>
+                                        <option value="life time" {{ $ppfBrand->warranty == life time ? 'selected' : '' }}>life time</option>
                                     </select>
                                 </div>
                                 <div class="col-md-5 col-lg-6 mb-2">

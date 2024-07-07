@@ -84,7 +84,7 @@
                                         <option value="8">8 year </option>
                                         <option value="9">9 year </option>
                                         <option value="10">10 year </option>
-                                        <option value="11">life time </option>
+                                        <option value="life time">life time </option>
                                     </select>
                                 </div>
                                 <div class="col-md-5 col-lg-6 mb-2">
