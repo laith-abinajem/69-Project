@@ -49,7 +49,7 @@
                 <form action="{{ route('dashboard.tint.update', $tintBrand->id) }}" method="post" id="tintform" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
-                    <div id="wizard2">
+                    <div id="wizardnew">
                         <h3>Tint Brand</h3>
                         <section>
                             <div class="row row-sm">
@@ -87,7 +87,7 @@
                                     <br>
                                     <div class="color-picker-container">
                                         <input type="color" id="colorPicker" name="colorPicker"  value="{{$tintBrand->hex}}">
-                                        <input type="text" id="hex" name="hex" required="" value="{{$tintBrand->hex}}" maxlength="7">
+                                        <input type="text" id="hex" name="hex"  value="{{$tintBrand->hex}}" maxlength="7">
                                     </div>
                                 </div>
                                 <div class="col-md-5 col-lg-6 mb-2">
