@@ -75,11 +75,11 @@
                                 <div class="col-md-5 col-lg-6 mb-2">
                                     <label class="form-control-label">Warranty<span class="tx-danger">*</span></label>
                                     <select name="warranty" id="warranty" class="form-control paintProtectionFil">
-                                        <option value="1" {{ $lightTint->warranty == 1 ? 'selected' : '' }}>1 warranty</option>
-                                        <option value="2" {{ $lightTint->warranty == 2 ? 'selected' : '' }}>2 warranty</option>
-                                        <option value="3" {{ $lightTint->warranty == 3 ? 'selected' : '' }}>3 warranty</option>
-                                        <option value="4" {{ $lightTint->warranty == 4 ? 'selected' : '' }}>4 warranty</option>
-                                        <option value="5" {{ $lightTint->warranty == 5 ? 'selected' : '' }}>5 warranty</option>
+                                        <option value="1" {{ $lightTint->warranty == 1 ? 'selected' : '' }}>1 year</option>
+                                        <option value="2" {{ $lightTint->warranty == 2 ? 'selected' : '' }}>2 year</option>
+                                        <option value="3" {{ $lightTint->warranty == 3 ? 'selected' : '' }}>3 year</option>
+                                        <option value="4" {{ $lightTint->warranty == 4 ? 'selected' : '' }}>4 year</option>
+                                        <option value="5" {{ $lightTint->warranty == 5 ? 'selected' : '' }}>5 year</option>
                                     </select>
                                 </div>
                                 <div class="col-md-5 col-lg-6 mb-2">

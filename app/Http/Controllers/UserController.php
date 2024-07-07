@@ -53,6 +53,10 @@ class UserController extends Controller
                 'status' => $request->status,
                 'password' => Hash::make($request->password),
                 'company_name' => $request->company_name,
+                'language' => $request->language,
+                'currency' => $request->currency,
+                'custom_text' => $request->custom_text,
+                'hex' => $request->hex,
             ]);
     
             if($request->type === "super_admin"){
@@ -123,6 +127,10 @@ class UserController extends Controller
                 'name' => $request->name,
                 'email' => $request->email,
                 'company_name' => $request->company_name,
+                'language' => $request->language,
+                'currency' => $request->currency,
+                'custom_text' => $request->custom_text,
+                'hex' => $request->hex,
             ]);
             if($request->password !== null){
                 $user->update([

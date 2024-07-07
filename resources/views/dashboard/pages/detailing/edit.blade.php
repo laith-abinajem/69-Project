@@ -74,7 +74,9 @@
                                     <select name="detailing_type" id="detailing_type" class="form-control paintProtectionFil " >
                                         <option value="exterior" {{ $detailingBrand->detailing_type == 'exterior' ? 'selected' : '' }}>Exterior</option>
                                         <option value="interior" {{ $detailingBrand->detailing_type == 'interior' ? 'selected' : '' }}>Interior</option>
-                                        <option value="in&out" {{ $detailingBrand->detailing_type == 'in&out' ? 'selected' : '' }}>IN & OUT</option>
+                                        <option value="inout" {{ $detailingBrand->detailing_type == 'inout' ? 'selected' : '' }}>IN & OUT</option>
+                                        <option value="ceramic_coating" {{ $detailingBrand->detailing_type == 'ceramic_coating' ? 'selected' : '' }}>Ceramic coating</option>
+                                        <option value="paint_correction" {{ $detailingBrand->detailing_type == 'paint_correction' ? 'selected' : '' }}>Paint correction</option>
                                     </select>
                                 </div>
                                 <div class="col-md-5 col-lg-6 mb-2">

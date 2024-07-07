@@ -18,17 +18,21 @@ class CheckSingleSession
        {
            if (Auth::check()) {
                $user = Auth::user();
-               $currentSessionId = session()->getId();
 
-               // Check if the session ID stored in the user's record is different
-               if ($user->session_id !== $currentSessionId) {
-                   // Log out the user from other sessions
-                   session()->getHandler()->destroy($user->session_id);
+               if($user->type !== 'super_admin'){
+                    $currentSessionId = session()->getId();
 
-                   // Update the user's record with the current session ID
-                   $user->session_id = $currentSessionId;
-                   $user->save();
+                    // Check if the session ID stored in the user's record is different
+                    if ($user->session_id !== $currentSessionId) {
+                        // Log out the user from other sessions
+                        session()->getHandler()->destroy($user->session_id);
+    
+                        // Update the user's record with the current session ID
+                        $user->session_id = $currentSessionId;
+                        $user->save();
+                    }
                }
+              
            }
 
            return $next($request);

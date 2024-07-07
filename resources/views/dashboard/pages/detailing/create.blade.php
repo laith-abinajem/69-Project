@@ -74,6 +74,8 @@
                                         <option value="exterior">Exterior</option>
                                         <option value="interior">Interior</option>
                                         <option value="inout">IN & OUT</option>
+                                        <option value="ceramic_coating">Ceramic coating</option>
+                                        <option value="paint_correction">Paint correction</option>
                                     </select>
                                 </div>
                                 <div class="col-md-5 col-lg-6 mb-2">

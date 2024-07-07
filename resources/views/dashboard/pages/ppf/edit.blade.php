@@ -75,21 +75,29 @@
                                 <div class="col-md-5 col-lg-6 mb-2">
                                     <label class="form-control-label">Warranty<span class="tx-danger">*</span></label>
                                     <select name="warranty" id="warranty" class="form-control paintProtectionFil">
-                                        <option value="1" {{ $ppfBrand->warranty == 1 ? 'selected' : '' }}>1 warranty</option>
-                                        <option value="2" {{ $ppfBrand->warranty == 2 ? 'selected' : '' }}>2 warranty</option>
-                                        <option value="3" {{ $ppfBrand->warranty == 3 ? 'selected' : '' }}>3 warranty</option>
-                                        <option value="4" {{ $ppfBrand->warranty == 4 ? 'selected' : '' }}>4 warranty</option>
-                                        <option value="5" {{ $ppfBrand->warranty == 5 ? 'selected' : '' }}>5 warranty</option>
+                                        <option value="1" {{ $ppfBrand->warranty == 1 ? 'selected' : '' }}>1 year</option>
+                                        <option value="2" {{ $ppfBrand->warranty == 2 ? 'selected' : '' }}>2 year</option>
+                                        <option value="3" {{ $ppfBrand->warranty == 3 ? 'selected' : '' }}>3 year</option>
+                                        <option value="4" {{ $ppfBrand->warranty == 4 ? 'selected' : '' }}>4 year</option>
+                                        <option value="5" {{ $ppfBrand->warranty == 5 ? 'selected' : '' }}>5 year</option>
+                                        <option value="6" {{ $ppfBrand->warranty == 6 ? 'selected' : '' }}>6 year</option>
+                                        <option value="7" {{ $ppfBrand->warranty == 7 ? 'selected' : '' }}>7 year</option>
+                                        <option value="8" {{ $ppfBrand->warranty == 8 ? 'selected' : '' }}>8 year</option>
+                                        <option value="9" {{ $ppfBrand->warranty == 9 ? 'selected' : '' }}>9 year</option>
+                                        <option value="10" {{ $ppfBrand->warranty == 10 ? 'selected' : '' }}>10 year</option>
+                                        <option value="11" {{ $ppfBrand->warranty == 11 ? 'selected' : '' }}>life time</option>
                                     </select>
                                 </div>
                                 <div class="col-md-5 col-lg-6 mb-2">
                                     <label class="form-control-label">Thickness<span class="tx-danger">*</span></label>
                                     <select name="thickness" id="thickness" class="form-control paintProtectionFil">
-                                        <option value="1" {{ $ppfBrand->thickness == 1 ? 'selected' : '' }}>1 thickness</option>
-                                        <option value="2" {{ $ppfBrand->thickness == 2 ? 'selected' : '' }}>2 thickness</option>
-                                        <option value="3" {{ $ppfBrand->thickness == 3 ? 'selected' : '' }}>3 thickness</option>
-                                        <option value="4" {{ $ppfBrand->thickness == 4 ? 'selected' : '' }}>4 thickness</option>
-                                        <option value="5" {{ $ppfBrand->thickness == 5 ? 'selected' : '' }}>5 thickness</option>
+                                        <option value="4" {{ $ppfBrand->thickness == 4 ? 'selected' : '' }}>4 mm</option>
+                                        <option value="5" {{ $ppfBrand->thickness == 5 ? 'selected' : '' }}>5 mm</option>
+                                        <option value="6" {{ $ppfBrand->thickness == 6 ? 'selected' : '' }}>6 mm</option>
+                                        <option value="7" {{ $ppfBrand->thickness == 7 ? 'selected' : '' }}>7 mm</option>
+                                        <option value="8" {{ $ppfBrand->thickness == 8 ? 'selected' : '' }}>8 mm</option>
+                                        <option value="9" {{ $ppfBrand->thickness == 9 ? 'selected' : '' }}>9 mm</option>
+                                        <option value="10" {{ $ppfBrand->thickness == 10 ? 'selected' : '' }}>10 mm</option>
                                     </select>
                                 </div>
                                 <div class="col-md-5 col-lg-6 mb-2">

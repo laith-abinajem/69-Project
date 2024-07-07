@@ -50,6 +50,74 @@
                                     <i class="bi bi-eye-slash position-absolute" id="togglePassword"  onclick="showPassword()"></i>
                                 </div>
                             </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label class="form-label">Currency <span class="tx-danger">*</span></label>
+                                    <select name="currency" id="currency" required class="form-control paintProtectionFil select2">
+                                        <option value="USD" <?= $data->currency == 'USD' ? 'selected' : '' ?>>US Dollar (USD)</option>
+                                        <option value="EUR" <?= $data->currency == 'EUR' ? 'selected' : '' ?>>Euro (EUR)</option>
+                                        <option value="JPY" <?= $data->currency == 'JPY' ? 'selected' : '' ?>>Japanese Yen (JPY)</option>
+                                        <option value="GBP" <?= $data->currency == 'GBP' ? 'selected' : '' ?>>British Pound (GBP)</option>
+                                        <option value="AUD" <?= $data->currency == 'AUD' ? 'selected' : '' ?>>Australian Dollar (AUD)</option>
+                                        <option value="CAD" <?= $data->currency == 'CAD' ? 'selected' : '' ?>>Canadian Dollar (CAD)</option>
+                                        <option value="CHF" <?= $data->currency == 'CHF' ? 'selected' : '' ?>>Swiss Franc (CHF)</option>
+                                        <option value="CNY" <?= $data->currency == 'CNY' ? 'selected' : '' ?>>Chinese Yuan (CNY)</option>
+                                        <option value="SEK" <?= $data->currency == 'SEK' ? 'selected' : '' ?>>Swedish Krona (SEK)</option>
+                                        <option value="NZD" <?= $data->currency == 'NZD' ? 'selected' : '' ?>>New Zealand Dollar (NZD)</option>
+                                        <option value="MXN" <?= $data->currency == 'MXN' ? 'selected' : '' ?>>Mexican Peso (MXN)</option>
+                                        <option value="SGD" <?= $data->currency == 'SGD' ? 'selected' : '' ?>>Singapore Dollar (SGD)</option>
+                                        <option value="HKD" <?= $data->currency == 'HKD' ? 'selected' : '' ?>>Hong Kong Dollar (HKD)</option>
+                                        <option value="NOK" <?= $data->currency == 'NOK' ? 'selected' : '' ?>>Norwegian Krone (NOK)</option>
+                                        <option value="KRW" <?= $data->currency == 'KRW' ? 'selected' : '' ?>>South Korean Won (KRW)</option>
+                                        <option value="TRY" <?= $data->currency == 'TRY' ? 'selected' : '' ?>>Turkish Lira (TRY)</option>
+                                        <option value="INR" <?= $data->currency == 'INR' ? 'selected' : '' ?>>Indian Rupee (INR)</option>
+                                        <option value="RUB" <?= $data->currency == 'RUB' ? 'selected' : '' ?>>Russian Ruble (RUB)</option>
+                                        <option value="BRL" <?= $data->currency == 'BRL' ? 'selected' : '' ?>>Brazilian Real (BRL)</option>
+                                        <option value="ZAR" <?= $data->currency == 'ZAR' ? 'selected' : '' ?>>South African Rand (ZAR)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label class="form-label">Language <span class="tx-danger">*</span></label>
+                                    <select name="language" id="language" required class="form-control paintProtectionFil select2">
+                                        <option value="en" <?= $data->language == 'en' ? 'selected' : '' ?>>English</option>
+                                        <option value="zh" <?= $data->language == 'zh' ? 'selected' : '' ?>>Chinese</option>
+                                        <option value="es" <?= $data->language == 'es' ? 'selected' : '' ?>>Spanish</option>
+                                        <option value="hi" <?= $data->language == 'hi' ? 'selected' : '' ?>>Hindi</option>
+                                        <option value="ar" <?= $data->language == 'ar' ? 'selected' : '' ?>>Arabic</option>
+                                        <option value="bn" <?= $data->language == 'bn' ? 'selected' : '' ?>>Bengali</option>
+                                        <option value="pt" <?= $data->language == 'pt' ? 'selected' : '' ?>>Portuguese</option>
+                                        <option value="ru" <?= $data->language == 'ru' ? 'selected' : '' ?>>Russian</option>
+                                        <option value="ja" <?= $data->language == 'ja' ? 'selected' : '' ?>>Japanese</option>
+                                        <option value="de" <?= $data->language == 'de' ? 'selected' : '' ?>>German</option>
+                                        <option value="fr" <?= $data->language == 'fr' ? 'selected' : '' ?>>French</option>
+                                        <option value="ko" <?= $data->language == 'ko' ? 'selected' : '' ?>>Korean</option>
+                                        <option value="it" <?= $data->language == 'it' ? 'selected' : '' ?>>Italian</option>
+                                        <option value="ta" <?= $data->language == 'ta' ? 'selected' : '' ?>>Tamil</option>
+                                        <option value="te" <?= $data->language == 'te' ? 'selected' : '' ?>>Telugu</option>
+                                        <option value="vi" <?= $data->language == 'vi' ? 'selected' : '' ?>>Vietnamese</option>
+                                        <option value="ur" <?= $data->language == 'ur' ? 'selected' : '' ?>>Urdu</option>
+                                        <option value="tr" <?= $data->language == 'tr' ? 'selected' : '' ?>>Turkish</option>
+                                        <option value="fa" <?= $data->language == 'fa' ? 'selected' : '' ?>>Persian</option>
+                                        <option value="pl" <?= $data->language == 'pl' ? 'selected' : '' ?>>Polish</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group mg-b-0">
+                                    <label class="form-label">Custom test: <span class="tx-danger">*</span></label>
+                                    <input value="{{ $data->custom_text }}" class="form-control" name="custom_text" placeholder="Custom text" required="" type="text">
+                                </div>
+                            </div>
+                            <div class="col-6 mb-2">
+                                <label class="form-control-label">Choose a Color <span class="tx-danger">*</span></label>
+                                <br>
+                                <div class="color-picker-container">
+                                    <input type="color" id="colorPicker"  value="{{$data->hex}}"name="colorPicker" >
+                                    <input type="text" id="hex" name="hex" value="{{$data->hex}} "required="" maxlength="7">
+                                </div>
+                            </div>
                             @if(auth()->user()->type === "super_admin" || (auth()->user()->type === "subscriber" && $data->type !== 'employee' ) )
                             <div class="col-6">
                                 <div class="form-group mg-b-0">

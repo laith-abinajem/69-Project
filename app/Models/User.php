@@ -32,6 +32,10 @@ class User extends Authenticatable implements HasMedia
         'card_id',
         'session_id',
         'parent_id',
+        'language',
+        'currency',
+        'custom_text',
+        'hex',
     ];
 
     /**

@@ -91,7 +91,14 @@
                                     </div>
                                 </div>
                                 <div class="col-md-5 col-lg-6 mb-2">
-                                    <label class="form-control-label">Tint brand level: <span class="tx-danger">*</span></label> <input class="form-control" id="brandlevel" name="tint_brand_level" value="{{ $tintBrand->tint_brand_level }}" placeholder="Tint Brand Level" required="" type="text">
+                                    <label class="form-control-label">Tint brand level: <span class="tx-danger">*</span></label> 
+                                    <select name="tint_brand_level" id="tint_brand_level" class="form-control paintProtectionFil">
+                                        <option value="5" {{ $tintBrand->tint_brand_level == 5 ? 'selected' : '' }}>5</option>
+                                        <option value="20" {{ $tintBrand->tint_brand_level == 20 ? 'selected' : '' }}>20 </option>
+                                        <option value="35" {{ $tintBrand->tint_brand_level == 35 ? 'selected' : '' }}>35 </option>
+                                        <option value="50" {{ $tintBrand->tint_brand_level == 50 ? 'selected' : '' }}>50 </option>
+                                        <option value="70" {{ $tintBrand->tint_brand_level == 70 ? 'selected' : '' }}>70</option>
+                                    </select>
                                 </div>
                                 <div class="col-12 mg-t-20 mg-md-t-0 mb-2">
                                     <label class="form-control-label">Brand Description: <span class="tx-danger">*</span></label>

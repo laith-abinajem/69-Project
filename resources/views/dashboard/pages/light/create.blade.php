@@ -32,6 +32,7 @@
         width: 40px;
         padding: 0;
     }
+    
 </style>
 <div class="row row-sm">
     <div class="col-lg-12 col-md-12">
@@ -74,11 +75,11 @@
                                 <div class="col-md-5 col-lg-6 mb-2">
                                     <label class="form-control-label">Warranty<span class="tx-danger">*</span></label>
                                     <select name="warranty" id="warranty" class="form-control paintProtectionFil " >
-                                        <option value="1">1 warranty</option>
-                                        <option value="2">2 warranty </option>
-                                        <option value="3">3 warranty </option>
-                                        <option value="4">4 warranty</option>
-                                        <option value="5">5 warranty </option>
+                                        <option value="1">1 year</option>
+                                        <option value="2">2 year </option>
+                                        <option value="3">3 year </option>
+                                        <option value="4">4 year</option>
+                                        <option value="5">5 year </option>
                                     </select>
                                 </div>
                                 <div class="col-md-5 col-lg-6 mb-2">

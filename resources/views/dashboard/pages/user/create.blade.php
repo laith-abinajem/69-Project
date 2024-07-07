@@ -31,6 +31,13 @@
                                     <input value="{{ old('email') }}" class="form-control" name="email" placeholder="Enter Email" required="" type="email">
                                 </div>
                             </div>
+                            <div class="col-6">
+                                <div class="form-group position-relative">
+                                    <label class="form-label">Password: <span class="tx-danger">*</span></label>
+                                    <input value="{{ old('password') }}" id="password" class="form-control" name="password" placeholder="Enter password" required="" type="password">
+                                    <i class="bi bi-eye-slash position-absolute" id="togglePassword" onclick="showPassword()"></i>
+                                </div>
+                            </div>
                             <div class="form-group col-6">
                                 <label class="form-label">User status: <span class="tx-danger">*</span></label>
                                 <select name="status" id="status" required class="form-control paintProtectionFil select2" >
@@ -49,16 +56,77 @@
                                 </div>
                             </div>
                             <div class="col-6">
+                                <div class="form-group">
+                                    <label class="form-label">Currency <span class="tx-danger">*</span></label>
+                                    <select name="currency" id="currency" required class="form-control paintProtectionFil select2">
+                                        <option value="USD">US Dollar (USD)</option>
+                                        <option value="EUR">Euro (EUR)</option>
+                                        <option value="JPY">Japanese Yen (JPY)</option>
+                                        <option value="GBP">British Pound (GBP)</option>
+                                        <option value="AUD">Australian Dollar (AUD)</option>
+                                        <option value="CAD">Canadian Dollar (CAD)</option>
+                                        <option value="CHF">Swiss Franc (CHF)</option>
+                                        <option value="CNY">Chinese Yuan (CNY)</option>
+                                        <option value="SEK">Swedish Krona (SEK)</option>
+                                        <option value="NZD">New Zealand Dollar (NZD)</option>
+                                        <option value="MXN">Mexican Peso (MXN)</option>
+                                        <option value="SGD">Singapore Dollar (SGD)</option>
+                                        <option value="HKD">Hong Kong Dollar (HKD)</option>
+                                        <option value="NOK">Norwegian Krone (NOK)</option>
+                                        <option value="KRW">South Korean Won (KRW)</option>
+                                        <option value="TRY">Turkish Lira (TRY)</option>
+                                        <option value="INR">Indian Rupee (INR)</option>
+                                        <option value="RUB">Russian Ruble (RUB)</option>
+                                        <option value="BRL">Brazilian Real (BRL)</option>
+                                        <option value="ZAR">South African Rand (ZAR)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label class="form-label">Language <span class="tx-danger">*</span></label>
+                                    <select name="language" id="language" required class="form-control paintProtectionFil select2">
+                                        <option value="en">English</option>
+                                        <option value="zh">Chinese</option>
+                                        <option value="es">Spanish</option>
+                                        <option value="hi">Hindi</option>
+                                        <option value="ar">Arabic</option>
+                                        <option value="bn">Bengali</option>
+                                        <option value="pt">Portuguese</option>
+                                        <option value="ru">Russian</option>
+                                        <option value="ja">Japanese</option>
+                                        <option value="de">German</option>
+                                        <option value="fr">French</option>
+                                        <option value="ko">Korean</option>
+                                        <option value="it">Italian</option>
+                                        <option value="ta">Tamil</option>
+                                        <option value="te">Telugu</option>
+                                        <option value="vi">Vietnamese</option>
+                                        <option value="ur">Urdu</option>
+                                        <option value="tr">Turkish</option>
+                                        <option value="fa">Persian</option>
+                                        <option value="pl">Polish</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-6">
                                 <div class="form-group mg-b-0">
                                     <label class="form-label">Company Name: <span class="tx-danger">*</span></label>
                                     <input value="{{ old('company_name') }}" class="form-control" name="company_name" placeholder="Company name" required="" type="text">
                                 </div>
                             </div>
                             <div class="col-6">
-                                <div class="form-group position-relative">
-                                    <label class="form-label">Password: <span class="tx-danger">*</span></label>
-                                    <input value="{{ old('password') }}" id="password" class="form-control" name="password" placeholder="Enter password" required="" type="password">
-                                    <i class="bi bi-eye-slash position-absolute" id="togglePassword" onclick="showPassword()"></i>
+                                <div class="form-group mg-b-0">
+                                    <label class="form-label">Custom test: <span class="tx-danger">*</span></label>
+                                    <input value="{{ old('custom_text') }}" class="form-control" name="custom_text" placeholder="Custom text" required="" type="text">
+                                </div>
+                            </div>
+                            <div class="col-6 mb-2">
+                                <label class="form-control-label">Choose a Color <span class="tx-danger">*</span></label>
+                                <br>
+                                <div class="color-picker-container">
+                                    <input type="color" id="colorPicker" name="colorPicker"  value="#ff0000">
+                                    <input type="text" id="hex" name="hex" required="" value="#ff0000" maxlength="7">
                                 </div>
                             </div>
                             <div class="col-6 mb-2">

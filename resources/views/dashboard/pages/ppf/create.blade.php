@@ -74,21 +74,29 @@
                                 <div class="col-md-5 col-lg-6 mb-2">
                                     <label class="form-control-label">Warranty<span class="tx-danger">*</span></label>
                                     <select name="warranty" id="warranty" class="form-control paintProtectionFil " >
-                                        <option value="1">1 warranty</option>
-                                        <option value="2">2 warranty </option>
-                                        <option value="3">3 warranty </option>
-                                        <option value="4">4 warranty</option>
-                                        <option value="5">5 warranty </option>
+                                        <option value="1">1 year</option>
+                                        <option value="2">2 year </option>
+                                        <option value="3">3 year </option>
+                                        <option value="4">4 year</option>
+                                        <option value="5">5 year </option>
+                                        <option value="6">6 year </option>
+                                        <option value="7">7 year </option>
+                                        <option value="8">8 year </option>
+                                        <option value="9">9 year </option>
+                                        <option value="10">10 year </option>
+                                        <option value="11">life time </option>
                                     </select>
                                 </div>
                                 <div class="col-md-5 col-lg-6 mb-2">
                                     <label class="form-control-label">Thickness<span class="tx-danger">*</span></label>
                                     <select name="thickness" id="thickness" class="form-control paintProtectionFil " >
-                                        <option value="1">1 thickness</option>
-                                        <option value="2">2 thickness </option>
-                                        <option value="3">3 thickness </option>
-                                        <option value="4">4 thickness</option>
-                                        <option value="5">5 thickness </option>
+                                        <option value="4">4 mm</option>
+                                        <option value="5">5 mm</option>
+                                        <option value="6">6 mm </option>
+                                        <option value="7">7 mm </option>
+                                        <option value="8">8 mm </option>
+                                        <option value="9">9 mm </option>
+                                        <option value="10">10 mm </option>
                                     </select>
                                 </div>
                                 <div class="col-md-5 col-lg-6 mb-2">
