@@ -82,6 +82,33 @@
                                         <a class="button btn btn-secondary" href="{{ route('dashboard.user.edit',$item->id) }}">
                                             <i class="fas fa-edit"></i>
                                         </a>
+                                        @if(auth()->user()->type === "subscriber" && auth()->user()->id !== $item->id)
+                                        <a type="button" class="button btn btn-danger float-right" data-bs-toggle="modal" data-bs-target="#deleteModal{{$item->id}}">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                        <div class="modal fade" id="deleteModal{{$item->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteModalLabel{{$item->id}}" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">Confirmation</h4>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="modal-body">
+                                                            Are you sure you want to delete ? 
+                                                        </div>
+                                                        <form action="{{ route('dashboard.user.deleteEmplyee', $item->id) }}" method="POST" >
+                                                            @csrf
+                                                            <div class="modal-footer mt-3">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                <button type="submit" class="btn btn-danger">Confirm Delete</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @endif
                                         @if(auth()->user()->type === "super_admin")
                                         <a type="button" class="button btn btn-danger float-right" data-bs-toggle="modal" data-bs-target="#deleteModal{{$item->id}}">
                                             <i class="fas fa-trash"></i>

@@ -117,16 +117,16 @@
                 </li>
                 @endcanany
 
-                @canany(['Employee'])
+                @canany(['employee'])
                 @php
                     $today = \Carbon\Carbon::now()->toDateString();
                     $id = auth()->user()->id;
                 @endphp
                
                 @if(auth()->user()->subscription && auth()->user()->subscription->where('end_date', '>', $today)->count() > 0)
-                <li class="slide">
+                <!-- <li class="slide">
                     <a class="side-menu__item" href="{{ route('dashboard.user.edit',$id) }}"><i class="side-menu__icon fe fe-user"></i><span class="side-menu__label">My account</span></a>
-                </li>
+                </li> -->
                 <li class="slide">
                     <a class="side-menu__item" data-bs-toggle="slide"   href="javascript:void(0);"><i class="side-menu__icon fe fe-briefcase"></i><span class="side-menu__label">Services</span><i class="angle fe fe-chevron-down"></i></a>
                     <ul class="slide-menu">
@@ -139,9 +139,9 @@
                     </ul>
                 </li>
                 @endif
-                <li class="slide">
+                <!-- <li class="slide">
                     <a class="side-menu__item" href="{{ route('dashboard.subscription.index') }} "><i class="side-menu__icon fe fe-dollar-sign "></i><span class="side-menu__label">Plan & Billing</span></a>
-                </li>
+                </li> -->
                 @endcanany
                 <li class="slide">
                     <a class="side-menu__item"  href="{{ route('dashboard.game') }}"><i class="side-menu__icon fe fe-play "></i><span class="side-menu__label">Game</span></a>

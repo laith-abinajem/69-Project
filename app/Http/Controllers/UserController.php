@@ -318,4 +318,23 @@ class UserController extends Controller
         }
        
     }
+    public function deleteEmplyee(Request $request,$id){
+        $client = new SquareClient([
+            'accessToken' => 'EAAAl8Ag58FVcJ5Suwt4U3OUtp_yfLM7CL-Qt8G5Ng-0PcJ8ds7oLbYtYbzzciMz',
+            'environment' => 'production', 
+        ]);
+        $user = User::find($id);
+        $sub = Subscription::where('user_id',$id)->first();
+        
+        if($sub->subscription_id){
+            $api_response = $client->getSubscriptionsApi()->cancelSubscription($sub->subscription_id);
+            $sub->update([
+                'end_date'=>null
+            ]);
+        }
+        $user->delete();
+
+        toast('Success','success');
+        return redirect()->route('dashboard.user.index');
+    }
 }

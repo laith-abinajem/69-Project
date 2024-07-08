@@ -3,7 +3,31 @@
 @section('title', 'Edit User')
 
 @section('content')
+<style>
+    .color-picker-container {
+        display: inline-flex;
+        align-items: center;
+        border: 1px solid #ccc;
+        padding: 5px;
+        border-radius: 5px;
+    }
 
+    .color-picker-container input[type="text"] {
+        width: 80px;
+        margin-left: 10px;
+        border: none;
+        border-left: 1px solid #ccc;
+        padding-left: 5px;
+        height: 30px;
+    }
+
+    .color-picker-container input[type="color"] {
+        border: none;
+        height: 30px;
+        width: 40px;
+        padding: 0;
+    }
+</style>
 <div class="row row-sm">
     <div class="col-12">
         <div class="card">
@@ -48,6 +72,14 @@
                                     <label class="form-label">Password:</label>
                                     <input value="{{ old('password') }}" id="password" class="form-control" name="password" placeholder="Enter password" type="password">
                                     <i class="bi bi-eye-slash position-absolute" id="togglePassword"  onclick="showPassword()"></i>
+                                </div>
+                            </div>
+                           
+                            @if(auth()->user()->type === "super_admin" || (auth()->user()->type === "subscriber" && $data->type !== 'employee' ) )
+                            <div class="col-6">
+                                <div class="form-group mg-b-0">
+                                    <label class="form-label">Company Name: <span class="tx-danger">*</span></label>
+                                    <input value="{{ $data->company_name }}" class="form-control" name="company_name" placeholder="Company name" required="" type="text">
                                 </div>
                             </div>
                             <div class="col-6">
@@ -118,13 +150,6 @@
                                     <input type="text" id="hex" name="hex" value="{{$data->hex}} "required="" maxlength="7">
                                 </div>
                             </div>
-                            @if(auth()->user()->type === "super_admin" || (auth()->user()->type === "subscriber" && $data->type !== 'employee' ) )
-                            <div class="col-6">
-                                <div class="form-group mg-b-0">
-                                    <label class="form-label">Company Name: <span class="tx-danger">*</span></label>
-                                    <input value="{{ $data->company_name }}" class="form-control" name="company_name" placeholder="Company name" required="" type="text">
-                                </div>
-                            </div>
                             <div class="col-6 mb-2">
                                 <label class="form-control-label">Company Logo: <span class="tx-danger">*</span></label>
                                 <input type="file" name="company_logo" value="{{ old('company_logo') }}" id="company_logo" class="dropify" data-height="200" data-default-file="{{ $companyLogo }}" />
@@ -141,7 +166,7 @@
                             </div>
                             <div class="col-6 mb-2">
                                 <label class="form-control-label">Detailing Decal: <span class="tx-danger">*</span></label>
-                                <input type="file" name="detailing_decal" value="{{ old('detailing_decal') }}" id="detailingdecal" class="dropify" data-height="200" data-default-file="{{ $detailing_decal }}" required />
+                                <input type="file" name="detailing_decal" value="{{ old('detailing_decal') }}" id="detailingdecal" class="dropify" data-height="200" data-default-file="{{ $detailing_decal }}"  />
                                 <small class="form-text text-muted">
                                     Recommended dimensions: 1000x500 pixels, transparent background
                                 </small>

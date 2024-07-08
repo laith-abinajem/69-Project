@@ -82,6 +82,7 @@ Route::middleware(['auth', 'check.single.session'])->prefix('dashboard')->name('
     Route::prefix('user')->name('user.')->middleware('role:Subscriber')->group(function () {
         Route::get('/createEmployee',[UserController::class,'createEmployee'])->name('createEmployee');
         Route::post('/storeEmployee',[UserController::class,'storeEmployee'])->name('storeEmployee');
+        Route::post('/deleteEmplyee/{id}',[UserController::class,'deleteEmplyee'])->name('deleteEmplyee');
     });
     Route::prefix('user')->name('user.')->middleware('role:Super Admin')->group(function () {
         Route::get('/create',[UserController::class,'create'])->name('create');
