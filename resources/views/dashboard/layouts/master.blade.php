@@ -266,6 +266,15 @@
 				}
 
 				$('.select22').select2();
+
+				var $textarea = $('#branddescription');
+				if ($textarea.length) {
+					$textarea.on('input', function() {
+						var textareaValue = $(this).val();
+						var htmlValue = textareaValue.replace(/\n/g, '<br>');
+						$('#output').html(htmlValue);
+					});
+				}
 			
 			})
 		</script>
