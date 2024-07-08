@@ -264,6 +264,8 @@
 
 				return isValid;
 				}
+
+				$('.select22').select2();
 			
 			})
 		</script>

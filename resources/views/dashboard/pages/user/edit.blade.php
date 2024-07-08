@@ -18,154 +18,164 @@
                 <h3 class="tile-title">{{ __('Edit User') }}</h3>
                 <form action="{{ route('dashboard.user.update', $data->id) }}" id="userForm" method="post" enctype="multipart/form-data">
                     @csrf
-                    <div class="row row-sm">
-                            <div class="col-6">
-                                <div class="form-group mg-b-0">
-                                    <label class="form-label">Name: <span class="tx-danger">*</span></label>
-                                    <input value="{{ $data->name }}" class="form-control" name="name" placeholder="Enter name" required="" type="text">
+                    <div id="wizard1">
+                        <h3>User Information</h3>
+                        <section>
+                            <div class="row row-sm">
+                                <div class="col-6">
+                                    <div class="form-group mg-b-0">
+                                        <label class="form-label">Name: <span class="tx-danger">*</span></label>
+                                        <input value="{{ $data->name }}" class="form-control" name="name" placeholder="Enter name" required="" type="text">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Email: <span class="tx-danger">*</span></label>
+                                        <input value="{{ $data->email }}" class="form-control" name="email" placeholder="Enter Email" required="" type="email">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group position-relative">
+                                        <label class="form-label">Password: <span class="tx-danger">*</span></label>
+                                        <input value="" id="password" class="form-control" name="password" placeholder="Enter password" required="" type="password">
+                                        <i class="bi bi-eye-slash position-absolute" id="togglePassword" onclick="showPassword()"></i>
+                                    </div>
+                                </div>
+                                <div class="form-group col-6">
+                                    <label class="form-label">User status: <span class="tx-danger">*</span></label>
+                                    <select name="status" id="status" required class="form-control paintProtectionFil select22" >
+                                        <option {{ $data->status == 'approved' ? 'selected' : '' }} value="approved">Approved</option>
+                                        <option {{ $data->status == 'pending' ? 'selected' : '' }} value="pending">Pending</option>
+                                        <option {{ $data->status == 'rejected' ? 'selected' : '' }} value="rejected">Rejected</option>
+                                    </select>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label class="form-label">User Type: <span class="tx-danger">*</span></label>
+                                        <select name="type" id="type" required class="form-control paintProtectionFil select22" >
+                                            <option {{ $data->type == 'super_admin' ? 'selected' : '' }} value="super_admin">Super admin</option>
+                                            <option {{ $data->type == 'subscriber' ? 'selected' : '' }} value="subscriber">Subscriber</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Currency <span class="tx-danger">*</span></label>
+                                        <select name="currency" id="currency" required class="form-control paintProtectionFil select22">
+                                            <option {{ $data->currency == 'USD' ? 'selected' : '' }} value="USD">US Dollar (USD)</option>
+                                            <option {{ $data->currency == 'EUR' ? 'selected' : '' }} value="EUR">Euro (EUR)</option>
+                                            <option {{ $data->currency == 'JPY' ? 'selected' : '' }} value="JPY">Japanese Yen (JPY)</option>
+                                            <option {{ $data->currency == 'GBP' ? 'selected' : '' }} value="GBP">British Pound (GBP)</option>
+                                            <option {{ $data->currency == 'AUD' ? 'selected' : '' }} value="AUD">Australian Dollar (AUD)</option>
+                                            <option {{ $data->currency == 'CAD' ? 'selected' : '' }} value="CAD">Canadian Dollar (CAD)</option>
+                                            <option {{ $data->currency == 'CHF' ? 'selected' : '' }} value="CHF">Swiss Franc (CHF)</option>
+                                            <option {{ $data->currency == 'CNY' ? 'selected' : '' }} value="CNY">Chinese Yuan (CNY)</option>
+                                            <option {{ $data->currency == 'SEK' ? 'selected' : '' }} value="SEK">Swedish Krona (SEK)</option>
+                                            <option {{ $data->currency == 'NZD' ? 'selected' : '' }} value="NZD">New Zealand Dollar (NZD)</option>
+                                            <option {{ $data->currency == 'MXN' ? 'selected' : '' }} value="MXN">Mexican Peso (MXN)</option>
+                                            <option {{ $data->currency == 'SGD' ? 'selected' : '' }} value="SGD">Singapore Dollar (SGD)</option>
+                                            <option {{ $data->currency == 'HKD' ? 'selected' : '' }} value="HKD">Hong Kong Dollar (HKD)</option>
+                                            <option {{ $data->currency == 'NOK' ? 'selected' : '' }} value="NOK">Norwegian Krone (NOK)</option>
+                                            <option {{ $data->currency == 'KRW' ? 'selected' : '' }} value="KRW">South Korean Won (KRW)</option>
+                                            <option {{ $data->currency == 'TRY' ? 'selected' : '' }} value="TRY">Turkish Lira (TRY)</option>
+                                            <option {{ $data->currency == 'INR' ? 'selected' : '' }} value="INR">Indian Rupee (INR)</option>
+                                            <option {{ $data->currency == 'RUB' ? 'selected' : '' }} value="RUB">Russian Ruble (RUB)</option>
+                                            <option {{ $data->currency == 'BRL' ? 'selected' : '' }} value="BRL">Brazilian Real (BRL)</option>
+                                            <option {{ $data->currency == 'ZAR' ? 'selected' : '' }} value="ZAR">South African Rand (ZAR)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Language <span class="tx-danger">*</span></label>
+                                        <select name="language" id="language" required class="form-control paintProtectionFil select22">
+                                            <option {{ $data->language == 'en' ? 'selected' : '' }} value="en">English</option>
+                                            <option {{ $data->language == 'zh' ? 'selected' : '' }} value="zh">Chinese</option>
+                                            <option {{ $data->language == 'es' ? 'selected' : '' }} value="es">Spanish</option>
+                                            <option {{ $data->language == 'hi' ? 'selected' : '' }} value="hi">Hindi</option>
+                                            <option {{ $data->language == 'ar' ? 'selected' : '' }} value="ar">Arabic</option>
+                                            <option {{ $data->language == 'bn' ? 'selected' : '' }} value="bn">Bengali</option>
+                                            <option {{ $data->language == 'pt' ? 'selected' : '' }} value="pt">Portuguese</option>
+                                            <option {{ $data->language == 'ru' ? 'selected' : '' }} value="ru">Russian</option>
+                                            <option {{ $data->language == 'ja' ? 'selected' : '' }} value="ja">Japanese</option>
+                                            <option {{ $data->language == 'de' ? 'selected' : '' }} value="de">German</option>
+                                            <option {{ $data->language == 'fr' ? 'selected' : '' }} value="fr">French</option>
+                                            <option {{ $data->language == 'ko' ? 'selected' : '' }} value="ko">Korean</option>
+                                            <option {{ $data->language == 'it' ? 'selected' : '' }} value="it">Italian</option>
+                                            <option {{ $data->language == 'it' ? 'selected' : '' }} value="it">Tamil</option>
+                                            <option {{ $data->language == 'te' ? 'selected' : '' }} value="te">Telugu</option>
+                                            <option {{ $data->language == 'vi' ? 'selected' : '' }} value="vi">Vietnamese</option>
+                                            <option {{ $data->language == 'ur' ? 'selected' : '' }} value="ur">Urdu</option>
+                                            <option {{ $data->language == 'tr' ? 'selected' : '' }} value="tr">Turkish</option>
+                                            <option {{ $data->language == 'fa' ? 'selected' : '' }} value="fa">Persian</option>
+                                            <option {{ $data->language == 'pl' ? 'selected' : '' }} value="pl">Polish</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group mg-b-0">
+                                        <label class="form-label">Company Name: <span class="tx-danger">*</span></label>
+                                        <input value="{{ $data->company_name }}" class="form-control" name="company_name" placeholder="Company name" required="" type="text">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group mg-b-0">
+                                        <label class="form-label">Custom test: <span class="tx-danger">*</span></label>
+                                        <input value="{{ $data->custom_text }}" class="form-control" name="custom_text" placeholder="Custom text" required="" type="text">
+                                    </div>
+                                </div>
+                                <div class="col-6 mb-2">
+                                    <label class="form-control-label">Choose a Color <span class="tx-danger">*</span></label>
+                                    <br>
+                                    <div class="color-picker-container">
+                                        <input type="color" id="colorPicker" name="colorPicker"  value="{{ $data->hex }}">
+                                        <input type="text" id="hex" name="hex" required="" value="{{ $data->hex }}" maxlength="7">
+                                    </div>
                                 </div>
                             </div>
-                            @if(auth()->user()->type === "super_admin")
+                        </section>
+                        <h3>User Media</h3>
+                        <section>
+                            <div class="row row-sm">
+                                <div class="col-6 mb-2">
+                                    <label class="form-control-label">Company Logo: <span class="tx-danger">*</span></label>
+                                    <input type="file" name="company_logo" value="" id="companylogo" class="dropify2" data-height="200" data-default-file="{{ $companylogo }}" required />
+                                    <small class="form-text text-muted">
+                                        Recommended dimensions: 1080x1080 or 2048x2048 pixels, transparent background
+                                    </small>
+                                </div>
+                                <div class="col-6 mb-2">
+                                    <label class="form-control-label">Decal Logo: <span class="tx-danger">*</span></label>
+                                    <input type="file" name="decal_logo" value="" id="decallogo" class="dropify2" data-height="200" data-default-file="{{ $decallogo }}" required />
+                                    <small class="form-text text-muted">
+                                        Recommended dimensions: 1000x500 pixels, transparent background
+                                    </small>
+                                </div>
+                                <div class="col-6 mb-2">
+                                    <label class="form-control-label">Detailing Decal: <span class="tx-danger">*</span></label>
+                                    <input type="file" name="detailing_decal" value="" id="detailingdecal" class="dropify2" data-height="200" data-default-file="{{ $detailing_decal }}" required />
+                                    <small class="form-text text-muted">
+                                        Recommended dimensions: 1000x500 pixels, transparent background
+                                    </small>
+                                </div>
+                                <div class="col-12 mb-2">
+                                    <label class="form-control-label">Videos: <span class="tx-danger">*</span></label>
+                                    <input type="file" name="video" value=""  id="browseFile" class="dropify2" data-height="200" data-default-file="{{ $video }}" accept="video/*" />
+                                    <div id="message"></div>
+                                </div>
 
-                            <div class="form-group col-6">
-                                <label class="form-label">User status: <span class="tx-danger">*</span></label>
-                                <select name="status" id="status" required class="form-control paintProtectionFil select2 select2-no-search" >
-                                    <option value="approved" {{ $data->status == 'approved' ? 'selected' : '' }}>Approved</option>
-                                    <option value="pending" {{ $data->status == 'pending' ? 'selected' : '' }}>Pending</option>
-                                    <option value="rejected" {{ $data->status == 'rejected' ? 'selected' : '' }}>Rejected</option>
-                                </select>
-                            </div>
-                            @endif
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <label class="form-label">Email: <span class="tx-danger">*</span></label>
-                                    <input value="{{ $data->email }}" class="form-control" name="email" placeholder="Enter Email" required="" type="email">
+                                <div class="card-body">
+                                    <div  style="display: none" class="progress mt-3" style="height: 25px">
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%; height: 100%">75%</div>
+                                    </div>
                                 </div>
-                            </div>
-                            
-                            <div class="col-6">
-                                <div class="form-group position-relative">
-                                    <label class="form-label">Password:</label>
-                                    <input value="{{ old('password') }}" id="password" class="form-control" name="password" placeholder="Enter password" type="password">
-                                    <i class="bi bi-eye-slash position-absolute" id="togglePassword"  onclick="showPassword()"></i>
+                                <div class="card-footer p-4" style="display: none">
+                                    <video id="videoPreview" src="" controls style="width: 100%; height: 600px"></video>
                                 </div>
+                                <input type="hidden" name="video_path" id="videoPath">
+                                <input type="hidden" name="video_filename" id="videoFilename">
                             </div>
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <label class="form-label">Currency <span class="tx-danger">*</span></label>
-                                    <select name="currency" id="currency" required class="form-control paintProtectionFil select2">
-                                        <option value="USD" <?= $data->currency == 'USD' ? 'selected' : '' ?>>US Dollar (USD)</option>
-                                        <option value="EUR" <?= $data->currency == 'EUR' ? 'selected' : '' ?>>Euro (EUR)</option>
-                                        <option value="JPY" <?= $data->currency == 'JPY' ? 'selected' : '' ?>>Japanese Yen (JPY)</option>
-                                        <option value="GBP" <?= $data->currency == 'GBP' ? 'selected' : '' ?>>British Pound (GBP)</option>
-                                        <option value="AUD" <?= $data->currency == 'AUD' ? 'selected' : '' ?>>Australian Dollar (AUD)</option>
-                                        <option value="CAD" <?= $data->currency == 'CAD' ? 'selected' : '' ?>>Canadian Dollar (CAD)</option>
-                                        <option value="CHF" <?= $data->currency == 'CHF' ? 'selected' : '' ?>>Swiss Franc (CHF)</option>
-                                        <option value="CNY" <?= $data->currency == 'CNY' ? 'selected' : '' ?>>Chinese Yuan (CNY)</option>
-                                        <option value="SEK" <?= $data->currency == 'SEK' ? 'selected' : '' ?>>Swedish Krona (SEK)</option>
-                                        <option value="NZD" <?= $data->currency == 'NZD' ? 'selected' : '' ?>>New Zealand Dollar (NZD)</option>
-                                        <option value="MXN" <?= $data->currency == 'MXN' ? 'selected' : '' ?>>Mexican Peso (MXN)</option>
-                                        <option value="SGD" <?= $data->currency == 'SGD' ? 'selected' : '' ?>>Singapore Dollar (SGD)</option>
-                                        <option value="HKD" <?= $data->currency == 'HKD' ? 'selected' : '' ?>>Hong Kong Dollar (HKD)</option>
-                                        <option value="NOK" <?= $data->currency == 'NOK' ? 'selected' : '' ?>>Norwegian Krone (NOK)</option>
-                                        <option value="KRW" <?= $data->currency == 'KRW' ? 'selected' : '' ?>>South Korean Won (KRW)</option>
-                                        <option value="TRY" <?= $data->currency == 'TRY' ? 'selected' : '' ?>>Turkish Lira (TRY)</option>
-                                        <option value="INR" <?= $data->currency == 'INR' ? 'selected' : '' ?>>Indian Rupee (INR)</option>
-                                        <option value="RUB" <?= $data->currency == 'RUB' ? 'selected' : '' ?>>Russian Ruble (RUB)</option>
-                                        <option value="BRL" <?= $data->currency == 'BRL' ? 'selected' : '' ?>>Brazilian Real (BRL)</option>
-                                        <option value="ZAR" <?= $data->currency == 'ZAR' ? 'selected' : '' ?>>South African Rand (ZAR)</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <label class="form-label">Language <span class="tx-danger">*</span></label>
-                                    <select name="language" id="language" required class="form-control paintProtectionFil select2">
-                                        <option value="en" <?= $data->language == 'en' ? 'selected' : '' ?>>English</option>
-                                        <option value="zh" <?= $data->language == 'zh' ? 'selected' : '' ?>>Chinese</option>
-                                        <option value="es" <?= $data->language == 'es' ? 'selected' : '' ?>>Spanish</option>
-                                        <option value="hi" <?= $data->language == 'hi' ? 'selected' : '' ?>>Hindi</option>
-                                        <option value="ar" <?= $data->language == 'ar' ? 'selected' : '' ?>>Arabic</option>
-                                        <option value="bn" <?= $data->language == 'bn' ? 'selected' : '' ?>>Bengali</option>
-                                        <option value="pt" <?= $data->language == 'pt' ? 'selected' : '' ?>>Portuguese</option>
-                                        <option value="ru" <?= $data->language == 'ru' ? 'selected' : '' ?>>Russian</option>
-                                        <option value="ja" <?= $data->language == 'ja' ? 'selected' : '' ?>>Japanese</option>
-                                        <option value="de" <?= $data->language == 'de' ? 'selected' : '' ?>>German</option>
-                                        <option value="fr" <?= $data->language == 'fr' ? 'selected' : '' ?>>French</option>
-                                        <option value="ko" <?= $data->language == 'ko' ? 'selected' : '' ?>>Korean</option>
-                                        <option value="it" <?= $data->language == 'it' ? 'selected' : '' ?>>Italian</option>
-                                        <option value="ta" <?= $data->language == 'ta' ? 'selected' : '' ?>>Tamil</option>
-                                        <option value="te" <?= $data->language == 'te' ? 'selected' : '' ?>>Telugu</option>
-                                        <option value="vi" <?= $data->language == 'vi' ? 'selected' : '' ?>>Vietnamese</option>
-                                        <option value="ur" <?= $data->language == 'ur' ? 'selected' : '' ?>>Urdu</option>
-                                        <option value="tr" <?= $data->language == 'tr' ? 'selected' : '' ?>>Turkish</option>
-                                        <option value="fa" <?= $data->language == 'fa' ? 'selected' : '' ?>>Persian</option>
-                                        <option value="pl" <?= $data->language == 'pl' ? 'selected' : '' ?>>Polish</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="form-group mg-b-0">
-                                    <label class="form-label">Custom test: <span class="tx-danger">*</span></label>
-                                    <input value="{{ $data->custom_text }}" class="form-control" name="custom_text" placeholder="Custom text" required="" type="text">
-                                </div>
-                            </div>
-                            <div class="col-6 mb-2">
-                                <label class="form-control-label">Choose a Color <span class="tx-danger">*</span></label>
-                                <br>
-                                <div class="color-picker-container">
-                                    <input type="color" id="colorPicker"  value="{{$data->hex}}"name="colorPicker" >
-                                    <input type="text" id="hex" name="hex" value="{{$data->hex}} "required="" maxlength="7">
-                                </div>
-                            </div>
-                            @if(auth()->user()->type === "super_admin" || (auth()->user()->type === "subscriber" && $data->type !== 'employee' ) )
-                            <div class="col-6">
-                                <div class="form-group mg-b-0">
-                                    <label class="form-label">Company Name: <span class="tx-danger">*</span></label>
-                                    <input value="{{ $data->company_name }}" class="form-control" name="company_name" placeholder="Company name" required="" type="text">
-                                </div>
-                            </div>
-                            <div class="col-6 mb-2">
-                                <label class="form-control-label">Company Logo: <span class="tx-danger">*</span></label>
-                                <input type="file" name="company_logo" value="{{ old('company_logo') }}" id="company_logo" class="dropify" data-height="200" data-default-file="{{ $companyLogo }}" />
-                                <small class="form-text text-muted">
-                                    Recommended dimensions: 1080x1080 or 2048x2048 pixels, transparent background
-                                </small>
-                            </div>
-                            <div class="col-6 mb-2">
-                                <label class="form-control-label">Decal Logo: <span class="tx-danger">*</span></label>
-                                <input type="file" name="decal_logo" value="{{ old('decal_logo') }}" id="decal_logo" class="dropify" data-height="200" data-default-file="{{ $decalLogo }}" />
-                                <small class="form-text text-muted">
-                                    Recommended dimensions: 1000x500 or 2048x2048 pixels, transparent background
-                                </small>
-                            </div>
-                            <div class="col-6 mb-2">
-                                <label class="form-control-label">Detailing Decal: <span class="tx-danger">*</span></label>
-                                <input type="file" name="detailing_decal" value="{{ old('detailing_decal') }}" id="detailingdecal" class="dropify" data-height="200" data-default-file="{{ $detailing_decal }}" required />
-                                <small class="form-text text-muted">
-                                    Recommended dimensions: 1000x500 pixels, transparent background
-                                </small>
-                            </div>
-                            <div class="col-12 mb-2">
-                                <label class="form-control-label">Videos: <span class="tx-danger">*</span></label>
-                                <input type="file" name="video" value="{{ old('video') }}" id="browseFile" class="dropify" data-height="200" data-default-file="{{ $video }}" accept="video/*" />
-                                <div id="message"></div>
-                            </div>
-                            <div class="card-body">
-                                <div  style="display: none" class="progress mt-3" style="height: 25px">
-                                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%; height: 100%">75%</div>
-                                </div>
-                            </div>
-                            <div class="card-footer p-4" style="display: none">
-                                <video id="videoPreview" src="" controls style="width: 100%; height: auto"></video>
-                            </div>
-                            <input type="hidden" name="video_path" id="videoPath">
-                            <input type="hidden" name="video_filename" id="videoFilename">
-                            @endif
-                        </div>
-                    <div class="form-group text-end mt-2">
-                        <button type="submit" id="submit" class="button btn btn-primary">Save</button>
-                        <button type="button" class="btn btn-secondary" onclick="window.location='{{ route('dashboard.user.index') }}'">Cancel</button>
+                        </section>
                     </div>
                 </form>
             </div> <!-- end card-body -->
