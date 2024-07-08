@@ -266,6 +266,7 @@
 				}
 
 				$('.select22').select2();
+				
 
 				var $textarea = $('#branddescription');
 				if ($textarea.length) {
