@@ -3,37 +3,7 @@
 @section('title', 'Create Light Tint')
 
 @section('content')
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 20px;
-    }
 
-    .color-picker-container {
-        display: inline-flex;
-        align-items: center;
-        border: 1px solid #ccc;
-        padding: 5px;
-        border-radius: 5px;
-    }
-
-    .color-picker-container input[type="text"] {
-        width: 80px;
-        margin-left: 10px;
-        border: none;
-        border-left: 1px solid #ccc;
-        padding-left: 5px;
-        height: 30px;
-    }
-
-    .color-picker-container input[type="color"] {
-        border: none;
-        height: 30px;
-        width: 40px;
-        padding: 0;
-    }
-    
-</style>
 <div class="row row-sm">
     <div class="col-lg-12 col-md-12">
         <div class="card">
@@ -47,7 +17,7 @@
                 @endif
                 <form action="{{ route('dashboard.light.store') }}" method="post" id="tintform" enctype="multipart/form-data">
                     @csrf
-                    <div id="wizardnew">
+                    <div id="wizard1">
                         <h3>Light Brand</h3>
                         <section>
                             <div class="row row-sm">

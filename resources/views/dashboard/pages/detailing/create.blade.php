@@ -1,34 +1,8 @@
 @extends('dashboard.layouts.master')
 
-@section('title', 'Create Detaing Package')
+@section('title', 'Create Detailing Package')
 
 @section('content')
-
-<style>
-    .color-picker-container {
-        display: inline-flex;
-        align-items: center;
-        border: 1px solid #ccc;
-        padding: 5px;
-        border-radius: 5px;
-    }
-
-    .color-picker-container input[type="text"] {
-        width: 80px;
-        margin-left: 10px;
-        border: none;
-        border-left: 1px solid #ccc;
-        padding-left: 5px;
-        height: 30px;
-    }
-
-    .color-picker-container input[type="color"] {
-        border: none;
-        height: 30px;
-        width: 40px;
-        padding: 0;
-    }
-</style>
 
 <div class="row row-sm">
     <div class="col-12">
@@ -41,11 +15,11 @@
                         @endforeach
                     </div>
                 @endif
-                <h3 class="tile-title">{{ __('Create Detaing Package') }}</h3>
+                <h3 class="tile-title">{{ __('Create Detailing Package') }}</h3>
                 <form action="{{ route('dashboard.detailing.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
-                    <div id="wizardnew">
-                        <h3>Detaing Package</h3>
+                    <div id="wizard1">
+                        <h3>Detailing Package</h3>
                         <section>
                             <div class="row row-sm">
                                 <div class="col-12 mb-2">

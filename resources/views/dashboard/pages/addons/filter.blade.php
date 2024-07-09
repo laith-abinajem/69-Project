@@ -1,6 +1,6 @@
 @extends('dashboard.layouts.master')
 
-@section('title', 'Detailing')
+@section('title', 'Add ons')
 
 @section('content')
 
@@ -9,7 +9,7 @@
         <div class="card">
             <div class="card-header d-flex justify-content-between flex-wrap align-items-center">
                 <h3 class="card-title">Add ons Table</h3>
-                <button type="button" class="button btn btn-primary" onclick="window.location='{{ route('dashboard.detailing.create') }}'">Add detailing package</button>
+                <button type="button" class="button btn btn-primary" onclick="window.location='{{ route('dashboard.addons.create') }}'">Add Add-ons</button>
             </div>
             @if(auth()->user()->type === "super_admin")
             <div class="card-body">

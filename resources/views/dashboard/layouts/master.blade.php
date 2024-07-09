@@ -255,8 +255,9 @@
 					var isValid = true;
 					
 					// Check each required field
-					$('#tintform input[required], #tintform textarea[required], #tintform select[required]').each(function(){
+					$('form #wizard1 input[required], form #wizard1 textarea[required], form #wizard1 select[required]').each(function(){
 						if($(this).val() == '') {
+							console.log($(this));
 							isValid = false;
 							return false; // exit loop if a required field is empty
 						}

@@ -1,34 +1,8 @@
 @extends('dashboard.layouts.master')
 
-@section('title', 'Edit Detaing Package')
+@section('title', 'Edit Detailing Package')
 
 @section('content')
-
-<style>
-    .color-picker-container {
-        display: inline-flex;
-        align-items: center;
-        border: 1px solid #ccc;
-        padding: 5px;
-        border-radius: 5px;
-    }
-
-    .color-picker-container input[type="text"] {
-        width: 80px;
-        margin-left: 10px;
-        border: none;
-        border-left: 1px solid #ccc;
-        padding-left: 5px;
-        height: 30px;
-    }
-
-    .color-picker-container input[type="color"] {
-        border: none;
-        height: 30px;
-        width: 40px;
-        padding: 0;
-    }
-</style>
 
 <div class="row row-sm">
     <div class="col-12">
@@ -41,17 +15,17 @@
                         @endforeach
                     </div>
                 @endif
-                <h3 class="tile-title">{{ __('Edit Detaing Package') }}</h3>
+                <h3 class="tile-title">{{ __('Edit Detailing Package') }}</h3>
                 <form action="{{ route('dashboard.detailing.update', $detailingBrand->id) }}" method="post" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
-                    <div id="wizardedit">
-                        <h3>Detaing Package</h3>
+                    <div id="wizard1">
+                        <h3>Detailing Package</h3>
                         <section>
                             <div class="row row-sm">
                                 <div class="col-12 mb-2">
                                     <label class="form-control-label">Detailing Image: <span class="tx-danger">*</span></label>
-                                    <input type="file" name="detailing_image" value="{{ old('detailing_image') }}" id="brandimage" class="dropify2" data-default-file="{{ $photos }}" data-height="200" required />
+                                    <input type="file" name="detailing_image" value="{{ old('detailing_image') }}" id="brandimage" class="dropify2" data-default-file="{{ $photos }}" data-height="200" />
                                     <small class="form-text text-muted">
                                      Recommended dimensions: 1000x500 pixels, transparent background
                                     </small>

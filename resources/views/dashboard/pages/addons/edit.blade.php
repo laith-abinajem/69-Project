@@ -4,32 +4,6 @@
 
 @section('content')
 
-<style>
-    .color-picker-container {
-        display: inline-flex;
-        align-items: center;
-        border: 1px solid #ccc;
-        padding: 5px;
-        border-radius: 5px;
-    }
-
-    .color-picker-container input[type="text"] {
-        width: 80px;
-        margin-left: 10px;
-        border: none;
-        border-left: 1px solid #ccc;
-        padding-left: 5px;
-        height: 30px;
-    }
-
-    .color-picker-container input[type="color"] {
-        border: none;
-        height: 30px;
-        width: 40px;
-        padding: 0;
-    }
-</style>
-
 <div class="row row-sm">
     <div class="col-12">
         <div class="card">
@@ -48,7 +22,7 @@
                     <div class="row row-sm">
                         <div class="col-12 mb-2">
                             <label class="form-control-label">Add-on image: <span class="tx-danger">*</span></label>
-                            <input type="file" name="addon_image" value="{{ old('addon_image') }}" id="addon_image" class="dropify" data-height="200" data-default-file="{{ $photos }}" required />
+                            <input type="file" name="addon_image" value="{{ old('addon_image') }}" id="addon_image" class="dropify" data-height="200" data-default-file="{{ $photos }}" />
                             <small class="form-text text-muted">
                                 Recommended dimensions: 1000x500 pixels, transparent background
                             </small>

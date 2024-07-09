@@ -4,32 +4,6 @@
 
 @section('content')
 
-<style>
-    .color-picker-container {
-        display: inline-flex;
-        align-items: center;
-        border: 1px solid #ccc;
-        padding: 5px;
-        border-radius: 5px;
-    }
-
-    .color-picker-container input[type="text"] {
-        width: 80px;
-        margin-left: 10px;
-        border: none;
-        border-left: 1px solid #ccc;
-        padding-left: 5px;
-        height: 30px;
-    }
-
-    .color-picker-container input[type="color"] {
-        border: none;
-        height: 30px;
-        width: 40px;
-        padding: 0;
-    }
-</style>
-
 <div class="row row-sm">
     <div class="col-12">
         <div class="card">
@@ -93,7 +67,7 @@
                         </div>
                         <div class="col-12 mg-t-20 mg-md-t-0 mb-2">
                             <label class="form-control-label">Add-on Description: <span class="tx-danger">*</span></label>
-                            <textarea class="form-control" id="description" name="description" placeholder="Textarea" rows="3" required>{{ old('description') }}</textarea>
+                            <textarea class="form-control" id="branddescription" name="description" placeholder="Textarea" rows="3" required>{{ old('description') }}</textarea>
                         </div>
                     </div>
                     <div class="form-group text-end mt-2">

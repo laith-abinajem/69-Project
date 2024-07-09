@@ -98334,3 +98334,27 @@ button.bg-purple-gradient:focus {
     background-color: #ffffe6;
     color: #ffff00;
 }
+
+.color-picker-container {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.color-picker-container input[type="text"] {
+    width: 80px;
+    margin-left: 10px;
+    border: none;
+    border-left: 1px solid #ccc;
+    padding-left: 5px;
+    height: 30px;
+}
+
+.color-picker-container input[type="color"] {
+    border: none;
+    height: 30px;
+    width: 40px;
+    padding: 0;
+}
