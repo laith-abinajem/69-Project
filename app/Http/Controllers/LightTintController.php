@@ -37,6 +37,7 @@ class LightTintController extends Controller
     }
     public function store(Request $request)
     {
+        try{
             $user_id = auth()->user()->id;
             if($request->user_id){
                 $user = User::find($request->user_id);
@@ -48,7 +49,7 @@ class LightTintController extends Controller
                 Alert::toast('You cant add more than 5 ppf', 'error');
                 return redirect()->route('dashboard.ppf.index');
             }
-            $ppfBrand = LightTint::create([
+            $lightTint = LightTint::create([
                 'light_brand' => $request->light_brand,
                 'light_description' => $request->light_description,
                 'hex' => $request->hex,
@@ -56,7 +57,7 @@ class LightTintController extends Controller
                 'user_id'=> $user->id
             ]);
             if ($request->hasFile('light_image')) {
-                $ppfBrand->addMedia($request->file('light_image'))->toMediaCollection('light_image');
+                $lightTint->addMedia($request->file('light_image'))->toMediaCollection('light_image');
             }
         
             $prices = $request->price;
@@ -65,7 +66,7 @@ class LightTintController extends Controller
                     foreach ($windows as $window => $price) {
                     $windowNumber = explode('_', $window)[0];
                     $details =   LightTintDetails::create([
-                            'light_id' => $ppfBrand->id,
+                            'light_id' => $lightTint->id,
                             'class_car' => $classCar,
                             'sub_class_car' => $subClassCar,
                             'light_type' => $windowNumber,
@@ -77,7 +78,10 @@ class LightTintController extends Controller
            
             Alert::toast('Light tint created successfully', 'success');
             return redirect()->route('dashboard.light.index');
-       
+        } catch (\Exception $e) {
+            Alert::toast('An error occurred while updating the Light tint', 'error');
+            return redirect()->back()->withInput();
+        }
     }
     public function edit($id){
         $lightTint = LightTint::with('lightDetails')->find($id);
@@ -86,7 +90,7 @@ class LightTintController extends Controller
         return view('dashboard.pages.light.edit',compact('lightTint','users','photos'));
     }
     public function update(Request $request, $id){
-        try {
+        try{
             $user_id = auth()->user()->id;
             if($request->user_id){
                 $user = User::find($request->user_id);
@@ -107,13 +111,13 @@ class LightTintController extends Controller
             }
     
             $prices = $request->price;
-            LightTintDetails::where('light_id', $ppfBrand->id)->delete(); 
+            LightTintDetails::where('light_id', $lightTint->id)->delete(); 
             foreach ($prices as $classCar => $subClasses) {
                 foreach ($subClasses as $subClassCar => $windows) {
                     foreach ($windows as $window => $price) {
                         $windowNumber = explode('_', $window)[0];
                         LightTintDetails::create([
-                            'light_id' => $ppfBrand->id,
+                            'light_id' => $lightTint->id,
                             'class_car' => $classCar,
                             'sub_class_car' => $subClassCar,
                             'light_type' => $windowNumber,
@@ -129,6 +133,7 @@ class LightTintController extends Controller
             Alert::toast('An error occurred while updating the Light tint', 'error');
             return redirect()->back()->withInput();
         }
+   
     }
     public function delete(Request $request,$id){
         $data = LightTint::find($id);
