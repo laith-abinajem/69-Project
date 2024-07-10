@@ -495,7 +495,8 @@ class PaymentController extends Controller
                     "start_date"=> $startDate,
                 ]);
                 $user->update([
-                    "sub_id"=> $sub->id
+                    "sub_id"=> $sub->id,
+                    "card_id"=>$card->id
                 ]);
                 return redirect()->route('dashboard.payment-success');
             } else {
