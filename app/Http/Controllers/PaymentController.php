@@ -44,8 +44,8 @@ class PaymentController extends Controller
 
     function createPayment(Request $request){
         $client = new SquareClient([
-            'accessToken' => 'EAAAl8Ag58FVcJ5Suwt4U3OUtp_yfLM7CL-Qt8G5Ng-0PcJ8ds7oLbYtYbzzciMz',
-            'environment' => 'production', 
+            'accessToken' => env('SQUARE_ACCESS_TOKEN'),
+            'environment' => env('SQUARE_ENVIRONMENT'),
         ]);
 
         // Retrieve Catalog Objects
@@ -224,8 +224,8 @@ class PaymentController extends Controller
         }
        
         $client = new SquareClient([
-            'accessToken' => 'EAAAl8Ag58FVcJ5Suwt4U3OUtp_yfLM7CL-Qt8G5Ng-0PcJ8ds7oLbYtYbzzciMz',
-            'environment' => 'production', 
+            'accessToken' => env('SQUARE_ACCESS_TOKEN'),
+            'environment' => env('SQUARE_ENVIRONMENT'),
         ]);
         
         $checkout_api = $client->getCheckoutApi();
@@ -267,12 +267,12 @@ class PaymentController extends Controller
 
     function checkPayment(Request $request){
         $client = new SquareClient([
-            'accessToken' => 'EAAAl8Ag58FVcJ5Suwt4U3OUtp_yfLM7CL-Qt8G5Ng-0PcJ8ds7oLbYtYbzzciMz',
-            'environment' => 'production', 
+            'accessToken' => env('SQUARE_ACCESS_TOKEN'),
+            'environment' => env('SQUARE_ENVIRONMENT'),
         ]);
         // $subscription = Subscription::find($request->subscription_id);
         
-        $api_response = $client->getTransactionsApi()->retrieveTransaction('L09XH4WWXKBAN',$request->transactionId);
+        $api_response = $client->getTransactionsApi()->retrieveTransaction(env('SQUARE_LOCATION_ID'),$request->transactionId);
         if ($api_response->isSuccess()) {
 
             // get list card + save it in table + then we can refund money
@@ -343,8 +343,8 @@ class PaymentController extends Controller
         $customerId = $request->input('customer_id');
         $nonce = $request->input('nonce');
         $client = new SquareClient([
-            'accessToken' => 'EAAAl8Ag58FVcJ5Suwt4U3OUtp_yfLM7CL-Qt8G5Ng-0PcJ8ds7oLbYtYbzzciMz',
-            'environment' => 'production', 
+            'accessToken' => env('SQUARE_ACCESS_TOKEN'),
+            'environment' => env('SQUARE_ENVIRONMENT'),
         ]);
         try {
             $billing_address = new \Square\Models\Address();
@@ -388,8 +388,8 @@ class PaymentController extends Controller
     public function createSubscriptionPlans()
     {
         $client = new SquareClient([
-            'accessToken' => 'EAAAl8Ag58FVcJ5Suwt4U3OUtp_yfLM7CL-Qt8G5Ng-0PcJ8ds7oLbYtYbzzciMz',
-                'environment' => 'production', 
+            'accessToken' => env('SQUARE_ACCESS_TOKEN'),
+            'environment' => env('SQUARE_ENVIRONMENT'),
         ]);
 
         $catalogApi = $client->getCatalogApi();
@@ -457,8 +457,8 @@ class PaymentController extends Controller
     public function createPayment2(Request $request)
     {
         $client = new SquareClient([
-            'accessToken' => 'EAAAl8Ag58FVcJ5Suwt4U3OUtp_yfLM7CL-Qt8G5Ng-0PcJ8ds7oLbYtYbzzciMz',
-            'environment' => 'production', 
+            'accessToken' => env('SQUARE_ACCESS_TOKEN'),
+            'environment' => env('SQUARE_ENVIRONMENT'),
         ]);
         $customersApi = $client->getCustomersApi();
         // get Subscriptions 
@@ -472,7 +472,7 @@ class PaymentController extends Controller
             // Retrieve the plan ID based on the package type
             $planId = $package->plan_id;
             // Create subscription
-            $createSubscriptionRequest = new \Square\Models\CreateSubscriptionRequest('L09XH4WWXKBAN', $planId,$customerId);
+            $createSubscriptionRequest = new \Square\Models\CreateSubscriptionRequest(env('SQUARE_LOCATION_ID'), $planId,$customerId);
             $createSubscriptionRequest->setCardId($card->card_id);
             $subscriptionResponse = $subscriptionsApi->createSubscription($createSubscriptionRequest);
             // check if subscription success
@@ -508,8 +508,8 @@ class PaymentController extends Controller
     }
     public function deleteSubscribtion(Request $request,$id){
         $client = new SquareClient([
-            'accessToken' => 'EAAAl8Ag58FVcJ5Suwt4U3OUtp_yfLM7CL-Qt8G5Ng-0PcJ8ds7oLbYtYbzzciMz',
-            'environment' => 'production', 
+            'accessToken' => env('SQUARE_ACCESS_TOKEN'),
+            'environment' => env('SQUARE_ENVIRONMENT'),
         ]);
         $api_response = $client->getSubscriptionsApi()->cancelSubscription($id);
 
@@ -524,8 +524,8 @@ class PaymentController extends Controller
     public function listSubscriptionPlans()
     {
         $client = new SquareClient([
-            'accessToken' => 'EAAAl8Ag58FVcJ5Suwt4U3OUtp_yfLM7CL-Qt8G5Ng-0PcJ8ds7oLbYtYbzzciMz',
-                'environment' => 'production', 
+            'accessToken' => env('SQUARE_ACCESS_TOKEN'),
+            'environment' => env('SQUARE_ENVIRONMENT'),
         ]);
 
         $catalogApi = $client->getCatalogApi();

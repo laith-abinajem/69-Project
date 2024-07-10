@@ -601,7 +601,10 @@
 <script src="https://web.squarecdn.com/v1/square.js"></script>
 <script>
     async function initializeSquarePayments() {
-        const payments = Square.payments('sq0idp-8mKT7to57PX7XoTmEAiTPA', 'production'); // or 'production'
+        // const payments = Square.payments('sq0idp-8mKT7to57PX7XoTmEAiTPA', 'production'); // or 'production'
+        const applicationId = '{{ env('SQUARE_APPLICATION_ID') }}';
+        const environment = '{{ env('SQUARE_ENVIRONMENT') }}';
+        const payments = Square.payments(applicationId, environment);
         const card = await payments.card();
         await card.attach('#card-container');
         const customerId = @json(auth()->user()->square_customer_id);
