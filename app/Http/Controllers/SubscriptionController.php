@@ -113,8 +113,8 @@ class SubscriptionController extends Controller
     }
     public function update(Request $request){
         $client = new SquareClient([
-            'accessToken' => 'EAAAl8Ag58FVcJ5Suwt4U3OUtp_yfLM7CL-Qt8G5Ng-0PcJ8ds7oLbYtYbzzciMz',
-            'environment' => 'production', 
+            'accessToken' => 'EAAAl4ZyBLIRqCXuoUe-u77nYVLdmAyxjFzYHgQHyv9TuaY6dYEWzYsqiWJekQHe',
+            'environment' => 'sandbox',
         ]);
         $package = Package::find($request->package_id);
         $user = User::find(auth()->user()->id);

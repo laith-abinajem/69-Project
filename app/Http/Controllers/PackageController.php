@@ -58,8 +58,8 @@ class PackageController extends Controller
             }
          
             $client = new SquareClient([
-                'accessToken' => 'EAAAl8Ag58FVcJ5Suwt4U3OUtp_yfLM7CL-Qt8G5Ng-0PcJ8ds7oLbYtYbzzciMz',
-                'environment' => 'production', 
+                'accessToken' => 'EAAAl4ZyBLIRqCXuoUe-u77nYVLdmAyxjFzYHgQHyv9TuaY6dYEWzYsqiWJekQHe',
+                'environment' => 'sandbox',
             ]);
         
             $catalogApi = $client->getCatalogApi();
@@ -122,10 +122,9 @@ class PackageController extends Controller
       
      
         $client = new SquareClient([
-            'accessToken' => 'EAAAl8Ag58FVcJ5Suwt4U3OUtp_yfLM7CL-Qt8G5Ng-0PcJ8ds7oLbYtYbzzciMz',
-            'environment' => 'production', 
+            'accessToken' => 'EAAAl4ZyBLIRqCXuoUe-u77nYVLdmAyxjFzYHgQHyv9TuaY6dYEWzYsqiWJekQHe',
+            'environment' => 'sandbox',
         ]);
-    
         $catalogApi = $client->getCatalogApi();
         
         $priceMoney = new Money();

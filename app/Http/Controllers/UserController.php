@@ -91,7 +91,7 @@ class UserController extends Controller
             $createCustomerRequest->setGivenName($user->name);
             $client = new SquareClient([
                 'accessToken' => 'EAAAl4ZyBLIRqCXuoUe-u77nYVLdmAyxjFzYHgQHyv9TuaY6dYEWzYsqiWJekQHe',
-                'environment' => 'sandbox', 
+                'environment' => 'sandbox',
             ]);
             $customersApi = $client->getCustomersApi();
     
@@ -262,7 +262,7 @@ class UserController extends Controller
             $createCustomerRequest->setGivenName($user->name);
             $client = new SquareClient([
                 'accessToken' => 'EAAAl4ZyBLIRqCXuoUe-u77nYVLdmAyxjFzYHgQHyv9TuaY6dYEWzYsqiWJekQHe',
-                'environment' => 'sandbox', 
+                'environment' => 'sandbox',
             ]);
             $customersApi = $client->getCustomersApi();
     
@@ -320,8 +320,8 @@ class UserController extends Controller
     }
     public function deleteEmplyee(Request $request,$id){
         $client = new SquareClient([
-            'accessToken' => 'EAAAl8Ag58FVcJ5Suwt4U3OUtp_yfLM7CL-Qt8G5Ng-0PcJ8ds7oLbYtYbzzciMz',
-            'environment' => 'production', 
+            'accessToken' => 'EAAAl4ZyBLIRqCXuoUe-u77nYVLdmAyxjFzYHgQHyv9TuaY6dYEWzYsqiWJekQHe',
+            'environment' => 'sandbox',
         ]);
         $user = User::find($id);
         $sub = Subscription::where('user_id',$id)->first();

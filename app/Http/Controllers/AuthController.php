@@ -40,8 +40,8 @@ class AuthController extends Controller
         $email = Str::lower($request->input('email'));
         $password = $request->input('password');
         $client = new SquareClient([
-            'accessToken' => 'EAAAl8Ag58FVcJ5Suwt4U3OUtp_yfLM7CL-Qt8G5Ng-0PcJ8ds7oLbYtYbzzciMz',
-            'environment' => 'production', 
+            'accessToken' => 'EAAAl4ZyBLIRqCXuoUe-u77nYVLdmAyxjFzYHgQHyv9TuaY6dYEWzYsqiWJekQHe',
+            'environment' => 'sandbox',
         ]);
         // Fetch user by email case-insensitively
         $user = User::whereRaw('lower(email) = ?', [$email])->first();

@@ -36,7 +36,7 @@ class PaymentController extends Controller
     public function __construct()
     {
         $this->client = new SquareClient([
-            'accessToken' => env('SQUARE_ACCESS_TOKEN'),
+            'accessToken' => 'EAAAl4ZyBLIRqCXuoUe-u77nYVLdmAyxjFzYHgQHyv9TuaY6dYEWzYsqiWJekQHe',
             'environment' => Environment::SANDBOX, // Default to sandbox
         ]);
         
@@ -44,8 +44,8 @@ class PaymentController extends Controller
 
     function createPayment(Request $request){
         $client = new SquareClient([
-            'accessToken' => env('SQUARE_ACCESS_TOKEN'),
-            'environment' => env('SQUARE_ENVIRONMENT'),
+            'accessToken' => 'EAAAl4ZyBLIRqCXuoUe-u77nYVLdmAyxjFzYHgQHyv9TuaY6dYEWzYsqiWJekQHe',
+            'environment' => 'sandbox',
         ]);
 
         // Retrieve Catalog Objects
@@ -224,8 +224,8 @@ class PaymentController extends Controller
         }
        
         $client = new SquareClient([
-            'accessToken' => env('SQUARE_ACCESS_TOKEN'),
-            'environment' => env('SQUARE_ENVIRONMENT'),
+            'accessToken' => 'EAAAl4ZyBLIRqCXuoUe-u77nYVLdmAyxjFzYHgQHyv9TuaY6dYEWzYsqiWJekQHe',
+            'environment' => 'sandbox',
         ]);
         
         $checkout_api = $client->getCheckoutApi();
@@ -267,8 +267,8 @@ class PaymentController extends Controller
 
     function checkPayment(Request $request){
         $client = new SquareClient([
-            'accessToken' => env('SQUARE_ACCESS_TOKEN'),
-            'environment' => env('SQUARE_ENVIRONMENT'),
+            'accessToken' => 'EAAAl4ZyBLIRqCXuoUe-u77nYVLdmAyxjFzYHgQHyv9TuaY6dYEWzYsqiWJekQHe',
+            'environment' => 'sandbox',
         ]);
         // $subscription = Subscription::find($request->subscription_id);
         
@@ -343,8 +343,8 @@ class PaymentController extends Controller
         $customerId = $request->input('customer_id');
         $nonce = $request->input('nonce');
         $client = new SquareClient([
-            'accessToken' => env('SQUARE_ACCESS_TOKEN'),
-            'environment' => env('SQUARE_ENVIRONMENT'),
+            'accessToken' => 'EAAAl4ZyBLIRqCXuoUe-u77nYVLdmAyxjFzYHgQHyv9TuaY6dYEWzYsqiWJekQHe',
+            'environment' => 'sandbox',
         ]);
         try {
             $billing_address = new \Square\Models\Address();
@@ -388,8 +388,8 @@ class PaymentController extends Controller
     public function createSubscriptionPlans()
     {
         $client = new SquareClient([
-            'accessToken' => env('SQUARE_ACCESS_TOKEN'),
-            'environment' => env('SQUARE_ENVIRONMENT'),
+            'accessToken' => 'EAAAl4ZyBLIRqCXuoUe-u77nYVLdmAyxjFzYHgQHyv9TuaY6dYEWzYsqiWJekQHe',
+            'environment' => 'sandbox',
         ]);
 
         $catalogApi = $client->getCatalogApi();
@@ -457,8 +457,8 @@ class PaymentController extends Controller
     public function createPayment2(Request $request)
     {
         $client = new SquareClient([
-            'accessToken' => env('SQUARE_ACCESS_TOKEN'),
-            'environment' => env('SQUARE_ENVIRONMENT'),
+            'accessToken' => 'EAAAl4ZyBLIRqCXuoUe-u77nYVLdmAyxjFzYHgQHyv9TuaY6dYEWzYsqiWJekQHe',
+            'environment' => 'sandbox',
         ]);
         $customersApi = $client->getCustomersApi();
         // get Subscriptions 
@@ -508,8 +508,8 @@ class PaymentController extends Controller
     }
     public function deleteSubscribtion(Request $request,$id){
         $client = new SquareClient([
-            'accessToken' => env('SQUARE_ACCESS_TOKEN'),
-            'environment' => env('SQUARE_ENVIRONMENT'),
+            'accessToken' => 'EAAAl4ZyBLIRqCXuoUe-u77nYVLdmAyxjFzYHgQHyv9TuaY6dYEWzYsqiWJekQHe',
+            'environment' => 'sandbox',
         ]);
         $api_response = $client->getSubscriptionsApi()->cancelSubscription($id);
 
@@ -524,8 +524,8 @@ class PaymentController extends Controller
     public function listSubscriptionPlans()
     {
         $client = new SquareClient([
-            'accessToken' => env('SQUARE_ACCESS_TOKEN'),
-            'environment' => env('SQUARE_ENVIRONMENT'),
+            'accessToken' => 'EAAAl4ZyBLIRqCXuoUe-u77nYVLdmAyxjFzYHgQHyv9TuaY6dYEWzYsqiWJekQHe',
+            'environment' => 'sandbox',
         ]);
 
         $catalogApi = $client->getCatalogApi();
