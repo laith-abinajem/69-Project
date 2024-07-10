@@ -93,7 +93,6 @@
                                         <option value="zh" <?= $data->language == 'zh' ? 'selected' : '' ?>>Chinese</option>
                                         <option value="es" <?= $data->language == 'es' ? 'selected' : '' ?>>Spanish</option>
                                         <option value="hi" <?= $data->language == 'hi' ? 'selected' : '' ?>>Hindi</option>
-                                        <option value="ar" <?= $data->language == 'ar' ? 'selected' : '' ?>>Arabic</option>
                                         <option value="bn" <?= $data->language == 'bn' ? 'selected' : '' ?>>Bengali</option>
                                         <option value="pt" <?= $data->language == 'pt' ? 'selected' : '' ?>>Portuguese</option>
                                         <option value="ru" <?= $data->language == 'ru' ? 'selected' : '' ?>>Russian</option>
@@ -109,6 +108,34 @@
                                         <option value="tr" <?= $data->language == 'tr' ? 'selected' : '' ?>>Turkish</option>
                                         <option value="fa" <?= $data->language == 'fa' ? 'selected' : '' ?>>Persian</option>
                                         <option value="pl" <?= $data->language == 'pl' ? 'selected' : '' ?>>Polish</option>
+                                        <option value="nl" <?= $data->language == 'nl' ? 'selected' : '' ?>>Dutch</option>
+                                        <option value="el" <?= $data->language == 'el' ? 'selected' : '' ?>>Greek</option>
+                                        <option value="he" <?= $data->language == 'he' ? 'selected' : '' ?>>Hebrew</option>
+                                        <option value="th" <?= $data->language == 'th' ? 'selected' : '' ?>>Thai</option>
+                                        <option value="sv" <?= $data->language == 'sv' ? 'selected' : '' ?>>Swedish</option>
+                                        <option value="hu" <?= $data->language == 'hu' ? 'selected' : '' ?>>Hungarian</option>
+                                        <option value="fi" <?= $data->language == 'fi' ? 'selected' : '' ?>>Finnish</option>
+                                        <option value="da" <?= $data->language == 'da' ? 'selected' : '' ?>>Danish</option>
+                                        <option value="no" <?= $data->language == 'no' ? 'selected' : '' ?>>Norwegian</option>
+                                        <option value="ro" <?= $data->language == 'ro' ? 'selected' : '' ?>>Romanian</option>
+                                        <option value="cs" <?= $data->language == 'cs' ? 'selected' : '' ?>>Czech</option>
+                                        <option value="sk" <?= $data->language == 'sk' ? 'selected' : '' ?>>Slovak</option>
+                                        <option value="bg" <?= $data->language == 'bg' ? 'selected' : '' ?>>Bulgarian</option>
+                                        <option value="hr" <?= $data->language == 'hr' ? 'selected' : '' ?>>Croatian</option>
+                                        <option value="sr" <?= $data->language == 'sr' ? 'selected' : '' ?>>Serbian</option>
+                                        <option value="uk" <?= $data->language == 'uk' ? 'selected' : '' ?>>Ukrainian</option>
+                                        <option value="ca" <?= $data->language == 'ca' ? 'selected' : '' ?>>Catalan</option>
+                                        <option value="ms" <?= $data->language == 'ms' ? 'selected' : '' ?>>Malay</option>
+                                        <option value="id" <?= $data->language == 'id' ? 'selected' : '' ?>>Indonesian</option>
+                                        <option value="tl" <?= $data->language == 'tl' ? 'selected' : '' ?>>Tagalog</option>
+                                        <option value="et" <?= $data->language == 'et' ? 'selected' : '' ?>>Estonian</option>
+                                        <option value="lv" <?= $data->language == 'lv' ? 'selected' : '' ?>>Latvian</option>
+                                        <option value="lt" <?= $data->language == 'lt' ? 'selected' : '' ?>>Lithuanian</option>
+                                        <option value="sl" <?= $data->language == 'sl' ? 'selected' : '' ?>>Slovenian</option>
+                                        <option value="mt" <?= $data->language == 'mt' ? 'selected' : '' ?>>Maltese</option>
+                                        <option value="is" <?= $data->language == 'is' ? 'selected' : '' ?>>Icelandic</option>
+                                        <option value="ga" <?= $data->language == 'ga' ? 'selected' : '' ?>>Irish</option>
+                                        <option value="sq" <?= $data->language == 'sq' ? 'selected' : '' ?>>Albanian</option>
                                     </select>
                                 </div>
                             </div>

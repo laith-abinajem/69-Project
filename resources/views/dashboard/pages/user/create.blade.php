@@ -90,7 +90,6 @@
                                         <option value="zh">Chinese</option>
                                         <option value="es">Spanish</option>
                                         <option value="hi">Hindi</option>
-                                        <option value="ar">Arabic</option>
                                         <option value="bn">Bengali</option>
                                         <option value="pt">Portuguese</option>
                                         <option value="ru">Russian</option>
@@ -106,6 +105,34 @@
                                         <option value="tr">Turkish</option>
                                         <option value="fa">Persian</option>
                                         <option value="pl">Polish</option>
+                                        <option value="nl">Dutch</option>
+                                        <option value="el">Greek</option>
+                                        <option value="he">Hebrew</option>
+                                        <option value="th">Thai</option>
+                                        <option value="sv">Swedish</option>
+                                        <option value="hu">Hungarian</option>
+                                        <option value="fi">Finnish</option>
+                                        <option value="da">Danish</option>
+                                        <option value="no">Norwegian</option>
+                                        <option value="ro">Romanian</option>
+                                        <option value="cs">Czech</option>
+                                        <option value="sk">Slovak</option>
+                                        <option value="bg">Bulgarian</option>
+                                        <option value="hr">Croatian</option>
+                                        <option value="sr">Serbian</option>
+                                        <option value="uk">Ukrainian</option>
+                                        <option value="ca">Catalan</option>
+                                        <option value="ms">Malay</option>
+                                        <option value="id">Indonesian</option>
+                                        <option value="tl">Tagalog</option>
+                                        <option value="et">Estonian</option>
+                                        <option value="lv">Latvian</option>
+                                        <option value="lt">Lithuanian</option>
+                                        <option value="sl">Slovenian</option>
+                                        <option value="mt">Maltese</option>
+                                        <option value="is">Icelandic</option>
+                                        <option value="ga">Irish</option>
+                                        <option value="sq">Albanian</option>
                                     </select>
                                 </div>
                             </div>
