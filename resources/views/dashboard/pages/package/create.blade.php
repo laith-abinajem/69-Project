@@ -37,6 +37,7 @@
                                 <option value="WEEKLY">7 days trail</option>
                                 <option selected value="WEEKLY">Weekly Plan</option>
                                 <option value="MONTHLY">Monthly Plan</option>
+                                <option value="DAILY">1</option>
                                 <option value="NINETY_DAYS">3 Months Plan</option>
                                 <option value="QUARTERLY">Quarterly Plan</option>
                                 <option value="ANNUAL">Annual Plan</option>

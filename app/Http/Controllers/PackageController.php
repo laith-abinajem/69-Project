@@ -55,8 +55,12 @@ class PackageController extends Controller
                 $package->update([
                     'days'=>360
                 ]);
-            }
-         
+            }elseif($request->interval === "DAILY"){
+            $package->update([
+                'days'=>1
+            ]);
+        }
+     
             $client = new SquareClient([
                 'accessToken' => 'EAAAl4ZyBLIRqCXuoUe-u77nYVLdmAyxjFzYHgQHyv9TuaY6dYEWzYsqiWJekQHe',
                 'environment' => 'sandbox',
