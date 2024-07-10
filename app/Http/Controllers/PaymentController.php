@@ -272,7 +272,7 @@ class PaymentController extends Controller
         ]);
         // $subscription = Subscription::find($request->subscription_id);
         
-        $api_response = $client->getTransactionsApi()->retrieveTransaction(env('SQUARE_LOCATION_ID'),$request->transactionId);
+        $api_response = $client->getTransactionsApi()->retrieveTransaction('LJ17XDN9GP4GY',$request->transactionId);
         if ($api_response->isSuccess()) {
 
             // get list card + save it in table + then we can refund money
@@ -472,7 +472,7 @@ class PaymentController extends Controller
             // Retrieve the plan ID based on the package type
             $planId = $package->plan_id;
             // Create subscription
-            $createSubscriptionRequest = new \Square\Models\CreateSubscriptionRequest(env('SQUARE_LOCATION_ID'), $planId,$customerId);
+            $createSubscriptionRequest = new \Square\Models\CreateSubscriptionRequest('LJ17XDN9GP4GY', $planId,$customerId);
             $createSubscriptionRequest->setCardId($card->card_id);
             $subscriptionResponse = $subscriptionsApi->createSubscription($createSubscriptionRequest);
             // check if subscription success
