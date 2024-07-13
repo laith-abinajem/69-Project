@@ -265,6 +265,29 @@
 
 				return isValid;
 				}
+
+				// Event when file is selected
+				$('.dropify').on('change', function(event) {
+					var file = event.target.files[0];
+					var img = new Image();
+					var dropifyElement = $(this);
+
+					img.onload = function() {
+						if (img.width !== 1000 || img.height !== 500) {
+							alert('Please upload an image with the dimensions 1000x500 pixels.');
+							dropifyElement.dropify().data('dropify').resetPreview(); // Reset Dropify preview
+							dropifyElement.dropify().data('dropify').clearElement(); // Clear the Dropify input
+						}
+					};
+
+					img.onerror = function() {
+						alert('Invalid image file.');
+						dropifyElement.dropify().data('dropify').resetPreview(); // Reset Dropify preview
+						dropifyElement.dropify().data('dropify').clearElement(); // Clear the Dropify input
+					};
+
+					img.src = URL.createObjectURL(file);
+				});
 			
 			})
 		</script>

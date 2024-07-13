@@ -47,7 +47,7 @@ class LightTintController extends Controller
             }
             if($user->lightTints->count() >= 5){
                 Alert::toast('You cant add more than 5 ppf', 'error');
-                return redirect()->route('dashboard.ppf.index');
+                return redirect()->route('dashboard.ppf.index' , ['user_id' => $user_id]);
             }
             $lightTint = LightTint::create([
                 'light_brand' => $request->light_brand,
@@ -77,7 +77,7 @@ class LightTintController extends Controller
             }
            
             Alert::toast('Light tint created successfully', 'success');
-            return redirect()->route('dashboard.light.index');
+            return redirect()->route('dashboard.light.index', ['user_id' => $user_id]);
         } catch (\Exception $e) {
             Alert::toast('An error occurred while updating the Light tint', 'error');
             return redirect()->back()->withInput();
@@ -128,7 +128,7 @@ class LightTintController extends Controller
             }
     
             Alert::toast('Light tint updated successfully', 'success');
-            return redirect()->route('dashboard.light.index');
+            return redirect()->route('dashboard.light.index', ['user_id' => $user_id]);
         } catch (\Exception $e) {
             Alert::toast('An error occurred while updating the Light tint', 'error');
             return redirect()->back()->withInput();
@@ -137,8 +137,9 @@ class LightTintController extends Controller
     }
     public function delete(Request $request,$id){
         $data = LightTint::find($id);
+        $user_id = $data->user_id;
         $data->delete();
         toast('Success','success');
-        return redirect()->route('dashboard.light.index');
+        return redirect()->route('dashboard.light.index', ['user_id' => $user_id]);
     }
 }

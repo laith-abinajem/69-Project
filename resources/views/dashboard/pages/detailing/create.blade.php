@@ -53,13 +53,12 @@
                                     </select>
                                 </div>
                                 <div class="col-md-5 col-lg-6 mb-2">
-                                    <label class="form-control-label">guage level<span class="tx-danger">*</span></label>
-                                    <select name="guage_level" id="guage_level" class="form-control paintProtectionFil " >
-                                        <option value="1">1 minimum heat rejection</option>
-                                        <option value="2">2 good heat rejection </option>
-                                        <option value="3">3 very good heat rejection </option>
-                                        <option value="4">4 excellent heat rejection</option>
-                                        <option value="5">5 maximum heat reject </option>
+                                    <label class="form-control-label">Detailing brand level<span class="tx-danger">*</span></label>
+                                    <select name="detailing_brand_level" id="detailing_brand_level" class="form-control paintProtectionFil " >
+                                        <option value="BRONZE">BRONZE</option>
+                                        <option value="SILVER">SILVER</option>
+                                        <option value="GOLD">GOLD</option>
+                                        <option value="PLATINUM">PLATINUM</option>
                                     </select>
                                 </div>
                                 <div class="col-md-5 col-lg-6 mb-2">

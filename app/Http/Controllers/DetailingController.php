@@ -53,17 +53,17 @@ class DetailingController extends Controller
 
         if($exterior_count > 4){
             Alert::toast("You can't add more than 4 exterior", 'error');
-            return redirect()->route('dashboard.detailing.index');
+            return redirect()->route('dashboard.detailing.index' , ['user_id' => $user_id]);
         }
         
         if($interior_count > 4){
             Alert::toast("You can't add more than 4 exterior", 'error');
-            return redirect()->route('dashboard.detailing.index');
+            return redirect()->route('dashboard.detailing.index', ['user_id' => $user_id]);
         }
         
         if($inout_count > 4){
             Alert::toast("You can't add more than 4 exterior", 'error');
-            return redirect()->route('dashboard.detailing.index');
+            return redirect()->route('dashboard.detailing.index', ['user_id' => $user_id]);
         }
 
         $detailingBrand = Detailing::create([
@@ -71,7 +71,7 @@ class DetailingController extends Controller
             'detailing_description' => $request->detailing_description,
             'detailing_type' => $request->detailing_type,
             'hex' => $request->hex,
-            'guage_level' => $request->guage_level,
+            'detailing_brand_level' => $request->detailing_brand_level,
             'user_id'=> $user->id
         ]);
         if ($request->hasFile('detailing_image')) {
@@ -93,7 +93,7 @@ class DetailingController extends Controller
         }
     
         Alert::toast('detailing Brand created successfully', 'success');
-        return redirect()->route('dashboard.detailing.index');
+        return redirect()->route('dashboard.detailing.index', ['user_id' => $user_id]);
     
     }
     public function edit($id){
@@ -120,17 +120,17 @@ class DetailingController extends Controller
     
             if($exterior_count > 4){
                 Alert::toast("You can't add more than 4 exterior", 'error');
-                return redirect()->route('dashboard.detailing.index');
+                return redirect()->route('dashboard.detailing.index', ['user_id' => $user_id]);
             }
             
             if($interior_count > 4){
                 Alert::toast("You can't add more than 4 exterior", 'error');
-                return redirect()->route('dashboard.detailing.index');
+                return redirect()->route('dashboard.detailing.index', ['user_id' => $user_id]);
             }
             
             if($inout_count > 4){
                 Alert::toast("You can't add more than 4 exterior", 'error');
-                return redirect()->route('dashboard.detailing.index');
+                return redirect()->route('dashboard.detailing.index', ['user_id' => $user_id]);
             }
     
             $detailingBrand = Detailing::findOrFail($id);
@@ -139,7 +139,7 @@ class DetailingController extends Controller
                 'detailing_description' => $request->detailing_description,
                 'detailing_type' => $request->detailing_type,
                 'hex' => $request->hex,
-                'guage_level' => $request->guage_level,
+                'detailing_brand_level' => $request->detailing_brand_level,
                 'user_id'=> $user->id
             ]);
             if ($request->hasFile('detailing_image')) {
@@ -162,7 +162,7 @@ class DetailingController extends Controller
             }
         
             Alert::toast('detailing Brand created successfully', 'success');
-            return redirect()->route('dashboard.detailing.index');
+            return redirect()->route('dashboard.detailing.index', ['user_id' => $user_id]);
         
             } catch (\Exception $e) {
                 Alert::toast('An error occurred while updating the TintBrand', 'error');
@@ -171,7 +171,8 @@ class DetailingController extends Controller
     }
     public function delete(Request $request,$id){
         $detailingBrand = Detailing::find($id);
+        $user_id = $detailingBrand->user_id;
         $detailingBrand->delete();
-        return redirect()->route('dashboard.detailing.index');
+        return redirect()->route('dashboard.detailing.index', ['user_id' => $user_id]);
     }
 }

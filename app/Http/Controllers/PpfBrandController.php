@@ -46,7 +46,7 @@ class PpfBrandController extends Controller
             }
             if($user->ppfBrands->count() >= 5){
                 Alert::toast('You cant add more than 5 ppf', 'error');
-                return redirect()->route('dashboard.ppf.index');
+                return redirect()->route('dashboard.ppf.index', ['user_id' => $user_id]);
             }
             $ppfBrand = PpfBrand::create([
                 'ppf_brand' => $request->ppf_brand,
@@ -77,7 +77,7 @@ class PpfBrandController extends Controller
             }
            
             Alert::toast('Ppf Brand created successfully', 'success');
-            return redirect()->route('dashboard.ppf.index');
+            return redirect()->route('dashboard.ppf.index', ['user_id' => $user_id]);
        
     }
     public function edit($id){
@@ -126,7 +126,7 @@ class PpfBrandController extends Controller
             }
     
             Alert::toast('Ppf Brand updated successfully', 'success');
-            return redirect()->route('dashboard.ppf.index');
+            return redirect()->route('dashboard.ppf.index', ['user_id' => $user_id]);
         } catch (\Exception $e) {
             Alert::toast('An error occurred while updating the Ppf Brand', 'error');
             return redirect()->back()->withInput();
@@ -134,8 +134,9 @@ class PpfBrandController extends Controller
     }
     public function delete(Request $request,$id){
         $data = PpfBrand::find($id);
+        $user_id = $data->user_id;
         $data->delete();
         toast('Success','success');
-        return redirect()->route('dashboard.ppf.index');
+        return redirect()->route('dashboard.ppf.index', ['user_id' => $user_id]);
     }
 }

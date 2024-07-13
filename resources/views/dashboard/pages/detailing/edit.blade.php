@@ -54,13 +54,12 @@
                                     </select>
                                 </div>
                                 <div class="col-md-5 col-lg-6 mb-2">
-                                    <label class="form-control-label">guage level<span class="tx-danger">*</span></label>
-                                    <select name="guage_level" id="guage_level" class="form-control paintProtectionFil " >
-                                        <option value="1" {{ $detailingBrand->guage_level == 1 ? 'selected' : '' }}>1 minimum heat rejection</option>
-                                        <option value="2" {{ $detailingBrand->guage_level == 2 ? 'selected' : '' }}>2 good heat rejection </option>
-                                        <option value="3" {{ $detailingBrand->guage_level == 3 ? 'selected' : '' }}>3 very good heat rejection </option>
-                                        <option value="4" {{ $detailingBrand->guage_level == 4 ? 'selected' : '' }}>4 excellent heat rejection</option>
-                                        <option value="5" {{ $detailingBrand->guage_level == 5 ? 'selected' : '' }}>5 maximum heat reject </option>
+                                    <label class="form-control-label">Detailing brand level<span class="tx-danger">*</span></label>
+                                    <select name="detailing_brand_level" id="detailing_brand_level" class="form-control paintProtectionFil " >
+                                        <option value="BRONZE" {{ $detailingBrand->detailing_brand_level == 'BRONZE' ? 'selected' : '' }}>BRONZE</option>
+                                        <option value="SILVER" {{ $detailingBrand->detailing_brand_level == 'SILVER' ? 'selected' : '' }}>SILVER</option>
+                                        <option value="GOLD" {{ $detailingBrand->detailing_brand_level == 'GOLD' ? 'selected' : '' }}>GOLD</option>
+                                        <option value="PLATINUM" {{ $detailingBrand->detailing_brand_level == 'PLATINUM' ? 'selected' : '' }}>PLATINUM</option>
                                     </select>
                                 </div>
                                 <div class="col-md-5 col-lg-6 mb-2">

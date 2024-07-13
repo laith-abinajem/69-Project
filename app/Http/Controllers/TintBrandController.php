@@ -49,7 +49,7 @@ class TintBrandController extends Controller
             }
             if($user->tintBrands->count() >= 5){
                 Alert::toast('You cant add more than 5 tint', 'error');
-                return redirect()->route('dashboard.tint.index');
+                return redirect()->route('dashboard.tint.index', ['user_id' => $user_id]);
             }
             $tintBrand = TintBrand::create([
                 'tint_brand' => $request->tint_brand,
@@ -80,7 +80,7 @@ class TintBrandController extends Controller
             }
            
             Alert::toast('TintBrand created successfully', 'success');
-            return redirect()->route('dashboard.tint.index');
+            return redirect()->route('dashboard.tint.index', ['user_id' => $user_id]);
        
     }
     public function edit($id){
@@ -129,7 +129,7 @@ class TintBrandController extends Controller
             }
     
             Alert::toast('TintBrand updated successfully', 'success');
-            return redirect()->route('dashboard.tint.index');
+            return redirect()->route('dashboard.tint.index', ['user_id' => $user_id]);
         } catch (\Exception $e) {
             Alert::toast('An error occurred while updating the TintBrand', 'error');
             return redirect()->back()->withInput();
@@ -137,8 +137,9 @@ class TintBrandController extends Controller
     }
     public function delete(Request $request,$id){
         $data = TintBrand::find($id);
+        $user_id = $data->user_id;
         $data->delete();
         toast('Success','success');
-        return redirect()->route('dashboard.tint.index');
+        return redirect()->route('dashboard.tint.index', ['user_id' => $user_id]);
     }
 }

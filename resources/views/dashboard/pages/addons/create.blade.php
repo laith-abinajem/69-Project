@@ -72,7 +72,7 @@
                     </div>
                     <div class="form-group text-end mt-2">
                         <button type="submit" class="button btn btn-primary">Save</button>
-                        <button type="button" class="btn btn-secondary" onclick="window.location='{{ route('dashboard.addons.index') }}'">Cancel</button>
+                        <button type="button" class="btn btn-secondary" onclick="history.back()">Cancel</button>
                     </div>
                 </form>
             </div> <!-- end card-body -->

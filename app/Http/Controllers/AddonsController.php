@@ -55,7 +55,7 @@ class AddonsController extends Controller
         }
     
         Alert::toast('Service created successfully', 'success');
-        return redirect()->route('dashboard.addons.index');
+        return redirect()->route('dashboard.addons.index', ['user_id' => $user_id]);
        
     }
     public function edit($id){
@@ -86,7 +86,7 @@ class AddonsController extends Controller
                 $addson->addMedia($request->file('addon_image'))->toMediaCollection('addon_image');
             }
             Alert::toast('Service updated successfully', 'success');
-            return redirect()->route('dashboard.addons.index');
+            return redirect()->route('dashboard.addons.index' , ['user_id' => $user_id]);
         } catch (\Exception $e) {
             Alert::toast('An error occurred while updating the Service', 'error');
             return redirect()->back()->withInput();
@@ -94,8 +94,9 @@ class AddonsController extends Controller
     }
     public function delete(Request $request,$id){
         $addson = AddsOn::find($id);
+        $user_id = $addson->user_id;
         $addson->delete();
         toast('Success','success');
-        return redirect()->route('dashboard.addons.index');
+        return redirect()->route('dashboard.addons.index', ['user_id' => $user_id]);
     }
 }
