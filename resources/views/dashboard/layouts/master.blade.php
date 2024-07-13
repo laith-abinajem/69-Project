@@ -277,7 +277,6 @@
 
 					img.onload = function() {
 						if (img.width !== 1000 || img.height !== 500) {
-							console.log(img.width + "...." + img.height);
 							alert('Please upload an image with the dimensions 1000x500 pixels.');
 							dropifyElement.dropify().data('dropify').resetPreview(); // Reset Dropify preview
 							dropifyElement.dropify().data('dropify').clearElement(); // Clear the Dropify input
