@@ -266,14 +266,18 @@
 				return isValid;
 				}
 
+				// Initialize Dropify for elements with the class 'largeDropify'
+				$('.largeDropify').dropify();
+
 				// Event when file is selected
 				$('.largeDropify').on('change', function(event) {
 					var file = event.target.files[0];
 					var img = new Image();
-					var dropifyElement = $(this);
+					var dropifyElement = $(this); // Capture the current Dropify element context
 
 					img.onload = function() {
 						if (img.width !== 1000 || img.height !== 500) {
+							console.log(img.width + "...." + img.height);
 							alert('Please upload an image with the dimensions 1000x500 pixels.');
 							dropifyElement.dropify().data('dropify').resetPreview(); // Reset Dropify preview
 							dropifyElement.dropify().data('dropify').clearElement(); // Clear the Dropify input
