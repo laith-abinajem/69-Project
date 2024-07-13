@@ -267,7 +267,7 @@
 				}
 
 				// Event when file is selected
-				$('.dropify').on('change', function(event) {
+				$('.largeDropify').on('change', function(event) {
 					var file = event.target.files[0];
 					var img = new Image();
 					var dropifyElement = $(this);

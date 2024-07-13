@@ -25,7 +25,7 @@
                             <div class="row row-sm">
                                 <div class="col-12 mb-2">
                                     <label class="form-control-label">Detailing Image: <span class="tx-danger">*</span></label>
-                                    <input type="file" name="detailing_image" value="{{ old('detailing_image') }}" id="brandimage" class="dropify2" data-default-file="{{ $photos }}" data-height="200" />
+                                    <input type="file" name="detailing_image" value="{{ old('detailing_image') }}" id="brandimage" class="dropify2 largeDropify" data-default-file="{{ $photos }}" data-height="200" />
                                     <small class="form-text text-muted">
                                      Recommended dimensions: 1000x500 pixels, transparent background
                                     </small>

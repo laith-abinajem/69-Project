@@ -23,7 +23,7 @@
                             <div class="row row-sm">
                                 <div class="col-12 mb-2">
                                     <label class="form-control-label">Brand Image: <span class="tx-danger">*</span></label>
-                                    <input type="file" name="light_image" value="{{ old('light_image') }}" id="brandimage" class="dropify2" data-height="200" required />
+                                    <input type="file" name="light_image" value="{{ old('light_image') }}" id="brandimage" class="dropify2 largeDropify" data-height="200" required />
                                     <small class="form-text text-muted">
                                      Recommended dimensions: 1000x500 pixels, transparent background
                                     </small>

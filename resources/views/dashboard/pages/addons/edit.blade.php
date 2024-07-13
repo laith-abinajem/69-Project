@@ -22,7 +22,7 @@
                     <div class="row row-sm">
                         <div class="col-12 mb-2">
                             <label class="form-control-label">Add-on image: <span class="tx-danger">*</span></label>
-                            <input type="file" name="addon_image" value="{{ old('addon_image') }}" id="addon_image" class="dropify" data-height="200" data-default-file="{{ $photos }}" />
+                            <input type="file" name="addon_image" value="{{ old('addon_image') }}" id="addon_image" class="dropify largeDropify" data-height="200" data-default-file="{{ $photos }}" />
                             <small class="form-text text-muted">
                                 Recommended dimensions: 1000x500 pixels, transparent background
                             </small>

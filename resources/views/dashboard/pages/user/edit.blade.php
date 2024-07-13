@@ -155,21 +155,21 @@
                             </div>
                             <div class="col-6 mb-2">
                                 <label class="form-control-label">Company Logo: <span class="tx-danger">*</span></label>
-                                <input type="file" name="company_logo" value="{{ old('company_logo') }}" id="company_logo" class="dropify" data-height="200" data-default-file="{{ $companyLogo }}" />
+                                <input type="file" name="company_logo" value="{{ old('company_logo') }}" id="company_logo" class="dropify largeDropify" data-height="200" data-default-file="{{ $companyLogo }}" />
                                 <small class="form-text text-muted">
                                     Recommended dimensions: 1080x1080 or 2048x2048 pixels, transparent background
                                 </small>
                             </div>
                             <div class="col-6 mb-2">
                                 <label class="form-control-label">Decal Logo: <span class="tx-danger">*</span></label>
-                                <input type="file" name="decal_logo" value="{{ old('decal_logo') }}" id="decal_logo" class="dropify" data-height="200" data-default-file="{{ $decalLogo }}" />
+                                <input type="file" name="decal_logo" value="{{ old('decal_logo') }}" id="decal_logo" class="dropify largeDropify" data-height="200" data-default-file="{{ $decalLogo }}" />
                                 <small class="form-text text-muted">
                                     Recommended dimensions: 1000x500 or 2048x2048 pixels, transparent background
                                 </small>
                             </div>
                             <div class="col-6 mb-2">
                                 <label class="form-control-label">Detailing Decal: <span class="tx-danger">*</span></label>
-                                <input type="file" name="detailing_decal" value="{{ old('detailing_decal') }}" id="detailingdecal" class="dropify" data-height="200" data-default-file="{{ $detailing_decal }}"  />
+                                <input type="file" name="detailing_decal" value="{{ old('detailing_decal') }}" id="detailingdecal" class="dropify largeDropify" data-height="200" data-default-file="{{ $detailing_decal }}"  />
                                 <small class="form-text text-muted">
                                     Recommended dimensions: 1000x500 pixels, transparent background
                                 </small>
