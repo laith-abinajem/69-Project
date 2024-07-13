@@ -142,17 +142,18 @@ class UserController extends Controller
             $lightTint->light_image = $lightTint->getFirstMediaUrl('light_image');
             unset($lightTint->media);
             $lightTint->addons = $addons_light;
-    
-            $groupedLightsDetails = $lightTint->lightDetails->groupBy(function ($detail) {
-                $classCar = str_replace([' ', '(', ')'], '', $detail->class_car);
-                return $classCar . '-' . $detail->sub_class_car;
+        
+            // Sanitize class_car before grouping
+            $groupedLightsDetails = $lightTint->lightDetails->map(function ($detail) {
+                $detail->class_car = str_replace([' ', '(', ')'], '', $detail->class_car);
+                return $detail;
+            })->groupBy(function ($detail) {
+                return $detail->class_car . '-' . $detail->sub_class_car;
             })->map(function ($group) {
-                // Clean the class_car value for the output
-                $classCar = str_replace([' ', '(', ')'], '', $group->first()->class_car);
                 return [
                     'id' => $group->first()->id,
                     'light_id' => $group->first()->light_id,
-                    'class_car' => $classCar,
+                    'class_car' => $group->first()->class_car,
                     'sub_class_car' => $group->first()->sub_class_car,
                     'light_type' => $group->pluck('light_type')->toArray(),
                     'price' => $group->pluck('price')->toArray(),
@@ -160,7 +161,7 @@ class UserController extends Controller
                     'updated_at' => $group->first()->updated_at,
                 ];
             })->values()->toArray();
-    
+        
             $lightTint->light_details = $groupedLightsDetails;
             unset($ppfBrand->lightDetails);
         });
