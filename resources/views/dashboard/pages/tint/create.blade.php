@@ -62,11 +62,11 @@
                                 <div class="col-md-5 col-lg-6 mb-2">
                                     <label class="form-control-label">Tint brand level: <span class="tx-danger">*</span></label>
                                      <select name="tint_brand_level" id="brandlevel"  required class="form-control paintProtectionFil " >
-                                        <option value="1">1 </option>
-                                        <option value="2">2 </option>
-                                        <option value="3">3 </option>
-                                        <option value="4">4 </option>
-                                        <option value="5">5 </option>
+                                        <option value="standard">STANDARD </option>
+                                        <option value="advanced">ADVANCED </option>
+                                        <option value="premium">PREMIUM </option>
+                                        <option value="premium_plus">PREMIUM PLUS </option>
+                                        <option value="elite">ELITE </option>
                                     </select>
                                 </div>
                                 <div class="col-12 mg-t-20 mg-md-t-0 mb-2">
