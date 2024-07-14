@@ -266,30 +266,45 @@
 				return isValid;
 				}
 
+
 				// Initialize Dropify for elements with the class 'largeDropify'
 				$('.largeDropify').dropify();
 
 				// Event when file is selected
 				$('.largeDropify').on('change', function(event) {
+					var dropifyElement = $(this);
 					var file = event.target.files[0];
-					var img = new Image();
-					var dropifyElement = $(this); // Capture the current Dropify element context
 
-					img.onload = function() {
-						if (img.width !== 1000 || img.height !== 500) {
-							alert('Please upload an image with the dimensions 1000x500 pixels.');
-							dropifyElement.dropify().data('dropify').resetPreview(); // Reset Dropify preview
-							dropifyElement.dropify().data('dropify').clearElement(); // Clear the Dropify input
-						}
-					};
+					if (file) {
+						var img = new Image();
 
-					img.onerror = function() {
-						alert('Invalid image file.');
-						dropifyElement.dropify().data('dropify').resetPreview(); // Reset Dropify preview
-						dropifyElement.dropify().data('dropify').clearElement(); // Clear the Dropify input
-					};
+						img.onload = function() {
+							// Image loaded successfully
+							if (img.width !== 1000 || img.height !== 500) {
+								alert('Please upload an image with the dimensions 1000x500 pixels.');
 
-					img.src = URL.createObjectURL(file);
+								// Reset and clear Dropify input after a short delay
+								setTimeout(function() {
+									dropifyElement.data('dropify').resetPreview();
+									dropifyElement.data('dropify').clearElement();
+								}, 100); // Adjust the delay (in milliseconds) as needed
+							}
+						};
+
+						img.onerror = function() {
+							// Error loading image
+							alert('Invalid image file.');
+
+							// Reset and clear Dropify input after a short delay
+							setTimeout(function() {
+								dropifyElement.data('dropify').resetPreview();
+								dropifyElement.data('dropify').clearElement();
+							}, 100); // Adjust the delay (in milliseconds) as needed
+						};
+
+						// Set image source
+						img.src = URL.createObjectURL(file);
+					}
 				});
 			
 			})
