@@ -177,6 +177,7 @@
                             <div class="col-12 mb-2">
                                 <label class="form-control-label">Videos: <span class="tx-danger">*</span></label>
                                 <input type="file" name="video" value="{{ old('video') }}" id="browseFile" class="dropify" data-height="200" data-default-file="{{ $video }}" accept="video/*" />
+                                <small class="form-text text-muted">Please upload a high-resolution video  of at least 1280x720 , not a mobile version.</small>
                                 <div id="message"></div>
                             </div>
                             <div class="card-body">
@@ -219,10 +220,17 @@
     resumable.assignBrowse(browseFile[0]);
 
     resumable.on('fileAdded', function (file) { // trigger when file picked
-        showProgress();
-        resumable.upload() // to actually start uploading.
+        getVideoResolution(file.file, function(width, height) {
+            if ((width >= 1280 && height >= 720)) {
+                showProgress();
+                resumable.upload(); // to actually start uploading.
+            } else {
+                showProgress();
+                resumable.upload(); // to actually start uploading.
+                alert('Please upload a video with a resolution of at least 1280x720.');
+            }
+        });
     });
-
     resumable.on('fileProgress', function (file) { // trigger when file progress update
         updateProgress(Math.floor(file.progress() * 100));
     });
@@ -255,6 +263,17 @@
 
     function hideProgress() {
         progress.hide();
+    }
+    function getVideoResolution(file, callback) {
+        let video = document.createElement('video');
+        video.preload = 'metadata';
+
+        video.onloadedmetadata = function() {
+            window.URL.revokeObjectURL(video.src);
+            callback(video.videoWidth, video.videoHeight);
+        };
+
+        video.src = URL.createObjectURL(file);
     }
 </script>
 <script>
