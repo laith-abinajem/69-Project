@@ -223,14 +223,8 @@
     resumable.assignBrowse(browseFile[0]);
 
     resumable.on('fileAdded', function (file) { // trigger when file picked
-        validateVideoResolution(file.file, function(isValid) {
-            if (isValid) {
-                showProgress();
-                resumable.upload() // to actually start uploading.
-            } else {
-                alert('Please upload a video with a resolution of at least 1280x720.');
-            }
-        });
+        showProgress();
+        resumable.upload() // to actually start uploading.
     });
 
     resumable.on('fileProgress', function (file) { // trigger when file progress update
@@ -246,8 +240,9 @@
     });
 
     resumable.on('fileError', function (file, response) { // trigger when there is any error
-        alert('file uploading error.');
+        alert('file uploading error.')
     });
+
 
     let progress = $('.progress');
     function showProgress() {
@@ -258,26 +253,12 @@
     }
 
     function updateProgress(value) {
-        progress.find('.progress-bar').css('width', `${value}%`);
-        progress.find('.progress-bar').html(`${value}%`);
+        progress.find('.progress-bar').css('width', `${value}%`)
+        progress.find('.progress-bar').html(`${value}%`)
     }
 
     function hideProgress() {
         progress.hide();
-    }
-
-    function validateVideoResolution(file, callback) {
-        var video = document.createElement('video');
-        video.preload = 'metadata';
-        video.onloadedmetadata = function() {
-            window.URL.revokeObjectURL(video.src);
-            if (video.videoWidth >= 1280 && video.videoHeight >= 720) {
-                callback(true);
-            } else {
-                callback(false);
-            }
-        };
-        video.src = URL.createObjectURL(file);
     }
 </script>
 <script>
