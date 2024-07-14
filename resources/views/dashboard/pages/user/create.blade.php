@@ -158,7 +158,7 @@
                             </div>
                             <div class="col-6 mb-2">
                                 <label class="form-control-label">Company Logo: <span class="tx-danger">*</span></label>
-                                <input type="file" name="company_logo" value="{{ old('company_logo') }}" id="companylogo" class="dropify largeDropify" data-height="200" required />
+                                <input type="file" name="company_logo" value="{{ old('company_logo') }}" id="companylogo" class="dropify largeDropify2" data-height="200" required />
                                 <small class="form-text text-muted">
                                     Recommended dimensions: 1080x1080 or 2048x2048 pixels, transparent background
                                 </small>

@@ -62,11 +62,11 @@
                                 <div class="col-md-5 col-lg-6 mb-2">
                                     <label class="form-control-label">Tint brand level: <span class="tx-danger">*</span></label> 
                                     <select name="tint_brand_level" id="tint_brand_level" class="form-control paintProtectionFil">
-                                        <option value="standard" {{ $tintBrand->tint_brand_level == standard ? 'selected' : '' }}>STANDARD</option>
-                                        <option value="advanced" {{ $tintBrand->tint_brand_level == advanced ? 'selected' : '' }}>ADVANCED </option>
-                                        <option value="premium" {{ $tintBrand->tint_brand_level == premium ? 'selected' : '' }}>PREMIUM </option>
-                                        <option value="premium_plus" {{ $tintBrand->tint_brand_level == premium_plus ? 'selected' : '' }}>PREMIUM </option>
-                                        <option value="elite" {{ $tintBrand->tint_brand_level == elite ? 'selected' : '' }}>ELITE</option>
+                                        <option value="STANDARD" {{ $tintBrand->tint_brand_level == STANDARD ? 'selected' : '' }}>STANDARD</option>
+                                        <option value="ADVANCED" {{ $tintBrand->tint_brand_level == ADVANCED ? 'selected' : '' }}>ADVANCED </option>
+                                        <option value="PREMIUM" {{ $tintBrand->tint_brand_level == PREMIUM ? 'selected' : '' }}>PREMIUM </option>
+                                        <option value="PREMIUM_PLUS" {{ $tintBrand->tint_brand_level == PREMIUM_PLUS ? 'selected' : '' }}>PREMIUM PLUS </option>
+                                        <option value="ELITE" {{ $tintBrand->tint_brand_level == ELITE ? 'selected' : '' }}>ELITE</option>
                                     </select>
                                 </div>
                                 <div class="col-12 mg-t-20 mg-md-t-0 mb-2">
