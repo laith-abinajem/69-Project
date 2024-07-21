@@ -86,7 +86,7 @@
                                                 @foreach($subclass as $subclass_index => $subclass_item)
                                                     @php
                                                         $details = $lightTint->lightDetails->where('class_car', $class_item)->where('sub_class_car', $subclass_item);
-                                                        $detail = $tintBrand->lightDetails
+                                                        $detail = $lightTint->lightDetails
                                                         ->where('class_car', $class_item)
                                                         ->where('sub_class_car', $subclass_item)
                                                         ->first();
