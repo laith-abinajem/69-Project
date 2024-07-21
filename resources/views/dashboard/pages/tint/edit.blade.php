@@ -117,7 +117,7 @@
                                                                 <label lass="form-control-label">Hide on simulator:</label>
                                                                 <div class="main-toggle">
                                                                     <span></span>
-                                                                    <input type="hidden" class="toggle-value" name="hide[{{ $class_item }}][{{ $subclass_item }}]" value="false" />
+                                                                    <input type="hidden" class="toggle-value" name="hide[{{ $class_item }}][{{ $subclass_item }}]" value="{{ $existingDetails[$class_item][$subclass_item]['hide'] ?? 'false' }}" />
                                                                 </div>
                                                             </div>
                                                         </div>
