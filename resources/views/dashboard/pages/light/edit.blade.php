@@ -86,6 +86,10 @@
                                                 @foreach($subclass as $subclass_index => $subclass_item)
                                                     @php
                                                         $details = $lightTint->lightDetails->where('class_car', $class_item)->where('sub_class_car', $subclass_item);
+                                                        $detail = $tintBrand->tintDetails
+                                                        ->where('class_car', $class_item)
+                                                        ->where('sub_class_car', $subclass_item)
+                                                        ->first();
                                                     @endphp
                                                     <div class="col-12 mb-2 mt-3">
                                                         <label class="form-control-label"><h5>{{ $class_item }}, {{ $subclass_item }}:</h5></label>
@@ -109,9 +113,9 @@
                                                             </div>
                                                             <div class="col-12">
                                                                 <label lass="form-control-label">Hide on simulator:</label>
-                                                                <div class="main-toggle">
+                                                                <div class=" {{ $detail && $detail->status === 'true' ? 'main-toggle on' : 'main-toggle' }}">
                                                                     <span></span>
-                                                                    <input type="hidden" class="toggle-value" name="hide[{{ $class_item }}][{{ $subclass_item }}]" value="false" />
+                                                                    <input type="hidden" class="toggle-value" name="hide[{{ $class_item }}][{{ $subclass_item }}]" value="{{ $detail ? $detail->status : 'false' }}" />
                                                                 </div>
                                                             </div>
                                                         </div>
