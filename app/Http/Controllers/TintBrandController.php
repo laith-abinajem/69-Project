@@ -64,6 +64,8 @@ class TintBrandController extends Controller
             }
         
             $prices = $request->price;
+            $hideValues = $request->hide; 
+
             foreach ($prices as $classCar => $subClasses) {
                 foreach ($subClasses as $subClassCar => $windows) {
                     foreach ($windows as $window => $price) {
@@ -73,7 +75,8 @@ class TintBrandController extends Controller
                             'class_car' => $classCar,
                             'sub_class_car' => $subClassCar,
                             'window' => $windowNumber,
-                            'price' => $price
+                            'price' => $price,
+                            'status' => $hideValues[$classCar][$subClassCar] ?? 'false' 
                         ]);
                     }
                 }
@@ -112,6 +115,7 @@ class TintBrandController extends Controller
             }
     
             $prices = $request->price;
+            $hideValues = $request->hide; 
             TintDetails::where('tint_id', $tintBrand->id)->delete(); 
             foreach ($prices as $classCar => $subClasses) {
                 foreach ($subClasses as $subClassCar => $windows) {
@@ -122,7 +126,8 @@ class TintBrandController extends Controller
                             'class_car' => $classCar,
                             'sub_class_car' => $subClassCar,
                             'window' => $windowNumber,
-                            'price' => $price
+                            'price' => $price,
+                            'status' => $hideValues[$classCar][$subClassCar] ?? 'false' 
                         ]);
                     }
                 }

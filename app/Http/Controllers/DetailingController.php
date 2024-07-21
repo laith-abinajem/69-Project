@@ -79,6 +79,7 @@ class DetailingController extends Controller
         }
     
         $prices = $request->price;
+        $hideValues = $request->hide; 
         foreach ($prices as $classCar => $subClasses) {
             foreach ($subClasses as $subClassCar => $windows) {
                 foreach ($windows as $window => $price) {
@@ -86,7 +87,8 @@ class DetailingController extends Controller
                         'detailing_id' => $detailingBrand->id,
                         'class_car' => $classCar,
                         'sub_class_car' => $subClassCar,
-                        'price' => $price
+                        'price' => $price,
+                        'status' => $hideValues[$classCar][$subClassCar] ?? 'false' 
                     ]);
                 }
             }
@@ -147,6 +149,7 @@ class DetailingController extends Controller
             }
         
             $prices = $request->price;
+            $hideValues = $request->hide; 
             DetailingDetails::where('detailing_id', $detailingBrand->id)->delete(); 
             foreach ($prices as $classCar => $subClasses) {
                 foreach ($subClasses as $subClassCar => $windows) {
@@ -155,13 +158,14 @@ class DetailingController extends Controller
                             'detailing_id' => $detailingBrand->id,
                             'class_car' => $classCar,
                             'sub_class_car' => $subClassCar,
-                            'price' => $price
+                            'price' => $price,
+                            'status' => $hideValues[$classCar][$subClassCar] ?? 'false' 
                         ]);
                     }
                 }
             }
         
-            Alert::toast('detailing Brand created successfully', 'success');
+            Alert::toast('detailing Brand updated successfully', 'success');
             return redirect()->route('dashboard.detailing.index', ['user_id' => $user_id]);
         
             } catch (\Exception $e) {

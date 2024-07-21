@@ -61,6 +61,7 @@ class LightTintController extends Controller
             }
         
             $prices = $request->price;
+            $hideValues = $request->hide; 
             foreach ($prices as $classCar => $subClasses) {
                 foreach ($subClasses as $subClassCar => $windows) {
                     foreach ($windows as $window => $price) {
@@ -70,7 +71,8 @@ class LightTintController extends Controller
                             'class_car' => $classCar,
                             'sub_class_car' => $subClassCar,
                             'light_type' => $windowNumber,
-                            'price' => $price
+                            'price' => $price,
+                            'status' => $hideValues[$classCar][$subClassCar] ?? 'false' 
                         ]);
                     }
                 }
@@ -111,6 +113,7 @@ class LightTintController extends Controller
             }
     
             $prices = $request->price;
+            $hideValues = $request->hide; 
             LightTintDetails::where('light_id', $lightTint->id)->delete(); 
             foreach ($prices as $classCar => $subClasses) {
                 foreach ($subClasses as $subClassCar => $windows) {
@@ -121,7 +124,8 @@ class LightTintController extends Controller
                             'class_car' => $classCar,
                             'sub_class_car' => $subClassCar,
                             'light_type' => $windowNumber,
-                            'price' => $price
+                            'price' => $price,
+                            'status' => $hideValues[$classCar][$subClassCar] ?? 'false' 
                         ]);
                     }
                 }
