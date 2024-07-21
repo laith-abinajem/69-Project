@@ -110,6 +110,13 @@
                                                             <button type="button" class="btn btn-secondary copy">Copy</button>
                                                             <button type="button" class="btn btn-primary paste " style="display: none;">Paste</button>
                                                         </div>
+                                                        <div class="col-12">
+                                                            <label lass="form-control-label">Hide on simulator:</label>
+                                                            <div class="main-toggle">
+                                                                <span></span>
+                                                                <input type="hidden" class="toggle-value" name="hide[{{ $class_item }}][{{ $subclass_item }}]" value="false" />
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 @php 

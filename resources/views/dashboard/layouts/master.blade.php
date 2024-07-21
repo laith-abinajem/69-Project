@@ -346,6 +346,18 @@
 						img.src = URL.createObjectURL(file);
 					}
 				});
+
+				$('.main-toggle').click(function() {
+					const hiddenInput = $(this).find('.toggle-value');
+					
+					if ($(this).hasClass('on')) {
+					$(this).removeClass('on');
+					hiddenInput.val('false');
+					} else {
+					$(this).addClass('on');
+					hiddenInput.val('true');
+					}
+				});
 			})
 		</script>
 
