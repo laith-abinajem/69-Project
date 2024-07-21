@@ -104,7 +104,7 @@
                                                 @foreach($subclass as $subclass_index => $subclass_item)
                                                     @php
                                                         $details = $ppfBrand->ppfDetails->where('class_car', $class_item)->where('sub_class_car', $subclass_item);
-                                                        $detail = $tintBrand->tintDetails
+                                                        $detail = $tintBrand->ppfDetails
                                                         ->where('class_car', $class_item)
                                                         ->where('sub_class_car', $subclass_item)
                                                         ->first();
