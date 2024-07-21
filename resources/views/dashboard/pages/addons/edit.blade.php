@@ -68,7 +68,7 @@
                         </div>
                         <div class="col-12 mg-t-20 mg-md-t-0 mb-2">
                             <label class="form-control-label">Add-on Description: <span class="tx-danger">*</span></label>
-                            <textarea class="form-control" id="description" name="description" placeholder="Textarea" rows="3" required>{{ $data->description }}</textarea>
+                            <textarea class="form-control" id="branddescription" name="description" placeholder="Textarea" rows="3" required>{{ $data->description }}</textarea>
                         </div>
                     </div>
                     <div class="form-group text-end mt-2">

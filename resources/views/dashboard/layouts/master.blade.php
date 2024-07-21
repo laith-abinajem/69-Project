@@ -358,6 +358,18 @@
 					hiddenInput.val('true');
 					}
 				});
+
+				$('#branddescription').on('input', function() {
+					const textarea = $(this);
+					const lines = textarea.val().split('\n'); 
+
+					const bulletPointLines = lines.map(line => {
+                    
+                    return line.startsWith('• ') ? line : `• ${line}`;
+                });
+
+					textarea.val(bulletPointLines.join('\n')); 
+				});
 			})
 		</script>
 
