@@ -12,6 +12,29 @@ class UserController extends Controller
 {
     public function getUser(Request $request)
     { 
+        $currencySymbols = [
+            'USD' => '$',
+            'EUR' => '€',
+            'JPY' => '¥',
+            'GBP' => '£',
+            'AUD' => 'A$',
+            'CAD' => 'C$',
+            'CHF' => 'CHF',
+            'CNY' => '¥',
+            'SEK' => 'kr',
+            'NZD' => 'NZ$',
+            'MXN' => '$',
+            'SGD' => 'S$',
+            'HKD' => 'HK$',
+            'NOK' => 'kr',
+            'KRW' => '₩',
+            'TRY' => '₺',
+            'INR' => '₹',
+            'RUB' => '₽',
+            'BRL' => 'R$',
+            'ZAR' => 'R'
+        ];
+    
         $user = User::with(['tintBrands.tintDetails', 'tintBrands.media'])->find($request->user()->id);
 
         if (!$user) {
@@ -21,6 +44,8 @@ class UserController extends Controller
                 'message' => 'User not found'
             ], 404);
         }
+        $currencyCode = $user->currency; // assuming 'currency' is the field name in your users table
+        $currencySymbol = isset($currencySymbols[$currencyCode]) ? $currencySymbols[$currencyCode] : $currencyCode;
         $user->company_logo = $user->getFirstMediaUrl('company_logo');
         $user->decal_logo = $user->getFirstMediaUrl('decal_logo');
         $user->detailing_decal = $user->getFirstMediaUrl('detailing_decal');
@@ -33,6 +58,7 @@ class UserController extends Controller
         unset($user->square_customer_id);
         unset($user->session_id);
         unset($user->parent_id);
+        $user->currency = $currencySymbol; // Add the currency symbol to the user object
         // Fetch add-ons related to 'tint' service for the user
         $addons_tint = AddsOn::where('user_id', $user->id)
         ->where('service', 'tint')
