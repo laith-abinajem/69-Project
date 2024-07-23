@@ -82,14 +82,17 @@
                                                     aria-expanded="false"><i class="fe fe-arrow-right me-2"></i>{{ $class_item }}</a>
                                                 </h4>
                                             </div>
+                                            @php
+                                                $class = ['Regular', 'Luxury', 'Electric (Tesla)', 'Electric'];
+                                                $detail = $lightTint->lightDetails
+                                                        ->where('class_car', $class_item)
+                                                        ->first();
+                                            @endphp
                                             <div id="collapse{{ $class_index }}" class="panel-collapse collapse" role="tabpanel" aria-expanded="false">
                                                 @foreach($subclass as $subclass_index => $subclass_item)
                                                     @php
                                                         $details = $lightTint->lightDetails->where('class_car', $class_item)->where('sub_class_car', $subclass_item);
-                                                        $detail = $lightTint->lightDetails
-                                                        ->where('class_car', $class_item)
-                                                        ->where('sub_class_car', $subclass_item)
-                                                        ->first();
+                                                     
                                                     @endphp
                                                     <div class="col-12 mb-2 mt-3">
                                                         <label class="form-control-label"><h5>{{ $class_item }}, {{ $subclass_item }}:</h5></label>
@@ -111,16 +114,17 @@
                                                                 <button type="button" class="btn btn-secondary copy">Copy</button>
                                                                 <button type="button" class="btn btn-primary paste" style="display: none;">Paste</button>
                                                             </div>
-                                                            <div class="col-12">
-                                                                <label lass="form-control-label">Hide on simulator:</label>
-                                                                <div class=" {{ $detail && $detail->status === 'true' ? 'main-toggle on' : 'main-toggle' }}">
-                                                                    <span></span>
-                                                                    <input type="hidden" class="toggle-value" name="hide[{{ $class_item }}][{{ $subclass_item }}]" value="{{ $detail ? $detail->status : 'false' }}" />
-                                                                </div>
-                                                            </div>
+                                                           
                                                         </div>
                                                     </div>
                                                 @endforeach
+                                                <div class="col-12">
+                                                    <label lass="form-control-label"><h5>Hide on simulator:</h5></label>
+                                                    <div class=" {{ $detail && $detail->status === 'true' ? 'main-toggle on' : 'main-toggle' }}">
+                                                        <span></span>
+                                                        <input type="hidden" class="toggle-value" name="hide[{{ $class_item }}]" value="{{ $detail ? $detail->status : 'false' }}" />
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     @endforeach

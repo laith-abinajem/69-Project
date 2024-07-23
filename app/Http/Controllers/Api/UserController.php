@@ -58,7 +58,7 @@ class UserController extends Controller
         unset($user->square_customer_id);
         unset($user->session_id);
         unset($user->parent_id);
-        $user->currency = $currencySymbol; // Add the currency symbol to the user object
+        $user->currency = $currencySymbol; 
         // Fetch add-ons related to 'tint' service for the user
         $addons_tint = AddsOn::where('user_id', $user->id)
         ->where('service', 'tint')
@@ -106,6 +106,15 @@ class UserController extends Controller
         
             $tintBrand->tint_details = $groupedTintDetails;
             unset($tintBrand->tintDetails);
+            // Collect class_car values where hide is false
+            $tintBrand->exclude_class = collect($groupedTintDetails)
+            ->filter(function ($detail) {
+                return $detail['hide'] === 'true';
+            })
+            ->pluck('class_car')
+            ->unique()
+            ->values()
+            ->toArray();
         });
         $addons_ppf = AddsOn::where('user_id', $user->id)
         ->where('service', 'ppf')
@@ -149,6 +158,14 @@ class UserController extends Controller
     
             $ppfBrand->ppf_details = $groupedPpfDetails;
             unset($ppfBrand->ppfDetails);
+            $ppfBrand->exclude_class = collect($groupedPpfDetails)
+            ->filter(function ($detail) {
+                return $detail['hide'] === 'true';
+            })
+            ->pluck('class_car')
+            ->unique()
+            ->values()
+            ->toArray();
         });
         $addons_light = AddsOn::where('user_id', $user->id)
         ->where('service', 'light-tint')
@@ -192,7 +209,15 @@ class UserController extends Controller
             })->values()->toArray();
         
             $lightTint->light_details = $groupedLightsDetails;
-            unset($ppfBrand->lightDetails);
+            unset($lightTint->lightDetails);
+            $lightTint->exclude_class = collect($groupedLightsDetails)
+            ->filter(function ($detail) {
+                return $detail['hide'] === 'true';
+            })
+            ->pluck('class_car')
+            ->unique()
+            ->values()
+            ->toArray();
         });
         $addons_detailing = AddsOn::where('user_id', $user->id)
         ->where('service', 'detailing')
@@ -235,6 +260,14 @@ class UserController extends Controller
     
             $detailingBrand->detailing_details = $groupedDetailingDetails;
             unset($detailingBrand->detailingDetails);
+            $detailingBrand->exclude_class = collect($groupedDetailingDetails)
+            ->filter(function ($detail) {
+                return $detail['hide'] === 'true';
+            })
+            ->pluck('class_car')
+            ->unique()
+            ->values()
+            ->toArray();
         });
         return response()->json([
             'data' => $user,

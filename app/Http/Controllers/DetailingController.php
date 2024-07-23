@@ -88,7 +88,7 @@ class DetailingController extends Controller
                         'class_car' => $classCar,
                         'sub_class_car' => $subClassCar,
                         'price' => $price,
-                        'status' => $hideValues[$classCar][$subClassCar] ?? 'false' 
+                        'status' => $hideValues[$classCar] ?? 'false' 
                     ]);
                 }
             }
@@ -159,7 +159,7 @@ class DetailingController extends Controller
                             'class_car' => $classCar,
                             'sub_class_car' => $subClassCar,
                             'price' => $price,
-                            'status' => $hideValues[$classCar][$subClassCar] ?? 'false' 
+                            'status' => $hideValues[$classCar] ?? 'false' 
                         ]);
                     }
                 }

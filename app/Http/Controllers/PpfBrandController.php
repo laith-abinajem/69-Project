@@ -72,7 +72,7 @@ class PpfBrandController extends Controller
                             'sub_class_car' => $subClassCar,
                             'ppf_type' => $windowNumber,
                             'price' => $price,
-                            'status' => $hideValues[$classCar][$subClassCar] ?? 'false' 
+                            'status' => $hideValues[$classCar] ?? 'false' 
 
                         ]);
                     }
@@ -124,7 +124,7 @@ class PpfBrandController extends Controller
                             'sub_class_car' => $subClassCar,
                             'ppf_type' => $windowNumber,
                             'price' => $price,
-                            'status' => $hideValues[$classCar][$subClassCar] ?? 'false' 
+                            'status' => $hideValues[$classCar] ?? 'false' 
                         ]);
                     }
                 }

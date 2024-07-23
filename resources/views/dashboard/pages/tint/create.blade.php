@@ -94,12 +94,15 @@
                                                         aria-expanded="false"><i class="fe fe-arrow-right me-2"></i>{{ $class_item }}</a>
                                                 </h4>
                                             </div>
+                                    
                                             <div id="collapse{{ $counter }}" class="panel-collapse collapse" role="tabpanel"
                                                 aria-expanded="false">
+                                              
                                                 @foreach($subclass as $subclass_item)
                                                 <div class="col-12 mb-2 mt-3">
                                                     <label class="form-control-label"><h5>{{ $class_item }}, {{ $subclass_item }}:</h5></label>
                                                 </div>
+                                               
                                                 <div class="col-12 mb-2">
                                                     <label class="form-control-label">Prices:</label>
                                                     <div class="row prices_container">
@@ -128,19 +131,20 @@
                                                             <button type="button" class="btn btn-secondary copy">Copy</button>
                                                             <button type="button" class="btn btn-primary paste " style="display: none;">Paste</button>
                                                         </div>
-                                                        <div class="col-12">
-                                                            <label lass="form-control-label">Hide on simulator:</label>
-                                                            <div class="main-toggle">
-                                                                <span></span>
-                                                                <input type="hidden" class="toggle-value" name="hide[{{ $class_item }}][{{ $subclass_item }}]" value="false" />
-                                                            </div>
-                                                        </div>
+                                                      
                                                     </div>
                                                 </div>
                                                 @php 
                                                     $counter++;
                                                 @endphp
                                                 @endforeach
+                                                <div class="col-12">
+                                                    <label lass="form-control-label"><h5>Hide on simulator:</h5></label>
+                                                    <div class="main-toggle">
+                                                        <span></span>
+                                                        <input type="hidden" class="toggle-value" name="hide[{{ $class_item }}]" value="false" />
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     @endforeach

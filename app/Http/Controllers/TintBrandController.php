@@ -76,7 +76,7 @@ class TintBrandController extends Controller
                             'sub_class_car' => $subClassCar,
                             'window' => $windowNumber,
                             'price' => $price,
-                            'status' => $hideValues[$classCar][$subClassCar] ?? 'false' 
+                            'status' => $hideValues[$classCar]?? 'false' 
                         ]);
                     }
                 }

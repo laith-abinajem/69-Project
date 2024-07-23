@@ -95,6 +95,9 @@
                                                         aria-expanded="false"><i class="fe fe-arrow-right me-2"></i>{{ $class_item }}</a>
                                                 </h4>
                                             </div>
+                                            @php
+                                                $detail = $detailingBrand->detailingDetails->where('class_car', $class_item)->first();
+                                            @endphp
                                             <div id="collapse{{ $counter }}" class="panel-collapse collapse" role="tabpanel"
                                                 aria-expanded="false">
                                                 @foreach($subclass as $subclass_item)
@@ -115,19 +118,20 @@
                                                             <button type="button" class="btn btn-secondary copy">Copy</button>
                                                             <button type="button" class="btn btn-primary paste " style="display: none;">Paste</button>
                                                         </div>
-                                                        <div class="col-12">
-                                                            <label lass="form-control-label">Hide on simulator:</label>
-                                                            <div class=" {{ $detail && $detail->status === 'true' ? 'main-toggle on' : 'main-toggle' }}">
-                                                                <span></span>
-                                                                <input type="hidden" class="toggle-value" name="hide[{{ $class_item }}][{{ $subclass_item }}]" value="{{ $detail ? $detail->status : 'false' }}" />
-                                                            </div>
-                                                        </div>
+                                                        
                                                     </div>
                                                 </div>
                                                 @php 
                                                     $counter++;
                                                 @endphp
                                                 @endforeach
+                                                <div class="col-12">
+                                                    <label lass="form-control-label"><h5>Hide on simulator:</h5></label>
+                                                    <div class=" {{ $detail && $detail->status === 'true' ? 'main-toggle on' : 'main-toggle' }}">
+                                                        <span></span>
+                                                        <input type="hidden" class="toggle-value" name="hide[{{ $class_item }}]" value="{{ $detail ? $detail->status : 'false' }}" />
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     @endforeach

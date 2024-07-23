@@ -72,7 +72,7 @@ class LightTintController extends Controller
                             'sub_class_car' => $subClassCar,
                             'light_type' => $windowNumber,
                             'price' => $price,
-                            'status' => $hideValues[$classCar][$subClassCar] ?? 'false' 
+                            'status' => $hideValues[$classCar] ?? 'false' 
                         ]);
                     }
                 }
@@ -125,7 +125,7 @@ class LightTintController extends Controller
                             'sub_class_car' => $subClassCar,
                             'light_type' => $windowNumber,
                             'price' => $price,
-                            'status' => $hideValues[$classCar][$subClassCar] ?? 'false' 
+                            'status' => $hideValues[$classCar] ?? 'false' 
                         ]);
                     }
                 }

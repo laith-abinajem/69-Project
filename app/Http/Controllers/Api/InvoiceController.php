@@ -7,8 +7,28 @@ use Illuminate\Http\Request;
 use App\Models\Invoice;
 use App\Models\InvoiceDetails;
 
+/**
+ * @OA\Info(title="My First API", version="0.1")
+ */
 class InvoiceController extends Controller
 {
+/**
+ * @OA\Post(
+ *     path="/createInvoice",
+ *     summary="Create a new invoice",
+ *     tags={"Invoice"},
+ *     @OA\RequestBody(
+ *         required=true,
+ *         @OA\JsonContent(
+ *             required={"name","amount"},
+ *             @OA\Property(property="name", type="string"),
+ *             @OA\Property(property="amount", type="number")
+ *         )
+ *     ),
+ *     @OA\Response(response=200, description="Invoice created successfully"),
+ *     @OA\Response(response=400, description="Invalid input")
+ * )
+ */
     public function createInvoice(Request $request){
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
