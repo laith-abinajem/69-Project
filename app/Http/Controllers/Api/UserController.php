@@ -209,7 +209,7 @@ class UserController extends Controller
             })->values()->toArray();
         
             $lightTint->light_details = $groupedLightsDetails;
-            unset($lightTint->lightDetails);
+            unset($ppfBrand->lightDetails);
             $lightTint->exclude_class = collect($groupedLightsDetails)
             ->filter(function ($detail) {
                 return $detail['hide'] === 'true';
