@@ -40,7 +40,22 @@
                                     </select>
                                 </div>
                                 @endif
-                               
+                                <div class="col-md-5 col-lg-6 mb-2">
+                                    <label class="form-control-label">Warranty<span class="tx-danger">*</span></label>
+                                    <select name="warranty" id="warranty" class="form-control paintProtectionFil">
+                                        <option value="1" {{ $tintBrand->warranty == 1 ? 'selected' : '' }}>1 year</option>
+                                        <option value="2" {{ $tintBrand->warranty == 2 ? 'selected' : '' }}>2 year</option>
+                                        <option value="3" {{ $tintBrand->warranty == 3 ? 'selected' : '' }}>3 year</option>
+                                        <option value="4" {{ $tintBrand->warranty == 4 ? 'selected' : '' }}>4 year</option>
+                                        <option value="5" {{ $tintBrand->warranty == 5 ? 'selected' : '' }}>5 year</option>
+                                        <option value="6" {{ $tintBrand->warranty == 6 ? 'selected' : '' }}>6 year</option>
+                                        <option value="7" {{ $tintBrand->warranty == 7 ? 'selected' : '' }}>7 year</option>
+                                        <option value="8" {{ $tintBrand->warranty == 8 ? 'selected' : '' }}>8 year</option>
+                                        <option value="9" {{ $tintBrand->warranty == 9 ? 'selected' : '' }}>9 year</option>
+                                        <option value="10" {{ $tintBrand->warranty == 10 ? 'selected' : '' }}>10 year</option>
+                                        <option value="life time" {{ $tintBrand->warranty == 'life time' ? 'selected' : '' }}>life time</option>
+                                    </select>
+                                </div>
                                 <div class="col-md-5 col-lg-6 mb-2">
                                     <label class="form-control-label">guage level<span class="tx-danger">*</span></label>
                                     <select name="guage_level" id="guage_level" class="form-control paintProtectionFil">

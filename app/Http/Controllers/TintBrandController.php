@@ -56,6 +56,7 @@ class TintBrandController extends Controller
                 'tint_description' => $request->tint_description,
                 'tint_brand_level' => $request->tint_brand_level,
                 'hex' => $request->hex,
+                'warranty' => $request->warranty,
                 'guage_level' => $request->guage_level,
                 'user_id'=> $user->id
             ]);
@@ -105,6 +106,7 @@ class TintBrandController extends Controller
                 'tint_description' => $request->tint_description,
                 'tint_brand_level' => $request->tint_brand_level,
                 'hex' => $request->hex,
+                'warranty' => $request->warranty,
                 'guage_level' => $request->guage_level,
                 'user_id'=> $user_id
             ]);

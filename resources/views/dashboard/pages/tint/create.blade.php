@@ -42,6 +42,22 @@
                                 </div>
                                 @endif
                                 <div class="col-md-5 col-lg-6 mb-2">
+                                    <label class="form-control-label">Warranty<span class="tx-danger">*</span></label>
+                                    <select name="warranty" id="warranty" class="form-control paintProtectionFil " >
+                                        <option value="1">1 year</option>
+                                        <option value="2">2 year </option>
+                                        <option value="3">3 year </option>
+                                        <option value="4">4 year</option>
+                                        <option value="5">5 year </option>
+                                        <option value="6">6 year </option>
+                                        <option value="7">7 year </option>
+                                        <option value="8">8 year </option>
+                                        <option value="9">9 year </option>
+                                        <option value="10">10 year </option>
+                                        <option value="life time">life time </option>
+                                    </select>
+                                </div>
+                                <div class="col-md-5 col-lg-6 mb-2">
                                     <label class="form-control-label">guage level<span class="tx-danger">*</span></label>
                                     <select name="guage_level" id="guage_level" class="form-control paintProtectionFil " >
                                         <option value="1">1 minimum heat rejection</option>
