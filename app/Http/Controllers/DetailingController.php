@@ -71,6 +71,7 @@ class DetailingController extends Controller
             'detailing_description' => $request->detailing_description,
             'detailing_type' => $request->detailing_type,
             'hex' => $request->hex,
+            'warranty' => $request->warranty,
             'detailing_brand_level' => $request->detailing_brand_level,
             'user_id'=> $user->id
         ]);
@@ -142,7 +143,8 @@ class DetailingController extends Controller
                 'detailing_type' => $request->detailing_type,
                 'hex' => $request->hex,
                 'detailing_brand_level' => $request->detailing_brand_level,
-                'user_id'=> $user->id
+                'user_id'=> $user->id,
+                'warranty' => $request->warranty,
             ]);
             if ($request->hasFile('detailing_image')) {
                 $detailingBrand->addMedia($request->file('detailing_image'))->toMediaCollection('detailing_image');

@@ -19,7 +19,7 @@ $(function () {
 					var bimage = $('#brandimage').parsley();
 					var bdescription = $('#branddescription').parsley();
 					var blevel = $('#brandlevel').parsley();
-					
+
 					if (bname.isValid() && bdescription.isValid() && bimage.isValid() && blevel.isValid()) {
 						return true;
 					} else {
@@ -63,7 +63,24 @@ $(function () {
 			$('#selectedColor').text(hexValue);
 		}
 	});
+	$(document).ready(function () {
+		const $detailingTypeSelect = $('#detailing_type');
+		const $warrantyContainer = $('#warranty-container');
 
+		function toggleWarrantyVisibility() {
+			if ($detailingTypeSelect.val() === 'ceramic_coating') {
+				$warrantyContainer.show();
+			} else {
+				$warrantyContainer.hide();
+			}
+		}
+
+		// Initialize the visibility on page load
+		toggleWarrantyVisibility();
+
+		// Add event listener for changes in the detailing type select
+		$detailingTypeSelect.on('change', toggleWarrantyVisibility);
+	});
 	$('#wizard3').steps({
 		headerTag: 'h3',
 		bodyTag: 'section',

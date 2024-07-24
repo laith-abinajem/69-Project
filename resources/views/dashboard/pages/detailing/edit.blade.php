@@ -40,7 +40,7 @@
                                         @foreach($users as $user)
                                         <option value="{{$user->id}}" {{ $user->id == $detailingBrand->user_id ? 'selected' : '' }}>{{$user->name}}</option>
                                         @endforeach
-                                    </select>detailingBrand
+                                    </select>
                                 </div>
                                 @endif
                                 <div class="col-md-5 col-lg-6 mb-2">
@@ -60,6 +60,22 @@
                                         <option value="SILVER" {{ $detailingBrand->detailing_brand_level == 'SILVER' ? 'selected' : '' }}>SILVER</option>
                                         <option value="GOLD" {{ $detailingBrand->detailing_brand_level == 'GOLD' ? 'selected' : '' }}>GOLD</option>
                                         <option value="PLATINUM" {{ $detailingBrand->detailing_brand_level == 'PLATINUM' ? 'selected' : '' }}>PLATINUM</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-5 col-lg-6 mb-2" id="warranty-container">
+                                    <label class="form-control-label">Warranty<span class="tx-danger">*</span></label>
+                                    <select name="warranty" id="warranty" class="form-control paintProtectionFil">
+                                    <option value="1" {{ $detailingBrand->warranty == 1 ? 'selected' : '' }}>1 year</option>
+                                        <option value="2" {{ $detailingBrand->warranty == 2 ? 'selected' : '' }}>2 year</option>
+                                        <option value="3" {{ $detailingBrand->warranty == 3 ? 'selected' : '' }}>3 year</option>
+                                        <option value="4" {{ $detailingBrand->warranty == 4 ? 'selected' : '' }}>4 year</option>
+                                        <option value="5" {{ $detailingBrand->warranty == 5 ? 'selected' : '' }}>5 year</option>
+                                        <option value="6" {{ $detailingBrand->warranty == 6 ? 'selected' : '' }}>6 year</option>
+                                        <option value="7" {{ $detailingBrand->warranty == 7 ? 'selected' : '' }}>7 year</option>
+                                        <option value="8" {{ $detailingBrand->warranty == 8 ? 'selected' : '' }}>8 year</option>
+                                        <option value="9" {{ $detailingBrand->warranty == 9 ? 'selected' : '' }}>9 year</option>
+                                        <option value="10" {{ $detailingBrand->warranty == 10 ? 'selected' : '' }}>10 year</option>
+                                        <option value="life time" {{ $detailingBrand->warranty == 'life time' ? 'selected' : '' }}>life time</option>
                                     </select>
                                 </div>
                                 <div class="col-md-5 col-lg-6 mb-2">
