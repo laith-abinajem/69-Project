@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Invoice;
 use App\Models\InvoiceDetails;
-
+use Validator;
 /**
  * @OA\Info(title="My First API", version="0.1")
  */
@@ -43,16 +43,16 @@ class InvoiceController extends Controller
         if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
         }
-        $car = Car::where('Make',$request->make)->where('Year',$request->year)->where('Model',$request->model)->first();
-        if(!$car){
-            return response()->json($car->errors(), 400);
-        }
+        // $car = Car::where('Make',$request->make)->where('Year',$request->year)->where('Model',$request->model)->first();
+        // if(!$car){
+        //     return response()->json($car->errors(), 400);
+        // }
         $invoice = Invoice::create([
             'name' => $request->name,
             'phone' => $request->phone,
             'total' => $request->total,
             'currency' => $request->currency,
-            'card_id' => $car->id,
+            'car_id' => 1,
             'user_id' => auth()->user()->id,
         ]);
         foreach($request->services as $service){

@@ -17,4 +17,14 @@ class Invoice extends Model
     {
         return $this->belongsTo(User::class);
     }
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($invoice) {
+            $lastInvoice = Invoice::latest()->first();
+            $number = $lastInvoice ? intval(substr($lastInvoice->invoice_no, 2)) + 1 : 1;
+            $invoice->invoice_no = 'INV-' . str_pad($number, 8, '0', STR_PAD_LEFT);
+        });
+    }
 }
