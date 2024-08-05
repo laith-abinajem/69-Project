@@ -12,6 +12,7 @@ use App\Http\Controllers\PpfBrandController;
 use App\Http\Controllers\LightTintController;
 use App\Http\Controllers\AddonsController;
 use App\Http\Controllers\DetailingController;
+use App\Http\Controllers\InvoiceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +37,7 @@ Route::get('/checkout', function () {
 
 // Route::post('/dashboard.process-payment', [PaymentController::class, 'createPayment'])->name('dashboard.process-payment');
 Route::post('/processPayment', [PaymentController::class, 'processPayment'])->name('processPayment');
+Route::get('/pdf',[InvoiceController::class,'downloadPDF'])->name('pdf');
 
 
 Route::prefix('auth')->middleware('checkLogin')->controller(AuthController::class)->group(function () {
