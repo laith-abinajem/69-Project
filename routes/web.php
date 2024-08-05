@@ -37,7 +37,7 @@ Route::get('/checkout', function () {
 
 // Route::post('/dashboard.process-payment', [PaymentController::class, 'createPayment'])->name('dashboard.process-payment');
 Route::post('/processPayment', [PaymentController::class, 'processPayment'])->name('processPayment');
-Route::get('/pdf',[InvoiceController::class,'downloadPDF'])->name('pdf');
+Route::get('/pdf/{id}',[InvoiceController::class,'downloadPDF'])->name('pdf');
 
 
 Route::prefix('auth')->middleware('checkLogin')->controller(AuthController::class)->group(function () {
@@ -142,6 +142,9 @@ Route::middleware(['auth', 'check.single.session'])->prefix('dashboard')->name('
         Route::post('/update/{id}',[PackageController::class,'update'])->name('update');
         Route::post('/delete/{id}',[PackageController::class,'delete'])->name('delete');
         Route::post('/store',[PackageController::class,'store'])->name('store');
+    });
+    Route::prefix('invoices')->name('invoices.')->group(function () {
+        Route::get('/',[InvoiceController::class,'index'])->name('index');
     });
     Route::prefix('detailing')->name('detailing.')->group(function(){
         Route::get('/',[DetailingController::class,'index'])->name('index');

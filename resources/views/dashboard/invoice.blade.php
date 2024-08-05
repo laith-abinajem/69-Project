@@ -137,11 +137,11 @@
                         <tr>
                             <td>
                                 <h4 class="sub-title">Billed To:</h4>
-                                User Name<br>
-                                +123-456-7890<br>
+                                {{$data->name}}<br>
+                                {{$data->phone}}<br>
                             </td>
                             <td class="text-right">
-                                Invoice No. 12345<br>
+                                Invoice No. {{$data->invoice_no}}<br>
                                 16 June 2024
                             </td>
                         </tr>
@@ -156,29 +156,25 @@
                 <td class="text-center" width="80px">Price</td>
                 <td class="text-center" width="80px">Total</td>
             </tr>
-            <tr class="item">
-                <td class="ps-20">Tint</td>
-                <td>full-car</td>
-                <td class="text-center">$120</td>
-                <td class="text-center">$120</td>
-            </tr>
-            <tr class="item">
-                <td class="ps-20">Ppf</td>
-                <td>partial-front</td>
-                <td class="text-center">$127</td>
-                <td class="text-center">$247</td>
-            </tr>
+            @foreach($data->invoiceDetails as $details)
+                <tr class="item">
+                    <td class="ps-20">Tint</td>
+                    <td>full-car</td>
+                    <td class="text-center">$120</td>
+                    <td class="text-center">$120</td>
+                </tr>
+                <tr class="item">
+                    <td class="ps-20">Ppf</td>
+                    <td>partial-front</td>
+                    <td class="text-center">$127</td>
+                    <td class="text-center">$247</td>
+                </tr>
+            @endforeach
             <tr class="total">
                 <td></td>
                 <td></td>
                 <td class="text-center">Subtotal</td>
                 <td class="text-center">$247</td>
-            </tr>
-            <tr class="total">
-                <td></td>
-                <td></td>
-                <td class="text-center">Tax (0%)</td>
-                <td class="text-center">$0</td>
             </tr>
             <tr class="total">
                 <td></td>

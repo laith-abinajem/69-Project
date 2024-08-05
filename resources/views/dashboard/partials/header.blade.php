@@ -111,6 +111,9 @@
                 <li class="slide">
                     <a class="side-menu__item" href="{{ route('dashboard.user.index') }}"><i class="side-menu__icon fe fe-user"></i><span class="side-menu__label">Accounts</span></a>
                 </li>
+                <li class="slide">
+                    <a class="side-menu__item" href="{{ route('dashboard.invoices.index') }}"><i class="side-menu__icon fe fe-user"></i><span class="side-menu__label">Work orders</span></a>
+                </li>
                 @endif
                 <li class="slide">
                     <a class="side-menu__item" href="{{ route('dashboard.subscription.index') }} "><i class="side-menu__icon fe fe-dollar-sign "></i><span class="side-menu__label">Plan & Billing</span></a>
