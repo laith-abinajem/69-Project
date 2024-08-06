@@ -121,7 +121,9 @@
 <body>
     <header>
         <div class="logo">
-            <img src="https://69simulator.com/storage/134/instagram-photo-size-square-1080.jpg" style="width:100px;">
+            @if ($companyLogo)
+            <img src="{{ $companyLogo }}" style="width:100px;">
+            @endif
         </div>
         <div class="invoice-title">WORK ORDER</div>
         <div class="clearfix"></div>
@@ -142,7 +144,7 @@
                             </td>
                             <td class="text-right">
                                 Invoice No. {{$data->invoice_no}}<br>
-                                16 June 2024
+                                {{$data->created_at}}
                             </td>
                         </tr>
                     </table>
@@ -156,31 +158,27 @@
                 <td class="text-center" width="80px">Price</td>
                 <td class="text-center" width="80px">Total</td>
             </tr>
+            @php $total = 0;@endphp
             @foreach($data->invoiceDetails as $details)
+            @php $total = $total + $details->price; @endphp
                 <tr class="item">
-                    <td class="ps-20">Tint</td>
-                    <td>full-car</td>
-                    <td class="text-center">$120</td>
-                    <td class="text-center">$120</td>
-                </tr>
-                <tr class="item">
-                    <td class="ps-20">Ppf</td>
-                    <td>partial-front</td>
-                    <td class="text-center">$127</td>
-                    <td class="text-center">$247</td>
+                    <td class="ps-20">{{ $details->item }}</td>
+                    <td>{{ $details->item_type }}</td>
+                    <td class="text-center">${{ $details->price }}</td>
+                    <td class="text-center">${{ $total }}</td>
                 </tr>
             @endforeach
             <tr class="total">
                 <td></td>
                 <td></td>
                 <td class="text-center">Subtotal</td>
-                <td class="text-center">$247</td>
+                <td class="text-center">${{ $data->total }}</td>
             </tr>
             <tr class="total">
                 <td></td>
                 <td></td>
                 <td class="text-center">Total</td>
-                <td class="text-center">$500</td>
+                <td class="text-center">${{ $data->total }}</td>
             </tr>
         </table>
         <!-- <div class="thank-you">
