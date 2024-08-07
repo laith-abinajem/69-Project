@@ -8,58 +8,9 @@ use App\Models\Invoice;
 use App\Models\InvoiceDetails;
 use Validator;
 
-/**
- * @OA\Info(title="My First API", version="0.1")
- * @OA\SecurityScheme(
- *     securityScheme="bearerAuth",
- *     type="http",
- *     scheme="bearer",
- *     bearerFormat="JWT"
- * )
- */
+
 class InvoiceController extends Controller
 {
-    /**
-     * @OA\Post(
-     *     path="/api/createInvoice",
-     *     summary="Create a new invoice",
-     *     tags={"Invoice"},
-     *     security={{"bearerAuth":{}}},
-     *     @OA\RequestBody(
-     *         required=true,
-     *         @OA\JsonContent(
-     *             required={"name", "phone", "total", "currency", "year", "make", "model", "services"},
-     *             @OA\Property(property="name", type="string"),
-     *             @OA\Property(property="phone", type="number"),
-     *             @OA\Property(property="total", type="number"),
-     *             @OA\Property(property="currency", type="string"),
-     *             @OA\Property(property="year", type="string"),
-     *             @OA\Property(property="make", type="string"),
-     *             @OA\Property(property="model", type="string"),
-     *             @OA\Property(
-     *                 property="services",
-     *                 type="array",
-     *                 @OA\Items(
-     *                     type="object",
-     *                     required={"name", "price", "item_type"},
-     *                     @OA\Property(property="name", type="string"),
-     *                     @OA\Property(property="price", type="number"),
-     *                     @OA\Property(property="item_type", type="string")
-     *                 )
-     *             )
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=200,
-     *         description="Invoice created successfully",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="code", type="integer", example=200),
-     *             @OA\Property(property="message", type="string", example="Data saved successfully")
-     *         )
-     *     ),
-     *     @OA\Response(response=400, description="Invalid input")
-     * )
-     */
     public function createInvoice(Request $request){
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',

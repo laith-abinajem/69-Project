@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\InvoiceController;
+use App\Http\Controllers\Api\InvoiceTestController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -20,5 +21,7 @@ Route::post('/register', [AuthController::class, 'register']);
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/user', [UserController::class, 'getUser']);
 Route::middleware(['auth:sanctum', 'verified'])->get('/cars', [UserController::class, 'getCars']);
-Route::post('/createInvoice', [InvoiceController::class, 'createInvoice']);
+Route::post('/createInvoiceTest', [InvoiceTestController::class, 'createInvoiceTest']);
+Route::middleware(['auth:sanctum', 'verified'])->post('/createInvoice', [InvoiceController::class, 'createInvoice']);
+
 

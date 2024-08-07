@@ -5,13 +5,13 @@
         "version": "0.1"
     },
     "paths": {
-        "/api/createInvoice": {
+        "/api/createInvoiceTest": {
             "post": {
                 "tags": [
                     "Invoice"
                 ],
                 "summary": "Create a new invoice",
-                "operationId": "02fcdcacae0adc86a93f902a15a81d70",
+                "operationId": "0a603ad5d196abec344450952b83319b",
                 "requestBody": {
                     "required": true,
                     "content": {

@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::table('invoices', function (Blueprint $table) {
             $table->string('invoice_no')->unique()->nullable();
-            $table->string('make')->unique()->nullable();
-            $table->string('year')->unique()->nullable();
-            $table->string('model')->unique()->nullable();
+            $table->string('make')->nullable();
+            $table->string('year')->nullable();
+            $table->string('model')->nullable();
         });
     }
 
