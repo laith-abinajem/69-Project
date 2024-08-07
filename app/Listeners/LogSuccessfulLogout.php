@@ -21,10 +21,12 @@ class LogSuccessfulLogout
      */
     public function handle(Logout $event)
     {
-        LoginHistory::where('user_id', $event->user->id)
+        $data = LoginHistory::where('user_id', $event->user->id)
             ->whereNull('logout_time')
             ->orderBy('login_time', 'desc')
-            ->first()
-            ->update(['logout_time' => now()]);
+            ->first();
+            if($data){
+                $data->update(['logout_time' => now()]);
+            }
     }
 }

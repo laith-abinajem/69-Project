@@ -147,7 +147,7 @@
                 </li> -->
                 @endcanany
                 <li class="slide">
-                    <a class="side-menu__item"  href="{{ route('dashboard.game') }}"><i class="side-menu__icon fe fe-play "></i><span class="side-menu__label">Game</span></a>
+                    <a class="side-menu__item"  href="{{ route('dashboard.game') }}"><i class="side-menu__icon fe fe-play "></i><span class="side-menu__label">Simulator</span></a>
                 </li>
             </ul>
 
