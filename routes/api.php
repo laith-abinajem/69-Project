@@ -20,5 +20,5 @@ Route::post('/register', [AuthController::class, 'register']);
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/user', [UserController::class, 'getUser']);
 Route::middleware(['auth:sanctum', 'verified'])->get('/cars', [UserController::class, 'getCars']);
-Route::middleware(['auth:sanctum', 'verified'])->post('/createInvoice', [InvoiceController::class, 'createInvoice']);
+Route::post('/createInvoice', [InvoiceController::class, 'createInvoice']);
 

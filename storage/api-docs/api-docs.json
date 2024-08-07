@@ -5,13 +5,13 @@
         "version": "0.1"
     },
     "paths": {
-        "/createInvoice": {
+        "/api/createInvoice": {
             "post": {
                 "tags": [
                     "Invoice"
                 ],
                 "summary": "Create a new invoice",
-                "operationId": "3bf1ce4c80044976832040f15f2b9ec1",
+                "operationId": "02fcdcacae0adc86a93f902a15a81d70",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -19,14 +19,57 @@
                             "schema": {
                                 "required": [
                                     "name",
-                                    "amount"
+                                    "phone",
+                                    "total",
+                                    "currency",
+                                    "year",
+                                    "make",
+                                    "model",
+                                    "services"
                                 ],
                                 "properties": {
                                     "name": {
                                         "type": "string"
                                     },
-                                    "amount": {
+                                    "phone": {
                                         "type": "number"
+                                    },
+                                    "total": {
+                                        "type": "number"
+                                    },
+                                    "currency": {
+                                        "type": "string"
+                                    },
+                                    "year": {
+                                        "type": "string"
+                                    },
+                                    "make": {
+                                        "type": "string"
+                                    },
+                                    "model": {
+                                        "type": "string"
+                                    },
+                                    "services": {
+                                        "type": "array",
+                                        "items": {
+                                            "required": [
+                                                "name",
+                                                "price",
+                                                "item_type"
+                                            ],
+                                            "properties": {
+                                                "name": {
+                                                    "type": "string"
+                                                },
+                                                "price": {
+                                                    "type": "number"
+                                                },
+                                                "item_type": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
                                     }
                                 },
                                 "type": "object"
@@ -36,12 +79,43 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Invoice created successfully"
+                        "description": "Invoice created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Data saved successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "400": {
                         "description": "Invalid input"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
             }
         }
     },

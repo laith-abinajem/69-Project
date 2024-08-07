@@ -18,7 +18,17 @@ class InvoiceController extends Controller
     }
 
     public function index(Request $request){
-        $data = Invoice::where('user_id',auth()->user()->id)->get();
+        $query = Invoice::where('user_id', auth()->user()->id);
+
+        if ($request->has('from') && $request->has('to')) {
+            $from = $request->input('from');
+            $to = $request->input('to');
+            
+            // Ensure the dates are formatted correctly
+            $query->whereBetween('created_at', [$from . ' 00:00:00', $to . ' 23:59:59']);
+        }
+    
+        $data = $query->get();
       
         return view('dashboard.pages.invoice.index',compact('data'));
     }

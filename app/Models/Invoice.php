@@ -22,9 +22,14 @@ class Invoice extends Model
         parent::boot();
 
         static::creating(function ($invoice) {
-            $lastInvoice = Invoice::latest()->first();
-            $number = $lastInvoice ? intval(substr($lastInvoice->invoice_no, 2)) + 1 : 1;
-            $invoice->invoice_no = 'INV-' . str_pad($number, 8, '0', STR_PAD_LEFT);
+            // Attempt to generate a unique invoice number
+            do {
+                $lastInvoice = Invoice::latest()->first();
+                $number = $lastInvoice ? intval(substr($lastInvoice->invoice_no, 4)) + 1 : 1;
+                $invoice_no = 'INV-' . str_pad($number, 8, '0', STR_PAD_LEFT);
+            } while (Invoice::where('invoice_no', $invoice_no)->exists());
+
+            $invoice->invoice_no = $invoice_no;
         });
     }
 }
