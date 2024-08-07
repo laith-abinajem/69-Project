@@ -305,6 +305,37 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-12 col-xl-12">
+                <div class="card overflow-hidden review-project">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <h4 class="card-title mg-b-10">History login </h4>
+                            <i class="mdi mdi-dots-horizontal text-gray"></i>
+                        </div>
+                        <p class="tx-12 text-muted mb-3"></p>
+                        <div class="table-responsive mb-0" style="max-height: 200px; overflow: auto;">
+                        <table class="table table-hover table-bordered mb-0 text-md-nowrap text-lg-nowrap text-xl-nowrap table-striped ">
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>User</th>
+                                        <th>Login at</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                @foreach ($history as $item)
+                                    <tr>
+                                        <td>{{$item->id}}</td>
+                                        <td>{{$item->user->name}}</td>
+                                        <td>{{$item->login_time}}</td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <!-- /row -->
 

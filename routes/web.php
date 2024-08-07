@@ -51,7 +51,7 @@ Route::prefix('auth')->middleware('checkLogin')->controller(AuthController::clas
     Route::get('/checkPassword', 'checkPassword')->middleware('checkResetStep')->name('checkPassword');
 });
 
-Route::middleware(['auth', 'check.single.session'])->prefix('dashboard')->name('dashboard.')->group(function(){
+Route::middleware(['auth', 'check.single.session', 'log.session'])->prefix('dashboard')->name('dashboard.')->group(function(){
     Route::get('/home',[HomeController::class,'index'])->name('home.index');
     Route::get('/check-payment', [PaymentController::class, 'checkPayment'])->name('check-payment');
     Route::get('/create-package-square', [PaymentController::class, 'createSubscriptionPlans']);

@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
+use App\Models\LoginHistory;
 
 class CheckSingleSession
 {
@@ -25,6 +26,11 @@ class CheckSingleSession
                     // Check if the session ID stored in the user's record is different
                     if ($user->session_id !== $currentSessionId) {
                         // Log out the user from other sessions
+                        LoginHistory::where('user_id', $user->id)
+                            ->whereNull('logout_time')
+                            ->orderBy('login_time', 'desc')
+                            ->first()
+                            ->update(['logout_time' => now()]);
                         session()->getHandler()->destroy($user->session_id);
     
                         // Update the user's record with the current session ID

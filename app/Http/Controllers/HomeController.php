@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Subscription;
 use Carbon\Carbon;
 use App\Models\Package;
+use App\Models\LoginHistory;
 
 class HomeController extends Controller
 {
@@ -47,6 +48,8 @@ class HomeController extends Controller
         $packages = Package::get();
         // revenu 
         $total = Subscription::sum('price');
-        return view('dashboard.pages.dashboard',compact('packages','total','subscriber_expiry_week','subscriber_active','pending_users','subscriber_pending','user_withIn_week','user_withIn_month','user_withIn_day','subscriber_approve','subscriber_rejected'));
+        $history = LoginHistory::get();
+
+        return view('dashboard.pages.dashboard',compact('packages','history','total','subscriber_expiry_week','subscriber_active','pending_users','subscriber_pending','user_withIn_week','user_withIn_month','user_withIn_day','subscriber_approve','subscriber_rejected'));
     }
 }
