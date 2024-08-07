@@ -65,10 +65,10 @@ class InvoiceController extends Controller
             'name' => 'required|string|max:255',
             'phone' => 'required',
             'total' => 'required',
-            'currency' => 'required|string',
-            'year' => 'required|string',
-            'make' => 'required|string',
-            'model' => 'required|string',
+            'currency' => 'required',
+            'year' => 'required',
+            'make' => 'required',
+            'model' => 'required',
         ]);
 
         if ($validator->fails()) {
