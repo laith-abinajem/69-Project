@@ -116,6 +116,17 @@
         .text-center {
             text-align: center;
         }
+        .bordered-table, .bordered-table tr, .bordered-table td, .bordered-table th{
+      border: 1px solid #c2c2c2;
+      border-collapse: collapse;
+    }
+    .bordered-table td, .bordered-table th{
+      padding: 5px;
+      height: 18px;
+    }
+    table{
+      width: 100%;
+    }
     </style>
 </head>
 <body>
@@ -129,11 +140,11 @@
         <div class="clearfix"></div>
     </header>
     <footer>
-        © 2024 COPYRIGHT BY 69-TOOLS WHERE QUALITY MATTERS
+        © 2024 COPYRIGHT BY {{$data->user->company_name ?? '69-TOOLS'}} WHERE QUALITY MATTERS
     </footer>
     <div class="invoice-box">
-        <table>
-            <tr class="information">
+        <table class="bordered-table">
+            <!-- <tr class="information">
                 <td colspan="4">
                     <table>
                         <tr>
@@ -149,6 +160,16 @@
                         </tr>
                     </table>
                 </td>
+            </tr> -->
+            <tr>
+                <td> Invoice No. {{$data->invoice_no}} </td>
+                <td> Date: {{ \Carbon\Carbon::parse($data->created_at)->format('m-d-Y') }}</td>
+                <td> Day: {{ date('l', strtotime($data->created_at)) }}</td>
+                <td> Vehicle:  {{$data->year}} - {{$data->make}} - {{$data->model}} </td>
+            </tr>
+            <tr>
+                <td colspan="2" >Customer: {{$data->name}}</td>
+                <td colspan="2" >Phone: {{$data->phone}}</td>
             </tr>
         </table>
         <table class="main-table">
