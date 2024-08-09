@@ -9,7 +9,7 @@ use PDF;
 class InvoiceController extends Controller
 {
     public function downloadPDF($id){
-        $data = Invoice::where('id',$id)->first();
+        $data = Invoice::with('user')->where('id',$id)->first();
         $work_sheet = 'work-sheet.pdf';
         $companyLogo = $data->user->getFirstMediaUrl('company_logo');
         $pdf = PDF::loadView('dashboard.invoice',compact('data','companyLogo'));

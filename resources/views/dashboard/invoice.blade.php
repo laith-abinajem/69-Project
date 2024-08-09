@@ -140,7 +140,7 @@
         <div class="clearfix"></div>
     </header>
     <footer>
-        © 2024 COPYRIGHT BY {{$data->user()->first()->company_name ?? '69-TOOLS'}} WHERE QUALITY MATTERS
+        © 2024 COPYRIGHT BY {{ $data->user->company_name ?? '69-TOOLS' }} WHERE QUALITY MATTERS
     </footer>
     <div class="invoice-box">
         <table class="bordered-table">
