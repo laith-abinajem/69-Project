@@ -33,4 +33,10 @@ class InvoiceController extends Controller
       
         return view('dashboard.pages.invoice.index',compact('data'));
     }
+    public function delete(Request $request,$id){
+        $data = Invoice::find($id);
+        $data->delete();
+        toast('Success','success');
+        return redirect()->route('dashboard.invoices.index');
+    }
 }

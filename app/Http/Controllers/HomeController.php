@@ -8,7 +8,6 @@ use App\Models\Subscription;
 use Carbon\Carbon;
 use App\Models\Package;
 use App\Models\LoginHistory;
-
 class HomeController extends Controller
 {
     public function index(Request $request)
@@ -48,7 +47,9 @@ class HomeController extends Controller
         $packages = Package::get();
         // revenu 
         $total = Subscription::sum('price');
-        $history = LoginHistory::get();
+        $history = LoginHistory::where('created_at', '>=', Carbon::now()->subDays(3))
+                       ->orderBy('created_at', 'desc')
+                       ->get();
 
         return view('dashboard.pages.dashboard',compact('packages','history','total','subscriber_expiry_week','subscriber_active','pending_users','subscriber_pending','user_withIn_week','user_withIn_month','user_withIn_day','subscriber_approve','subscriber_rejected'));
     }

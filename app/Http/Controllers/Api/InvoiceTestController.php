@@ -33,7 +33,7 @@ class InvoiceTestController extends Controller
      *             @OA\Property(property="phone", type="number"),
      *             @OA\Property(property="total", type="number"),
      *             @OA\Property(property="currency", type="string"),
-     *             @OA\Property(property="year", type="string"),
+     *             @OA\Property(property="year", type="number"),
      *             @OA\Property(property="make", type="string"),
      *             @OA\Property(property="model", type="string"),
      *             @OA\Property(

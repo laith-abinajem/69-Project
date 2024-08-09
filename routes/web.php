@@ -145,6 +145,8 @@ Route::middleware(['auth', 'check.single.session', 'log.session'])->prefix('dash
     });
     Route::prefix('invoices')->name('invoices.')->group(function () {
         Route::get('/',[InvoiceController::class,'index'])->name('index');
+        Route::post('/delete/{id}',[InvoiceController::class,'delete'])->name('delete');
+
     });
     Route::prefix('detailing')->name('detailing.')->group(function(){
         Route::get('/',[DetailingController::class,'index'])->name('index');

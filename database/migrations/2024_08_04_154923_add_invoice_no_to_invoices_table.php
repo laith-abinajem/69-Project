@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::table('invoices', function (Blueprint $table) {
             $table->string('invoice_no')->unique()->nullable();
             $table->string('make')->nullable();
-            $table->string('year')->nullable();
+            $table->integer('year')->nullable();
             $table->string('model')->nullable();
         });
     }
