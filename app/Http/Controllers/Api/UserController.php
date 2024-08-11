@@ -91,11 +91,12 @@ class UserController extends Controller
             })->map(function ($group) {
                 // Clean the class_car value for the output
                 $classCar = str_replace([' ', '(', ')'], '', $group->first()->class_car);
+                $subClassCar = str_replace([' ', '(', ')'], '', $group->first()->sub_class_car);
                 return [
                     'id' => $group->first()->id,
                     'tint_id' => $group->first()->tint_id,
                     'class_car' => $classCar,
-                    'sub_class_car' => $group->first()->sub_class_car,
+                    'sub_class_car' => $subClassCar,
                     'hide' => $group->first()->status,
                     'window' => $group->pluck('window')->toArray(),
                     'price' => $group->pluck('price')->toArray(),
@@ -143,11 +144,13 @@ class UserController extends Controller
             })->map(function ($group) {
                 // Clean the class_car value for the output
                 $classCar = str_replace([' ', '(', ')'], '', $group->first()->class_car);
+                $subClassCar = str_replace([' ', '(', ')'], '', $group->first()->sub_class_car);
+
                 return [
                     'id' => $group->first()->id,
                     'ppf_id' => $group->first()->ppf_id,
                     'class_car' => $classCar,
-                    'sub_class_car' => $group->first()->sub_class_car,
+                    'sub_class_car' => $subClassCar,
                     'hide' => $group->first()->status,
                     'ppf_type' => $group->pluck('ppf_type')->toArray(),
                     'price' => $group->pluck('price')->toArray(),
@@ -191,15 +194,18 @@ class UserController extends Controller
             // Sanitize class_car before grouping
             $groupedLightsDetails = $lightTint->lightDetails->map(function ($detail) {
                 $detail->class_car = str_replace([' ', '(', ')'], '', $detail->class_car);
+                $detail->sub_class_car = str_replace([' ', '(', ')'], '', $detail->sub_class_car);
                 return $detail;
             })->groupBy(function ($detail) {
                 return $detail->class_car . '-' . $detail->sub_class_car;
             })->map(function ($group) {
+                $classCar = str_replace([' ', '(', ')'], '', $group->first()->class_car);
+                $subClassCar = str_replace([' ', '(', ')'], '', $group->first()->sub_class_car);
                 return [
                     'id' => $group->first()->id,
                     'light_id' => $group->first()->light_id,
-                    'class_car' => $group->first()->class_car,
-                    'sub_class_car' => $group->first()->sub_class_car,
+                    'class_car' => $classCar,
+                    'sub_class_car' =>  $subClassCar,
                     'hide' => $group->first()->status,
                     'light_type' => $group->pluck('light_type')->toArray(),
                     'price' => $group->pluck('price')->toArray(),
@@ -240,17 +246,22 @@ class UserController extends Controller
             unset($detailingBrand->media);
             // Attach add-ons to the tint brand
             $detailingBrand->addons = $addons_detailing;
-            $groupedDetailingDetails = $detailingBrand->detailingDetails->groupBy(function ($detail) {
-                $classCar = str_replace([' ', '(', ')'], '', $detail->class_car);
-                return $classCar . '-' . $detail->sub_class_car;
+            $groupedDetailingDetails = $detailingBrand->detailingDetails->map(function ($detail) {
+                // Clean both class_car and sub_class_car values
+                $detail->class_car = str_replace([' ', '(', ')'], '', $detail->class_car);
+                $detail->sub_class_car = str_replace([' ', '(', ')'], '', $detail->sub_class_car);
+                return $detail;
+            })->groupBy(function ($detail) {
+                return $detail->class_car . '-' . $detail->sub_class_car;
             })->map(function ($group) {
-                // Clean the class_car value for the output
+                // Clean the class_car and sub_class_car values for the output
                 $classCar = str_replace([' ', '(', ')'], '', $group->first()->class_car);
+                $subClassCar = str_replace([' ', '(', ')'], '', $group->first()->sub_class_car);
                 return [
                     'id' => $group->first()->id,
                     'detailing_id' => $group->first()->detailing_id,
                     'class_car' => $classCar,
-                    'sub_class_car' => $group->first()->sub_class_car,
+                    'sub_class_car' => $subClassCar,
                     'hide' => $group->first()->status,
                     'price' => $group->first()->price,  // Use the price of the first item in the group
                     'created_at' => $group->first()->created_at,

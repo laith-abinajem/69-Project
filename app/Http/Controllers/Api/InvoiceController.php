@@ -42,7 +42,7 @@ class InvoiceController extends Controller
         ]);
         foreach($request->services as $service){
             $details = InvoiceDetails::create([
-               'item' => $service['name'],
+                'item' => $service['name'],
                 'price' => $service['price'],
                 'item_type' => $service['item_type'],
                 'invoice_id' => $invoice->id,

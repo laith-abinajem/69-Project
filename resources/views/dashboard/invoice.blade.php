@@ -9,69 +9,7 @@
             margin: 0;
             padding: 0;
         }
-        .invoice-box {
-            max-width: 800px;
-            margin: auto;
-            padding: 0 30px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
-            font-size: 16px;
-            line-height: 24px;
-            color: #555;
-        }
-        .invoice-box table {
-            width: 100%;
-            line-height: inherit;
-            text-align: left;
-            border-collapse: collapse;
-        }
-        .invoice-box table td {
-            padding: 5px;
-            vertical-align: top;
-        }
-        .invoice-box table.main-table td{
-            padding: 5 20px;
-        }
-        .invoice-box table tr.top table td {
-            padding-bottom: 20px;
-        }
-        .invoice-box table tr.top table td.title {
-            font-size: 45px;
-            line-height: 45px;
-            color: #333;
-        }
-        .invoice-box table tr.information table td {
-            padding-bottom: 40px;
-        }
-        .invoice-box table tr.heading td {
-            background: #eee;
-            border-bottom: 1px solid #ddd;
-            font-weight: bold;
-        }
-        .invoice-box table tr.details td {
-            padding-bottom: 20px;
-        }
-        .invoice-box table tr.item td {
-            border-bottom: 1px solid #eee;
-        }
-        .invoice-box table tr.item.last td {
-            border-bottom: none;
-        }
-        .invoice-box table tr.total:last-child td:nth-last-child(-n+2) {
-            border-top: 2px solid #eee;
-            font-weight: bold;
-        }
-        .invoice-box .total td {
-            padding: 10px;
-        }
-        .invoice-box .thank-you {
-            margin-top: 20px;
-            font-size: 24px;
-        }
-
-        @page {
-            margin: 180px 0 80px;
-        }
-
+     
         header {
             position: fixed;
             top: -130px;
@@ -127,14 +65,97 @@
     table{
       width: 100%;
     }
+
+
+    @page { margin: 75px 25px; }
+    body{
+      font-family: 'Open Sans',sans-serif;
+      font-size: 12px;
+    }
+    header { 
+      position: fixed; 
+      top: -60px; 
+      left: 0px; 
+      right: 0px;
+      height: 90px;
+    }
+    footer { 
+      position: fixed; 
+      bottom: -60px; 
+      left: 0px; 
+      right: 0px;
+      height: 30px;
+      text-align: center;
+      color: #ffffff;
+      background-color: #d93791;
+      /*background-image: linear-gradient(to right, #d93791 , #39b3b9);*/
+    }
+    table{
+      width: 100%;
+    }
+    .bordered-table, .bordered-table tr, .bordered-table td, .bordered-table th{
+      border: 1px solid #c2c2c2;
+      border-collapse: collapse;
+    }
+    .bordered-table td, .bordered-table th{
+      padding: 5px;
+      height: 18px;
+    }
+    .mt-2{
+      margin-top: 2em;
+    }
+    .float-left{
+      float: left;
+    }
+    .bold{
+      font-weight: bold;
+    }
+    input{
+      display: inline-block;
+      margin-bottom: -7px
+    }
+    .underline{
+      color: red;
+    }
+    #freeform{
+      width: 100%;
+      height: 30px;
+      border: 1px solid #c2c2c2;
+      padding: 5px;
+    }
+    .blue-title{
+      color: #6075b8;
+      font-weight: bold;
+      font-size: 13px;
+    }
+    .circle{
+      border: 1px solid #000000; 
+      border-radius: 100px; 
+      display: inline-block; 
+      height: 15px; 
+      width: 15px; 
+      text-align: center; 
+      padding: 2px; 
+      margin-bottom: -6px;
+    }
+    .circle2{
+      border: 1px solid #000000; 
+      border-radius: 100px; 
+      display: inline-block; 
+      height: 15px; 
+      width: 50px; 
+      text-align: center; 
+      padding: 2px; 
+      margin-bottom: -6px;
+    }
     </style>
 </head>
 <body>
     <header>
         <div class="logo">
-            @if ($companyLogo)
+            <!-- @if ($companyLogo)
             <img src="{{ $companyLogo }}" style="width:100px;">
-            @endif
+            @endif -->
         </div>
         <div class="invoice-title">WORK ORDER</div>
         <div class="clearfix"></div>
@@ -172,7 +193,168 @@
                 <td colspan="2" >Phone: {{$data->phone}}</td>
             </tr>
         </table>
-        <table class="main-table">
+        <div class="section3 mt-2">
+      <table class="bordered-table">
+        <tr>
+          <th class="blue-title" style="background-color: #f2f2f2;" colspan="8">
+            REQUESTED SHADES AND TYPE OF FILM
+          </th>
+          <th class="blue-title" colspan="2" style="background-color: #f2f2f2;" >
+           Tint Brand used
+          </th>
+        </tr>
+        <tr>
+          <td colspan="8">
+            <div class="float-left" style="width: 25%;">
+              <span class="bold">Front Windows :</span> 
+            </div>
+            <div class="float-left">
+            <span class="ps-4">5 </span>/
+            <span class="ps-4">20 </span>/
+            <span class="ps-4">30 </span>/
+            <span class="ps-4">35 </span>/
+            <span class="ps-4">45 </span>/
+            <span class="ps-4">50 </span>/
+            <span class="ps-4">70 </span>
+            <span class="ps-4"> %VLT</span>
+              </td>
+          <td colspan="2">
+          </td>
+        </tr>
+        <tr>
+          <td colspan="8">
+            <div class="float-left" style="width: 25%;">
+              <span class="bold">Back windows :</span> 
+            </div>
+            <div class="float-left">
+            <span class="ps-4 ">5 </span>/
+            <span class="ps-4 ">20  </span>/
+            <span class="ps-4 ">30 </span>/
+            <span class="ps-4 ">35 </span>/
+            <span class="ps-4 ">45 </span>/
+            <span class="ps-4 ">50 </span>/
+            <span class="ps-4 ">70 </span>
+              <span class="ps-4"> %VLT</span> 
+            </div>
+          </td>
+          <td colspan="2">
+          </td>
+        </tr>
+        <tr>
+          <td colspan="8">
+            <div class="float-left" style="width: 25%;">
+              <span class="bold">Front Windshield :</span> 
+            </div>
+            <div class="float-left">
+            <span class="ps-4 ">5  </span>/
+            <span class="ps-4 ">20 </span>/
+            <span class="ps-4 ">30 </span>/
+            <span class="ps-4 ">35 </span>/
+            <span class="ps-4 ">45 </span>/
+            <span class="ps-4 ">50 </span>/
+            <span class="ps-4 ">70 </span>
+             <span class="ps-4"> %VLT</span> 
+            </div>
+          </td>
+          <td colspan="2">
+          </td>
+        </tr>
+        <tr>
+          <td colspan="8">
+            <div class="float-left" style="width: 25%;">
+              <span class="bold">Windshield Strip :</span>
+            </div>
+            <div class="float-left">
+            <span class="ps-4 ">5  </span>/
+            <span class="ps-4 ">20  </span>/
+            <span class="ps-4 ">30 </span>/
+            <span class="ps-4 ">35 </span>/
+            <span class="ps-4 ">45 </span>/
+            <span class="ps-4 ">50 </span>/
+            <span class="ps-4 ">70 </span>
+              <span class="ps-4"> %VLT</span> 
+            </div>
+          </td>
+          <td colspan="2">
+          </td>
+        </tr>
+        <tr>
+          <td colspan="8">
+            <div class="float-left" style="width: 25%;">
+              <span class="bold">Moonroof:</span>
+            </div>
+            <div class="float-left">
+            <span class="ps-4 ">5 </span>/
+            <span class="ps-4  ">20 </span>/
+            <span class="ps-4 ">30</span>/
+            <span class="ps-4  ">35</span>/
+            <span class="ps-4  ">45</span>/
+            <span class="ps-4  ">50</span>/
+            <span class="ps-4  f">70 </span>
+              <span class="ps-4"> %VLT</span> 
+            </div>
+          </td>
+          <td colspan="2">
+          </td>
+         
+        </tr>
+      </table>
+    </div>
+    <div class="section4 mt-2">
+      <table>
+        <tr>
+        <td colspan="10"> 
+            <span class="bold">PPF/Ceramic coating:</span>
+            <span class="ps-5  ">Patrial front</span>/
+            <span class="ps-5 ">Full front</span>/
+            <span class="ps-5 ">Track pack</span>/
+            <span class="ps-5   ">Full kit</span>
+        </td>
+        </tr>
+        <tr>
+          <td colspan="10">
+            <span >Ceramic Coating Car:</span>
+            <span class="pe-2">1</span>
+            <span class="pe-2">2</span>
+            <span class="pe-2">3</span>
+            <span class="pe-2">4</span>
+            <span class="pe-2">5</span>
+            <span class="pe-2">6</span>
+            <span class="pe-2">7</span>
+            <span class="pe-5"></span>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="10">
+            <span class="bold">Paint Correction:</span>
+            <span class="pe-2">1</span>
+            <span class="pe-2">2</span>
+            <span class="pe-2">3</span>
+            <span class="pe-2">4</span>
+            <span class="pe-5"></span>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="10">
+            <span class="bold">Light tint:</span>
+            <span class="pe-2">1</span>
+            <span class="pe-2">2</span>
+            <span class="pe-2">3</span>
+            <span class="pe-2">4</span>
+            <span class="pe-5"></span>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="10">
+            <span class="bold">Detailng</span>
+            <span class="pe-2">in</span>
+            <span class="pe-2">out</span>
+            <span class="pe-5">in & out</span>
+          </td>
+        </tr>
+      </table>
+    </div>
+        <!-- <table class="main-table">
             <tr class="heading">
                 <td class="ps-20">Item</td>
                 <td>Type</td>
@@ -201,7 +383,7 @@
                 <td class="text-center">Total</td>
                 <td class="text-center">${{ $data->total }}</td>
             </tr>
-        </table>
+        </table> -->
         <!-- <div class="thank-you">
             Thank you!
         </div> -->
