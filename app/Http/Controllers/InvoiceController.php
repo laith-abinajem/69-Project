@@ -17,6 +17,15 @@ class InvoiceController extends Controller
        
         return $pdf->stream($work_sheet);
     }
+    public function downloadPDFDirect($id){
+        $data = Invoice::with('user')->where('id',$id)->first();
+        $work_sheet = 'work-sheet.pdf';
+        $companyLogo = $data->user->getFirstMediaUrl('company_logo');
+        $companyName = $data->user()->first()->company_name;
+        $pdf = PDF::loadView('dashboard.invoice',compact('data','companyLogo','companyName'));
+       
+        return $pdf->download($work_sheet);
+    }
 
     public function index(Request $request){
         $query = Invoice::where('user_id', auth()->user()->id);

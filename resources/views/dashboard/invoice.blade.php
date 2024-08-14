@@ -153,9 +153,9 @@
 <body>
     <header>
         <div class="logo">
-            <!-- @if ($companyLogo)
+            @if ($companyLogo)
             <img src="{{ $companyLogo }}" style="width:100px;">
-            @endif -->
+            @endif
         </div>
         <div class="invoice-title">WORK ORDER</div>
         <div class="clearfix"></div>

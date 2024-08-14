@@ -38,6 +38,7 @@ Route::get('/checkout', function () {
 // Route::post('/dashboard.process-payment', [PaymentController::class, 'createPayment'])->name('dashboard.process-payment');
 Route::post('/processPayment', [PaymentController::class, 'processPayment'])->name('processPayment');
 Route::get('/pdf/{id}',[InvoiceController::class,'downloadPDF'])->name('pdf');
+Route::get('/pdfDownload/{id}',[InvoiceController::class,'downloadPDFDirect'])->name('pdf_download');
 
 
 Route::prefix('auth')->middleware('checkLogin')->controller(AuthController::class)->group(function () {

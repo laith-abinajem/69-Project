@@ -41,6 +41,9 @@
                                     <a class="button btn btn-secondary" href="{{ route('pdf',$item->id) }}" target="_blank">
                                         Worksheet
                                     </a>
+                                    <a class="button btn btn-success" href="{{ route('pdf_download',$item->id) }}" target="_blank">
+                                        Download
+                                    </a>
                                     <a type="button" class="button btn btn-danger float-right" data-bs-toggle="modal" data-bs-target="#deleteModal{{$item->id}}">
                                         <i class="fas fa-trash"></i>
                                     </a>
