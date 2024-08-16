@@ -42,6 +42,9 @@
             font-size: 32px;
             font-weight: bold;
         }
+        .invoice-box{
+          margin-top:40px;
+        }
         .clearfix {
             clear: both;
         }
@@ -54,17 +57,9 @@
         .text-center {
             text-align: center;
         }
-        .bordered-table, .bordered-table tr, .bordered-table td, .bordered-table th{
-      border: 1px solid #c2c2c2;
-      border-collapse: collapse;
-    }
-    .bordered-table td, .bordered-table th{
-      padding: 5px;
-      height: 18px;
-    }
-    table{
-      width: 100%;
-    }
+        table{
+          width: 100%;
+        }
 
 
     @page { margin: 75px 25px; }
@@ -79,17 +74,7 @@
       right: 0px;
       height: 90px;
     }
-    footer { 
-      position: fixed; 
-      bottom: -60px; 
-      left: 0px; 
-      right: 0px;
-      height: 30px;
-      text-align: center;
-      color: #ffffff;
-      background-color: #d93791;
-      /*background-image: linear-gradient(to right, #d93791 , #39b3b9);*/
-    }
+   
     table{
       width: 100%;
     }
@@ -153,9 +138,9 @@
 <body>
     <header>
         <div class="logo">
-            <!-- @if ($companyLogo)
+            @if ($companyLogo)
             <img src="{{ $companyLogo }}" style="width:100px;">
-            @endif -->
+            @endif
         </div>
         <div class="invoice-title">WORK ORDER</div>
         <div class="clearfix"></div>
@@ -196,68 +181,42 @@
         <div class="section3 mt-2">
       <table class="bordered-table">
         <tr>
-          <th class="blue-title" style="background-color: #f2f2f2;" colspan="8">
+          <th class="blue-title" style="background-color: #f2f2f2;" colspan="10">
             REQUESTED SHADES AND TYPE OF FILM
           </th>
-          <th class="blue-title" colspan="2" style="background-color: #f2f2f2;" >
-           Tint Brand used
-          </th>
+       
         </tr>
         <tr>
-          <td colspan="8">
+          <td colspan="10">
             <div class="float-left" style="width: 25%;">
               <span class="bold">Front Windows :</span> 
             </div>
             <div class="float-left">
-            <span class="ps-4">5 </span>/
-            <span class="ps-4">20 </span>/
-            <span class="ps-4">30 </span>/
-            <span class="ps-4">35 </span>/
-            <span class="ps-4">45 </span>/
-            <span class="ps-4">50 </span>/
-            <span class="ps-4">70 </span>
-            <span class="ps-4"> %VLT</span>
-              </td>
-          <td colspan="2">
+            <span class="ps-4">{{ $front_two->item_type ?? ''}}</span>
+            </div>
+
           </td>
         </tr>
         <tr>
-          <td colspan="8">
+          <td colspan="10">
             <div class="float-left" style="width: 25%;">
               <span class="bold">Back windows :</span> 
             </div>
             <div class="float-left">
-            <span class="ps-4 ">5 </span>/
-            <span class="ps-4 ">20  </span>/
-            <span class="ps-4 ">30 </span>/
-            <span class="ps-4 ">35 </span>/
-            <span class="ps-4 ">45 </span>/
-            <span class="ps-4 ">50 </span>/
-            <span class="ps-4 ">70 </span>
-              <span class="ps-4"> %VLT</span> 
+            <span class="ps-4">{{ $back_half->item_type ?? ''}}</span>
             </div>
-          </td>
-          <td colspan="2">
           </td>
         </tr>
         <tr>
-          <td colspan="8">
+          <td colspan="10">
             <div class="float-left" style="width: 25%;">
               <span class="bold">Front Windshield :</span> 
             </div>
             <div class="float-left">
-            <span class="ps-4 ">5  </span>/
-            <span class="ps-4 ">20 </span>/
-            <span class="ps-4 ">30 </span>/
-            <span class="ps-4 ">35 </span>/
-            <span class="ps-4 ">45 </span>/
-            <span class="ps-4 ">50 </span>/
-            <span class="ps-4 ">70 </span>
-             <span class="ps-4"> %VLT</span> 
+            <span class="ps-4 ">{{ $front_ws->item_type ?? ''}} </span>
             </div>
           </td>
-          <td colspan="2">
-          </td>
+         
         </tr>
         <tr>
           <td colspan="8">
@@ -265,17 +224,8 @@
               <span class="bold">Windshield Strip :</span>
             </div>
             <div class="float-left">
-            <span class="ps-4 ">5  </span>/
-            <span class="ps-4 ">20  </span>/
-            <span class="ps-4 ">30 </span>/
-            <span class="ps-4 ">35 </span>/
-            <span class="ps-4 ">45 </span>/
-            <span class="ps-4 ">50 </span>/
-            <span class="ps-4 ">70 </span>
-              <span class="ps-4"> %VLT</span> 
+            <span class="ps-4 ">{{ $stripe->item_type ?? ''}} </span>
             </div>
-          </td>
-          <td colspan="2">
           </td>
         </tr>
         <tr>
@@ -284,19 +234,9 @@
               <span class="bold">Moonroof:</span>
             </div>
             <div class="float-left">
-            <span class="ps-4 ">5 </span>/
-            <span class="ps-4  ">20 </span>/
-            <span class="ps-4 ">30</span>/
-            <span class="ps-4  ">35</span>/
-            <span class="ps-4  ">45</span>/
-            <span class="ps-4  ">50</span>/
-            <span class="ps-4  f">70 </span>
-              <span class="ps-4"> %VLT</span> 
+            <span class="ps-4 ">{{ $roof->item_type ?? ''}} </span>
             </div>
           </td>
-          <td colspan="2">
-          </td>
-         
         </tr>
       </table>
     </div>
@@ -305,13 +245,13 @@
         <tr>
         <td colspan="10"> 
             <span class="bold">PPF/Ceramic coating:</span>
-            <span class="ps-5  ">Patrial front</span>/
-            <span class="ps-5 ">Full front</span>/
-            <span class="ps-5 ">Track pack</span>/
-            <span class="ps-5   ">Full kit</span>
+            <span class="ps-5  @if ($ppf == 'PARTIAL FRONT') circle2 @endif ">Patrial front</span>/
+            <span class="ps-5  @if ($ppf == 'FULL FRONT') circle2 @endif ">Full front</span>/
+            <span class="ps-5  @if ($ppf == 'TRACK PACK') circle2 @endif ">Track pack</span>/
+            <span class="ps-5  @if ($ppf == 'FULL KIT') circle2 @endif  ">Full kit</span>
         </td>
         </tr>
-        <tr>
+        <!-- <tr>
           <td colspan="10">
             <span >Ceramic Coating Car:</span>
             <span class="pe-2">1</span>
@@ -323,33 +263,28 @@
             <span class="pe-2">7</span>
             <span class="pe-5"></span>
           </td>
-        </tr>
+        </tr> -->
         <tr>
           <td colspan="10">
             <span class="bold">Paint Correction:</span>
-            <span class="pe-2">1</span>
-            <span class="pe-2">2</span>
-            <span class="pe-2">3</span>
-            <span class="pe-2">4</span>
-            <span class="pe-5"></span>
+            <span class="pe-2 @if ($stepNumber == '1') circle @endif">1</span>/
+            <span class="pe-2 @if ($stepNumber == '2') circle @endif">2</span>/
+            <span class="pe-2 @if ($stepNumber == '3') circle @endif">3</span>/
+            <span class="pe-2 @if ($stepNumber == '4') circle @endif">4</span>
           </td>
         </tr>
-        <tr>
+        <!-- <tr>
           <td colspan="10">
             <span class="bold">Light tint:</span>
             <span class="pe-2">1</span>
-            <span class="pe-2">2</span>
-            <span class="pe-2">3</span>
-            <span class="pe-2">4</span>
-            <span class="pe-5"></span>
           </td>
-        </tr>
+        </tr> -->
         <tr>
           <td colspan="10">
             <span class="bold">Detailng</span>
-            <span class="pe-2">in</span>
-            <span class="pe-2">out</span>
-            <span class="pe-5">in & out</span>
+            <span class="pe-2 @if ($detail == 'INTIRIOR') circle @endif">in</span>
+            <span class="pe-2 @if ($detail == 'EXTIRIOR') circle @endif">out</span>
+            <span class="pe-5 @if ($detail == 'INOUT') circle @endif">in & out</span>
           </td>
         </tr>
       </table>

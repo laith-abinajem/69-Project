@@ -13,8 +13,41 @@ class InvoiceController extends Controller
         $work_sheet = 'work-sheet.pdf';
         $companyLogo = $data->user->getFirstMediaUrl('company_logo');
         $companyName = $data->user()->first()->company_name;
-        $pdf = PDF::loadView('dashboard.invoice',compact('data','companyLogo','companyName'));
-       
+        $back_half = $data->invoiceDetails->where('item','BACK HALF')->first();
+        $front_ws = $data->invoiceDetails->where('item','FRONT W.S')->first();
+        $front_two = $data->invoiceDetails->where('item','FRONT TWO')->first();
+        $stripe = $data->invoiceDetails->where('item','STRPE')->first();
+        $roof = $data->invoiceDetails->where('item','SUN ROOF')->first();
+        $ppf ;
+        if($data->invoiceDetails->where('item','TRACK PACK')->first()){
+            $ppf = 'TRACK PACK';
+        }else if($data->invoiceDetails->where('item','PARTIAL FRONT')->first()){
+            $ppf = 'PARTIAL FRONT';
+        }else if($data->invoiceDetails->where('item','FULL FRONT')->first()){
+            $ppf = 'FULL FRONT';
+        }else if($data->invoiceDetails->where('item','FULL KIT')->first()){
+            $ppf = 'FULL KIT';
+        }else{
+            $ppf = '';
+        }
+        $paint = $data->invoiceDetails->where('item','DETAIL PAINT CORRECTION')->first();
+        $stepNumber = null;
+        if ($paint) {
+            $parts = explode(' ', $paint->item_type); 
+            $stepNumber = $parts[2] ?? ''; 
+        }
+
+        $detail ;
+        if($data->invoiceDetails->where('item','DETAIL EXTIRIOR')->first()){
+            $detail = 'EXTIRIOR';
+        }else if($data->invoiceDetails->where('item','DETAIL INTIRIOR')->first()){
+            $detail = 'INTIRIOR';
+        }else if($data->invoiceDetails->where('item','INOUT')->first()){
+            $detail = 'INOUT';
+        }else{
+            $detail = '';
+        }
+        $pdf = PDF::loadView('dashboard.invoice',compact('data','companyLogo','companyName','front_ws','back_half','front_two','stripe','roof','ppf','stepNumber','detail'));
         return $pdf->stream($work_sheet);
     }
     public function downloadPDFDirect($id){
