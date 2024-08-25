@@ -37,6 +37,7 @@
                                     <th class="border-bottom-0">ID</th>
                                     <th class="border-bottom-0">Name</th>
                                     <th class="border-bottom-0">Email</th>
+                                    <th class="border-bottom-0">User type</th>
                                     @if(auth()->user()->type === "super_admin")
                                     <th class="border-bottom-0">Status</th>
                                     @endif
@@ -57,6 +58,7 @@
                                     <td>{{$item->id}}</td>
                                     <td>{{$item->name}}</td>
                                     <td>{{$item->email}}</td>
+                                    <td>{{$item->type}}</td>
                                     @if(auth()->user()->type === "super_admin")
                                     <td>
                                     <select class="form-control status-select {{ $item->status }}" data-item-id="{{ $item->id }}">

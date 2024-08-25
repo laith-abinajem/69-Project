@@ -130,6 +130,7 @@ class UserController extends Controller
                 'language' => $request->language,
                 'currency' => $request->currency,
                 'custom_text' => $request->custom_text,
+                'type' => $request->type,
                 'hex' => $request->hex,
             ]);
             if($request->password !== null){

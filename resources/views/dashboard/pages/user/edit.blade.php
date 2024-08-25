@@ -35,6 +35,13 @@
                                     <option value="rejected" {{ $data->status == 'rejected' ? 'selected' : '' }}>Rejected</option>
                                 </select>
                             </div>
+                            <div class="form-group col-6">
+                                <label class="form-label">User type: <span class="tx-danger">*</span></label>
+                                <select name="type" id="type" required class="form-control paintProtectionFil select2 select2-no-search" >
+                                    <option value="super_admin" {{ $data->type == 'super_admin' ? 'selected' : '' }}>Super Admin</option>
+                                    <option value="subscriber" {{ $data->type == 'subscriber' ? 'selected' : '' }}>Subscriber</option>
+                                </select>
+                            </div>
                             @endif
                             <div class="col-6">
                                 <div class="form-group">

@@ -28,8 +28,13 @@ class AuthController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-        ]);
+            'type' => 'subscriber',
 
+        ]);
+        $subscriberRole = Role::where('name' ,'Subscriber')->first();
+        if($subscriberRole){
+            $user->assignRole($subscriberRole);
+        }
         $tokenResult = $user->createToken('LaravelAuthApp');
         $accessToken = $tokenResult->plainTextToken; 
     
