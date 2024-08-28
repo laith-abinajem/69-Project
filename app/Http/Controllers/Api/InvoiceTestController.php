@@ -63,12 +63,15 @@ class InvoiceTestController extends Controller
     public function createInvoiceTest(Request $request){
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
+            'email' => 'required|string|max:255',
             'phone' => 'required',
             'total' => 'required',
             'currency' => 'required',
             'year' => 'required',
             'make' => 'required',
             'model' => 'required',
+            'api_key' => 'required',
+            'business_id' => 'required',
         ]);
 
         if ($validator->fails()) {

@@ -49,7 +49,18 @@
                                     <input value="{{ $data->email }}" class="form-control" name="email" placeholder="Enter Email" required="" type="email">
                                 </div>
                             </div>
-                            
+                            <div class="col-6">
+                                <div class="form-group mg-b-0">
+                                    <label class="form-label">Api Key (CRM) <span class="tx-danger">*</span></label>
+                                    <input value="{{ $data->api_key }}" class="form-control" name="api_key" placeholder="Enter api key" required="" type="text">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group mg-b-0">
+                                    <label class="form-label">Business Id (CRM) <span class="tx-danger">*</span></label>
+                                    <input value="{{ $data->business_id }}" class="form-control" name="business_id" placeholder="Enter business id" required="" type="text">
+                                </div>
+                            </div>
                             <div class="col-6">
                                 <div class="form-group position-relative">
                                     <label class="form-label">Password:</label>

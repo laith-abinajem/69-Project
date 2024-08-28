@@ -57,6 +57,8 @@ class UserController extends Controller
                 'currency' => $request->currency,
                 'custom_text' => $request->custom_text,
                 'hex' => $request->hex,
+                'api_key' => $request->api_key,
+                'business_id' => $request->business_id,
             ]);
     
             if($request->type === "super_admin"){
@@ -132,6 +134,8 @@ class UserController extends Controller
                 'custom_text' => $request->custom_text,
                 'type' => $request->type,
                 'hex' => $request->hex,
+                'api_key' => $request->api_key,
+                'business_id' => $request->business_id,
             ]);
             if($request->password !== null){
                 $user->update([

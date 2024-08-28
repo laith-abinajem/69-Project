@@ -36,6 +36,8 @@ class User extends Authenticatable implements HasMedia
         'currency',
         'custom_text',
         'hex',
+        'api_key',
+        'business_id',
         'company_name',
     ];
 
