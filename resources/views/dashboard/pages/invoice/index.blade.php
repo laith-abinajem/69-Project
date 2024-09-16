@@ -35,7 +35,7 @@
                         @foreach ($data as $item)
                             <tr>
                                 <td>{{$item->id}}</td>
-                                <td>{{$item->created_at}}</td>
+                                <td class="date-column">{{ \Carbon\Carbon::parse($item->created_at)->format('m-d-Y') }}</td>
                                 <td>{{$item->name}}</td>
                                 <td>{{$item->phone}}</td>
                                 <td>{{$item->make}} - {{$item->year}} - {{$item->model}}</td>

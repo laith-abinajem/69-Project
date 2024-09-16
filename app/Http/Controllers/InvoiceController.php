@@ -67,7 +67,7 @@ class InvoiceController extends Controller
             $detail = 'EXTIRIOR';
         }else if($data->invoiceDetails->where('item','Detail Intirior')->first()){
             $detail = 'INTIRIOR';
-        }else if($data->invoiceDetails->where('item','Inout')->first()){
+        }else if($data->invoiceDetails->where('item','Detail Inout')->first()){
             $detail = 'INOUT';
         }else{
             $detail = '';
