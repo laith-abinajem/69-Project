@@ -13,23 +13,39 @@ class InvoiceController extends Controller
         $work_sheet = 'work-sheet.pdf';
         $companyLogo = $data->user->getFirstMediaUrl('company_logo');
         $companyName = $data->user()->first()->company_name;
-        $back_half = $data->invoiceDetails->where('item','BACK HALF')->first();
+        $back_half = $data->invoiceDetails->filter(function($detail) {
+            return stripos($detail->item, 'BACK HALF') !== false;
+        })->first();
         $front_ws = $data->invoiceDetails->filter(function($detail) {
             return stripos($detail->item, 'FRONT W.S') !== false;
         })->first();
-        $front_two = $data->invoiceDetails->where('item','FRONT TWO')->first();
-        $stripe = $data->invoiceDetails->where('item','STRPE')->first();
-        $roof = $data->invoiceDetails->where('item','SUN ROOF')->first();
+        $front_two = $data->invoiceDetails->filter(function($detail) {
+            return stripos($detail->item, 'FRONT TWO') !== false;
+        })->first();
+        $stripe = $data->invoiceDetails->filter(function($detail) {
+            return stripos($detail->item, 'STRIPE') !== false; // Corrected to 'STRIPE'
+        })->first();
+        $roof = $data->invoiceDetails->filter(function($detail) {
+            return stripos($detail->item, 'SUN ROOF') !== false;
+        })->first();
         $ppf ;
-        if($data->invoiceDetails->where('item','TRACK PACK')->first()){
+        if ($data->invoiceDetails->filter(function($detail) {
+            return stripos($detail->item, 'TRACK PACK') !== false;
+        })->first()) {
             $ppf = 'TRACK PACK';
-        }else if($data->invoiceDetails->where('item','PARTIAL FRONT')->first()){
+        } elseif ($data->invoiceDetails->filter(function($detail) {
+            return stripos($detail->item, 'PARTIAL FRONT') !== false;
+        })->first()) {
             $ppf = 'PARTIAL FRONT';
-        }else if($data->invoiceDetails->where('item','FULL FRONT')->first()){
+        } elseif ($data->invoiceDetails->filter(function($detail) {
+            return stripos($detail->item, 'FULL FRONT') !== false;
+        })->first()) {
             $ppf = 'FULL FRONT';
-        }else if($data->invoiceDetails->where('item','FULL KIT')->first()){
+        } elseif ($data->invoiceDetails->filter(function($detail) {
+            return stripos($detail->item, 'FULL KIT') !== false;
+        })->first()) {
             $ppf = 'FULL KIT';
-        }else{
+        } else {
             $ppf = '';
         }
         $paint = $data->invoiceDetails->where('item','DETAIL PAINT CORRECTION')->first();
