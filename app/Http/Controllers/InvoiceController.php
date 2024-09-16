@@ -55,22 +55,19 @@ class InvoiceController extends Controller
         $stepNumber = null;
         
         if ($paint) {
-            // Assuming the step number is the second-to-last element in the string
-            // Example: "Detail Paint Correction - Tintix - 4 Step"
             $parts = explode(' ', $paint->item);
             
-            // Find the step number (e.g., the number before the word 'Step')
             $stepKey = array_search('Step', $parts);
             if ($stepKey !== false && isset($parts[$stepKey - 1])) {
-                $stepNumber = $parts[$stepKey - 1]; // This should be the step number (e.g., '4')
+                $stepNumber = $parts[$stepKey - 1]; 
             }
         }
         $detail ;
-        if($data->invoiceDetails->where('item','DETAIL EXTIRIOR')->first()){
+        if($data->invoiceDetails->where('item','Detail Exterior')->first()){
             $detail = 'EXTIRIOR';
-        }else if($data->invoiceDetails->where('item','DETAIL INTIRIOR')->first()){
+        }else if($data->invoiceDetails->where('item','Detail Intirior')->first()){
             $detail = 'INTIRIOR';
-        }else if($data->invoiceDetails->where('item','INOUT')->first()){
+        }else if($data->invoiceDetails->where('item','Inout')->first()){
             $detail = 'INOUT';
         }else{
             $detail = '';
