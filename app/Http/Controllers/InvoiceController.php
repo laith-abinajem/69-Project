@@ -49,7 +49,7 @@ class InvoiceController extends Controller
             $ppf = '';
         }
         $paint = $data->invoiceDetails->filter(function($detail) {
-            return stripos($detail->item, 'DETAIL PAINT CORRECTION') !== false;
+            return stripos($detail->item, 'Detail Paint Correction') !== false;
         })->first();
         
         $stepNumber = null;
