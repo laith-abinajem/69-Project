@@ -28,8 +28,9 @@ class InvoiceTestController extends Controller
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\JsonContent(
-     *             required={"name", "phone", "total", "currency", "year", "make", "model", "services"},
+     *             required={"name","customer_id", "phone", "total", "currency", "year", "make", "model", "services"},
      *             @OA\Property(property="name", type="string"),
+     *             @OA\Property(property="customer_id", type="number"),
      *             @OA\Property(property="phone", type="number"),
      *             @OA\Property(property="email", type="string"),
      *             @OA\Property(property="total", type="number"),
@@ -66,6 +67,7 @@ class InvoiceTestController extends Controller
     public function createInvoiceTest(Request $request){
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
+            'customer_id' => 'required|max:255',
             'email' => 'required|string|max:255',
             'phone' => 'required',
             'total' => 'required',
@@ -86,6 +88,7 @@ class InvoiceTestController extends Controller
         }
         $invoice = Invoice::create([
             'name' => $request->name,
+            'customer_id' => $request->customer_id,
             'phone' => $request->phone,
             'total' => $request->total,
             'currency' => $request->currency,

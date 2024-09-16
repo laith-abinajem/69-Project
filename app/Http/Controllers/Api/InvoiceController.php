@@ -13,6 +13,7 @@ class InvoiceController extends Controller
 {
     public function createInvoice(Request $request){
         $validator = Validator::make($request->all(), [
+            'customer_id' => 'required|max:255',
             'name' => 'required|string|max:255',
             'email' => 'required|string|max:255',
             'phone' => 'required',
@@ -33,6 +34,7 @@ class InvoiceController extends Controller
             $user_id = auth()->user()->id;
         }
         $invoice = Invoice::create([
+            'customer_id' => $request->customer_id,
             'name' => $request->name,
             'phone' => $request->phone,
             'total' => $request->total,

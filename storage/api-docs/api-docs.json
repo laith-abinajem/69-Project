@@ -19,6 +19,7 @@
                             "schema": {
                                 "required": [
                                     "name",
+                                    "customer_id",
                                     "phone",
                                     "total",
                                     "currency",
@@ -30,6 +31,9 @@
                                 "properties": {
                                     "name": {
                                         "type": "string"
+                                    },
+                                    "customer_id": {
+                                        "type": "number"
                                     },
                                     "phone": {
                                         "type": "number"

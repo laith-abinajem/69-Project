@@ -364,11 +364,11 @@
 					const lines = textarea.val().split('\n'); 
 
 					const bulletPointLines = lines.map(line => {
-                    
-                    return line.startsWith('• ') ? line : `• ${line}`;
-                });
+						// If the line is empty or contains only a bullet, return an empty line, otherwise add the bullet point
+						return line.trim() === '' || line.trim() === '•' ? '' : line.startsWith('• ') ? line : `• ${line}`;
+					});
 
-					textarea.val(bulletPointLines.join('\n')); 
+					textarea.val(bulletPointLines.join('\n'));
 				});
 			})
 		</script>

@@ -48,14 +48,14 @@
                             </div>
                             <div class="col-6">
                                 <div class="form-group mg-b-0">
-                                    <label class="form-label">Api Key (CRM) <span class="tx-danger">*</span></label>
-                                    <input value="{{ old('api_key') }}" class="form-control" name="api_key" placeholder="Enter api key" required="" type="text">
+                                    <label class="form-label">Api Key (CRM)</label>
+                                    <input value="{{ old('api_key') }}" class="form-control" name="api_key" placeholder="Enter api key"  type="text">
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="form-group mg-b-0">
-                                    <label class="form-label">Business Id (CRM) <span class="tx-danger">*</span></label>
-                                    <input value="{{ old('business_id') }}" class="form-control" name="business_id" placeholder="Enter business id" required="" type="text">
+                                    <label class="form-label">Business Id (CRM)</label>
+                                    <input value="{{ old('business_id') }}" class="form-control" name="business_id" placeholder="Enter business id"  type="text">
                                 </div>
                             </div>
                             <div class="col-6">
