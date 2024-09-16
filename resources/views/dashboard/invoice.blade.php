@@ -282,8 +282,8 @@
         <tr>
           <td colspan="10">
             <span class="bold">Detailng</span>
-            <span class="pe-2 @if ($detail == 'INTIRIOR') circle @endif">in</span>
-            <span class="pe-2 @if ($detail == 'EXTIRIOR') circle @endif">out</span>
+            <span class="pe-2 @if ($detail == 'INTIRIOR') circle @endif">in</span>/
+            <span class="pe-2 @if ($detail == 'EXTIRIOR') circle @endif">out</span>/
             <span class="pe-5 @if ($detail == 'INOUT') circle @endif">in & out</span>
           </td>
         </tr>
