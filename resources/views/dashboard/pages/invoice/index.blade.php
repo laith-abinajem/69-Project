@@ -24,6 +24,7 @@
                         <thead>
                             <tr>
                                 <th class="border-bottom-0">ID</th>
+                                <th class="border-bottom-0">Date</th>
                                 <th class="border-bottom-0">Name</th>
                                 <th class="border-bottom-0">Phone</th>
                                 <th class="border-bottom-0">Car</th>
@@ -34,6 +35,7 @@
                         @foreach ($data as $item)
                             <tr>
                                 <td>{{$item->id}}</td>
+                                <td>{{$item->created_at}}</td>
                                 <td>{{$item->name}}</td>
                                 <td>{{$item->phone}}</td>
                                 <td>{{$item->make}} - {{$item->year}} - {{$item->model}}</td>
