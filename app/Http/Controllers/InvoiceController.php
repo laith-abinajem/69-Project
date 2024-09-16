@@ -23,7 +23,7 @@ class InvoiceController extends Controller
             return stripos($detail->item, 'FRONT TWO') !== false;
         })->first();
         $stripe = $data->invoiceDetails->filter(function($detail) {
-            return stripos($detail->item, 'STRIPE') !== false; // Corrected to 'STRIPE'
+            return stripos($detail->item, 'STRIPE') !== false; 
         })->first();
         $roof = $data->invoiceDetails->filter(function($detail) {
             return stripos($detail->item, 'SUN ROOF') !== false;

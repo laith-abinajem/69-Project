@@ -192,7 +192,7 @@
               <span class="bold">Front Windows :</span> 
             </div>
             <div class="float-left">
-            <span class="ps-4">{{ $front_two->item_type ?? ''}}</span>
+            <span class="ps-4">{{ $front_two->item ?? ''}}</span>
             </div>
 
           </td>
@@ -203,7 +203,7 @@
               <span class="bold">Back windows :</span> 
             </div>
             <div class="float-left">
-            <span class="ps-4">{{ $back_half->item_type ?? ''}}</span>
+            <span class="ps-4">{{ $back_half->item ?? ''}}</span>
             </div>
           </td>
         </tr>
@@ -213,7 +213,7 @@
               <span class="bold">Front Windshield :</span> 
             </div>
             <div class="float-left">
-            <span class="ps-4 ">{{ $front_ws->item_type ?? ''}} </span>
+            <span class="ps-4 ">{{ $front_ws->item ?? ''}} </span>
             </div>
           </td>
          
@@ -224,7 +224,7 @@
               <span class="bold">Windshield Strip :</span>
             </div>
             <div class="float-left">
-            <span class="ps-4 ">{{ $stripe->item_type ?? ''}} </span>
+            <span class="ps-4 ">{{ $stripe->item ?? ''}} </span>
             </div>
           </td>
         </tr>
@@ -234,7 +234,7 @@
               <span class="bold">Moonroof:</span>
             </div>
             <div class="float-left">
-            <span class="ps-4 ">{{ $roof->item_type ?? ''}} </span>
+            <span class="ps-4 ">{{ $roof->item ?? ''}} </span>
             </div>
           </td>
         </tr>
