@@ -14,7 +14,9 @@ class InvoiceController extends Controller
         $companyLogo = $data->user->getFirstMediaUrl('company_logo');
         $companyName = $data->user()->first()->company_name;
         $back_half = $data->invoiceDetails->where('item','BACK HALF')->first();
-        $front_ws = $data->invoiceDetails->where('item','FRONT W.S')->first();
+        $front_ws = $data->invoiceDetails->filter(function($detail) {
+            return stripos($detail->item, 'FRONT W.S') !== false;
+        })->first();
         $front_two = $data->invoiceDetails->where('item','FRONT TWO')->first();
         $stripe = $data->invoiceDetails->where('item','STRPE')->first();
         $roof = $data->invoiceDetails->where('item','SUN ROOF')->first();
