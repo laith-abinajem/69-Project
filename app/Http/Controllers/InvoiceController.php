@@ -80,6 +80,65 @@ class InvoiceController extends Controller
         $work_sheet = 'work-sheet.pdf';
         $companyLogo = $data->user->getFirstMediaUrl('company_logo');
         $companyName = $data->user()->first()->company_name;
+        $back_half = $data->invoiceDetails->filter(function($detail) {
+            return stripos($detail->item, 'BACK HALF') !== false;
+        })->first();
+        $front_ws = $data->invoiceDetails->filter(function($detail) {
+            return stripos($detail->item, 'FRONT W.S') !== false;
+        })->first();
+        $front_two = $data->invoiceDetails->filter(function($detail) {
+            return stripos($detail->item, 'FRONT TWO') !== false;
+        })->first();
+        $stripe = $data->invoiceDetails->filter(function($detail) {
+            return stripos($detail->item, 'STRIPE') !== false; 
+        })->first();
+        $roof = $data->invoiceDetails->filter(function($detail) {
+            return stripos($detail->item, 'SUN ROOF') !== false;
+        })->first();
+        $ppf ;
+        if ($data->invoiceDetails->filter(function($detail) {
+            return stripos($detail->item, 'TRACK PACK') !== false;
+        })->first()) {
+            $ppf = 'TRACK PACK';
+        } elseif ($data->invoiceDetails->filter(function($detail) {
+            return stripos($detail->item, 'PARTIAL FRONT') !== false;
+        })->first()) {
+            $ppf = 'PARTIAL FRONT';
+        } elseif ($data->invoiceDetails->filter(function($detail) {
+            return stripos($detail->item, 'FULL FRONT') !== false;
+        })->first()) {
+            $ppf = 'FULL FRONT';
+        } elseif ($data->invoiceDetails->filter(function($detail) {
+            return stripos($detail->item, 'FULL KIT') !== false;
+        })->first()) {
+            $ppf = 'FULL KIT';
+        } else {
+            $ppf = '';
+        }
+        $paint = $data->invoiceDetails->filter(function($detail) {
+            return stripos($detail->item, 'Detail Paint Correction') !== false;
+        })->first();
+        
+        $stepNumber = null;
+        
+        if ($paint) {
+            $parts = explode(' ', $paint->item);
+            
+            $stepKey = array_search('Step', $parts);
+            if ($stepKey !== false && isset($parts[$stepKey - 1])) {
+                $stepNumber = $parts[$stepKey - 1]; 
+            }
+        }
+        $detail ;
+        if($data->invoiceDetails->where('item','Detail Exterior')->first()){
+            $detail = 'EXTIRIOR';
+        }else if($data->invoiceDetails->where('item','Detail Intirior')->first()){
+            $detail = 'INTIRIOR';
+        }else if($data->invoiceDetails->where('item','Detail Inout')->first()){
+            $detail = 'INOUT';
+        }else{
+            $detail = '';
+        }
         $pdf = PDF::loadView('dashboard.invoice',compact('data','companyLogo','companyName'));
        
         return $pdf->download($work_sheet);

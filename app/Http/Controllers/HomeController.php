@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Subscription;
+use App\Models\Invoice;
 use Carbon\Carbon;
 use App\Models\Package;
 use App\Models\LoginHistory;
@@ -51,6 +52,9 @@ class HomeController extends Controller
                        ->orderBy('created_at', 'desc')
                        ->get();
 
-        return view('dashboard.pages.dashboard',compact('packages','history','total','subscriber_expiry_week','subscriber_active','pending_users','subscriber_pending','user_withIn_week','user_withIn_month','user_withIn_day','subscriber_approve','subscriber_rejected'));
+        $total_revenu = Invoice::where("user_id",auth()->user()->id)->sum('total');
+        $total_cars = Invoice::where("user_id",auth()->user()->id)->count();
+
+        return view('dashboard.pages.dashboard',compact('total_cars','total_revenu','packages','history','total','subscriber_expiry_week','subscriber_active','pending_users','subscriber_pending','user_withIn_week','user_withIn_month','user_withIn_day','subscriber_approve','subscriber_rejected'));
     }
 }
