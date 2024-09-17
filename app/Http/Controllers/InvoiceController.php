@@ -139,7 +139,7 @@ class InvoiceController extends Controller
         }else{
             $detail = '';
         }
-        $pdf = PDF::loadView('dashboard.invoice',compact('data','companyLogo','companyName'));
+        $pdf = PDF::loadView('dashboard.invoice',compact('data','companyLogo','companyName','front_ws','back_half','front_two','stripe','roof','ppf','stepNumber','detail'));
        
         return $pdf->download($work_sheet);
     }
