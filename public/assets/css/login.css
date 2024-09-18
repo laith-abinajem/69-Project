@@ -15,7 +15,7 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        padding-top: 120px;
+        padding-top: 10px;
         padding-bottom: 120px;
         width: 100%;
         border-left: 1px solid var(--border-line-color);
