@@ -13,6 +13,9 @@
     .status-select.approved {
         color: green;
     }
+    .custome-ss{
+        float: inline-end;
+    }
 </style>
 
     <!-- main-content-body -->
@@ -347,14 +350,17 @@
                     </div>
             @endcanany
             @canany(['owne tint brand'])
+            <div class="custome-ss">
             <form action="{{ route('dashboard.invoices.index') }}" method="GET">
                 @csrf
                 <div class="col-md-3 col-lg-4 mb-2">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                         Filtering
                     </button>
                 </div>
             </form>
+            </div>
+          
             <div class="row row-sm">
                 <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
                 </div>
@@ -464,11 +470,11 @@
     <div class="modal-dialog">
         <div class="modal-content">
         <div class="modal-header"  style="background-color: #178cc5">
-            <h5 class="modal-title"  style="color: white" id="staticBackdropLabel">Report Details</h5>
+            <h5 class="modal-title"  style="color: white" id="staticBackdropLabel">Filter Date</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <form action="{{ route('dashboard.invoices.index') }}" method="get" >
+            <form action="{{ route('dashboard.home.index') }}" method="get" >
                 <div class="row">
                     <div class="col-lg-12 d-flex mt-3">
                         <div class="col-6">

@@ -52,9 +52,20 @@ class HomeController extends Controller
                        ->orderBy('created_at', 'desc')
                        ->get();
 
-        $total_revenu = Invoice::where("user_id",auth()->user()->id)->sum('total');
-        $total_cars = Invoice::where("user_id",auth()->user()->id)->count();
+        $query = Invoice::where('user_id', auth()->user()->id);
 
+        if ($request->has('from') && $request->has('to')) {
+            $from = $request->input('from');
+            $to = $request->input('to');
+            
+            // Ensure the dates are formatted correctly
+            $query->whereBetween('created_at', [$from . ' 00:00:00', $to . ' 23:59:59']);
+            $total_revenu = $query->sum('total');
+            $total_cars = $query->count();
+        }else{
+            $total_revenu = $query->sum('total');
+            $total_cars = $query->count();
+        }
         return view('dashboard.pages.dashboard',compact('total_cars','total_revenu','packages','history','total','subscriber_expiry_week','subscriber_active','pending_users','subscriber_pending','user_withIn_week','user_withIn_month','user_withIn_day','subscriber_approve','subscriber_rejected'));
     }
 }
