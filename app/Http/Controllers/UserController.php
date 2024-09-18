@@ -43,8 +43,6 @@ class UserController extends Controller
                 'email' => 'required|string|email|max:255|unique:users',
                 'password' => 'required',
                 'company_name' => 'required',
-                'video_path' => 'sometimes|string',
-                'video_filename' => 'sometimes|string',
             ]);
             $user = User::create([
                 'name' => $request->name,
