@@ -37,7 +37,7 @@ class UserController extends Controller
     }
     public function store(Request $request)
     { 
-        try{
+        // try{
             $validated = $request->validate([
                 'name' => 'required|string|max:255',
                 'email' => 'required|string|email|max:255|unique:users',
@@ -104,10 +104,10 @@ class UserController extends Controller
             ]);
             Alert::toast('User created successfully', 'success');
             return redirect()->route('dashboard.user.index');
-        } catch (\Exception $e) {
-            Alert::toast('An error occurred while creating the User', 'error');
-            return redirect()->back()->withInput();
-        }
+        // } catch (\Exception $e) {
+        //     Alert::toast('An error occurred while creating the User', 'error');
+        //     return redirect()->back()->withInput();
+        // }
        
     }
     public function edit($id){

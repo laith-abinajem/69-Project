@@ -347,6 +347,14 @@
                     </div>
             @endcanany
             @canany(['owne tint brand'])
+            <!-- <form action="{{ route('dashboard.invoices.index') }}" method="GET">
+                @csrf
+                <div class="col-md-3 col-lg-4 mb-2">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                        Filtering
+                    </button>
+                </div>
+            </form> -->
             <div class="row row-sm">
                 <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
                 </div>
