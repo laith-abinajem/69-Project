@@ -3,7 +3,52 @@
 @section('title', 'Login')
 
 @section('content')
-<div class="page">
+<link href="{{ asset('assets/css/login.css') }}" rel="stylesheet">
+
+<section class="custom-login-section page-template-template-login">
+    <div class="container mt-5">
+        <!-- Nav Tabs -->
+        <ul class="nav-tabs-custom" id="signupTabs">
+            <li class="tab-item active" data-tab="sign-in">Forgot Password!</li>
+        </ul>
+        <!-- Tab Content -->
+        <div class="tab-content">
+            <!-- Sign In Tab -->
+            <div class="tab-pane active" id="sign-in">
+                <div class="row cstm-row-align-center">
+                    <div class="col-md-6">
+                        <div class="sign-in-form">
+                            <h4 class="login-primary-title">
+                            Forgot Password!
+                                <span class="tets">
+                                    <img src="https://69simulator.com/wp-content/uploads/2024/09/69-simulator.png"
+                                        alt="69 Simulator"  >
+                                </span>
+                            </h4>
+                            <form action="{{route('checkCode')}}">
+                                @csrf
+								<div class="form-group">
+									<label>Code</label> <input class="form-control" name="code" required placeholder="Enter the code" type="text">
+								</div>
+                                @if($errors->has('code'))
+                                    <span class="text-danger">{{ $errors->first('code') }}</span>
+                                @endif
+								<button class="btn btn-primary btn-block">Send</button>
+							</form>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="sign-in-image">
+                            <img src="https://69simulator.com/wp-content/uploads/2024/09/image-min.jpg"
+                                alt="Simulator Image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- <div class="page">
     <div class="my-auto page page-h">
         <div class="main-signin-wrapper">
             <div class="main-card-signin d-md-flex">
@@ -35,5 +80,5 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 @endsection
