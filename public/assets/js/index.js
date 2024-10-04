@@ -153,7 +153,7 @@ function chart(){
 		var gradientStrokeone = ctx.createLinearGradient(0, 0, 0, 1);
 		gradientStrokeone.addColorStop(0, [myVarVal]);
 		gradientStrokeone.addColorStop(1, [myVarVal]);
-		var gradientLegendone = 'linear-gradient(45deg,#3858f9,#8e79fd)';
+		var gradientLegendone = 'linear-gradient(45deg,#00E1FF,#8e79fd)';
   
 		var gradientStroketwo = ctx.createLinearGradient(0, 0, 0, 200);
 		gradientStroketwo.addColorStop(0.68, 'rgb(245, 60, 91)');

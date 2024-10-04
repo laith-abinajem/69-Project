@@ -10,9 +10,9 @@
 /*shadow variables*/
 /* ###### bootstrap ####### */
 :root {
-    --dark-theme: #2b3054;
+    --dark-theme: #070720;
     --dark-body: #3d425d;
-    --primary-bg-color: #3858f9;
+    --primary-bg-color: #00E1FF;
     --primary-bg-hover: #3d4bb7;
     --primary-bg-border: #3d4bb7;
     --blue: $primary;
@@ -13848,8 +13848,10 @@ fieldset:disabled a.btn {
 
 .btn-primary {
     color: #fff !important;
-    background-color: var(--primary-bg-color);
+    background: linear-gradient(90deg, #FF00DA, #757CEC, #37DFFD) !important;
     border-color: var(--primary-bg-color);
+    border: 0;
+    border-radius: 35px;
 }
 
 .btn-primary:hover {
@@ -23907,7 +23909,7 @@ pre {
     box-shadow: 0 6px 14px 2px rgba(0, 0, 0, 0.2);
     margin-right: 14px;
     color: #fff;
-    background: linear-gradient(45deg, #f33057, var(--primary-bg-color));
+    background: linear-gradient(45deg, #FF00DA, var(--primary-bg-color));
     box-shadow: 0 6px 14px 2px rgba(0, 0, 0, 0.2);
 }
 
@@ -23978,7 +23980,7 @@ pre {
     color: #fff;
     font-weight: 500;
     border-top: 0;
-    background: linear-gradient(45deg, #f33057, var(--primary-bg-color));
+    background: linear-gradient(45deg, #FF00DA, var(--primary-bg-color));
     border-radius: 0 6px 6px 0;
     box-shadow: 0 6px 14px 2px rgba(0, 0, 0, 0.2);
 }
@@ -25186,7 +25188,7 @@ input[type=text]::-ms-clear {
 /* ###### IE-styles  ###### */
 .main-header.side-header.fixed-header {
     position: fixed !important;
-    background: linear-gradient(45deg, #f54266, var(--primary-bg-color));
+    background: var(--dark-theme);
     box-shadow: 5px 7px 26px -5px #502965;
     -webkit-box-shadow: 5px 7px 26px -5px #502965;
 }
@@ -29405,7 +29407,7 @@ a.tag-addon:hover {
 }
 
 .sticky-pin .horizontalMenucontainer .main-header.hor-header {
-    background: linear-gradient(45deg, #f33057, var(--primary-bg-color));
+    background: linear-gradient(45deg, #FF00DA, var(--primary-bg-color));
 }
 
 .sticky-pin.main-header {
@@ -29705,7 +29707,7 @@ a.tag-addon:hover {
         color: #fff;
         font-weight: 500;
         border-top: 0;
-        background: linear-gradient(45deg, #f54266, var(--primary-bg-color));
+        background: linear-gradient(45deg, #FF00DA, var(--primary-bg-color));
         box-shadow: 0 6px 14px 2px rgba(0, 0, 0, 0.1);
     }
 
@@ -32380,7 +32382,7 @@ a.tag-addon:hover {
 .main-content:after {
     content: "";
     height: 220px;
-    background: linear-gradient(45deg, #f33057, var(--primary-bg-color));
+    background: var(--dark-theme);
     position: absolute;
     z-index: -1;
     width: 100%;
@@ -34070,7 +34072,7 @@ body.dark-theme {
 }
 
 .dark-theme .main-header {
-    background: linear-gradient(45deg, #f33057, var(--primary-bg-color));
+    background: var(--dark-theme);
     border-bottom-color: rgba(222, 228, 236, 0.07);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
 }
@@ -38532,6 +38534,11 @@ body.dark-theme {
     -webkit-transition: margin-left 0.3s ease;
     -o-transition: margin-left 0.3s ease;
     transition: margin-left 0.3s ease;
+    background-image: url(https://69simulator.com/wp-content/uploads/2024/09/login-page-bg.png) !important;
+    background-color: #070720 !important;
+    background-size: contain !important;
+    background-position: right top !important;
+    background-repeat: no-repeat !important;
 }
 
 .app-content .side-app {
@@ -48321,7 +48328,8 @@ table.dataTable>tbody>tr.child span.dtr-title {
 }
 
 .dataTables_paginate .page-item.active .page-link {
-    background-color: var(--primary-bg-color);
+    background: linear-gradient(90deg, #FF00DA, #757CEC, #37DFFD) !important;
+    border: 0;
 }
 
 /*Color variables*/
