@@ -123,6 +123,7 @@ class UserController extends Controller
         ]);
         try {
             $user = User::find($id);
+            $originalType = $user->type;
             $user->update([
                 'name' => $request->name,
                 'email' => $request->email,
@@ -164,6 +165,21 @@ class UserController extends Controller
                 $user->addMediaFromDisk($videoPath, 'videos')
                     ->usingFileName($videoFilename)
                     ->toMediaCollection('videos');
+            }
+            if ($originalType !== $request->type) {
+                // Remove the old role
+                $user->roles()->detach();
+    
+                // Assign the new role based on the type
+                if ($request->type === 'super_admin') {
+                    $superAdminRole = Role::where('name', 'Super Admin')->first();
+                    $user->assignRole($superAdminRole);
+                } elseif ($request->type === 'subscriber') {
+                    $subscriberRole = Role::where('name', 'Subscriber')->first();
+                    if ($subscriberRole) {
+                        $user->assignRole($subscriberRole);
+                    }
+                }
             }
             Alert::toast('User Updated successfully', 'success');
             return redirect()->route('dashboard.user.index');

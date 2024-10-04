@@ -73,13 +73,13 @@
                             <div class="col-6">
                                 <div class="form-group mg-b-0">
                                     <label class="form-label">Company Name: <span class="tx-danger">*</span></label>
-                                    <input value="{{ $data->company_name }}" class="form-control" name="company_name" placeholder="Company name" required="" type="text">
+                                    <input value="{{ $data->company_name }}" class="form-control" name="company_name" placeholder="Company name" @if($data->type === "subscriber") required @endif type="text">
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
                                     <label class="form-label">Currency <span class="tx-danger">*</span></label>
-                                    <select name="currency" id="currency" required class="form-control paintProtectionFil select2">
+                                    <select name="currency" id="currency" @if($data->type === "subscriber") required @endif class="form-control paintProtectionFil select2">
                                         <option value="USD" <?= $data->currency == 'USD' ? 'selected' : '' ?>>US Dollar (USD)</option>
                                         <option value="EUR" <?= $data->currency == 'EUR' ? 'selected' : '' ?>>Euro (EUR)</option>
                                         <option value="JPY" <?= $data->currency == 'JPY' ? 'selected' : '' ?>>Japanese Yen (JPY)</option>
@@ -106,7 +106,7 @@
                             <div class="col-6">
                                 <div class="form-group">
                                     <label class="form-label">Language <span class="tx-danger">*</span></label>
-                                    <select name="language" id="language" required class="form-control paintProtectionFil select2">
+                                    <select name="language" id="language" @if($data->type === "subscriber") required @endif class="form-control paintProtectionFil select2">
                                         <option value="en" <?= $data->language == 'en' ? 'selected' : '' ?>>English</option>
                                         <option value="zh" <?= $data->language == 'zh' ? 'selected' : '' ?>>Chinese</option>
                                         <option value="es" <?= $data->language == 'es' ? 'selected' : '' ?>>Spanish</option>
@@ -160,7 +160,7 @@
                             <div class="col-6">
                                 <div class="form-group mg-b-0">
                                     <label class="form-label">Custom test: <span class="tx-danger">*</span></label>
-                                    <input value="{{ $data->custom_text }}" class="form-control" name="custom_text" placeholder="Custom text" required="" type="text">
+                                    <input value="{{ $data->custom_text }}" class="form-control" name="custom_text" placeholder="Custom text" @if($data->type === "subscriber") required @endif type="text">
                                 </div>
                             </div>
                             <div class="col-6 mb-2">
@@ -168,7 +168,7 @@
                                 <br>
                                 <div class="color-picker-container">
                                     <input type="color" id="colorPicker"  value="{{$data->hex}}"name="colorPicker" >
-                                    <input type="text" id="hex" name="hex" value="{{$data->hex}} "required="" maxlength="7">
+                                    <input type="text" id="hex" name="hex" value="{{$data->hex}}"  @if($data->type === "subscriber") required @endif maxlength="7">
                                 </div>
                             </div>
                             <div class="col-6 mb-2">
