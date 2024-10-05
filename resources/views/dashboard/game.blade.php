@@ -10,7 +10,7 @@
             <div class="card-body">
                 <div class="my-5">
                 <iframe width="100%" height="800px"
-                    src="https://69sim.com/69sim/webversionDisableGzip/index.html">
+                    src="https://69sim.com/69sim/webversionDisableGzip/index.html?nocachez">
                 </iframe>
                 </div>
             </div>

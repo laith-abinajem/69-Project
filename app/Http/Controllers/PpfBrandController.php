@@ -144,4 +144,20 @@ class PpfBrandController extends Controller
         toast('Success','success');
         return redirect()->route('dashboard.ppf.index', ['user_id' => $user_id]);
     }
+    public function getPpfById(Request $request, $id)
+    {
+        $data = PpfBrand::find($id);
+        
+        if ($data) {
+            return response()->json([
+                'success' => true,
+                'data' => $data
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'ppf brand not found.'
+            ], 404);
+        }
+    }
 }

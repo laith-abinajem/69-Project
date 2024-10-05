@@ -100,6 +100,7 @@ Route::middleware(['auth', 'check.single.session', 'log.session'])->prefix('dash
         Route::put('/update/{id}',[TintBrandController::class,'update'])->name('update');
         Route::post('/delete/{id}',[TintBrandController::class,'delete'])->name('delete');
         Route::post('/store',[TintBrandController::class,'store'])->name('store');
+        Route::get('/tint/{id}', [TintController::class, 'getTintById'])->name('getTintById');
     });
     Route::prefix('ppf')->name('ppf.')->group(function(){
         Route::get('/',[PpfBrandController::class,'index'])->name('index');
@@ -109,6 +110,7 @@ Route::middleware(['auth', 'check.single.session', 'log.session'])->prefix('dash
         Route::put('/update/{id}',[PpfBrandController::class,'update'])->name('update');
         Route::post('/delete/{id}',[PpfBrandController::class,'delete'])->name('delete');
         Route::post('/store',[PpfBrandController::class,'store'])->name('store');
+        Route::get('/ppf/{id}', [TintController::class, 'getPpfById'])->name('getPpfById');
     });
     Route::prefix('light')->name('light.')->group(function(){
         Route::get('/',[LightTintController::class,'index'])->name('index');
@@ -118,6 +120,7 @@ Route::middleware(['auth', 'check.single.session', 'log.session'])->prefix('dash
         Route::put('/update/{id}',[LightTintController::class,'update'])->name('update');
         Route::post('/delete/{id}',[LightTintController::class,'delete'])->name('delete');
         Route::post('/store',[LightTintController::class,'store'])->name('store');
+        Route::get('/Light/{id}', [TintController::class, 'getLightById'])->name('getLightById');
     });
     Route::prefix('addons')->name('addons.')->group(function(){
         Route::get('/',[AddonsController::class,'index'])->name('index');
@@ -157,6 +160,7 @@ Route::middleware(['auth', 'check.single.session', 'log.session'])->prefix('dash
         Route::put('/update/{id}',[DetailingController::class,'update'])->name('update');
         Route::post('/delete/{id}',[DetailingController::class,'delete'])->name('delete');
         Route::post('/store',[DetailingController::class,'store'])->name('store');
+        Route::get('/detailing/{id}', [TintController::class, 'getDetailingById'])->name('getDetailingById');
     });
     Route::get('/logout',[AuthController::class,'logout'])->name('logout');
 });

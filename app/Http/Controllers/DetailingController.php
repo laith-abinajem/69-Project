@@ -181,4 +181,20 @@ class DetailingController extends Controller
         $detailingBrand->delete();
         return redirect()->route('dashboard.detailing.index', ['user_id' => $user_id]);
     }
+    public function getDetailingById(Request $request, $id)
+    {
+        $data = Detailing::find($id);
+        
+        if ($data) {
+            return response()->json([
+                'success' => true,
+                'data' => $data
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Detailing brand not found.'
+            ], 404);
+        }
+    }
 }

@@ -149,4 +149,20 @@ class TintBrandController extends Controller
         toast('Success','success');
         return redirect()->route('dashboard.tint.index', ['user_id' => $user_id]);
     }
+    public function getTintById(Request $request, $id)
+    {
+        $data = TintBrand::find($id);
+        
+        if ($data) {
+            return response()->json([
+                'success' => true,
+                'data' => $data
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Tint brand not found.'
+            ], 404);
+        }
+    }
 }
