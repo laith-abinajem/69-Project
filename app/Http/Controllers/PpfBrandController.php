@@ -22,7 +22,8 @@ class PpfBrandController extends Controller
             $data = PpfBrand::where('user_id', auth()->user()->id)->get();
         }
         $users = User::get();
-        return view('dashboard.pages.ppf.index',compact('data','users'));
+        $all_ppfs = PpfBrand::select('id','ppf_brand')->get();
+        return view('dashboard.pages.ppf.index',compact('data','users','all_ppfs'));
     }
 
     public function filter(Request $request)

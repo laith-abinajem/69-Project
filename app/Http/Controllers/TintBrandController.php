@@ -24,7 +24,9 @@ class TintBrandController extends Controller
             $data = TintBrand::where('user_id', auth()->user()->id)->get();
         }
         $users = User::get();
-        return view('dashboard.pages.tint.index',compact('data','users'));
+        $all_tints = TintBrand::select('id','tint_brand')->get();
+
+        return view('dashboard.pages.tint.index',compact('data','users','all_tints'));
     }
 
     public function filter(Request $request)

@@ -22,7 +22,8 @@ class LightTintController extends Controller
             $data = LightTint::where('user_id', auth()->user()->id)->get();
         }
         $users = User::get();
-        return view('dashboard.pages.light.index',compact('data','users'));
+        $all_lights = LightTint::select('id','light_brand')->get();
+        return view('dashboard.pages.light.index',compact('data','users','all_lights'));
     }
 
     public function filter(Request $request)

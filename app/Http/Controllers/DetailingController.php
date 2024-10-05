@@ -22,7 +22,9 @@ class DetailingController extends Controller
             $data = Detailing::where('user_id', auth()->user()->id)->get();
         }
         $users = User::get();
-        return view('dashboard.pages.detailing.index',compact('data','users'));
+        $all_detailings = Detailing::select('id','detailing_brand')->get();
+
+        return view('dashboard.pages.detailing.index',compact('data','users','all_detailings'));
     }
 
     public function filter(Request $request)
