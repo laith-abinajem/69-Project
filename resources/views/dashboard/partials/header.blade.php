@@ -1,5 +1,6 @@
 <!-- main-header -->
 <div class="main-header side-header sticky nav nav-item">
+
     <div class="container-fluid main-container ">
         <button class="navbar-toggler nav-link icon navresponsive-toggler vertical-icon ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent-4" aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
             <i class="fe fe-more-vertical header-icons navbar-toggler-icon"></i>
@@ -7,6 +8,7 @@
         <div class="mb-0 navbar navbar-expand-lg navbar-nav-right responsive-navbar navbar-dark p-0  mg-lg-s-auto">
             <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
                 <div class="main-header-right">
+                    <div id="google_translate_button"></div>
                     
                     <li class="dropdown nav-item main-layout">
                         <a class="new theme-layout nav-link-bg layout-setting" >

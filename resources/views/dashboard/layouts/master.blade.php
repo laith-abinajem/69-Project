@@ -372,7 +372,22 @@
 				});
 			})
 		</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateInit"></script>
+<script type="text/javascript">
+function googleTranslateInit() {
+    new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_button');
+}
 
+// Reinitialize Google Translate on page load
+window.addEventListener('load', function() {
+    googleTranslateInit();
+});
+
+// Optional: If you have a dark mode switch, reinitialize the Google Translate widget after switching modes
+document.querySelector('.theme-layout').addEventListener('click', function() {
+    setTimeout(googleTranslateInit, 500);  // Reinitialize after mode switch with a short delay
+});
+</script>
 
 	</body>
 </html>

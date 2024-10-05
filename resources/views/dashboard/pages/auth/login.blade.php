@@ -6,7 +6,9 @@
 <link href="{{ asset('assets/css/login.css') }}" rel="stylesheet">
 
 <section class="custom-login-section page-template-template-login">
-    <div class="container mt-5">
+<div id="google_translate_button"></div>
+
+<div class="container mt-5">
         <!-- Nav Tabs -->
         <ul class="nav-tabs-custom" id="signupTabs">
             <li class="tab-item active" data-tab="sign-in">Sign In</li>
@@ -57,4 +59,5 @@
         </div>
     </div>
 </section>
+
 @endsection
