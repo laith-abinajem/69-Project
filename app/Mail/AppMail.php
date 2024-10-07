@@ -30,7 +30,7 @@ class AppMail extends Mailable
     {
         return new Envelope(
             subject: '69simulator!',
-            from: new Address('test@mail.dev', '69simulator!'),
+            from: new Address(config('mail.from.address'), config('mail.from.name')),
         );
     }
 

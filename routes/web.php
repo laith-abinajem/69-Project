@@ -100,7 +100,7 @@ Route::middleware(['auth', 'check.single.session', 'log.session'])->prefix('dash
         Route::put('/update/{id}',[TintBrandController::class,'update'])->name('update');
         Route::post('/delete/{id}',[TintBrandController::class,'delete'])->name('delete');
         Route::post('/store',[TintBrandController::class,'store'])->name('store');
-        Route::get('/tint/{id}', [TintBrandController::class, 'getTintById'])->name('getTintById');
+        Route::get('/tint', [TintBrandController::class, 'getTintById'])->name('getTintById');
     });
     Route::prefix('ppf')->name('ppf.')->group(function(){
         Route::get('/',[PpfBrandController::class,'index'])->name('index');

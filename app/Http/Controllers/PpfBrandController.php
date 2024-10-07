@@ -145,9 +145,9 @@ class PpfBrandController extends Controller
         toast('Success','success');
         return redirect()->route('dashboard.ppf.index', ['user_id' => $user_id]);
     }
-    public function getPpfById(Request $request, $id)
+    public function getPpfById(Request $request)
     {
-        $data = PpfBrand::find($id);
+        $data = PpfBrand::find($request->id);
         
         if ($data) {
             return response()->json([

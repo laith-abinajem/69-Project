@@ -151,12 +151,10 @@ class TintBrandController extends Controller
         toast('Success','success');
         return redirect()->route('dashboard.tint.index', ['user_id' => $user_id]);
     }
-    public function getTintById(Request $request, $id)
+    public function getTintById(Request $request)
     {
-        $data = TintBrand::find($id);
+        $data = TintBrand::find($request->id);
 
-        return $id;
-        
         if ($data) {
             return response()->json([
                 'success' => true,

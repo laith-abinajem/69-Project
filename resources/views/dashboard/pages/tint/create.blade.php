@@ -195,8 +195,9 @@ $(document).ready(function() {
     
     // Make AJAX request
     $.ajax({
-      url: "{{ route('dashboard.tint.getTintById') }}/" + selectedValue, // Laravel route
+      url: "{{ route('dashboard.tint.getTintById') }}",
       type: "GET",
+      data: { id: selectedValue }, 
       success: function(response) {
         console.log('Success:', response); // Handle the success response
       },

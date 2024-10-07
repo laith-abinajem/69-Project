@@ -147,9 +147,9 @@ class LightTintController extends Controller
         toast('Success','success');
         return redirect()->route('dashboard.light.index', ['user_id' => $user_id]);
     }
-    public function getLightById(Request $request, $id)
+    public function getLightById(Request $request)
     {
-        $data = LightTint::find($id);
+        $data = LightTint::find($request->id);
         
         if ($data) {
             return response()->json([

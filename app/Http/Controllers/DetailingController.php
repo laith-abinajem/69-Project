@@ -183,9 +183,9 @@ class DetailingController extends Controller
         $detailingBrand->delete();
         return redirect()->route('dashboard.detailing.index', ['user_id' => $user_id]);
     }
-    public function getDetailingById(Request $request, $id)
+    public function getDetailingById(Request $request)
     {
-        $data = Detailing::find($id);
+        $data = Detailing::find($request->id);
         
         if ($data) {
             return response()->json([
