@@ -162,8 +162,8 @@ class TintBrandController extends Controller
             ], 200);
         } else {
             return response()->json([
-                'success' => false,
-                'message' => 'Tint brand not found.'
+                'success' => false, 
+                'message' => 'Tint brand not  found.'
             ], 404);
         }
     }
