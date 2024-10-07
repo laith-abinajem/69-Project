@@ -65,7 +65,10 @@ class TintBrandController extends Controller
             if ($request->hasFile('tint_image')) {
                 $tintBrand->addMedia($request->file('tint_image'))->toMediaCollection('photos');
             }
-        
+                // Check if a URL is provided (optional)
+            if ($request->filled('image_url')) {
+                $tintBrand->addMediaFromUrl($request->input('image_url'))->toMediaCollection('photos');
+            }
             $prices = $request->price;
             $hideValues = $request->hide; 
 
@@ -154,11 +157,23 @@ class TintBrandController extends Controller
     public function getTintById(Request $request)
     {
         $data = TintBrand::find($request->id);
+        $photo = '';
+
+        $photo = $data->getFirstMediaUrl('photos');
 
         if ($data) {
             return response()->json([
                 'success' => true,
-                'data' => $data
+                'data' => [
+                    'tint_brand' => $data->tint_brand,
+                    'tint_description' => $data->tint_description,
+                    'user_id' => $data->user_id,
+                    'warranty' => $data->warranty,
+                    'guage_level' => $data->guage_level,
+                    'hex' => $data->hex,
+                    'tint_brand_level' => $data->tint_brand_level,
+                    'photo' => $photo, 
+                ],
             ], 200);
         } else {
             return response()->json([

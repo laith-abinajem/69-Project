@@ -25,12 +25,16 @@
                                 <div class="col-md-5 col-lg-6 mb-2">
                                     <label class="form-control-label ">Duplicate: </label>
                                     <select name="duplicate" id="duplicate" class="form-control paintProtectionFil customSelect2">
+                                        <option></option>
                                         @foreach($all_tints as $tint)
                                         <option value="{{$tint->id}}">{{$tint->tint_brand}}</option>
                                         @endforeach
                                     </select>
                                 </div>
                                 @endif
+                                <div class="col-12 mb-2">
+                                    <input type="text" name="image_url" hidden id="image_url" class="form-control" placeholder="Enter image URL" />
+                                </div>
                                 <div class="col-12 mb-2">
                                     <label class="form-control-label">Brand Image: <span class="tx-danger">*</span></label>
                                     <input type="file" name="tint_image" value="{{ old('tint_image') }}" id="brandimage" class="dropify2 largeDropify" data-height="200" required />
@@ -200,6 +204,27 @@ $(document).ready(function() {
       data: { id: selectedValue }, 
       success: function(response) {
         console.log('Success:', response); // Handle the success response
+        $('#brandname').val(response.data.tint_brand);
+        $('#branddescription').val(response.data.tint_description);
+        $('#user_id').val(response.data.user_id).trigger('change');
+        $('#warranty').val(response.data.warranty).trigger('change');
+        $('#guage_level').val(response.data.guage_level).trigger('change');
+        $('#hex, #colorPicker').val(response.data.hex);
+        $('#brandlevel').val(response.data.tint_brand_level).trigger('change');
+        $('#image_url').val(response.data.photo);
+
+        // Update image inside Dropify if needed
+        if (response.data.photo) {
+            var drEvent = $('#brandimage').dropify({
+                defaultFile: response.data.photo // Set the photo as default
+            });
+            drEvent = drEvent.data('dropify');
+            drEvent.resetPreview();
+            drEvent.clearElement();
+            drEvent.settings.defaultFile = response.data.photo;
+            drEvent.destroy();
+            drEvent.init();
+        }
       },
       error: function(xhr) {
         console.log('Error:', xhr.responseText); // Handle the error response

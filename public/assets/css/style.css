@@ -13897,9 +13897,8 @@ fieldset:disabled a.btn {
 }
 
 .btn-secondary {
-    color: #fff;
-    background-color: #7987a1;
-    border-color: #7987a1;
+    color: #fff !important;
+    border-radius: 35px;
 }
 
 .btn-secondary:hover {
@@ -29010,7 +29009,7 @@ a.tag-addon:hover {
     padding: 9px 25px;
     line-height: 1.573;
     color: #fff;
-    border-radius: 5px;
+    border-radius: 35px;
 }
 
 .wizard>.actions a:hover,

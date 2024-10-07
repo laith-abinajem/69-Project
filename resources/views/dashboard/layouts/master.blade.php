@@ -218,7 +218,11 @@
 				var panoramic_moonroof;
 				var srtipe_tint;
 
-				$('.customSelect2').select2();
+				$('.customSelect2').select2({
+					placeholder: 'Choose one',
+					searchInputPlaceholder: 'Search',
+					width: '100%'
+				});
 				
 				$(document).on('click', '.copy', function(){
 					var parentElement = $(this).closest('.prices_container');
