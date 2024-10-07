@@ -120,7 +120,7 @@
         font-family: Poppins;
         font-size: 14px !important;
         font-weight: 400;
-        padding: 0 !important;
+        padding: 0 10px !important;
     }
 
     .custom-login-section .field-wrapper textarea {

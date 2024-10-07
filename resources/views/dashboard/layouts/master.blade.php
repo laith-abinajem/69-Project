@@ -217,6 +217,8 @@
 				var full_car;
 				var panoramic_moonroof;
 				var srtipe_tint;
+
+				$('.customSelect2').select2();
 				
 				$(document).on('click', '.copy', function(){
 					var parentElement = $(this).closest('.prices_container');
@@ -376,6 +378,12 @@
 <script type="text/javascript">
 function googleTranslateInit() {
     new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_button');
+
+	// Directly manipulate the class during initialization without setTimeout
+	const translateElement = document.querySelector('#google_translate_button select');
+	if (translateElement) {
+		translateElement.classList.add('form-control');
+	}
 }
 
 // Reinitialize Google Translate on page load

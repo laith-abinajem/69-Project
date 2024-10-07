@@ -24,9 +24,8 @@ class TintBrandController extends Controller
             $data = TintBrand::where('user_id', auth()->user()->id)->get();
         }
         $users = User::get();
-        $all_tints = TintBrand::select('id','tint_brand')->get();
 
-        return view('dashboard.pages.tint.index',compact('data','users','all_tints'));
+        return view('dashboard.pages.tint.index',compact('data','users'));
     }
 
     public function filter(Request $request)
@@ -37,8 +36,9 @@ class TintBrandController extends Controller
     public function create(Request $request)
     {
         $users = User::get();
+        $all_tints = TintBrand::select('id','tint_brand')->get();
 
-        return view('dashboard.pages.tint.create',compact('users'));
+        return view('dashboard.pages.tint.create',compact('users', 'all_tints'));
     }
     public function store(Request $request)
     {
@@ -154,6 +154,8 @@ class TintBrandController extends Controller
     public function getTintById(Request $request, $id)
     {
         $data = TintBrand::find($id);
+
+        return $id;
         
         if ($data) {
             return response()->json([
