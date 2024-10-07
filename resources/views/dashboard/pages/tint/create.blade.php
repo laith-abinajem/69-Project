@@ -21,6 +21,16 @@
                         <h3>Tint Brand</h3>
                         <section>
                             <div class="row row-sm">
+                                @if(auth()->user()->type === "super_admin")
+                                <div class="col-md-5 col-lg-6 mb-2">
+                                    <label class="form-control-label ">Duplicate: </label>
+                                    <select name="duplicate" id="duplicate" class="form-control paintProtectionFil customSelect2">
+                                        @foreach($all_tints as $tint)
+                                        <option value="{{$tint->id}}">{{$tint->tint_brand}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                @endif
                                 <div class="col-12 mb-2">
                                     <label class="form-control-label">Brand Image: <span class="tx-danger">*</span></label>
                                     <input type="file" name="tint_image" value="{{ old('tint_image') }}" id="brandimage" class="dropify2 largeDropify" data-height="200" required />
@@ -173,7 +183,29 @@
         </div>
     </div>
 </div>
+<!--- JQuery min js --->
+<script src="{{ asset('assets/plugins/jquery/jquery.min.js') }}"></script>
 <script>
+
+$(document).ready(function() {
+
+  // Handle change event for select2
+  $(document).on('change', '#duplicate', function() {
+    const selectedValue = $(this).val();
+    
+    // Make AJAX request
+    $.ajax({
+      url: "{{ route('dashboard.tint.getTintById') }}/" + selectedValue, // Laravel route
+      type: "GET",
+      success: function(response) {
+        console.log('Success:', response); // Handle the success response
+      },
+      error: function(xhr) {
+        console.log('Error:', xhr.responseText); // Handle the error response
+      }
+    });
+  });
+});
 
 </script>
 @endsection
