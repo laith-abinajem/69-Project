@@ -81,7 +81,7 @@
                                         No active subscription
                                     @endif</td>
                                     <td>
-                                        <a class="button btn btn-secondary" href="{{ route('dashboard.user.edit',$item->id) }}">
+                                        <a class="button btn btn-secondary square" href="{{ route('dashboard.user.edit',$item->id) }}">
                                             <i class="fas fa-edit"></i>
                                         </a>
                                         @if(auth()->user()->type === "subscriber" && auth()->user()->id !== $item->id)

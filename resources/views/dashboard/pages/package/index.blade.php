@@ -31,7 +31,7 @@
                                 <td>{{$item->price}}</td>
                                 <td>{{$item->days}}</td>
                                 <td>
-                                <a class="button btn btn-secondary" href="{{ route('dashboard.package.edit',$item->id) }}">
+                                <a class="button btn btn-secondary square" href="{{ route('dashboard.package.edit',$item->id) }}">
                                         <i class="fas fa-edit"></i>
                                     </a>
                                 <a type="button" class="button btn btn-danger float-right" data-bs-toggle="modal" data-bs-target="#deleteModal{{$item->id}}">

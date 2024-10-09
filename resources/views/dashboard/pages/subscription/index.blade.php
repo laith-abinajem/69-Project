@@ -274,7 +274,7 @@
                                 @endif
                                 @if(auth()->user()->type === 'super_admin')
                                 <td>
-                                        <a class="button btn btn-secondary" data-bs-toggle="modal" data-bs-target="#managePlanModal3" data-item="{{ $item->toJson() }}">
+                                        <a class="button btn btn-secondary square" data-bs-toggle="modal" data-bs-target="#managePlanModal3" data-item="{{ $item->toJson() }}">
                                             <i class="fas fa-edit"></i>
                                         </a>
                                         <a type="button" class="button btn btn-danger float-right" data-bs-toggle="modal" data-bs-target="#deleteModal{{$item->id}}">

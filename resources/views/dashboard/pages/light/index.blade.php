@@ -48,7 +48,7 @@
                                 <td>{{$item->light_description}}</td>
                                 <td>{{$item->user->name}}</td>
                                 <td>
-                                    <a class="button btn btn-secondary" href="{{ route('dashboard.light.edit',$item->id) }}">
+                                    <a class="button btn btn-secondary square" href="{{ route('dashboard.light.edit',$item->id) }}">
                                         <i class="fas fa-edit"></i>
                                     </a>
                                     <a type="button" class="button btn btn-danger float-right" data-bs-toggle="modal" data-bs-target="#deleteModal{{$item->id}}">
