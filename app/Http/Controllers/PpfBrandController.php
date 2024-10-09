@@ -22,8 +22,7 @@ class PpfBrandController extends Controller
             $data = PpfBrand::where('user_id', auth()->user()->id)->get();
         }
         $users = User::get();
-        $all_ppfs = PpfBrand::select('id','ppf_brand')->get();
-        return view('dashboard.pages.ppf.index',compact('data','users','all_ppfs'));
+        return view('dashboard.pages.ppf.index',compact('data','users'));
     }
 
     public function filter(Request $request)
@@ -34,7 +33,9 @@ class PpfBrandController extends Controller
     public function create(Request $request)
     {
         $users = User::get();
-        return view('dashboard.pages.ppf.create',compact('users'));
+        $all_ppfs = PpfBrand::select('id','ppf_brand')->get();
+
+        return view('dashboard.pages.ppf.create',compact('users','all_ppfs'));
     }
     public function store(Request $request)
     {
@@ -60,7 +61,10 @@ class PpfBrandController extends Controller
             if ($request->hasFile('ppf_image')) {
                 $ppfBrand->addMedia($request->file('ppf_image'))->toMediaCollection('ppf_image');
             }
-        
+            // Check if a URL is provided (optional)
+            if ($request->filled('image_url')) {
+                $ppfBrand->addMediaFromUrl($request->input('image_url'))->toMediaCollection('ppf_image');
+            }
             $prices = $request->price;
             $hideValues = $request->hide; 
             foreach ($prices as $classCar => $subClasses) {
@@ -148,11 +152,21 @@ class PpfBrandController extends Controller
     public function getPpfById(Request $request)
     {
         $data = PpfBrand::find($request->id);
-        
+        $photo = '';
+
+        $photo = $data->getFirstMediaUrl('ppf_image');
         if ($data) {
             return response()->json([
                 'success' => true,
-                'data' => $data
+                'data' => [
+                    'ppf_brand' => $data->ppf_brand,
+                    'ppf_description' => $data->ppf_description,
+                    'user_id' => $data->user_id,
+                    'warranty' => $data->warranty,
+                    'hex' => $data->hex,
+                    'thickness' => $data->thickness,
+                    'photo' => $photo, 
+                ],
             ], 200);
         } else {
             return response()->json([

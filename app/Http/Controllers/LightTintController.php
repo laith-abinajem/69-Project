@@ -22,8 +22,7 @@ class LightTintController extends Controller
             $data = LightTint::where('user_id', auth()->user()->id)->get();
         }
         $users = User::get();
-        $all_lights = LightTint::select('id','light_brand')->get();
-        return view('dashboard.pages.light.index',compact('data','users','all_lights'));
+        return view('dashboard.pages.light.index',compact('data','users'));
     }
 
     public function filter(Request $request)
@@ -34,7 +33,8 @@ class LightTintController extends Controller
     public function create(Request $request)
     {
         $users = User::get();
-        return view('dashboard.pages.light.create',compact('users'));
+        $all_lights = LightTint::select('id','light_brand')->get();
+        return view('dashboard.pages.light.create',compact('users','all_lights'));
     }
     public function store(Request $request)
     {
@@ -60,7 +60,10 @@ class LightTintController extends Controller
             if ($request->hasFile('light_image')) {
                 $lightTint->addMedia($request->file('light_image'))->toMediaCollection('light_image');
             }
-        
+            // Check if a URL is provided (optional)
+            if ($request->filled('image_url')) {
+                $lightTint->addMediaFromUrl($request->input('image_url'))->toMediaCollection('light_image');
+            }
             $prices = $request->price;
             $hideValues = $request->hide; 
             foreach ($prices as $classCar => $subClasses) {
@@ -150,11 +153,19 @@ class LightTintController extends Controller
     public function getLightById(Request $request)
     {
         $data = LightTint::find($request->id);
-        
+        $photo = '';
+
+        $photo = $data->getFirstMediaUrl('light_image');
         if ($data) {
             return response()->json([
                 'success' => true,
-                'data' => $data
+                'data' => [
+                    'light_brand' => $data->light_brand,
+                    'light_description' => $data->light_description,
+                    'hex' => $data->hex,
+                    'warranty' => $data->warranty,
+                    'photo' => $photo, 
+                ],
             ], 200);
         } else {
             return response()->json([

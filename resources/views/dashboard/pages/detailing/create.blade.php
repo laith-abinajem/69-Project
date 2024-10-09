@@ -21,7 +21,21 @@
                     <div id="wizard1">
                         <h3>Detailing Package</h3>
                         <section>
-                            <div class="row row-sm">
+                        <div class="row row-sm">
+                            @if(auth()->user()->type === "super_admin")
+                                <div class="col-md-5 col-lg-6 mb-2">
+                                    <label class="form-control-label ">Duplicate: </label>
+                                    <select name="duplicate" id="duplicate" class="form-control paintProtectionFil customSelect2">
+                                        <option></option>
+                                        @foreach($all_detailings as $detail)
+                                        <option value="{{$detail->id}}">{{$detail->detailing_brand}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                @endif
+                                <div class="col-12 mb-2">
+                                    <input type="text" name="image_url" hidden id="image_url" class="form-control" placeholder="Enter image URL" />
+                                </div>
                                 <div class="col-12 mb-2">
                                     <label class="form-control-label">Detailing Image: <span class="tx-danger">*</span></label>
                                     <input type="file" name="detailing_image" value="{{ old('detailing_image') }}" id="brandimage" class="dropify2 largeDropify" data-height="200" required />
@@ -152,5 +166,49 @@
         </div> <!-- end card-->
     </div> <!-- end col -->
 </div>
+<script src="{{ asset('assets/plugins/jquery/jquery.min.js') }}"></script>
 
+<script>
+
+$(document).ready(function() {
+
+  // Handle change event for select2
+  $(document).on('change', '#duplicate', function() {
+    const selectedValue = $(this).val();
+    
+    // Make AJAX request
+    $.ajax({
+      url: "{{ route('dashboard.detailing.getDetailingById') }}",
+      type: "GET",
+      data: { id: selectedValue }, 
+      success: function(response) {
+        console.log('Success:', response); // Handle the success response
+        $('#brandname').val(response.data.detailing_brand);
+        $('#branddescription').val(response.data.detailing_description);
+        $('#detailing_type').val(response.data.detailing_type).trigger('change');
+        $('#detailing_brand_level').val(response.data.detailing_brand_level).trigger('change');
+        $('#warranty').val(response.data.warranty).trigger('change');
+        $('#hex, #colorPicker').val(response.data.hex);
+        $('#image_url').val(response.data.photo);
+        // Update image inside Dropify if needed
+        if (response.data.photo) {
+            var drEvent = $('#brandimage').dropify({
+                defaultFile: response.data.photo // Set the photo as default
+            });
+            drEvent = drEvent.data('dropify');
+            drEvent.resetPreview();
+            drEvent.clearElement();
+            drEvent.settings.defaultFile = response.data.photo;
+            drEvent.destroy();
+            drEvent.init();
+        }
+      },
+      error: function(xhr) {
+        console.log('Error:', xhr.responseText); // Handle the error response
+      }
+    });
+  });
+});
+
+</script>
 @endsection

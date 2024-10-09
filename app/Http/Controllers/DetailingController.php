@@ -22,9 +22,8 @@ class DetailingController extends Controller
             $data = Detailing::where('user_id', auth()->user()->id)->get();
         }
         $users = User::get();
-        $all_detailings = Detailing::select('id','detailing_brand')->get();
 
-        return view('dashboard.pages.detailing.index',compact('data','users','all_detailings'));
+        return view('dashboard.pages.detailing.index',compact('data','users'));
     }
 
     public function filter(Request $request)
@@ -38,7 +37,9 @@ class DetailingController extends Controller
         $exterior_count= Detailing::where('user_id',auth()->user()->id)->where('detailing_type','exterior')->count();
         $interior_count= Detailing::where('user_id',auth()->user()->id)->where('detailing_type','exterior')->count();
         $inout_count= Detailing::where('user_id',auth()->user()->id)->where('detailing_type','exterior')->count();
-        return view('dashboard.pages.detailing.create',compact('users','exterior_count','interior_count','inout_count',));
+        $all_detailings = Detailing::select('id','detailing_brand')->get();
+        
+        return view('dashboard.pages.detailing.create',compact('all_detailings','users','exterior_count','interior_count','inout_count',));
     }
     public function store(Request $request)
     {
@@ -80,7 +81,10 @@ class DetailingController extends Controller
         if ($request->hasFile('detailing_image')) {
             $detailingBrand->addMedia($request->file('detailing_image'))->toMediaCollection('detailing_image');
         }
-    
+        // Check if a URL is provided (optional)
+        if ($request->filled('image_url')) {
+            $detailingBrand->addMediaFromUrl($request->input('image_url'))->toMediaCollection('detailing_image');
+        }
         $prices = $request->price;
         $hideValues = $request->hide; 
         foreach ($prices as $classCar => $subClasses) {
@@ -186,11 +190,21 @@ class DetailingController extends Controller
     public function getDetailingById(Request $request)
     {
         $data = Detailing::find($request->id);
-        
+        $photo = '';
+
+        $photo = $data->getFirstMediaUrl('detailing_image');
         if ($data) {
             return response()->json([
                 'success' => true,
-                'data' => $data
+                'data' => [
+                    'detailing_brand' => $data->detailing_brand,
+                    'detailing_description' => $data->detailing_description,
+                    'detailing_type' => $data->detailing_type,
+                    'hex' => $data->hex,
+                    'detailing_brand_level' => $data->detailing_brand_level,
+                    'warranty' => $data->warranty,
+                    'photo' => $photo, 
+                ],
             ], 200);
         } else {
             return response()->json([

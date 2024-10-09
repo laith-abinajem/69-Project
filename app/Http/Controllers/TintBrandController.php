@@ -65,7 +65,7 @@ class TintBrandController extends Controller
             if ($request->hasFile('tint_image')) {
                 $tintBrand->addMedia($request->file('tint_image'))->toMediaCollection('photos');
             }
-                // Check if a URL is provided (optional)
+            // Check if a URL is provided (optional)
             if ($request->filled('image_url')) {
                 $tintBrand->addMediaFromUrl($request->input('image_url'))->toMediaCollection('photos');
             }

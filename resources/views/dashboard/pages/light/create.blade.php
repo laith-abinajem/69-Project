@@ -21,6 +21,20 @@
                         <h3>Light Brand</h3>
                         <section>
                             <div class="row row-sm">
+                            @if(auth()->user()->type === "super_admin")
+                                <div class="col-md-5 col-lg-6 mb-2">
+                                    <label class="form-control-label ">Duplicate: </label>
+                                    <select name="duplicate" id="duplicate" class="form-control paintProtectionFil customSelect2">
+                                        <option></option>
+                                        @foreach($all_lights as $light)
+                                        <option value="{{$light->id}}">{{$light->light_brand}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                @endif
+                                <div class="col-12 mb-2">
+                                    <input type="text" name="image_url" hidden id="image_url" class="form-control" placeholder="Enter image URL" />
+                                </div>
                                 <div class="col-12 mb-2">
                                     <label class="form-control-label">Brand Image: <span class="tx-danger">*</span></label>
                                     <input type="file" name="light_image" value="{{ old('light_image') }}" id="brandimage" class="dropify2 largeDropify" data-height="200" required />
@@ -133,7 +147,48 @@
         </div>
     </div>
 </div>
+<script src="{{ asset('assets/plugins/jquery/jquery.min.js') }}"></script>
+
 <script>
+
+$(document).ready(function() {
+
+  // Handle change event for select2
+  $(document).on('change', '#duplicate', function() {
+    const selectedValue = $(this).val();
+    
+    // Make AJAX request
+    $.ajax({
+      url: "{{ route('dashboard.light.getLightById') }}",
+      type: "GET",
+      data: { id: selectedValue }, 
+      success: function(response) {
+        console.log('Success:', response); // Handle the success response
+        $('#brandname').val(response.data.light_brand);
+        $('#branddescription').val(response.data.light_description);
+        $('#warranty').val(response.data.warranty).trigger('change');
+        $('#hex, #colorPicker').val(response.data.hex);
+        $('#image_url').val(response.data.photo);
+
+        // Update image inside Dropify if needed
+        if (response.data.photo) {
+            var drEvent = $('#brandimage').dropify({
+                defaultFile: response.data.photo // Set the photo as default
+            });
+            drEvent = drEvent.data('dropify');
+            drEvent.resetPreview();
+            drEvent.clearElement();
+            drEvent.settings.defaultFile = response.data.photo;
+            drEvent.destroy();
+            drEvent.init();
+        }
+      },
+      error: function(xhr) {
+        console.log('Error:', xhr.responseText); // Handle the error response
+      }
+    });
+  });
+});
 
 </script>
 @endsection

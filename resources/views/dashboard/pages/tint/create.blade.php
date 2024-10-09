@@ -206,7 +206,6 @@ $(document).ready(function() {
         console.log('Success:', response); // Handle the success response
         $('#brandname').val(response.data.tint_brand);
         $('#branddescription').val(response.data.tint_description);
-        $('#user_id').val(response.data.user_id).trigger('change');
         $('#warranty').val(response.data.warranty).trigger('change');
         $('#guage_level').val(response.data.guage_level).trigger('change');
         $('#hex, #colorPicker').val(response.data.hex);
