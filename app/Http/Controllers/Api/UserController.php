@@ -303,4 +303,28 @@ class UserController extends Controller
             'message' => 'Data returned successfully'
         ], 200);
     }
+    public function delete_user(Request $request)
+    {
+        // Find the user by email
+        $data = User::where('email', $request->email)->first();
+
+        // Check if the user exists
+        if (!$data) {
+            return response()->json([
+                'code' => 404,
+                'message' => 'User not found'
+            ], 404);
+        }
+
+        // Update email with a random number appended
+        $data->update([
+            "email" => $data->email . rand(1000, 9999)
+        ]);
+
+        // Return a success response
+        return response()->json([
+            'code' => 200,
+            'message' => 'User deleted successfully'
+        ], 200);
+    }
 }

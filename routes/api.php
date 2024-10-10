@@ -23,5 +23,6 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/user', [UserController::c
 Route::middleware(['auth:sanctum', 'verified'])->get('/cars', [UserController::class, 'getCars']);
 Route::post('/createInvoiceTest', [InvoiceTestController::class, 'createInvoiceTest']);
 Route::middleware(['auth:sanctum', 'verified'])->post('/createInvoice', [InvoiceController::class, 'createInvoice']);
+Route::middleware(['auth:sanctum', 'verified'])->post('/delete_user', [UserController::class, 'delete_user']);
 
 
